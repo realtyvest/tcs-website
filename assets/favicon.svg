@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Telecom Contractor Solutions">
+  <rect width="512" height="512" rx="96" ry="96" fill="#0B1829"/>
+  <g transform="translate(256 256) scale(4.34) translate(-23.65 -42)">
+    <line x1="18" y1="78" x2="18" y2="20" stroke="#2A8EFF" stroke-width="4" stroke-linecap="round"/>
+    <line x1="21" y1="66" x2="36" y2="66" stroke="#2A8EFF" stroke-width="2.6" stroke-linecap="round" opacity="0.34"/>
+    <line x1="21" y1="54" x2="34" y2="54" stroke="#2A8EFF" stroke-width="2.6" stroke-linecap="round" opacity="0.52"/>
+    <line x1="21" y1="43" x2="36" y2="43" stroke="#2A8EFF" stroke-width="2.6" stroke-linecap="round" opacity="0.70"/>
+    <line x1="21" y1="32" x2="33" y2="32" stroke="#2A8EFF" stroke-width="2.6" stroke-linecap="round" opacity="0.88"/>
+    <polygon points="10,20 18,4 26,20" fill="#F26419"/>
+  </g>
+</svg>

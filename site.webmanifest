@@ -1,0 +1,13 @@
+{
+  "name": "Telecom Contractor Solutions",
+  "short_name": "TCS",
+  "icons": [
+    { "src": "/assets/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/assets/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/assets/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "theme_color": "#0B1829",
+  "background_color": "#0B1829",
+  "display": "standalone",
+  "start_url": "/"
+}
