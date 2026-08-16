@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://sgtm.telecomcontractorsolutions.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MJPFLRBR');</script>
+<!-- End Google Tag Manager -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crew and Subcontractor Management | Telecom Contractor Solutions</title>
+    <meta name="description" content="Manage telecom crews and subcontractors with automated compliance tracking, equipment assignment, and expiration alerts. COI, DWC83, W9 documentation in one place.">
+    <meta name="keywords" content="telecom crew management, ISP subcontractor compliance tracking, crew management software, contractor management">
+    <link rel="canonical" href="https://telecomcontractorsolutions.com/crew-management.html">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Crew and Subcontractor Management | Telecom Contractor Solutions">
+    <meta property="og:description" content="Manage telecom crews and subcontractors with automated compliance tracking, equipment assignment, and expiration alerts.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://telecomcontractorsolutions.com/crew-management.html">
+
+    <!-- Article Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Crew and Subcontractor Management",
+        "description": "Manage telecom crews and subcontractors with automated compliance tracking and equipment assignment",
+        "keywords": "telecom crew management, ISP subcontractor compliance tracking, crew management software",
+        "publisher": {
+            "@type": "Organization",
+            "name": "Telecom Contractor Solutions"
+        }
+    }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0B1829;
+            color: #C8D8EA;
+            font-family: 'Barlow', sans-serif;
+            line-height: 1.6;
+        }
+
+        a {
+            color: #2A8EFF;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #F26419;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Barlow Condensed', sans-serif;
+            color: #FFFFFF;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            margin-top: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            font-size: 1.6rem;
+            margin-top: 1.5rem;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            background-color: rgba(11, 24, 41, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(42, 142, 255, 0.2);
+        }
+
+        .logo {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #FFFFFF;
+        }
+
+        .logo a {
+            color: #FFFFFF;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #C8D8EA;
+            font-weight: 600;
+        }
+
+        .cta-button {
+            background-color: #2A8EFF;
+            color: #FFFFFF;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #F26419;
+            color: #FFFFFF;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: #C8D8EA;
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 6rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(42, 142, 255, 0.1) 0%, rgba(242, 100, 25, 0.05) 100%);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: #C8D8EA;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            background-color: #F26419;
+            color: #FFFFFF;
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .hero-cta:hover {
+            background-color: #2A8EFF;
+        }
+
+        /* Content Sections */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background-color: rgba(42, 142, 255, 0.1);
+            border-left: 4px solid #2A8EFF;
+            padding: 2rem;
+            border-radius: 4px;
+        }
+
+        .feature-card h3 {
+            color: #2A8EFF;
+            margin-top: 0;
+        }
+
+        .feature-card:hover {
+            border-left-color: #F26419;
+            background-color: rgba(242, 100, 25, 0.1);
+        }
+
+        .feature-card:hover h3 {
+            color: #F26419;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            background-color: rgba(42, 142, 255, 0.05);
+            margin: 4rem 0;
+            padding: 3rem 2rem;
+            border-radius: 4px;
+        }
+
+        .how-it-works h2 {
+            text-align: center;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .step {
+            counter-increment: step;
+            position: relative;
+            padding: 2rem 1rem 2rem 3rem;
+        }
+
+        .step::before {
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: #F26419;
+            color: #FFFFFF;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .steps {
+            counter-reset: step;
+        }
+
+        .step h4 {
+            color: #2A8EFF;
+            margin-bottom: 0.5rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(42, 142, 255, 0.2) 0%, rgba(242, 100, 25, 0.1) 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+            margin: 4rem 0;
+            border-radius: 4px;
+        }
+
+        .cta-section h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Internal Links */
+        .internal-links {
+            background-color: rgba(42, 142, 255, 0.05);
+            padding: 2rem;
+            border-radius: 4px;
+            margin: 3rem 0;
+        }
+
+        .internal-links h3 {
+            color: #2A8EFF;
+            margin-bottom: 1.5rem;
+        }
+
+        .links-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .links-list li {
+            list-style: none;
+        }
+
+        .links-list a {
+            color: #2A8EFF;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(0, 0, 0, 0.3);
+            color: #C8D8EA;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(42, 142, 255, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h4 {
+            color: #FFFFFF;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #C8D8EA;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #2A8EFF;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(42, 142, 255, 0.2);
+            font-size: 0.9rem;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                right: 0;
+                background-color: #0B1829;
+                flex-direction: column;
+                width: 100%;
+                gap: 0;
+                padding: 1rem 0;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                padding: 1rem 2rem;
+                border-bottom: 1px solid rgba(42, 142, 255, 0.1);
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+
+            .hero {
+                padding: 3rem 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .links-list {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://sgtm.telecomcontractorsolutions.com/ns.html?id=GTM-MJPFLRBR"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo"><a href="/"><img src="/tcs-logo-horizontal.svg" alt="Telecom Contractor Solutions" height="44" style="display:block;"></a></div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="https://telecomcontractorsolutions.com/#services">Services</a></li>
+            <li><a href="https://telecomcontractorsolutions.com/#how-it-works">How It Works</a></li>
+            <li><a href="https://telecomcontractorsolutions.com/#about">About</a></li>
+            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="https://telecomcontractorsolutions.com/#contact" class="cta-button">Book your fit call</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Crew Management That Stays Compliant</h1>
+        <p>Keep all crew and subcontractor data in one place. Track certifications, insurance, vehicle assignments, and invoices. Get notified before compliance documents expire.</p>
+        <a href="https://telecomcontractorsolutions.com/#contact" class="hero-cta">Book your fit call</a>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h2>Everything You Need to Manage Your Workforce</h2>
+        <p>Managing crews is more than assigning jobs. You need to know who's certified, who's insured, which vehicles they operate, and whether their subcontractor invoices match the work done. Crew management consolidates all that data and alerts you when action is needed.</p>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>Crew Roster</h3>
+                <p>Add crew members with phone, email, certifications, and ratings. Mark who can drive which vehicles, operate specialized equipment, or work on specific job types. Sort by skill, availability, or location.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Compliance Documents</h3>
+                <p>Store certificates of insurance (COI), DWC83 forms, W9s, driver's licenses, and any other required paperwork. Upload documents directly, set expiration dates, and the system alerts you when renewal is due.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Equipment & Vehicle Assignment</h3>
+                <p>Track which crew operates which vehicles or equipment. Link tools, trucks, directional boring rigs, or aerial lifts to crew members. Know who's available and what assets they can deploy.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Subcontractor Invoice Management</h3>
+                <p>If you work with subs, store their invoices and mark them paid or disputed. Link invoices to jobs for reconciliation. See which subs are owed money and how much work they've completed this period.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Expiration Alerts</h3>
+                <p>The system monitors all expiration dates. Get notified 30, 14, and 7 days before insurance, certifications, or licenses expire. Never let compliance lapse because paperwork slipped your mind.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Crew Work History</h3>
+                <p>See every job each crew member has worked on. Review their labor hours, completion rates, quality ratings, and customer feedback. Make smarter decisions about crew assignments and performance.</p>
+            </div>
+        </div>
+
+        <!-- How It Works Section -->
+        <div class="how-it-works">
+            <h2>Managing Your Crew with TCS</h2>
+            <p>Crew management is about knowing your team and staying on top of compliance. Here's how the workflow keeps everything organized.</p>
+
+            <div class="steps">
+                <div class="step">
+                    <h4>1. Crew Entry</h4>
+                    <p>Add crew members to the system. Enter name, contact info, certifications, experience level, and any special skills. Assign them to teams or regions.</p>
+                </div>
+                <div class="step">
+                    <h4>2. Document Upload</h4>
+                    <p>Upload all required compliance documents: insurance, certifications, tax forms. The system stores them with timestamps and flags expiration dates.</p>
+                </div>
+                <div class="step">
+                    <h4>3. Compliance Monitoring</h4>
+                    <p>The system watches expiration dates. You get alerts well before expiry so there's time to request renewals from crew members or subs.</p>
+                </div>
+                <div class="step">
+                    <h4>4. Equipment Assignment</h4>
+                    <p>Link vehicles and equipment to crew members. Specify which assets each crew can operate or is responsible for maintaining.</p>
+                </div>
+                <div class="step">
+                    <h4>5. Job Assignment</h4>
+                    <p>When you assign a job, you can filter crews by certification, location, vehicle availability, and current workload. Assign the right crew based on qualifications.</p>
+                </div>
+                <div class="step">
+                    <h4>6. Performance Tracking</h4>
+                    <p>As jobs complete, build a history of each crew's work: hours logged, quality ratings, customer feedback. Use this data to optimize future assignments.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>Compliance Is Peace of Mind</h2>
+        <p>ISPs require proof of insurance and certifications. Missing documentation can halt a job or, worse, expose you to liability. By centralizing crew data and automating compliance monitoring, you eliminate gaps and prove to ISPs that your team is properly credentialed and insured.</p>
+
+        <!-- Internal Links -->
+        <div class="internal-links">
+            <h3>Related Modules</h3>
+            <ul class="links-list">
+                <li><a href="./job-tracking.html">Job Tracking</a></li>
+                <li><a href="./billing-automation.html">Billing Automation</a></li>
+                <li><a href="./job-costing.html">Job Costing</a></li>
+                <li><a href="./dig-documentation.html">Dig Documentation and Damage Defense</a></li>
+            </ul>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <h2>Keep Your Team Organized</h2>
+            <p>We'll show you how to consolidate crew data, streamline document management, and catch compliance issues before they become problems. See how TCS organizes what usually takes spreadsheets and email chains.</p>
+            <a href="https://telecomcontractorsolutions.com/#contact" class="hero-cta">Book your fit call</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Telecom Contractor Solutions</h4>
+                <p>Operations software built for telecom contractors.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="./job-tracking.html">Job Tracking</a></li>
+                    <li><a href="./billing-automation.html">Billing Automation</a></li>
+                    <li><a href="./crew-management.html">Crew Management</a></li>
+                    <li><a href="./job-costing.html">Job Costing</a></li>
+                    <li><a href="./dig-documentation.html">Dig Documentation</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="https://telecomcontractorsolutions.com/#about">About</a></li>
+                    <li><a href="/blog.html">Blog</a></li>
+                    <li><a href="https://telecomcontractorsolutions.com/#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Telecom Contractor Solutions. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://sgtm.telecomcontractorsolutions.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MJPFLRBR');</script>
+<!-- End Google Tag Manager -->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROI Calculator | See What Ops Gaps Cost Your Telecom Business</title>
+<meta name="description" content="Calculate how much revenue your telecom contracting business loses to billing delays, unbilled work, and crew downtime. Free interactive ROI tool.">
+<link rel="canonical" href="https://telecomcontractorsolutions.com/roi-calculator.html">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://telecomcontractorsolutions.com/roi-calculator.html">
+<meta property="og:title" content="ROI Calculator | See What Ops Gaps Cost Your Telecom Business">
+<meta property="og:description" content="Calculate how much revenue your telecom contracting business loses to billing delays, unbilled work, and crew downtime. Free interactive ROI tool.">
+<meta property="og:site_name" content="Telecom Contractor Solutions">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "ROI Calculator",
+  "description": "Calculate how much revenue your telecom contracting business loses to ops gaps like billing delays, unbilled work, and crew downtime.",
+  "url": "https://telecomcontractorsolutions.com/roi-calculator.html",
+  "applicationCategory": "BusinessApplication",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230B1829'/%3E%3Crect x='5' y='28' width='22' height='3' rx='1.5' fill='%232A8EFF' opacity='0.25'/%3E%3Cline x1='16' y1='30' x2='16' y2='13' stroke='%232A8EFF' stroke-width='3.5' stroke-linecap='round'/%3E%3Cline x1='19' y1='23' x2='29' y2='23' stroke='%232A8EFF' stroke-width='1.8' stroke-linecap='round' opacity='0.4'/%3E%3Cline x1='19' y1='18' x2='28' y2='18' stroke='%232A8EFF' stroke-width='1.8' stroke-linecap='round' opacity='0.65'/%3E%3Cpolygon points='10,14 16,5 22,14' fill='%23F26419'/%3E%3C/svg%3E">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0B1829;
+    --navy-mid: #152236;
+    --navy-light: #1E3350;
+    --electric: #2A8EFF;
+    --electric-dim: #1a6fd0;
+    --orange: #F26419;
+    --orange-dim: #d4551a;
+    --white: #FFFFFF;
+    --off-white: #F4F7FB;
+    --text-light: #C8D8EA;
+    --muted: #9BB3CC;
+    --border: rgba(255,255,255,0.08);
+    --border-light: rgba(42,142,255,0.2);
+    --font-display: 'Barlow Condensed', sans-serif;
+    --font-body: 'Barlow', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--navy);
+    color: var(--white);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(11, 24, 41, 0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+  }
+
+  .nav-logo {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .nav-logo img {
+    height: 44px;
+    width: auto;
+    display: block;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover {
+    color: var(--white);
+  }
+
+  .nav-links .nav-cta {
+    background: var(--electric);
+    color: var(--white);
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+  }
+
+  .nav-links .nav-cta:hover {
+    background: var(--electric-dim);
+  }
+
+  .nav-links .nav-active {
+    color: var(--electric);
+  }
+
+  .nav-hamburger {
+    display: none;
+  }
+
+  /* HERO */
+  .roi-hero {
+    padding: 80px 5% 48px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .roi-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .roi-hero p {
+    color: var(--text-light);
+    font-size: 17px;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* CALCULATOR SECTION */
+  .calculator-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 5%;
+  }
+
+  .calculator-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+
+  /* INPUTS */
+  .calculator-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .input-group label {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+
+  .input-wrapper {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .input-group input[type="range"] {
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: linear-gradient(to right, var(--electric), var(--orange));
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .input-group input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--white);
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s;
+  }
+
+  .input-group input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+  }
+
+  .input-group input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--white);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s;
+  }
+
+  .input-group input[type="range"]::-moz-range-thumb:hover {
+    transform: scale(1.2);
+  }
+
+  .input-value {
+    min-width: 100px;
+    background: var(--navy-light);
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    border-radius: 6px;
+    color: var(--orange);
+    font-weight: 700;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .input-suffix {
+    color: var(--muted);
+    font-size: 13px;
+    min-width: 40px;
+  }
+
+  /* RESULTS */
+  .calculator-results {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .result-title {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .result-card {
+    background: linear-gradient(135deg, rgba(42, 142, 255, 0.05), rgba(242, 100, 25, 0.02));
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 24px;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .result-card:hover {
+    border-color: var(--electric);
+    background: linear-gradient(135deg, rgba(42, 142, 255, 0.1), rgba(242, 100, 25, 0.05));
+    transform: translateY(-4px);
+  }
+
+  .result-card h3 {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .result-value {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 800;
+    color: var(--orange);
+    line-height: 1;
+    margin-bottom: 4px;
+    animation: valueUpdate 0.4s ease-out;
+  }
+
+  @keyframes valueUpdate {
+    from {
+      opacity: 0.6;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .result-period {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .roi-highlight {
+    background: rgba(242, 100, 25, 0.1);
+    border: 1px solid var(--orange);
+  }
+
+  .roi-highlight .result-value {
+    color: var(--orange);
+    font-size: clamp(36px, 5vw, 56px);
+  }
+
+  /* HOW TCS CLOSES GAPS */
+  .solutions-section {
+    max-width: 1200px;
+    margin: 60px auto 0;
+    padding: 60px 5%;
+    border-top: 1px solid var(--border);
+  }
+
+  .solutions-title {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .solutions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+
+  .solution-card {
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .solution-card:hover {
+    border-color: var(--border-light);
+    transform: translateY(-4px);
+    background: linear-gradient(135deg, rgba(42, 142, 255, 0.08), var(--navy-mid));
+  }
+
+  .solution-card h3 {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: var(--white);
+  }
+
+  .solution-card p {
+    color: var(--text-light);
+    font-size: 15px;
+    margin-bottom: 20px;
+    flex-grow: 1;
+  }
+
+  .solution-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--electric);
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .solution-link:hover {
+    color: var(--white);
+  }
+
+  /* CTA SECTION */
+  .cta-section {
+    max-width: 1200px;
+    margin: 60px auto 0;
+    padding: 60px 5%;
+  }
+
+  .cta-inner {
+    background: linear-gradient(135deg, rgba(42, 142, 255, 0.1), var(--navy-mid));
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 48px;
+    text-align: center;
+  }
+
+  .cta-inner h2 {
+    font-family: var(--font-display);
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 800;
+    margin-bottom: 16px;
+  }
+
+  .cta-inner p {
+    color: var(--text-light);
+    font-size: 16px;
+    margin-bottom: 32px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--electric);
+    color: var(--white);
+    padding: 14px 32px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 15px;
+    text-decoration: none;
+    transition: background 0.2s;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-body);
+  }
+
+  .btn-primary:hover {
+    background: var(--electric-dim);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy-mid);
+    border-top: 1px solid var(--border);
+    padding: 48px 5% 0;
+    margin-top: 60px;
+  }
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 48px;
+    padding-bottom: 40px;
+  }
+
+  .footer-tagline {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  .footer-col-title {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+
+  .footer-links {
+    list-style: none;
+  }
+
+  .footer-links li {
+    margin-bottom: 10px;
+  }
+
+  .footer-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover {
+    color: var(--electric);
+  }
+
+  .footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 14px;
+  }
+
+  .footer-bottom {
+    border-top: 1px solid var(--border);
+    padding: 20px 0;
+    text-align: center;
+  }
+
+  .footer-bottom p {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .calculator-container {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .solutions-grid {
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+  }
+
+  @media (max-width: 768px) {
+    .nav-links {
+      display: none;
+    }
+
+    .nav-hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .nav-hamburger span {
+      width: 22px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+    }
+
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      background: var(--navy-mid);
+      padding: 16px 5%;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mobile-menu.open {
+      display: flex;
+    }
+
+    .mobile-menu a {
+      color: var(--text-light);
+      text-decoration: none;
+      padding: 12px 0;
+      font-size: 15px;
+      font-weight: 500;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mobile-menu .nav-cta {
+      color: var(--electric);
+      font-weight: 700;
+      border-bottom: none;
+    }
+
+    .roi-hero {
+      padding: 48px 5% 40px;
+    }
+
+    .calculator-section {
+      padding: 40px 5%;
+    }
+
+    .solutions-section {
+      padding: 40px 5%;
+    }
+
+    .solutions-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .cta-section {
+      padding: 40px 5%;
+    }
+
+    .cta-inner {
+      padding: 32px;
+    }
+
+    .footer-inner {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://sgtm.telecomcontractorsolutions.com/ns.html?id=GTM-MJPFLRBR"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+
+<nav>
+  <a href="#main-content" class="skip-link" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:999;background:var(--electric);color:var(--white);padding:12px 24px;font-weight:700;text-decoration:none;" onfocus="this.style.position='fixed';this.style.left='0';this.style.top='0';this.style.width='auto';this.style.height='auto';this.style.overflow='visible';" onblur="this.style.position='absolute';this.style.left='-9999px';this.style.width='1px';this.style.height='1px';this.style.overflow='hidden';">Skip to main content</a>
+  <a href="/" class="nav-logo"><img src="/tcs-logo-horizontal.svg" alt="Telecom Contractor Solutions" height="44" style="display:block;"></a>
+  <ul class="nav-links">
+    <li><a href="/#services">Services</a></li>
+    <li><a href="/#process">How It Works</a></li>
+    <li><a href="/#about">About</a></li>
+    <li><a href="/blog.html">Blog</a></li>
+    <li><a href="/#contact" class="nav-cta">Book your fit call</a></li>
+  </ul>
+  <button class="nav-hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
+  <a href="/#services">Services</a>
+  <a href="/#process">How It Works</a>
+  <a href="/#about">About</a>
+  <a href="/blog.html">Blog</a>
+  <a href="/#contact" class="nav-cta">Book your fit call</a>
+</div>
+
+<main id="main-content">
+<section class="roi-hero">
+  <h1>What Are Ops Gaps Costing You?</h1>
+  <p>Billing delays, unbilled work, and crew downtime add up fast. Use this interactive calculator to see the real dollar impact on your telecom business.</p>
+</section>
+
+<section class="calculator-section">
+  <div class="calculator-container">
+    <div class="calculator-inputs">
+      <h2 style="font-family: var(--font-display); font-size: 20px; font-weight: 800; margin-bottom: 16px;">Your Business</h2>
+
+      <div class="input-group">
+        <label>Number of Field Crews</label>
+        <div class="input-wrapper">
+          <input type="range" id="crews" min="3" max="50" value="10" aria-label="Number of field crews">
+          <div class="input-value" id="crews-value">10</div>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>Average Jobs per Crew per Week</label>
+        <div class="input-wrapper">
+          <input type="range" id="jobs-per-week" min="5" max="30" value="15" aria-label="Average jobs per crew per week">
+          <div class="input-value" id="jobs-per-week-value">15</div>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>Average Revenue per Job</label>
+        <div class="input-wrapper">
+          <input type="range" id="revenue-per-job" min="200" max="5000" value="800" step="50" aria-label="Average revenue per job">
+          <div class="input-value">$<span id="revenue-per-job-value">800</span></div>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>Estimated % of Jobs Billed Late</label>
+        <div class="input-wrapper">
+          <input type="range" id="billing-late-pct" min="5" max="50" value="25" aria-label="Estimated percent of jobs billed late">
+          <div class="input-value"><span id="billing-late-pct-value">25</span>%</div>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>Average Billing Delay (days)</label>
+        <div class="input-wrapper">
+          <input type="range" id="billing-delay-days" min="7" max="60" value="21" aria-label="Average billing delay in days">
+          <div class="input-value"><span id="billing-delay-days-value">21</span>d</div>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>Estimated % of Unbilled/Missed Work</label>
+        <div class="input-wrapper">
+          <input type="range" id="unbilled-pct" min="1" max="15" value="5" aria-label="Estimated percent of unbilled or missed work">
+          <div class="input-value"><span id="unbilled-pct-value">5</span>%</div>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>Hours per Week on Manual Admin</label>
+        <div class="input-wrapper">
+          <input type="range" id="admin-hours" min="5" max="40" value="15" aria-label="Hours per week on manual admin">
+          <div class="input-value"><span id="admin-hours-value">15</span>h</div>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>Office Admin Hourly Cost</label>
+        <div class="input-wrapper">
+          <input type="range" id="admin-hourly" min="15" max="50" value="25" step="1" aria-label="Office admin hourly cost">
+          <div class="input-value">$<span id="admin-hourly-value">25</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="calculator-results">
+      <h2 style="font-family: var(--font-display); font-size: 20px; font-weight: 800; margin-bottom: 16px;">Your Cost of Ops Gaps</h2>
+
+      <div class="result-card">
+        <h3>Annual Revenue at Risk (Billing Delays)</h3>
+        <div class="result-value">$<span id="result-billing">12,348</span></div>
+        <div class="result-period">per year</div>
+      </div>
+
+      <div class="result-card">
+        <h3>Annual Revenue Lost (Unbilled Work)</h3>
+        <div class="result-value">$<span id="result-unbilled">19,500</span></div>
+        <div class="result-period">per year</div>
+      </div>
+
+      <div class="result-card">
+        <h3>Annual Admin Labor Waste</h3>
+        <div class="result-value">$<span id="result-admin">19,500</span></div>
+        <div class="result-period">per year</div>
+      </div>
+
+      <div class="result-card roi-highlight">
+        <h3>TOTAL Annual Cost of Ops Gaps</h3>
+        <div class="result-value">$<span id="result-total">51,348</span></div>
+        <div class="result-period" style="color: var(--orange); font-weight: 600;">That's $<span id="result-monthly">4,279</span>/month</div>
+      </div>
+
+      <div class="result-card" style="background: linear-gradient(135deg, rgba(242, 100, 25, 0.1), rgba(242, 100, 25, 0.05)); border-color: var(--orange);">
+        <h3 style="color: var(--orange);">Potential ROI (70% Ops Closure)</h3>
+        <div class="result-value" style="color: var(--orange); font-size: clamp(32px, 4vw, 48px);">$<span id="result-roi">35,944</span></div>
+        <div class="result-period">annual recovery</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="solutions-section">
+  <h2 class="solutions-title">How TCS Closes These Gaps</h2>
+  <div class="solutions-grid">
+    <a href="/job-tracking.html" class="solution-card">
+      <h3>Job Tracking</h3>
+      <p>Real-time visibility into every job from start to finish eliminates billing delays and ensures nothing falls through the cracks.</p>
+      <span class="solution-link">Learn more +</span>
+    </a>
+
+    <a href="/billing-automation.html" class="solution-card">
+      <h3>Billing Automation</h3>
+      <p>Automated billing workflows capture every hour of billable work and get invoices out fast, eliminating unbilled revenue.</p>
+      <span class="solution-link">Learn more +</span>
+    </a>
+
+    <a href="/crew-management.html" class="solution-card">
+      <h3>Crew Management</h3>
+      <p>Crew scheduling and onboarding tools reduce manual admin overhead, freeing your team to focus on growing the business.</p>
+      <span class="solution-link">Learn more +</span>
+    </a>
+
+    <a href="/job-costing.html" class="solution-card">
+      <h3>Job Costing</h3>
+      <p>Detailed job cost analysis reveals unprofitable jobs and opportunities to increase margins on every contract.</p>
+      <span class="solution-link">Learn more +</span>
+    </a>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2>Ready to Stop Losing Money?</h2>
+    <p>Get a personalized breakdown of where your biggest opportunities are. The fit call is free and takes 30 minutes.</p>
+    <a href="/#contact" class="btn-primary">Book your fit call</a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <h3 style="font-family: var(--font-display); font-size: 16px; font-weight: 800; margin-bottom: 12px;">Telecom Contractor Solutions</h3>
+      <p class="footer-tagline">Operations software built for ISP and telecom contractors. Job tracking, billing automation, crew management, and job costing in one platform.</p>
+    </div>
+    <div>
+      <h4 class="footer-col-title">Services</h4>
+      <ul class="footer-links">
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/#process">How It Works</a></li>
+        <li><a href="/roi-calculator.html">ROI Calculator</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="footer-col-title">Company</h4>
+      <ul class="footer-links">
+        <li><a href="/blog.html">Blog</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Telecom Contractor Solutions. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  const crews = document.getElementById('crews');
+  const jobsPerWeek = document.getElementById('jobs-per-week');
+  const revenuePerJob = document.getElementById('revenue-per-job');
+  const billingLatePct = document.getElementById('billing-late-pct');
+  const billingDelayDays = document.getElementById('billing-delay-days');
+  const unbilledPct = document.getElementById('unbilled-pct');
+  const adminHours = document.getElementById('admin-hours');
+  const adminHourly = document.getElementById('admin-hourly');
+
+  const allInputs = [crews, jobsPerWeek, revenuePerJob, billingLatePct, billingDelayDays, unbilledPct, adminHours, adminHourly];
+
+  function updateDisplay() {
+    document.getElementById('crews-value').textContent = crews.value;
+    document.getElementById('jobs-per-week-value').textContent = jobsPerWeek.value;
+    document.getElementById('revenue-per-job-value').textContent = formatNumber(revenuePerJob.value);
+    document.getElementById('billing-late-pct-value').textContent = billingLatePct.value;
+    document.getElementById('billing-delay-days-value').textContent = billingDelayDays.value;
+    document.getElementById('unbilled-pct-value').textContent = unbilledPct.value;
+    document.getElementById('admin-hours-value').textContent = adminHours.value;
+    document.getElementById('admin-hourly-value').textContent = adminHourly.value;
+
+    const crewsNum = parseInt(crews.value);
+    const jobsPerWeekNum = parseInt(jobsPerWeek.value);
+    const revenuePerJobNum = parseInt(revenuePerJob.value);
+    const billingLatePctNum = parseInt(billingLatePct.value) / 100;
+    const billingDelayDaysNum = parseInt(billingDelayDays.value);
+    const unbilledPctNum = parseInt(unbilledPct.value) / 100;
+    const adminHoursNum = parseInt(adminHours.value);
+    const adminHourlyNum = parseInt(adminHourly.value);
+
+    const weeklyRevenue = crewsNum * jobsPerWeekNum * revenuePerJobNum;
+    const annualRevenue = weeklyRevenue * 52;
+
+    const costOfDelayFactor = (billingDelayDaysNum / 7) * 0.03;
+    const revenueLossToBillingDelay = billingLatePctNum * weeklyRevenue * 52 * costOfDelayFactor;
+
+    const revenueLostToUnbilled = unbilledPctNum * annualRevenue;
+
+    const adminLaborWaste = adminHoursNum * adminHourlyNum * 52;
+
+    const totalCost = revenueLossToBillingDelay + revenueLostToUnbilled + adminLaborWaste;
+
+    const monthlyCost = totalCost / 12;
+
+    const potentialROI = totalCost * 0.7;
+
+    document.getElementById('result-billing').textContent = formatCurrency(revenueLossToBillingDelay);
+    document.getElementById('result-unbilled').textContent = formatCurrency(revenueLostToUnbilled);
+    document.getElementById('result-admin').textContent = formatCurrency(adminLaborWaste);
+    document.getElementById('result-total').textContent = formatCurrency(totalCost);
+    document.getElementById('result-monthly').textContent = formatCurrency(monthlyCost);
+    document.getElementById('result-roi').textContent = formatCurrency(potentialROI);
+  }
+
+  function formatCurrency(value) {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(value).replace('$', '');
+  }
+
+  function formatNumber(value) {
+    return new Intl.NumberFormat('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(value);
+  }
+
+  allInputs.forEach(input => {
+    input.addEventListener('input', updateDisplay);
+  });
+
+  updateDisplay();
+
+  const hamburger = document.querySelector('.nav-hamburger');
+  const mobileMenu = document.querySelector('.mobile-menu');
+
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+
+  document.querySelectorAll('.mobile-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+    });
+  });
+</script>
+
+</body>
+</html>

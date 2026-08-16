@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Telecom Contractor Solutions Blog</title>
+  <link>https://telecomcontractorsolutions.com/blog.html</link>
+  <atom:link href="https://telecomcontractorsolutions.com/rss.xml" rel="self" type="application/rss+xml"/>
+  <description>BEAD updates and operational intel for telecom contractors.</description>
+  <language>en-us</language>
+  <!--NEWITEM-->
+</channel>
+</rss>

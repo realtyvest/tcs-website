@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://sgtm.telecomcontractorsolutions.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MJPFLRBR');</script>
+<!-- End Google Tag Manager -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Operations Systems vs. Enterprise FSM for Telecom Subs</title>
+    <meta name="description" content="Why ServiceTitan, Praxedo, and Fieldwire aren't built for 40-tech ISP contractors. Cost, timeline, and adoption compared.">
+    <meta name="keywords" content="telecom field service management, ServiceTitan alternative for telecom, FSM for ISP contractors">
+    <meta name="author" content="Gil Ramirez">
+    <meta name="article:published_time" content="2026-03-26">
+    <meta name="canonical" content="https://telecomcontractorsolutions.com/custom-ops-vs-enterprise-fsm.html">
+    <meta property="og:title" content="Custom Operations Systems vs. Enterprise FSM for Telecom Subs">
+    <meta property="og:description" content="Why ServiceTitan, Praxedo, and Fieldwire aren't built for 40-tech ISP contractors. Cost, timeline, and adoption compared.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://telecomcontractorsolutions.com/custom-ops-vs-enterprise-fsm.html">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Custom Operations Systems vs. Enterprise FSM for Telecom Subs",
+      "author": {
+        "@type": "Person",
+        "name": "Gil Ramirez"
+      },
+      "datePublished": "2026-03-26",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Telecom Contractor Solutions",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://telecomcontractorsolutions.com/logo.svg"
+        }
+      },
+      "description": "Why ServiceTitan, Praxedo, and Fieldwire aren't built for 40-tech ISP contractors. Cost, timeline, and adoption compared."
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&family=Barlow+Condensed:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0B1829;
+            color: #C8D8EA;
+            font-family: 'Barlow', sans-serif;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        /* Sticky Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            background-color: #0B1829;
+            border-bottom: 1px solid rgba(42, 142, 255, 0.2);
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            text-decoration: none;
+        }
+
+        .nav-logo img {
+            height: 44px;
+            display: block;
+        }
+
+        .nav-logo:hover img {
+            opacity: 0.8;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #C8D8EA;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #2A8EFF;
+        }
+
+        .nav-active {
+            color: #2A8EFF;
+            font-weight: 600;
+        }
+
+        .cta-nav {
+            background-color: #2A8EFF;
+            color: #FFFFFF;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+
+        .cta-nav:hover {
+            background-color: #F26419;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0B1829 0%, #1a2a4a 100%);
+            padding: 6rem 2rem;
+            text-align: center;
+            border-bottom: 2px solid #2A8EFF;
+        }
+
+        .hero-container {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            font-size: 0.9rem;
+            color: #2A8EFF;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Article Content */
+        .article-container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        h2 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        h2:first-child {
+            margin-top: 0;
+        }
+
+        h3 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        p {
+            margin-bottom: 1.3rem;
+            line-height: 1.8;
+        }
+
+        strong {
+            color: #FFFFFF;
+        }
+
+        em {
+            color: #2A8EFF;
+        }
+
+        a {
+            color: #2A8EFF;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #F26419;
+            text-decoration: underline;
+        }
+
+        ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1.3rem;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+        }
+
+        .highlight {
+            background-color: rgba(42, 142, 255, 0.1);
+            border-left: 4px solid #2A8EFF;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 4px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background-color: rgba(42, 142, 255, 0.05);
+            border: 1px solid rgba(42, 142, 255, 0.2);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border: 1px solid rgba(42, 142, 255, 0.2);
+        }
+
+        .comparison-table th {
+            background-color: rgba(42, 142, 255, 0.15);
+            color: #FFFFFF;
+            font-weight: 700;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background-color: rgba(42, 142, 255, 0.02);
+        }
+
+        .cta-section {
+            background-color: rgba(42, 142, 255, 0.1);
+            border: 2px solid #2A8EFF;
+            padding: 2.5rem;
+            border-radius: 8px;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .cta-section h3 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.5rem;
+            color: #FFFFFF;
+            margin-bottom: 1rem;
+            margin-top: 0;
+            letter-spacing: -0.5px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #2A8EFF;
+            color: #FFFFFF;
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .cta-button:hover {
+            background-color: #F26419;
+        }
+
+        /* Related Reading Section */
+        .related-reading {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 2px solid rgba(42, 142, 255, 0.2);
+        }
+
+        .related-reading h3 {
+            margin-top: 0;
+        }
+
+        .related-posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .related-post {
+            background-color: rgba(42, 142, 255, 0.05);
+            border: 1px solid rgba(42, 142, 255, 0.2);
+            padding: 1.5rem;
+            border-radius: 4px;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .related-post:hover {
+            background-color: rgba(42, 142, 255, 0.1);
+            border-color: #2A8EFF;
+        }
+
+        .related-post a {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .related-post-excerpt {
+            font-size: 0.9rem;
+            color: #a8b8ca;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #050d18;
+            border-top: 1px solid rgba(42, 142, 255, 0.2);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            font-family: 'Barlow Condensed', sans-serif;
+            color: #FFFFFF;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-logo {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.3rem;
+            color: #FFFFFF;
+            margin-bottom: 0.5rem;
+        }
+
+        .tagline {
+            color: #C8D8EA;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.7rem;
+        }
+
+        .footer-links a {
+            color: #C8D8EA;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #2A8EFF;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(42, 142, 255, 0.2);
+            padding-top: 2rem;
+            text-align: center;
+            color: #8a99b8;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.4rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.85rem;
+            }
+
+            .article-meta {
+                gap: 1rem;
+                flex-direction: column;
+            }
+
+            .comparison-table {
+                font-size: 0.9rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://sgtm.telecomcontractorsolutions.com/ns.html?id=GTM-MJPFLRBR"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="nav-logo"><img src="/tcs-logo-horizontal.svg" alt="Telecom Contractor Solutions" height="44" style="display:block;"></a>
+            <ul class="nav-links">
+                <li><a href="https://telecomcontractorsolutions.com/#services">Services</a></li>
+                <li><a href="https://telecomcontractorsolutions.com/#how-it-works">How It Works</a></li>
+                <li><a href="https://telecomcontractorsolutions.com/#about">About</a></li>
+                <li><a href="https://telecomcontractorsolutions.com/blog.html" class="nav-active">Blog</a></li>
+                <li><a href="https://telecomcontractorsolutions.com/#contact" class="cta-nav">Book your fit call</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <h1>Custom Operations Systems vs. Enterprise FSM for Telecom Subs</h1>
+            <div class="article-meta">
+                <span class="meta-item">By Gil Ramirez</span>
+                <span class="meta-item">March 26, 2026</span>
+                <span class="meta-item">5 min read</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Article Content -->
+    <main class="article-container">
+        <h2>The Pitch Sounds Perfect Until You Run the Numbers</h2>
+        <p>ServiceTitan. Praxedo. Fieldwire. You've seen the demos. Job tracking looks clean. Crew visibility is real. Integration with QuickBooks makes billing automatic. The sales rep talks about "scaling your operation" and "enterprise-grade field service management." They mention the Verizon subs and the large plumbing outfits they work with.</p>
+        <p>Then they tell you the price and the timeline. $50,000 to $100,000 annually. Six months minimum to implement. A dedicated project manager from their team. You need to customize your processes to fit their system, not the other way around. They want to know your entire operation, integrate your accounting, and connect your crews to their mobile app.</p>
+        <p>For a telecom sub with 40 technicians running fiber crews, this is overkill dressed up in polished sales language.</p>
+
+        <h2>Why Enterprise FSM Isn't Built for You</h2>
+        <p>Enterprise field service management platforms are engineered for companies with 200 to 5,000 field technicians, complex routing algorithms, and service delivery contracts worth millions. They're built to scale across entire regions. They're built for companies that have a procurement department and a CTO.</p>
+        <p>You're building a crew operation, not managing a nation-wide carrier network. You don't need:</p>
+        <ul>
+            <li><strong>Complex multi-territory routing.</strong> You assign crews to jobs in a specific area. That's it. You don't need AI-powered route optimization for 1,000 technicians spread across 50 zip codes.</li>
+            <li><strong>Advanced SLA tracking for customers.</strong> Your customers are prime contractors and network owners. They want their job done on time. They don't need a 3D visualization dashboard showing real-time crew position.</li>
+            <li><strong>Third-party integrations with their entire ecosystem.</strong> Enterprise platforms integrate with HR systems, compliance databases, third-party maintenance vendors, and 20 other systems. You need crew assignment, time tracking, and invoicing. That's your core.</li>
+            <li><strong>Six-figure annual support and upgrade costs.</strong> Once they've got you on their platform, the service fees compound annually. Year one is $50K. Year three is $65K. They own you.</li>
+        </ul>
+
+        <h2>The Real Cost Breakdown</h2>
+        <p>Let's talk about what you're actually paying for enterprise FSM:</p>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Cost Category</th>
+                    <th>Enterprise FSM</th>
+                    <th>Custom Built for Telecom Subs</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Annual subscription (per user seats)</td>
+                    <td>$50K to $100K+</td>
+                    <td>$8K to $15K</td>
+                </tr>
+                <tr>
+                    <td>Implementation timeline</td>
+                    <td>6 to 12 months</td>
+                    <td>2 to 4 weeks</td>
+                </tr>
+                <tr>
+                    <td>Customization required</td>
+                    <td>Extensive (fit your business to their system)</td>
+                    <td>Built for your business model</td>
+                </tr>
+                <tr>
+                    <td>Setup and onboarding</td>
+                    <td>$10K to $25K</td>
+                    <td>Included</td>
+                </tr>
+                <tr>
+                    <td>Migration from old system</td>
+                    <td>$5K to $20K (your data, their rules)</td>
+                    <td>Handled automatically</td>
+                </tr>
+                <tr>
+                    <td>Annual maintenance/updates</td>
+                    <td>$10K to $15K (they control the roadmap)</td>
+                    <td>$2K to $3K (you drive the roadmap)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="highlight">
+            <p><strong>First-year total for enterprise FSM: $75,000 to $160,000. A system built for telecom subs comes in at a fraction of that, scoped to your operation on the fit call.</strong> You're not just comparing subscription prices. You're comparing total cost of ownership.</p>
+        </div>
+
+        <h2>Implementation Timeline and Crew Adoption</h2>
+        <p>Enterprise FSM needs months to go live because they're integrating with everything. Your payroll system. Your accounting. Your CRM. Their team has to map your entire workflow into their platform. Your managers have to learn the interface. Your crews have to download an app, figure out how to use it, and then actually use it consistently.</p>
+        <p>In the real world, crews resist new systems. They've got their routine. They know how to track jobs the way they're tracking jobs now. You're asking them to change that all at once, on a platform built by engineers in San Francisco who've never seen a fiber crew operate.</p>
+        <p>Compare that to a system built specifically for telecom contractors. It knows how your crews work because it was designed for how your crews work. You can be live in weeks, not months. Your crews adopt it because it fits their job, not the other way around. Onboarding isn't a three-day bootcamp. It's a walk-through of something that actually makes their day easier.</p>
+
+        <h2>What You Actually Need</h2>
+        <p>Let's be specific about what the system has to do for you to make money:</p>
+        <ul>
+            <li><strong>Job assignment and tracking.</strong> Assign jobs to crews. Track who's on what job. See when it's done. That's the core.</li>
+            <li><strong>Time and labor tracking.</strong> Know how many hours your crews actually worked. Compare that to production rates and billed hours.</li>
+            <li><strong>Billing integration.</strong> Pull crew time and materials from the system, bill your customers automatically, understand your actual margin on every job.</li>
+            <li><strong>Crew management.</strong> See who's available. Track certifications. Know who can do fiber vs. copper vs. outdoor work. Flag compliance issues before someone gets on a job site.</li>
+            <li><strong>Mobile app for field crews.</strong> They clock in, clock out, see their job assignments, and get their next job notification. Nothing fancy. Clean and fast.</li>
+        </ul>
+
+        <p>That's your system. That's what makes your business work. Enterprise platforms handle that and also handle another 50 things you don't need.</p>
+
+        <h2>The Hidden Cost of Switching Later</h2>
+        <p>Six months into your enterprise FSM implementation, your data is starting to live there. Your crews are adapted to the workflow. Your accounting is tied to the system. Now you're locked in. Switching costs money, time, and crew disruption.</p>
+        <p>If you realized year two that you're overpaying for a system that doesn't fit your specific business, getting out is expensive. You're not just walking away from a subscription. You're extracting your data, onboarding your crews on a new system, and re-integrating with your accounting. You'll wait another four months and pay another $30,000.</p>
+        <p>A system built specifically for telecom subs doesn't have that lock-in. If something isn't working for you, you can ask for changes. You can add features that matter to your operation. You're not negotiating with a product team managing tens of thousands of customers. You're working with a system designed specifically for contractors like you.</p>
+
+        <h2>You Already Know Your Crews Work Different</h2>
+        <p>Your operation isn't a plumbing company. It isn't an HVAC outfit. It isn't a prime contractor building service franchise. You're managing directional boring crews, splicing teams, fiber installation, and OSP work. Your billing structure is different. Your crew composition is different. Your compliance requirements are different. Your production metrics are different.</p>
+        <p>Enterprise FSM was built for a different animal. They'll sell you on the flexibility and customization, but what they mean is: we have consultants who can spend $50,000 of your money making our system work for your business. That's not customization. That's you paying them to force your operation into a box that wasn't made for you.</p>
+        <p>A system built for telecom subs starts in the right box. Then it adapts to you, not the other way around.</p>
+
+        <h2>The Right Tool for the Right Job</h2>
+        <p>Don't misread this. If you're running 500 crews across five states with complex regional billing and you've got a dedicated operations team of 15 people, enterprise FSM makes sense. You have the budget. You have the complexity. You have the people to manage it.</p>
+        <p>But if you're running a 30 to 50-person telecom crew operation, you're in a different category. You need speed, adoption, and fit. You need a system that understands fiber crew work, production rates, compliance tracking, and telecom-specific billing. You don't need San Francisco engineering managing your problem.</p>
+        <p>The cost difference isn't 20 percent. It's 70 to 80 percent. The implementation time difference isn't a month. It's six months. The crew adoption difference is the difference between a system they'll actually use and a system they'll resent.</p>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <h3>Stop Overpaying for Systems Built for Companies Three Times Your Size</h3>
+            <p>We'll show you exactly what a system built for your crew operation actually costs and what you get for it. No upsell. No surprise setup fees. Just the real economics.</p>
+            <a href="https://telecomcontractorsolutions.com/#contact" class="cta-button">Book your fit call</a>
+        </div>
+
+        <h2>The Bottom Line</h2>
+        <p>Enterprise FSM vendors will tell you they serve contractors of all sizes. They don't. They serve large contractors who can afford them and extract value from their complexity. For a telecom sub, you're paying for features you'll never use and complexity you'll never need, while your crews are fighting a system that wasn't built for how they actually work.</p>
+        <p>You don't need enterprise. You need fit. You need speed. You need a system that makes your operation more efficient because it was engineered for your operation, not despite it.</p>
+        <p>Everything else is expensive overhead.</p>
+
+        <!-- Related Reading Section -->
+        <div class="related-reading">
+            <h3>Related Reading</h3>
+            <div class="related-posts">
+                <div class="related-post">
+                    <a href="https://telecomcontractorsolutions.com/subcontractor-compliance-tracking.html">How to Track Subcontractor Compliance Before a Job Starts</a>
+                    <p class="related-post-excerpt">COI expirations, DWC83 gaps, missing W9s. If a sub shows up non-compliant, you're the one holding the liability.</p>
+                </div>
+                <div class="related-post">
+                    <a href="https://telecomcontractorsolutions.com/job-costing-telecom-crews.html">What Job Costing Actually Looks Like for a 30-Tech Telecom Crew</a>
+                    <p class="related-post-excerpt">Most contractors finish a job without knowing if it made money. Here is what job costing looks like when you can see margin on every job.</p>
+                </div>
+                <div class="related-post">
+                    <a href="https://telecomcontractorsolutions.com/why-crews-resist-new-systems.html">Why Crews Resist New Systems</a>
+                    <p class="related-post-excerpt">It's not obstinacy. It's that most software is designed by people who've never seen field work.</p>
+                </div>
+                <div class="related-post">
+                    <a href="https://telecomcontractorsolutions.com/why-telecom-subs-bill-late.html">Why Telecom Subs Bill Late</a>
+                    <p class="related-post-excerpt">Time tracking isn't happening on the job site. It's happening three days later from a truck bed at 6 PM.</p>
+                </div>
+                <div class="related-post">
+                    <a href="https://telecomcontractorsolutions.com/pre-bore-documentation.html">Pre-Bore Documentation Best Practices for Directional Boring Crews</a>
+                    <p class="related-post-excerpt">Three photos and a ticket number can save you from a five-figure damage claim.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <div class="footer-logo">TCS</div>
+                <p class="tagline">Operations software built for contractors.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Services</h4>
+                <ul class="footer-links">
+                    <li><a href="https://telecomcontractorsolutions.com/dig-documentation.html">Dig Documentation</a></li>
+                    <li><a href="https://telecomcontractorsolutions.com/crew-management.html">Crew Management</a></li>
+                    <li><a href="https://telecomcontractorsolutions.com/job-tracking.html">Job Tracking</a></li>
+                    <li><a href="https://telecomcontractorsolutions.com/job-costing.html">Job Costing</a></li>
+                    <li><a href="https://telecomcontractorsolutions.com/billing-automation.html">Billing Automation</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul class="footer-links">
+                    <li><a href="https://telecomcontractorsolutions.com/#about">About</a></li>
+                    <li><a href="https://telecomcontractorsolutions.com/blog.html">Blog</a></li>
+                    <li><a href="https://telecomcontractorsolutions.com/#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Telecom Contractor Solutions. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

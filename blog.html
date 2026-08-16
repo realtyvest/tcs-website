@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://sgtm.telecomcontractorsolutions.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MJPFLRBR');</script>
+<!-- End Google Tag Manager -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog | Telecom Contractor Solutions</title>
+<meta name="description" content="Operations insights for ISP and telecom contractors. Billing, crew adoption, dig documentation, and field crew management.">
+<link rel="canonical" href="https://telecomcontractorsolutions.com/blog.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://telecomcontractorsolutions.com/blog.html">
+<meta property="og:title" content="Blog | Telecom Contractor Solutions">
+<meta property="og:description" content="Operations insights for ISP and telecom contractors. Billing, crew adoption, dig documentation, and field crew management.">
+<meta property="og:site_name" content="Telecom Contractor Solutions">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230B1829'/%3E%3Crect x='5' y='28' width='22' height='3' rx='1.5' fill='%232A8EFF' opacity='0.25'/%3E%3Cline x1='16' y1='30' x2='16' y2='13' stroke='%232A8EFF' stroke-width='3.5' stroke-linecap='round'/%3E%3Cline x1='19' y1='23' x2='29' y2='23' stroke='%232A8EFF' stroke-width='1.8' stroke-linecap='round' opacity='0.4'/%3E%3Cline x1='19' y1='18' x2='28' y2='18' stroke='%232A8EFF' stroke-width='1.8' stroke-linecap='round' opacity='0.65'/%3E%3Cpolygon points='10,14 16,5 22,14' fill='%23F26419'/%3E%3C/svg%3E">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0B1829; --navy-mid: #152236; --navy-light: #1E3350;
+    --electric: #2A8EFF; --electric-dim: #1a6fd0;
+    --orange: #F26419; --orange-dim: #d4551a;
+    --white: #FFFFFF; --off-white: #F4F7FB; --muted: #8CA3BE; --text-light: #C8D8EA;
+    --border: rgba(255,255,255,0.08); --border-light: rgba(42,142,255,0.2);
+    --font-display: 'Barlow Condensed', sans-serif; --font-body: 'Barlow', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-body); background: var(--navy); color: var(--white); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(11,24,41,0.97); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border); padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between; height: 68px;
+  }
+  .nav-logo { text-decoration: none; display: flex; align-items: center; flex-shrink: 0; }
+  .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+  .nav-links a { color: var(--text-light); text-decoration: none; font-size: 14px; font-weight: 500; letter-spacing: 0.2px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links .nav-cta { background: var(--electric); color: var(--white); padding: 10px 20px; border-radius: 8px; font-weight: 600; }
+  .nav-links .nav-cta:hover { background: var(--electric-dim); }
+  .nav-links .nav-active { color: var(--electric); }
+  /* HERO */
+  .blog-hero {
+    padding: 80px 5% 48px; text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .blog-hero .eyebrow {
+    font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--electric); margin-bottom: 12px;
+  }
+  .blog-hero h1 {
+    font-family: var(--font-display); font-size: clamp(32px, 5vw, 48px); font-weight: 800;
+    line-height: 1.1; margin-bottom: 16px;
+  }
+  .blog-hero p { color: var(--text-light); font-size: 17px; max-width: 600px; margin: 0 auto; }
+  /* POST CARDS */
+  .posts { max-width: 820px; margin: 0 auto; padding: 48px 24px 80px; }
+  .post-card {
+    background: var(--navy-mid); border: 1px solid var(--border); border-radius: 12px;
+    padding: 32px; margin-bottom: 24px; transition: border-color 0.2s, transform 0.2s;
+    display: block; text-decoration: none; color: inherit;
+  }
+  .post-card:hover { border-color: var(--border-light); transform: translateY(-2px); }
+  .post-card .post-tag {
+    display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.8px;
+    text-transform: uppercase; color: var(--electric); background: rgba(42,142,255,0.1);
+    padding: 3px 10px; border-radius: 4px; margin-bottom: 12px;
+  }
+  .post-card h2 {
+    font-family: var(--font-display); font-size: 24px; font-weight: 800;
+    line-height: 1.2; margin-bottom: 12px; color: var(--white);
+  }
+  .post-card p { color: var(--text-light); font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+  .post-card .post-meta { font-size: 13px; color: var(--muted); }
+  .post-card .read-more {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: var(--electric); font-weight: 600; font-size: 14px; margin-top: 4px;
+  }
+  /* CTA */
+  .blog-cta {
+    max-width: 820px; margin: 0 auto 80px; padding: 0 24px;
+  }
+  .blog-cta-inner {
+    background: linear-gradient(135deg, rgba(42,142,255,0.08), var(--navy-mid));
+    border: 1px solid var(--border-light); border-radius: 12px; padding: 32px; text-align: center;
+  }
+  .blog-cta-inner h3 {
+    font-family: var(--font-display); font-size: 22px; font-weight: 800; margin-bottom: 12px;
+  }
+  .blog-cta-inner p { color: var(--text-light); font-size: 15px; margin-bottom: 20px; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--electric); color: var(--white); padding: 14px 28px;
+    border-radius: 8px; font-weight: 700; font-size: 15px; text-decoration: none;
+    transition: background 0.2s;
+  }
+  .btn-primary:hover { background: var(--electric-dim); }
+  /* FOOTER */
+  footer { background: var(--navy-mid); border-top: 1px solid var(--border); padding: 48px 5% 0; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; padding-bottom: 40px; }
+  .footer-tagline { color: var(--muted); font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
+  .footer-col-title { font-family: var(--font-display); font-size: 14px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--white); margin-bottom: 16px; }
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 10px; }
+  .footer-links a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--electric); }
+  .footer-contact { display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
+  .footer-bottom { border-top: 1px solid var(--border); padding: 20px 0; text-align: center; }
+  .footer-bottom p { font-size: 13px; color: var(--muted); }
+  .nav-hamburger { display: none; }
+  @media (max-width: 768px) {
+    .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+    .nav-links { display: none; }
+    .nav-hamburger {
+      display: flex; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px;
+    }
+    .nav-hamburger span { width: 22px; height: 2px; background: var(--white); border-radius: 2px; }
+    .mobile-menu { display: none; flex-direction: column; background: var(--navy-mid); padding: 16px 5%; border-bottom: 1px solid var(--border); }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: var(--text-light); text-decoration: none; padding: 12px 0; font-size: 15px; font-weight: 500; border-bottom: 1px solid var(--border); }
+    .mobile-menu .nav-cta { color: var(--electric); font-weight: 700; border-bottom: none; }
+  }
+</style>
+<style id="mm-desktop-hide">.mobile-menu{display:none;}</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://sgtm.telecomcontractorsolutions.com/ns.html?id=GTM-MJPFLRBR"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<nav>
+  <a href="https://telecomcontractorsolutions.com" class="nav-logo">
+    <img src="tcs-logo-horizontal.svg" alt="Telecom Contractor Solutions" height="44" style="display:block;">
+  </a>
+  <ul class="nav-links">
+    <li><a href="https://telecomcontractorsolutions.com/#services">Services</a></li>
+    <li><a href="https://telecomcontractorsolutions.com/#process">How It Works</a></li>
+    <li><a href="https://telecomcontractorsolutions.com/#about">About</a></li>
+    <li><a href="/blog.html" class="nav-active">Blog</a></li>
+    <li><a href="https://telecomcontractorsolutions.com/#contact" class="nav-cta">Book your fit call</a></li>
+  </ul>
+  <button class="nav-hamburger" onclick="document.getElementById('mobile-menu').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="https://telecomcontractorsolutions.com/#services" onclick="document.getElementById('mobile-menu').classList.remove('open')">Services</a>
+  <a href="https://telecomcontractorsolutions.com/#process" onclick="document.getElementById('mobile-menu').classList.remove('open')">How It Works</a>
+  <a href="https://telecomcontractorsolutions.com/#about" onclick="document.getElementById('mobile-menu').classList.remove('open')">About</a>
+  <a href="/blog.html" onclick="document.getElementById('mobile-menu').classList.remove('open')">Blog</a>
+  <a href="https://telecomcontractorsolutions.com/#contact" class="nav-cta" onclick="document.getElementById('mobile-menu').classList.remove('open')">Book your fit call</a>
+</div>
+<div class="blog-hero">
+  <p class="eyebrow">Blog</p>
+  <h1>Operations insights for<br>telecom contractors.</h1>
+  <p>Billing, crew adoption, dig documentation, and field crew management. Written for ISP contractors with 10 to 100 field technicians.</p>
+</div>
+<div class="posts">
+<a href="/bead-project-costs-permits-2026.html" class="post-card">
+    <img class="post-card-thumb" src="/assets/covers/bead-project-costs-permits-2026.jpg" alt="BEAD Is Moving. Rising Costs and Permit Delays Are the Real Test." style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:0.85rem;display:block;">
+    <span class="post-tag">BEAD project costs permits</span>
+    <h2>BEAD Is Moving. Rising Costs and Permit Delays Are the Real Test.</h2>
+    <p>BEAD projects are underway and equipment costs are climbing. Here is what that means for telecom contractors bidding and building right now.</p>
+    <div class="post-meta">Gil Ramirez &middot; August 16, 2026 &middot; 5 min read</div>
+    <span class="read-more">Read article <svg width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M3 7h8M7 3l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </a>
+<a href="/bead-frozen-states-contractor-moves-2026.html" class="post-card">
+    <img class="post-card-thumb" src="/assets/covers/bead-frozen-states-contractor-moves-2026.jpg" alt="BEAD Is Still Frozen for Many States. Here's What You Do Now." style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:0.85rem;display:block;">
+    <span class="post-tag">BEAD funding delay contractors</span>
+    <h2>BEAD Is Still Frozen for Many States. Here's What You Do Now.</h2>
+    <p>One year after BEAD restructuring, many states still can't access infrastructure funding. Here is what telecom contractors should do with their pipeline right now.</p>
+    <div class="post-meta">Gil Ramirez &middot; August 16, 2026 &middot; 5 min read</div>
+    <span class="read-more">Read article <svg width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M3 7h8M7 3l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </a>
+<a href="/fba-academy-fiber-workforce-training-2026.html" class="post-card">
+    <img class="post-card-thumb" src="/assets/covers/fba-academy-fiber-workforce-training-2026.jpg" alt="FBA Academy Is Live. Here's What It Means for Your Crew Pipeline." style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:0.85rem;display:block;">
+    <span class="post-tag">fiber workforce training</span>
+    <h2>FBA Academy Is Live. Here's What It Means for Your Crew Pipeline.</h2>
+    <p>The Fiber Broadband Association launched FBA Academy, an on-demand training platform. Here is what telecom contractors need to know about crew development.</p>
+    <div class="post-meta">Gil Ramirez &middot; August 16, 2026 &middot; 5 min read</div>
+    <span class="read-more">Read article <svg width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M3 7h8M7 3l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </a>
+<a href="/illinois-bead-frozen-pritzker-lutnick-2026.html" class="post-card">
+    <img class="post-card-thumb" src="/assets/covers/illinois-bead-frozen-pritzker-lutnick-2026.jpg" alt="Illinois BEAD Is Still Frozen. Here's What That Means for Your Pipeline." style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:0.85rem;display:block;">
+    <span class="post-tag">Illinois BEAD approval</span>
+    <h2>Illinois BEAD Is Still Frozen. Here's What That Means for Your Pipeline.</h2>
+    <p>Illinois Gov. Pritzker is pushing NTIA's Lutnick to release BEAD funding. Here's what the stall means for telecom contractors watching that state's pipeline.</p>
+    <div class="post-meta">Gil Ramirez &middot; August 15, 2026 &middot; 5 min read</div>
+    <span class="read-more">Read article <svg width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M3 7h8M7 3l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </a>
+<a href="/frisco-fiber-hazelwood-pipeline-2026.html" class="post-card">
+    <img class="post-card-thumb" src="/assets/covers/frisco-fiber-hazelwood-pipeline-2026.jpg" alt="Frisco Fiber Buildout: What the Hazelwood Rollout Means for Your Pipeline" style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:0.85rem;display:block;">
+    <span class="post-tag">Frisco fiber contractor pipeline</span>
+    <h2>Frisco Fiber Buildout: What the Hazelwood Rollout Means for Your Pipeline</h2>
+    <p>Fiber is live in Hazelwood, Frisco TX. Here is what that active buildout means for telecom contractors hunting work in the DFW metro right now.</p>
+    <div class="post-meta">Gil Ramirez &middot; August 15, 2026 &middot; 5 min read</div>
+    <span class="read-more">Read article <svg width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M3 7h8M7 3l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </a>
+<a href="/ntia-bead-winners-know-your-rights-2026.html" class="post-card">
+    <img class="post-card-thumb" src="/assets/covers/ntia-bead-winners-know-your-rights-2026.jpg" alt="NTIA Tells BEAD Winners to Push Back on State Contracts" style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:0.85rem;display:block;">
+    <span class="post-tag">BEAD contractor pipeline</span>
+    <h2>NTIA Tells BEAD Winners to Push Back on State Contracts</h2>
+    <p>NTIA is urging BEAD award winners to demand contract protections from states. Here is what that fight means for telecom contractors waiting on work.</p>
+    <div class="post-meta">Gil Ramirez &middot; August 15, 2026 &middot; 5 min read</div>
+    <span class="read-more">Read article <svg width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M3 7h8M7 3l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </a>
+<a href="/texas-bead-disbursements-halted-2026.html" class="post-card">
+    <img class="post-card-thumb" src="/assets/covers/texas-bead-disbursements-halted-2026.jpg" alt="Texas Froze BEAD Funds. Here Is What You Do Next." style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:0.85rem;display:block;">
+    <span class="post-tag">Texas BEAD disbursements halted</span>
+    <h2>Texas Froze BEAD Funds. Here Is What You Do Next.</h2>
+    <p>Texas halted BEAD disbursements as the new Comptroller reshapes the broadband office. Here is what telecom contractors in Texas need to decide right now.</p>
+    <div class="post-meta">Gil Ramirez &middot; August 14, 2026 &middot; 5 min read</div>
+    <span class="read-more">Read article <svg width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M3 7h8M7 3l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </a>
+<a href="/bead-goes-live-louisiana-nebraska-2026.html" class="post-card">
+    <img class="post-card-thumb" src="/assets/covers/bead-goes-live-louisiana-nebraska-2026.jpg" alt="BEAD Goes Live: What Louisiana and Nebraska Mean for Your Pipeline" style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:0.85rem;display:block;">
+    <span class="post-tag">BEAD deployment contractors</span>
+    <h2>BEAD Goes Live: What Louisiana and Nebraska Mean for Your Pipeline</h2>
+    <p>The first BEAD-funded connections are live in Louisiana and Nebraska. Here is what that shift from planning to deployment means for telecom contractors right now.</p>
+    <div class="post-meta">Gil Ramirez &middot; August 14, 2026 &middot; 5 min read</div>
+    <span class="read-more">Read article <svg width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M3 7h8M7 3l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </a>
+<a href="/senate-broadband-permitting-ncta-2026.html" class="post-card">
+    <img class="post-card-thumb" src="/assets/covers/cover-aerial-poles.jpg" alt="Senate Permitting Fight: What It Means for Your Next Job" style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:0.85rem;display:block;">
+    <span class="post-tag">broadband permitting reform</span>
+    <h2>Senate Permitting Fight: What It Means for Your Next Job</h2>
+    <p>NCTA is pushing the Senate on broadband permitting reform. Here is what stalled House progress means for telecom contractors bidding BEAD and ISP work.</p>
+    <div class="post-meta">Gil Ramirez &middot; August 14, 2026 &middot; 5 min read</div>
+    <span class="read-more">Read article <svg width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M3 7h8M7 3l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </a>
+<a href="/pole-disputes-permits-bead-timelines-2026.html" class="post-card">
+    <span class="post-tag">BEAD pole permits</span>
+    <h2>Pole Disputes and Permits Are Killing BEAD Timelines</h2>
+    <p>Pole attachment disputes and environmental permits are stalling BEAD buildouts. Here is what telecom contractors need to watch before crews hit the field.</p>
+    <div class="post-meta">Gil Ramirez &middot; August 14, 2026 &middot; 5 min read</div>
+    <span class="read-more">Read article <svg width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M3 7h8M7 3l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </a>
+<a href="/texas-camp-fiber-mandate-2026.html" class="post-card">
+    <span class="post-tag">Texas broadband fiber mandate</span>
+    <h2>Texas May Drop the Camp Fiber Mandate. Here Is What That Signals.</h2>
+    <p>Texas lawmakers are moving to lift a fiber requirement for summer camps. Here is what that policy shift means for telecom contractors watching state broadband work.</p>
+    <div class="post-meta">Gil Ramirez &middot; August 13, 2026 &middot; 5 min read</div>
+    <span class="read-more">Read article <svg width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M3 7h8M7 3l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </a>
+<a href="/fcc-pole-attachment-rules-2026.html" class="post-card">
+    <span class="post-tag">FCC pole attachment rules</span>
+    <h2>FCC Pole Attachment Rules Are Live. Here Is What Changes for Your Crews.</h2>
+    <p>New FCC pole attachment deadlines are in effect. Here is what telecom contractors need to know about access timelines, disputes, and build planning now.</p>
+    <div class="post-meta">Gil Ramirez &middot; August 12, 2026 &middot; 5 min read</div>
+    <span class="read-more">Read article <svg width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M3 7h8M7 3l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </a>
+<a href="/bead-funding-deadlines-contractors-2026.html" class="post-card">
+    <span class="post-tag">BEAD funding deadlines</span>
+    <h2>BEAD Funding Deadlines 2026: What Contractors Must Know Now</h2>
+    <p>BEAD funding deadlines in 2026 are moving fast. Here is what telecom contractors running field crews need to know to stay positioned and get paid.</p>
+    <div class="post-meta">Gil Ramirez &middot; August 12, 2026 &middot; 5 min read</div>
+    <span class="read-more">Read article <svg width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M3 7h8M7 3l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </a>
+<a href="/maryland-bead-multi-use-infrastructure-contractor-pipeline-2026.html" class="post-card">
+    <span class="post-tag">BEAD multi-use infrastructure</span>
+    <h2>Maryland Wants BEAD Funds to Build More Than Fiber. Here Is What That Means for Your Pipeline.</h2>
+    <p>Maryland is pushing NTIA to let states spend leftover BEAD funds on multi-use infrastructure. Here is what that policy shift means for your crew and your next bid.</p>
+    <div class="post-meta">Gil Ramirez &middot; May 8, 2026 &middot; 5 min read</div>
+    <span class="read-more">Read article <svg width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M3 7h8M7 3l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </a>
+<a href="/optimum-broadband-sub-losses-bead-pipeline-2026.html" class="post-card">
+    <span class="post-tag">BEAD contractor pipeline</span>
+    <h2>What Optimum Losing 64,000 Subs Means for Your BEAD Pipeline</h2>
+    <p>Optimum dropped 64,000 broadband subs in Q1 2026. Here is what that market shift means for your BEAD positioning and crew deployment this quarter.</p>
+    <div class="post-meta">Gil Ramirez &middot; May 8, 2026 &middot; 5 min read</div>
+    <span class="read-more">Read article <svg width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M3 7h8M7 3l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </a>
+<a href="/fiber-connect-2026-contractor-guide.html" class="post-card">
+    <span class="post-tag">Fiber Connect 2026 BEAD</span>
+    <h2>Fiber Connect 2026: What Contractors Need to Know</h2>
+    <p>Fiber Connect 2026 lands in Orlando on May 20. Here is what telecom contractors need to get out of the event before BEAD money starts moving.</p>
+    <div class="post-meta">Gil Ramirez &middot; May 8, 2026 &middot; 5 min read</div>
+    <span class="read-more">Read article <svg width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M3 7h8M7 3l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </a>
+  <a href="/bead-nondeployment-funds-guidance-delay-2026.html" class="post-card">
+    <span class="post-tag">BEAD Funding</span>
+    <h2>BEAD Nondeployment Funds: Why the Guidance Is Still Missing Three Months Later</h2>
+    <p>NTIA promised guidance by March 11 on $21 billion in BEAD nondeployment savings. Three months later, the guidance is still missing. Here is what telecom contractors need to know to position their pipeline.</p>
+    <div class="post-meta">Gil Ramirez &middot; May 6, 2026 &middot; 3 min read</div>
+    <span class="read-more">Read article <svg width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M3 7h8M7 3l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </a>
+  <a href="/pre-bore-documentation.html" class="post-card">
+    <span class="post-tag">Dig Documentation</span>
+    <h2>Pre-Bore Documentation Best Practices for Directional Boring Crews</h2>
+    <p>What to document before every bore starts: locate marks, bore path, 811 ticket. Three photos and a ticket number can save you from a five-figure damage claim.</p>
+    <div class="post-meta">Gil Ramirez &middot; March 26, 2026 &middot; 6 min read</div>
+    <span class="read-more">Read article <svg width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M3 7h8M7 3l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </a>
+  <a href="/why-telecom-subs-bill-late.html" class="post-card">
+    <span class="post-tag">Billing</span>
+    <h2>Why Telecom Subs Bill Late (And How to Fix It)</h2>
+    <p>Most telecom contractors bill 2 to 3 weeks late because closeout docs are scattered across texts, emails, and job notes. Here is how to fix the workflow.</p>
+    <div class="post-meta">Gil Ramirez &middot; March 26, 2026 &middot; 5 min read</div>
+    <span class="read-more">Read article <svg width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M3 7h8M7 3l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </a>
+  <a href="/why-crews-resist-new-systems.html" class="post-card">
+    <span class="post-tag">Crew Adoption</span>
+    <h2>Why Field Crews Resist New Systems (And What to Do About It)</h2>
+    <p>Building the system is the easy part. Getting a crew that ran on spreadsheets and group texts to actually adopt something new is where most contractors fail.</p>
+    <div class="post-meta">Gil Ramirez &middot; March 26, 2026 &middot; 6 min read</div>
+    <span class="read-more">Read article <svg width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M3 7h8M7 3l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </a>
+  <a href="/custom-ops-vs-enterprise-fsm.html" class="post-card">
+    <span class="post-tag">Strategy</span>
+    <h2>Custom Operations Systems vs. Enterprise FSM for Telecom Subs</h2>
+    <p>Why ServiceTitan, Praxedo, and Fieldwire aren't built for 40-tech ISP contractors. Cost, timeline, and adoption compared.</p>
+    <div class="post-meta">Gil Ramirez &middot; March 26, 2026 &middot; 5 min read</div>
+    <span class="read-more">Read article <svg width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M3 7h8M7 3l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </a>
+  <a href="/subcontractor-compliance-tracking.html" class="post-card">
+    <span class="post-tag">Compliance</span>
+    <h2>How to Track Subcontractor Compliance Before a Job Starts</h2>
+    <p>COI expirations, DWC83 gaps, missing W9s. If a sub shows up non-compliant, you're the one holding the liability. Here's how to prevent it.</p>
+    <div class="post-meta">Gil Ramirez &middot; March 26, 2026 &middot; 5 min read</div>
+    <span class="read-more">Read article <svg width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M3 7h8M7 3l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </a>
+  <a href="/job-costing-telecom-crews.html" class="post-card">
+    <span class="post-tag">Job Costing</span>
+    <h2>What Job Costing Actually Looks Like for a 30-Tech Telecom Crew</h2>
+    <p>Most contractors finish a job, invoice it, and move on without knowing if it made money. Here is what job costing looks like when you can see margin on every job.</p>
+    <div class="post-meta">Gil Ramirez &middot; March 26, 2026 &middot; 6 min read</div>
+    <span class="read-more">Read article <svg width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M3 7h8M7 3l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </a>
+</div>
+<div class="blog-cta">
+  <div class="blog-cta-inner">
+    <h3>Ready to fix what's costing your operation?</h3>
+    <p>Start with a free 30-minute fit call. We talk through your operation, scope the Operations Analysis if it's a fit, and tell you straight if it's not.</p>
+    <a href="https://telecomcontractorsolutions.com/#contact" class="btn-primary">
+      Book your fit call
+      <svg width="16" height="16" fill="none" viewBox="0 0 16 16" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</div>
+<footer>
+  <div class="footer-inner">
+    <div>
+      <img src="tcs-logo-horizontal.svg" alt="Telecom Contractor Solutions" height="38" style="display:block; margin-bottom:10px;">
+      <p class="footer-tagline" style="font-size:15px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--white); margin-bottom:4px;">Build &middot; Train &middot; Optimize</p>
+      <p class="footer-tagline">Custom operations systems for ISP &amp; telecom contractors with 10&ndash;100 field technicians.</p>
+      <div class="footer-contact">
+        <a href="https://telecomcontractorsolutions.com/#contact" style="color:var(--electric); text-decoration:none; font-weight:600;">Book your fit call &rarr;</a>
+        <span style="color:var(--muted); font-size:14px;">Houston, TX &middot; Serving contractors nationwide</span>
+      </div>
+    </div>
+    <div>
+      <p class="footer-col-title">Services</p>
+      <ul class="footer-links">
+        <li><a href="https://telecomcontractorsolutions.com/#services">Job Tracking</a></li>
+        <li><a href="https://telecomcontractorsolutions.com/#services">Crew Management</a></li>
+        <li><a href="https://telecomcontractorsolutions.com/#services">Billing Automation</a></li>
+        <li><a href="https://telecomcontractorsolutions.com/#services">Job Costing</a></li>
+        <li><a href="https://telecomcontractorsolutions.com/#services">Dig Documentation</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-links">
+        <li><a href="https://telecomcontractorsolutions.com/#about">About Gil Ramirez</a></li>
+        <li><a href="https://telecomcontractorsolutions.com/#process">How It Works</a></li>
+        <li><a href="/blog.html">Blog</a></li>
+        <li><a href="https://telecomcontractorsolutions.com/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Telecom Contractor Solutions. All rights reserved.</p>
+  </div>
+</footer>
+</body>
+</html>

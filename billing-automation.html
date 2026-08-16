@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://sgtm.telecomcontractorsolutions.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MJPFLRBR');</script>
+<!-- End Google Tag Manager -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing Automation for ISP Contractors | Telecom Contractor Solutions</title>
+    <meta name="description" content="Automate telecom contractor billing with rate cards by service code and ISP contract. PO linking, QuickBooks/Xero sync, and open invoice visibility.">
+    <meta name="keywords" content="telecom billing automation, telecom subcontractor billing, ISP contractor invoicing, automated billing software">
+    <link rel="canonical" href="https://telecomcontractorsolutions.com/billing-automation.html">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Billing Automation for ISP Contractors | Telecom Contractor Solutions">
+    <meta property="og:description" content="Automate telecom contractor billing with rate cards by service code and ISP contract. PO linking, QuickBooks/Xero sync, and open invoice visibility.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://telecomcontractorsolutions.com/billing-automation.html">
+
+    <!-- Article Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Billing Automation for ISP Contractors",
+        "description": "Automate telecom contractor billing with rate cards by service code and ISP contract",
+        "keywords": "telecom billing automation, telecom subcontractor billing, ISP contractor invoicing",
+        "publisher": {
+            "@type": "Organization",
+            "name": "Telecom Contractor Solutions"
+        }
+    }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0B1829;
+            color: #C8D8EA;
+            font-family: 'Barlow', sans-serif;
+            line-height: 1.6;
+        }
+
+        a {
+            color: #2A8EFF;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #F26419;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Barlow Condensed', sans-serif;
+            color: #FFFFFF;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            margin-top: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            font-size: 1.6rem;
+            margin-top: 1.5rem;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            background-color: rgba(11, 24, 41, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(42, 142, 255, 0.2);
+        }
+
+        .logo {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #FFFFFF;
+        }
+
+        .logo a {
+            color: #FFFFFF;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #C8D8EA;
+            font-weight: 600;
+        }
+
+        .cta-button {
+            background-color: #2A8EFF;
+            color: #FFFFFF;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #F26419;
+            color: #FFFFFF;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: #C8D8EA;
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 6rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(42, 142, 255, 0.1) 0%, rgba(242, 100, 25, 0.05) 100%);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: #C8D8EA;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            background-color: #F26419;
+            color: #FFFFFF;
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .hero-cta:hover {
+            background-color: #2A8EFF;
+        }
+
+        /* Content Sections */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background-color: rgba(42, 142, 255, 0.1);
+            border-left: 4px solid #2A8EFF;
+            padding: 2rem;
+            border-radius: 4px;
+        }
+
+        .feature-card h3 {
+            color: #2A8EFF;
+            margin-top: 0;
+        }
+
+        .feature-card:hover {
+            border-left-color: #F26419;
+            background-color: rgba(242, 100, 25, 0.1);
+        }
+
+        .feature-card:hover h3 {
+            color: #F26419;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            background-color: rgba(42, 142, 255, 0.05);
+            margin: 4rem 0;
+            padding: 3rem 2rem;
+            border-radius: 4px;
+        }
+
+        .how-it-works h2 {
+            text-align: center;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .step {
+            counter-increment: step;
+            position: relative;
+            padding: 2rem 1rem 2rem 3rem;
+        }
+
+        .step::before {
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: #F26419;
+            color: #FFFFFF;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .steps {
+            counter-reset: step;
+        }
+
+        .step h4 {
+            color: #2A8EFF;
+            margin-bottom: 0.5rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(42, 142, 255, 0.2) 0%, rgba(242, 100, 25, 0.1) 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+            margin: 4rem 0;
+            border-radius: 4px;
+        }
+
+        .cta-section h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Internal Links */
+        .internal-links {
+            background-color: rgba(42, 142, 255, 0.05);
+            padding: 2rem;
+            border-radius: 4px;
+            margin: 3rem 0;
+        }
+
+        .internal-links h3 {
+            color: #2A8EFF;
+            margin-bottom: 1.5rem;
+        }
+
+        .links-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .links-list li {
+            list-style: none;
+        }
+
+        .links-list a {
+            color: #2A8EFF;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(0, 0, 0, 0.3);
+            color: #C8D8EA;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(42, 142, 255, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h4 {
+            color: #FFFFFF;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #C8D8EA;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #2A8EFF;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(42, 142, 255, 0.2);
+            font-size: 0.9rem;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                right: 0;
+                background-color: #0B1829;
+                flex-direction: column;
+                width: 100%;
+                gap: 0;
+                padding: 1rem 0;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                padding: 1rem 2rem;
+                border-bottom: 1px solid rgba(42, 142, 255, 0.1);
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+
+            .hero {
+                padding: 3rem 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .links-list {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://sgtm.telecomcontractorsolutions.com/ns.html?id=GTM-MJPFLRBR"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo"><a href="/"><img src="/tcs-logo-horizontal.svg" alt="Telecom Contractor Solutions" height="44" style="display:block;"></a></div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="https://telecomcontractorsolutions.com/#services">Services</a></li>
+            <li><a href="https://telecomcontractorsolutions.com/#how-it-works">How It Works</a></li>
+            <li><a href="https://telecomcontractorsolutions.com/#about">About</a></li>
+            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="https://telecomcontractorsolutions.com/#contact" class="cta-button">Book your fit call</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Billing That Doesn't Eat Your Day</h1>
+        <p>Automatically build and submit invoices based on job closeout data, rate cards by service code, and ISP contracts. Get paid faster with less manual work.</p>
+        <a href="https://telecomcontractorsolutions.com/#contact" class="hero-cta">Book your fit call</a>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h2>How Billing Automation Works</h2>
+        <p>Stop copying labor hours and material costs into spreadsheets. Billing automation captures everything from the job closeout, applies the right rate card, and builds invoices ready to send or export to QuickBooks and Xero.</p>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>Billing Queue</h3>
+                <p>Completed jobs automatically queue for billing. No manual trigger needed. The system waits for closeout approval, then builds the invoice framework with all labor, materials, and equipment time baked in.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Rate Cards by Service Code</h3>
+                <p>Set multiple rate cards per ISP contract. Each service code (install, repair, make-safe, etc.) has its own labor rate, travel rate, and material markups. The system applies the correct card based on the job type and contract.</p>
+            </div>
+            <div class="feature-card">
+                <h3>ISP Contract Terms</h3>
+                <p>Store contract rates, minimums, surcharges, and special terms for each ISP. The billing module reads these and adjusts invoice amounts automatically. Change contract terms once, and all new invoices reflect it.</p>
+            </div>
+            <div class="feature-card">
+                <h3>PO Linking</h3>
+                <p>Link jobs to specific purchase orders. When the invoice is ready, it shows the PO number, making approval faster for ISPs with PO-driven billing requirements. Track which jobs are covered by which PO.</p>
+            </div>
+            <div class="feature-card">
+                <h3>QuickBooks & Xero Sync</h3>
+                <p>Exported invoices sync directly to QuickBooks or Xero. Customer, line items, and amounts are pre-populated. No re-entry. Automate the entire cycle from job to accounting record.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Open Invoice Visibility</h3>
+                <p>See all invoices by status: draft, submitted, approved, paid, overdue. Filter by customer, ISP, date range, or amount. Identify which invoices are holding up cash flow and follow up on late payments.</p>
+            </div>
+        </div>
+
+        <!-- How It Works Section -->
+        <div class="how-it-works">
+            <h2>The Billing Workflow</h2>
+            <p>Billing happens in stages. Each stage builds on the previous one, and you can review and adjust at any point before it's locked.</p>
+
+            <div class="steps">
+                <div class="step">
+                    <h4>1. Job Closeout</h4>
+                    <p>Crew submits closeout data: labor hours, material costs, equipment rental time. Timestamps and GPS location are captured automatically. No missing data.</p>
+                </div>
+                <div class="step">
+                    <h4>2. Closeout Approval</h4>
+                    <p>You review the closeout for accuracy. Flag any issues, request photos, or ask the crew to re-enter data. Once approved, the job moves to the billing queue.</p>
+                </div>
+                <div class="step">
+                    <h4>3. Rate Card Application</h4>
+                    <p>The system looks up the correct rate card based on service code, ISP, and contract. Labor is costed at the agreed rate. Materials are marked up per your contract terms.</p>
+                </div>
+                <div class="step">
+                    <h4>4. Invoice Build</h4>
+                    <p>A draft invoice is created with customer info, PO number, line items, subtotal, taxes, and total. You can edit any line item, add notes, or adjust totals before submitting.</p>
+                </div>
+                <div class="step">
+                    <h4>5. Invoice Submission</h4>
+                    <p>Mark the invoice ready to send. It goes to the ISP (or your customer) for approval. You can email it directly or use your ISP's portal if supported.</p>
+                </div>
+                <div class="step">
+                    <h4>6. Payment Tracking</h4>
+                    <p>See which invoices are paid, pending, or overdue. Export to QuickBooks for accounting. Reconcile against actual deposits received.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>Why It Matters</h2>
+        <p>Billing is the last mile in project delivery. Most contractors have great field operations but stumble on the money side, losing 30, 60, or 90+ days to invoicing delays. Billing automation removes the delay, gets invoices out same-day, and frees your admin team from rework and follow-ups.</p>
+
+        <!-- Internal Links -->
+        <div class="internal-links">
+            <h3>Related Modules</h3>
+            <ul class="links-list">
+                <li><a href="./job-tracking.html">Job Tracking</a></li>
+                <li><a href="./job-costing.html">Job Costing</a></li>
+                <li><a href="./crew-management.html">Crew and Subcontractor Management</a></li>
+                <li><a href="./dig-documentation.html">Dig Documentation and Damage Defense</a></li>
+            </ul>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <h2>Stop Building Invoices by Hand</h2>
+            <p>We'll show you how fast invoicing moves when the data is there and the rate cards are set. Walk through a real billing cycle and see where your current process is losing time and money.</p>
+            <a href="https://telecomcontractorsolutions.com/#contact" class="hero-cta">Book your fit call</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Telecom Contractor Solutions</h4>
+                <p>Operations software built for telecom contractors.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="./job-tracking.html">Job Tracking</a></li>
+                    <li><a href="./billing-automation.html">Billing Automation</a></li>
+                    <li><a href="./crew-management.html">Crew Management</a></li>
+                    <li><a href="./job-costing.html">Job Costing</a></li>
+                    <li><a href="./dig-documentation.html">Dig Documentation</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="https://telecomcontractorsolutions.com/#about">About</a></li>
+                    <li><a href="/blog.html">Blog</a></li>
+                    <li><a href="https://telecomcontractorsolutions.com/#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Telecom Contractor Solutions. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>

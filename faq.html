@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://sgtm.telecomcontractorsolutions.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MJPFLRBR');</script>
+<!-- End Google Tag Manager -->
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ | Telecom Contractor Solutions</title>
+  <meta name="description" content="Answers to common questions about custom operations systems for telecom contractors. Pricing, onboarding, integrations, and how TCS works with ISP field crews.">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect fill='%230B1829' width='32' height='32'/%3E%3Cpath fill='%232A8EFF' d='M16 4v20M12 12h8M10 16h12M8 20h16'/%3E%3Cpolygon fill='%23F26419' points='16,28 22,24 10,24'/%3E%3C/svg%3E">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: #0B1829;
+      color: #C8D8EA;
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(11, 24, 41, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-logo svg {
+      height: 28px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #C8D8EA;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: #2A8EFF;
+    }
+
+    .nav-cta {
+      background: linear-gradient(135deg, #2A8EFF 0%, #1a6fd0 100%);
+      color: #FFFFFF !important;
+      padding: 0.65rem 1.5rem;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .nav-cta:hover {
+      background: linear-gradient(135deg, #1a6fd0 0%, #0f4aa0 100%);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .nav-links {
+        gap: 1rem;
+        font-size: 0.85rem;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .nav-cta {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+      }
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, #152236 0%, #0B1829 100%);
+      border-bottom: 1px solid rgba(42, 142, 255, 0.2);
+    }
+
+    .hero h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 3rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 0.75rem;
+      letter-spacing: -1px;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: #C8D8EA;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding: 3rem 1.5rem;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+    }
+
+    /* Main Content */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    /* FAQ Categories */
+    .faq-category {
+      margin-bottom: 3rem;
+    }
+
+    .category-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid rgba(42, 142, 255, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* FAQ Items */
+    .faq-item {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 4px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+      background: #152236;
+      transition: all 0.3s ease;
+    }
+
+    .faq-item:hover {
+      border-color: rgba(42, 142, 255, 0.3);
+      background: #1E3350;
+    }
+
+    .faq-question {
+      cursor: pointer;
+      padding: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #152236;
+      transition: background 0.3s ease;
+      user-select: none;
+      border: none;
+      width: 100%;
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    .faq-question:focus-visible {
+      outline: 2px solid #2A8EFF;
+      outline-offset: -2px;
+    }
+
+    .faq-item.open .faq-question {
+      background: #1E3350;
+    }
+
+    .faq-question-text {
+      font-weight: 600;
+      color: #FFFFFF;
+      font-size: 1rem;
+      text-align: left;
+      flex: 1;
+    }
+
+    .faq-toggle {
+      color: #2A8EFF;
+      font-size: 1.5rem;
+      margin-left: 1rem;
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .faq-item.open .faq-toggle {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      background: #0B1829;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 500px;
+      padding: 0 1.25rem 1.25rem 1.25rem;
+    }
+
+    .faq-answer-text {
+      color: #C8D8EA;
+      line-height: 1.8;
+      font-size: 0.975rem;
+    }
+
+    .faq-answer a {
+      color: #2A8EFF;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .faq-answer a:hover {
+      color: #F26419;
+    }
+
+    @media (max-width: 768px) {
+      .faq-question-text {
+        font-size: 0.95rem;
+      }
+
+      .faq-answer-text {
+        font-size: 0.9rem;
+      }
+
+      .container {
+        padding: 2rem 1.5rem;
+      }
+
+      .category-title {
+        font-size: 1.4rem;
+      }
+    }
+
+    /* CTA Section */
+    .faq-cta {
+      text-align: center;
+      padding: 3rem 2rem;
+      background: linear-gradient(135deg, #1E3350 0%, #152236 100%);
+      border: 1px solid rgba(42, 142, 255, 0.2);
+      border-radius: 8px;
+      margin: 3rem 2rem;
+    }
+
+    .faq-cta h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: linear-gradient(135deg, #2A8EFF 0%, #1a6fd0 100%);
+      color: #FFFFFF;
+      padding: 0.85rem 2rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .cta-button:hover {
+      background: linear-gradient(135deg, #1a6fd0 0%, #0f4aa0 100%);
+      transform: translateY(-2px);
+    }
+
+    .cta-note {
+      color: #8CA3BE;
+      font-size: 0.95rem;
+      margin-top: 1rem;
+    }
+
+    .cta-note a {
+      color: #2A8EFF;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .cta-note a:hover {
+      color: #F26419;
+    }
+
+    /* Footer */
+    footer {
+      background: #0B1829;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 2rem;
+      text-align: center;
+      color: #8CA3BE;
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: #2A8EFF;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    footer a:hover {
+      color: #F26419;
+    }
+
+    @media (max-width: 768px) {
+      .faq-cta {
+        margin: 2rem 1.5rem;
+      }
+
+      .faq-cta h2 {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://sgtm.telecomcontractorsolutions.com/ns.html?id=GTM-MJPFLRBR"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+  <a href="#main-content" class="skip-link" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:999;background:#2A8EFF;color:#FFFFFF;padding:12px 24px;font-weight:700;text-decoration:none;" onfocus="this.style.position='fixed';this.style.left='0';this.style.top='0';this.style.width='auto';this.style.height='auto';this.style.overflow='visible';" onblur="this.style.position='absolute';this.style.left='-9999px';this.style.width='1px';this.style.height='1px';this.style.overflow='hidden';">Skip to main content</a>
+
+  <!-- Navigation -->
+  <nav aria-label="Main navigation">
+    <a href="/" class="nav-logo"><img src="/tcs-logo-horizontal.svg" alt="Telecom Contractor Solutions" height="44" style="display:block;"></a>
+    <ul class="nav-links">
+      <li><a href="/#services">Services</a></li>
+      <li><a href="/#process">How It Works</a></li>
+      <li><a href="/#about">About</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/#contact" class="nav-cta">Book your fit call</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <main id="main-content">
+  <section class="hero">
+    <h1>Frequently Asked Questions</h1>
+    <p>Everything you need to know about working with Telecom Contractor Solutions.</p>
+  </section>
+
+  <!-- FAQ Container -->
+  <div class="container">
+    <!-- Category 1: Getting Started -->
+    <div class="faq-category">
+      <h2 class="category-title">Getting Started</h2>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-question-text">What does Telecom Contractor Solutions actually build?</span>
+          <span class="faq-toggle" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          <p class="faq-answer-text">We build custom operations systems for telecom contractors running 10 to 100 field crews. That includes job tracking, billing automation, crew management, job costing, and dig documentation, all connected into one system that matches how your business actually runs. No off-the-shelf software. Everything is built around your workflows, owner requirements, and your crew structure.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-question-text">Who is TCS built for?</span>
+          <span class="faq-toggle" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          <p class="faq-answer-text">ISP and telecom contractors who install fiber, cable, or aerial infrastructure for owners and prime contractors. If you run field crews and deal with job closeouts, billing packets, compliance docs, and crew scheduling, we built this for you.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-question-text">How is this different from ServiceTitan or Jobber?</span>
+          <span class="faq-toggle" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          <p class="faq-answer-text">Those platforms are built for HVAC, plumbing, and general home services. They do not understand telecom workflows like pre-bore documentation, 811 ticket management, owner billing formats, or ISP subcontractor compliance requirements. TCS is purpose-built for telecom field operations. Nothing generic.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-question-text">What size company is this for?</span>
+          <span class="faq-toggle" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          <p class="faq-answer-text">We work best with telecom contractors running 10 to 100 field crews. Big enough that spreadsheets and group chats are breaking down, but not so big that you have an IT department building internal tools.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-question-text">Do I need to replace my current systems?</span>
+          <span class="faq-toggle" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          <p class="faq-answer-text">Not necessarily. We often integrate with what you already use, whether that is QuickBooks, Excel exports from the owner portal, or existing fleet tracking. The goal is to fill gaps and connect systems, not rip and replace everything.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category 2: How It Works -->
+    <div class="faq-category">
+      <h2 class="category-title">How It Works</h2>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-question-text">What does the process look like?</span>
+          <span class="faq-toggle" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          <p class="faq-answer-text">It starts with a free 30-minute fit call where we get a feel for your operation and decide together if a paid Operations Analysis is the right next step. The Analysis is two weeks of recorded interviews with ownership and crew, process mapping, an opportunity matrix, a prioritized roadmap, and ROI math on every recommendation. From there, we build whatever the Analysis prescribes and stay through 90 days of adoption support after launch.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-question-text">How long does it take to get up and running?</span>
+          <span class="faq-toggle" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          <p class="faq-answer-text">The first module is typically live within 2 to 4 weeks. We do not spend months on requirements documents. We build fast, get feedback from your crews in the field, and iterate.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-question-text">Will my crews actually use this?</span>
+          <span class="faq-toggle" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          <p class="faq-answer-text">That is the number one concern we hear, and it is why we build differently. Every system is designed for how crews actually work in the field, not how an office thinks they should work. We keep interfaces simple, reduce data entry to the minimum, and handle onboarding directly with your crew leads.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-question-text">What kind of support do I get?</span>
+          <span class="faq-toggle" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          <p class="faq-answer-text">You get direct access to the person who built your system. No ticket queues, no chatbots. When something needs to change, you call or text and we handle it. We also monitor system health proactively so issues get caught before they affect your crews.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Category 3: Pricing and Investment -->
+    <div class="faq-category">
+      <h2 class="category-title">Pricing and Investment</h2>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-question-text">Is there a setup fee?</span>
+          <span class="faq-toggle" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          <p class="faq-answer-text">There is a one-time implementation fee that covers system design, build-out, data migration, and crew onboarding. The exact amount depends on what the Operations Analysis prescribes. We scope and quote everything on the fit call before you commit, so there are no surprises.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-question-text">What is the ROI?</span>
+          <span class="faq-toggle" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          <p class="faq-answer-text">Most clients see returns within the first 60 days. The biggest wins come from recovering unbilled work (typically 3 to 8% of revenue), cutting billing cycle times in half, and reducing admin hours by 15 to 20 hours per week. Use our <a href="/roi-calculator.html">ROI calculator</a> to see the numbers for your operation.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-question-text">Are there long-term contracts?</span>
+          <span class="faq-toggle" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          <p class="faq-answer-text">We offer month-to-month and annual agreements. Annual agreements include a discount. There are no multi-year lock-ins.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category 4: Technical Details -->
+    <div class="faq-category">
+      <h2 class="category-title">Technical Details</h2>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-question-text">What technology do you use?</span>
+          <span class="faq-toggle" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          <p class="faq-answer-text">We build on modern cloud platforms that scale with your business. The specific stack depends on your needs, but everything is web-based, mobile-friendly, and designed to work on spotty cell connections that field crews deal with every day.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-question-text">Is my data secure?</span>
+          <span class="faq-toggle" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          <p class="faq-answer-text">All data is encrypted in transit and at rest, hosted on enterprise-grade cloud infrastructure with automatic backups. You own your data, and we can export it anytime.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-question-text">What happens if I want to stop using TCS?</span>
+          <span class="faq-toggle" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          <p class="faq-answer-text">Your data is yours. We provide a full export of all your records, documents, and history. No data hostage situations.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Section -->
+  <div class="faq-cta">
+    <h2>Still have questions?</h2>
+    <a href="/#contact" class="cta-button">Book your fit call</a>
+    <p class="cta-note">Or email us at <a href="mailto:info@telecomcontractorsolutions.com">info@telecomcontractorsolutions.com</a></p>
+  </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 Telecom Contractor Solutions. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+  </footer>
+
+  <!-- JSON-LD Schema -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What does Telecom Contractor Solutions actually build?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We build custom operations systems for telecom contractors running 10 to 100 field crews. That includes job tracking, billing automation, crew management, job costing, and dig documentation, all connected into one system that matches how your business actually runs. No off-the-shelf software. Everything is built around your workflows, owner requirements, and your crew structure."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who is TCS built for?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ISP and telecom contractors who install fiber, cable, or aerial infrastructure for owners and prime contractors. If you run field crews and deal with job closeouts, billing packets, compliance docs, and crew scheduling, we built this for you."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is this different from ServiceTitan or Jobber?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Those platforms are built for HVAC, plumbing, and general home services. They do not understand telecom workflows like pre-bore documentation, 811 ticket management, owner billing formats, or ISP subcontractor compliance requirements. TCS is purpose-built for telecom field operations. Nothing generic."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What size company is this for?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We work best with telecom contractors running 10 to 100 field crews. Big enough that spreadsheets and group chats are breaking down, but not so big that you have an IT department building internal tools."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to replace my current systems?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not necessarily. We often integrate with what you already use, whether that is QuickBooks, Excel exports from the owner portal, or existing fleet tracking. The goal is to fill gaps and connect systems, not rip and replace everything."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does the process look like?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It starts with a free 30-minute fit call where we get a feel for your operation and decide together if a paid Operations Analysis is the right next step. The Analysis is two weeks of recorded interviews with ownership and crew, process mapping, an opportunity matrix, a prioritized roadmap, and ROI math on every recommendation. From there, we build whatever the Analysis prescribes and stay through 90 days of adoption support after launch."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does it take to get up and running?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The first module is typically live within 2 to 4 weeks. We do not spend months on requirements documents. We build fast, get feedback from your crews in the field, and iterate."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will my crews actually use this?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "That is the number one concern we hear, and it is why we build differently. Every system is designed for how crews actually work in the field, not how an office thinks they should work. We keep interfaces simple, reduce data entry to the minimum, and handle onboarding directly with your crew leads."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What kind of support do I get?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You get direct access to the person who built your system. No ticket queues, no chatbots. When something needs to change, you call or text and we handle it. We also monitor system health proactively so issues get caught before they affect your crews."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there a setup fee?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "There is a one-time implementation fee that covers system design, build-out, data migration, and crew onboarding. The exact amount depends on what the Operations Analysis prescribes. We scope and quote everything on the fit call before you commit, so there are no surprises."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the ROI?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most clients see returns within the first 60 days. The biggest wins come from recovering unbilled work (typically 3 to 8% of revenue), cutting billing cycle times in half, and reducing admin hours by 15 to 20 hours per week. Use our ROI calculator to see the numbers for your operation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are there long-term contracts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We offer month-to-month and annual agreements. Annual agreements include a discount. There are no multi-year lock-ins."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What technology do you use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We build on modern cloud platforms that scale with your business. The specific stack depends on your needs, but everything is web-based, mobile-friendly, and designed to work on spotty cell connections that field crews deal with every day."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my data secure?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "All data is encrypted in transit and at rest, hosted on enterprise-grade cloud infrastructure with automatic backups. You own your data, and we can export it anytime."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if I want to stop using TCS?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Your data is yours. We provide a full export of all your records, documents, and history. No data hostage situations."
+      }
+    }
+  ]
+}
+  </script>
+
+  <!-- Accordion Functionality -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const faqItems = document.querySelectorAll('.faq-item');
+
+      faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+
+        question.addEventListener('click', function() {
+          // Close other items in the same category
+          const category = item.parentElement;
+          const otherItems = category.querySelectorAll('.faq-item');
+
+          otherItems.forEach(otherItem => {
+            if (otherItem !== item && otherItem.classList.contains('open')) {
+              otherItem.classList.remove('open');
+              otherItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+            }
+          });
+
+          // Toggle current item
+          const isOpen = item.classList.toggle('open');
+          question.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+      });
+    });
+  </script>
+</body>
+</html>

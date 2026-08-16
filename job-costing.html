@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://sgtm.telecomcontractorsolutions.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MJPFLRBR');</script>
+<!-- End Google Tag Manager -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Costing for Telecom Contractors | Telecom Contractor Solutions</title>
+    <meta name="description" content="Real-time job costing software for telecom contractors. Compare labor cost vs. production pay vs. billed revenue. Track margins by crew and flag over-budget jobs.">
+    <meta name="keywords" content="fiber contractor job costing, telecom job costing software, construction costing, margin tracking">
+    <link rel="canonical" href="https://telecomcontractorsolutions.com/job-costing.html">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Job Costing for Telecom Contractors | Telecom Contractor Solutions">
+    <meta property="og:description" content="Real-time job costing software for telecom contractors. Compare labor cost vs. production pay vs. billed revenue. Track margins by crew.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://telecomcontractorsolutions.com/job-costing.html">
+
+    <!-- Article Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Job Costing for Telecom Contractors",
+        "description": "Real-time job costing software for telecom contractors with margin tracking and budget alerts",
+        "keywords": "fiber contractor job costing, telecom job costing software, margin tracking",
+        "publisher": {
+            "@type": "Organization",
+            "name": "Telecom Contractor Solutions"
+        }
+    }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0B1829;
+            color: #C8D8EA;
+            font-family: 'Barlow', sans-serif;
+            line-height: 1.6;
+        }
+
+        a {
+            color: #2A8EFF;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #F26419;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Barlow Condensed', sans-serif;
+            color: #FFFFFF;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            margin-top: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            font-size: 1.6rem;
+            margin-top: 1.5rem;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            background-color: rgba(11, 24, 41, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(42, 142, 255, 0.2);
+        }
+
+        .logo {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #FFFFFF;
+        }
+
+        .logo a {
+            color: #FFFFFF;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #C8D8EA;
+            font-weight: 600;
+        }
+
+        .cta-button {
+            background-color: #2A8EFF;
+            color: #FFFFFF;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #F26419;
+            color: #FFFFFF;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: #C8D8EA;
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 6rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(42, 142, 255, 0.1) 0%, rgba(242, 100, 25, 0.05) 100%);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: #C8D8EA;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            background-color: #F26419;
+            color: #FFFFFF;
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .hero-cta:hover {
+            background-color: #2A8EFF;
+        }
+
+        /* Content Sections */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background-color: rgba(42, 142, 255, 0.1);
+            border-left: 4px solid #2A8EFF;
+            padding: 2rem;
+            border-radius: 4px;
+        }
+
+        .feature-card h3 {
+            color: #2A8EFF;
+            margin-top: 0;
+        }
+
+        .feature-card:hover {
+            border-left-color: #F26419;
+            background-color: rgba(242, 100, 25, 0.1);
+        }
+
+        .feature-card:hover h3 {
+            color: #F26419;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            background-color: rgba(42, 142, 255, 0.05);
+            margin: 4rem 0;
+            padding: 3rem 2rem;
+            border-radius: 4px;
+        }
+
+        .how-it-works h2 {
+            text-align: center;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .step {
+            counter-increment: step;
+            position: relative;
+            padding: 2rem 1rem 2rem 3rem;
+        }
+
+        .step::before {
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: #F26419;
+            color: #FFFFFF;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .steps {
+            counter-reset: step;
+        }
+
+        .step h4 {
+            color: #2A8EFF;
+            margin-bottom: 0.5rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(42, 142, 255, 0.2) 0%, rgba(242, 100, 25, 0.1) 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+            margin: 4rem 0;
+            border-radius: 4px;
+        }
+
+        .cta-section h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Internal Links */
+        .internal-links {
+            background-color: rgba(42, 142, 255, 0.05);
+            padding: 2rem;
+            border-radius: 4px;
+            margin: 3rem 0;
+        }
+
+        .internal-links h3 {
+            color: #2A8EFF;
+            margin-bottom: 1.5rem;
+        }
+
+        .links-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .links-list li {
+            list-style: none;
+        }
+
+        .links-list a {
+            color: #2A8EFF;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(0, 0, 0, 0.3);
+            color: #C8D8EA;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(42, 142, 255, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h4 {
+            color: #FFFFFF;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #C8D8EA;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #2A8EFF;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(42, 142, 255, 0.2);
+            font-size: 0.9rem;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                right: 0;
+                background-color: #0B1829;
+                flex-direction: column;
+                width: 100%;
+                gap: 0;
+                padding: 1rem 0;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                padding: 1rem 2rem;
+                border-bottom: 1px solid rgba(42, 142, 255, 0.1);
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+
+            .hero {
+                padding: 3rem 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .links-list {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://sgtm.telecomcontractorsolutions.com/ns.html?id=GTM-MJPFLRBR"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo"><a href="/"><img src="/tcs-logo-horizontal.svg" alt="Telecom Contractor Solutions" height="44" style="display:block;"></a></div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="https://telecomcontractorsolutions.com/#services">Services</a></li>
+            <li><a href="https://telecomcontractorsolutions.com/#how-it-works">How It Works</a></li>
+            <li><a href="https://telecomcontractorsolutions.com/#about">About</a></li>
+            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="https://telecomcontractorsolutions.com/#contact" class="cta-button">Book your fit call</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Know Your Margin Before You Finish</h1>
+        <p>Real-time job costing for telecom contractors. Compare labor cost vs. production pay vs. billed revenue. Catch unprofitable jobs and over-budget work before they drain your margin.</p>
+        <a href="https://telecomcontractorsolutions.com/#contact" class="hero-cta">Book your fit call</a>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h2>Job Costing Breaks Down the Three Numbers That Matter</h2>
+        <p>Most telecom contractors track revenue and assume profitability. Job costing exposes the gap between what you bill, what you pay, and what the job actually costs. That gap is where your margin lives or dies.</p>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>Labor Cost vs. Production Pay</h3>
+                <p>Your crew is paid a production rate (per splice, per foot, per task). The actual cost of that crew member (salary, taxes, benefits, payroll) is different. Job costing captures both and shows the real labor burn on every job.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Billed Revenue</h3>
+                <p>This is what the ISP pays you. It comes from the job closeout, rate card, and service code. Job costing stacks billed revenue against actual labor cost to show margin per job in real time.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Crew-Level Costing</h3>
+                <p>See which crews are profitable and which are not. One crew might turn 40% margin, another 15%. Job costing identifies high-cost crews, poor performers, and crews that need reallocation or onboarding support.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Material & Equipment Costs</h3>
+                <p>Track materials pulled from inventory, equipment rental, and vehicle costs per job. These add up fast and cut into margin. Job costing includes all of them in the cost baseline.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Margin Tracking in Real Time</h3>
+                <p>Watch margin as jobs progress. If a job is 30% complete and already at 50% of budget, you'll see it. Take action before the job finishes upside down.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Over-Budget Alerts</h3>
+                <p>Set a margin floor. If a job is trending below it, get an alert. Pause, reassess, or adjust crew assignment. Never find out a job lost money after it's closed.</p>
+            </div>
+        </div>
+
+        <!-- How It Works Section -->
+        <div class="how-it-works">
+            <h2>How Real-Time Costing Works</h2>
+            <p>Job costing feeds on three data streams: labor time, materials used, and billing amount. As data flows in from the field, the system calculates margin continuously.</p>
+
+            <div class="steps">
+                <div class="step">
+                    <h4>1. Labor Time Entry</h4>
+                    <p>Crews log time via the field app. Each hour is captured with crew member name, start/end time, and task. The system knows each crew member's payroll cost from the crew roster.</p>
+                </div>
+                <div class="step">
+                    <h4>2. Production Pay</h4>
+                    <p>You set production pay rates per task, crew type, or ISP contract. The system calculates production pay due to the crew based on work completed.</p>
+                </div>
+                <div class="step">
+                    <h4>3. Labor Cost Calculation</h4>
+                    <p>For every hour worked, the system burns labor cost (payroll, taxes, benefits). This is different from production pay and is the real cost of labor. The gap shows profit or loss on labor.</p>
+                </div>
+                <div class="step">
+                    <h4>4. Materials & Equipment</h4>
+                    <p>Materials are logged during or after closeout. Equipment rental is assigned. Everything is costed and added to the job's total cost.</p>
+                </div>
+                <div class="step">
+                    <h4>5. Billed Revenue</h4>
+                    <p>The job is billed based on rate card and service code. The billing amount is matched against total cost, and margin is calculated as a percentage and absolute amount.</p>
+                </div>
+                <div class="step">
+                    <h4>6. Margin Report</h4>
+                    <p>See margin by job, crew, ISP, service type, and time period. Identify trends, problem areas, and high-margin work. Use this to reprrice, reassign resources, or improve processes.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>Why This Matters</h2>
+        <p>Many contractors discover unprofitable work after the job is done. By then, it's too late. Job costing gives you visibility during execution. You can reallocate crews, renegotiate rates, or pause work if a job is going south. That visibility translates directly to profit.</p>
+
+        <!-- Internal Links -->
+        <div class="internal-links">
+            <h3>Related Modules</h3>
+            <ul class="links-list">
+                <li><a href="./job-tracking.html">Job Tracking</a></li>
+                <li><a href="./billing-automation.html">Billing Automation</a></li>
+                <li><a href="./crew-management.html">Crew and Subcontractor Management</a></li>
+                <li><a href="./dig-documentation.html">Dig Documentation and Damage Defense</a></li>
+            </ul>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <h2>See Where Your Margin Comes From</h2>
+            <p>Let's walk through a real job and show you how labor cost, production pay, and billed revenue come together. You'll see exactly where your profit or loss is hiding.</p>
+            <a href="https://telecomcontractorsolutions.com/#contact" class="hero-cta">Book your fit call</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Telecom Contractor Solutions</h4>
+                <p>Operations software built for telecom contractors.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="./job-tracking.html">Job Tracking</a></li>
+                    <li><a href="./billing-automation.html">Billing Automation</a></li>
+                    <li><a href="./crew-management.html">Crew Management</a></li>
+                    <li><a href="./job-costing.html">Job Costing</a></li>
+                    <li><a href="./dig-documentation.html">Dig Documentation</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="https://telecomcontractorsolutions.com/#about">About</a></li>
+                    <li><a href="/blog.html">Blog</a></li>
+                    <li><a href="https://telecomcontractorsolutions.com/#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Telecom Contractor Solutions. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
