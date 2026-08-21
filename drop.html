@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drop CSVs — Telecom Contractor Solutions</title>
+<meta name="description" content="Drop raw work order and ticket exports here, then run Import New Jobs on the board.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0B1829">
+
+<!-- Unfurl card: this is what shows when the link is pasted into a text,
+     Slack, or email. Crawlers read these and never run the redirect below. -->
+<meta property="og:type"        content="website">
+<meta property="og:site_name"   content="Telecom Contractor Solutions">
+<meta property="og:title"       content="Drop CSVs — OT Job Board">
+<meta property="og:description" content="Drop raw work order and ticket exports here, then run Import New Jobs on the board.">
+<meta property="og:url"         content="https://telecomcontractorsolutions.com/drop.html">
+<meta property="og:image"       content="https://telecomcontractorsolutions.com/assets/tcs-logo-bar.png">
+<meta property="og:image:width"  content="800">
+<meta property="og:image:height" content="150">
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="Drop CSVs — OT Job Board">
+<meta name="twitter:description" content="Drop raw work order and ticket exports here.">
+<meta name="twitter:image"       content="https://telecomcontractorsolutions.com/assets/tcs-logo-bar.png">
+
+<!-- Home-screen icon. This is why the shortcut shows the TCS mark
+     instead of the generic Google Sheets icon. -->
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/icon-512.png">
+<meta name="apple-mobile-web-app-title" content="Drop CSVs">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<style>
+  :root{ --ink:#0B1829; --paper:#F4F7FB; --blue:#2A8EFF; --orange:#F26419; --steel:#8CA3BE; }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; background:var(--ink); color:var(--paper);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    display:flex; align-items:center; justify-content:center; padding:24px;
+  }
+  .card{ max-width:520px; width:100%; text-align:center; }
+  .logo{ width:100%; max-width:420px; height:auto; margin:0 auto 28px; display:block; }
+  h1{ font-size:20px; margin:0 0 6px; letter-spacing:.4px; }
+  p{ color:var(--steel); font-size:14px; line-height:1.55; margin:0 0 26px; }
+  .bar{ height:3px; width:64px; background:var(--orange); margin:0 auto 26px; border-radius:2px; }
+  a.go{
+    display:inline-block; background:var(--blue); color:#fff; text-decoration:none;
+    font-weight:600; font-size:15px; padding:13px 30px; border-radius:8px;
+    transition:background .15s;
+  }
+  a.go:hover{ background:#1B7BE8; }
+  .note{ margin-top:22px; font-size:12px; color:#5A6B82; line-height:1.5; }
+  .spin{
+    width:16px; height:16px; border:2px solid rgba(255,255,255,.25);
+    border-top-color:#fff; border-radius:50%; display:inline-block;
+    vertical-align:-3px; margin-right:8px; animation:s .7s linear infinite;
+  }
+  @keyframes s{ to{ transform:rotate(360deg) } }
+  @media (prefers-reduced-motion:reduce){ .spin{ animation:none } }
+</style>
+</head>
+<body>
+  <div class="card">
+    <img class="logo" src="/assets/tcs-logo-bar.png"
+         alt="Telecom Contractor Solutions" width="800" height="150">
+    <div class="bar"></div>
+    <h1>Drop CSVs</h1>
+    <p id="msg"><span class="spin"></span>Opening the drop folder…</p>
+    <a class="go" id="go"
+       href="https://drive.google.com/drive/folders/1eLL1Id4G3jt62OA3SATnA6SX9MBH4wkR">
+       Open the drop folder</a>
+    <div class="note" id="note"></div>
+  </div>
+
+<script>
+(function () {
+  var SHEET = 'https://drive.google.com/drive/folders/1eLL1Id4G3jt62OA3SATnA6SX9MBH4wkR';
+  var q = window.location.search + window.location.hash;
+  // ?stay=1 holds the page so it can be added to a home screen.
+  var stay = /(\?|&|#)stay/.test(q);
+
+  if (stay) {
+    document.getElementById('msg').textContent =
+      'Paused so you can add this to your home screen.';
+    document.getElementById('note').textContent =
+      'iPhone: Share, then Add to Home Screen. The icon will be the TCS mark.';
+    return;
+  }
+  document.getElementById('note').innerHTML =
+    'Not redirecting? Use the button above.';
+  setTimeout(function () { window.location.replace(SHEET); }, 400);
+})();
+</script>
+</body>
+</html>
