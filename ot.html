@@ -43,14 +43,16 @@
     display:flex; flex-direction:column; align-items:center;
     padding:max(28px,env(safe-area-inset-top)) 20px max(28px,env(safe-area-inset-bottom));
   }
-  .wrap{ width:100%; max-width:460px; margin:auto 0; }
+  .wrap{ width:100%; max-width:820px; margin:auto 0; }
   .logo{ display:block; width:100%; max-width:340px; height:auto; margin:0 auto 22px; }
   .rule{ height:3px; width:56px; background:var(--orange); border-radius:2px; margin:0 auto 30px; }
 
+  .tiles{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:30px; }
+  @media (max-width:640px){ .tiles{ grid-template-columns:1fr; } }
   a.tile{
     display:flex; align-items:center; gap:16px;
     background:var(--ink2); border:1px solid var(--line); border-radius:12px;
-    padding:20px 18px; margin-bottom:14px; text-decoration:none; color:inherit;
+    padding:20px 18px; text-decoration:none; color:inherit;
     min-height:82px; transition:border-color .15s, background .15s, transform .06s;
   }
   a.tile:hover{ border-color:var(--blue); background:#132542; }
@@ -66,6 +68,14 @@
   .s{ display:block; font-size:13px; color:var(--steel); line-height:1.4; }
   .chev{ flex:none; color:#40587A; }
 
+  .mhead{ display:flex; align-items:baseline; justify-content:space-between;
+           gap:12px; margin-bottom:12px; flex-wrap:wrap; }
+  .mhead h2{ font-size:15px; margin:0; letter-spacing:.3px; }
+  .mhead span{ font-size:11.5px; color:#50678A; }
+  .frame{ background:#fff; border:1px solid var(--line); border-radius:12px;
+          overflow:hidden; box-shadow:0 2px 18px rgba(0,0,0,.28); }
+  .frame iframe{ display:block; width:100%; height:860px; border:0; }
+  @media (max-width:640px){ .frame iframe{ height:1080px; } }
   footer{ text-align:center; margin-top:26px; }
   footer a{ color:#50678A; font-size:12px; text-decoration:none; letter-spacing:.3px; }
   footer a:hover{ color:var(--steel); }
@@ -78,6 +88,7 @@
        alt="Telecom Contractor Solutions" width="800" height="150">
   <div class="rule"></div>
 
+  <div class="tiles">
   <a class="tile"
      href="https://docs.google.com/spreadsheets/d/1ythohbabuhqwvBtLDPdHe7l_8zk_qhaXBDt5W56Koqw/edit">
     <span class="ico b" aria-hidden="true">
@@ -115,6 +126,18 @@
       <path d="M9 5l7 7-7 7"/>
     </svg>
   </a>
+  </div>
+
+  <section>
+    <div class="mhead">
+      <h2>Live metrics</h2>
+      <span>Counts only &middot; refreshes from the board</span>
+    </div>
+    <div class="frame">
+      <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQU74_iuPGb_SYfYmyTpeQE6nZmM5mMiS76zJmZORLszjmAPd-ZHxpfO3O6WpD8NFzVhaNUMzYzAbcR/pubhtml?gid=1067271056&amp;single=true&amp;widget=true&amp;headers=false"
+              loading="lazy" title="OT Job Board live metrics"></iframe>
+    </div>
+  </section>
 
   <footer>
     <a href="https://telecomcontractorsolutions.com">telecomcontractorsolutions.com</a>
