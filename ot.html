@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>OT Job Board — Telecom Contractor Solutions</title>
+<meta name="description" content="Open the OT job board or drop new CSV exports for import.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0B1829">
+
+<meta property="og:type"        content="website">
+<meta property="og:site_name"   content="Telecom Contractor Solutions">
+<meta property="og:title"       content="OT Job Board">
+<meta property="og:description" content="Open the job board or drop new CSV exports for import.">
+<meta property="og:url"         content="https://telecomcontractorsolutions.com/ot.html">
+<meta property="og:image"       content="https://telecomcontractorsolutions.com/assets/tcs-logo-bar.png">
+<meta property="og:image:width"  content="800">
+<meta property="og:image:height" content="150">
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="OT Job Board">
+<meta name="twitter:description" content="Open the job board or drop new CSV exports.">
+<meta name="twitter:image"       content="https://telecomcontractorsolutions.com/assets/tcs-logo-bar.png">
+
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/icon-512.png">
+<meta name="apple-mobile-web-app-title" content="OT Board">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<style>
+  :root{
+    --ink:#0B1829; --ink2:#111F35; --line:#1E3050;
+    --paper:#F4F7FB; --steel:#8CA3BE;
+    --blue:#2A8EFF; --orange:#F26419;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; min-height:100dvh; background:var(--ink); color:var(--paper);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    display:flex; flex-direction:column; align-items:center;
+    padding:max(28px,env(safe-area-inset-top)) 20px max(28px,env(safe-area-inset-bottom));
+  }
+  .wrap{ width:100%; max-width:460px; margin:auto 0; }
+  .logo{ display:block; width:100%; max-width:340px; height:auto; margin:0 auto 22px; }
+  .rule{ height:3px; width:56px; background:var(--orange); border-radius:2px; margin:0 auto 30px; }
+
+  a.tile{
+    display:flex; align-items:center; gap:16px;
+    background:var(--ink2); border:1px solid var(--line); border-radius:12px;
+    padding:20px 18px; margin-bottom:14px; text-decoration:none; color:inherit;
+    min-height:82px; transition:border-color .15s, background .15s, transform .06s;
+  }
+  a.tile:hover{ border-color:var(--blue); background:#132542; }
+  a.tile:active{ transform:scale(.985); }
+  .ico{
+    flex:none; width:46px; height:46px; border-radius:10px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .ico.b{ background:rgba(42,142,255,.14); }
+  .ico.o{ background:rgba(242,100,25,.14); }
+  .txt{ flex:1; min-width:0; display:block; }
+  .t{ display:block; font-size:17px; font-weight:700; letter-spacing:.2px; margin-bottom:4px; }
+  .s{ display:block; font-size:13px; color:var(--steel); line-height:1.4; }
+  .chev{ flex:none; color:#40587A; }
+
+  footer{ text-align:center; margin-top:26px; }
+  footer a{ color:#50678A; font-size:12px; text-decoration:none; letter-spacing:.3px; }
+  footer a:hover{ color:var(--steel); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <img class="logo" src="/assets/tcs-logo-bar.png"
+       alt="Telecom Contractor Solutions" width="800" height="150">
+  <div class="rule"></div>
+
+  <a class="tile"
+     href="https://docs.google.com/spreadsheets/d/1ythohbabuhqwvBtLDPdHe7l_8zk_qhaXBDt5W56Koqw/edit">
+    <span class="ico b" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+           stroke="#2A8EFF" stroke-width="2" stroke-linecap="square">
+        <rect x="3" y="3" width="18" height="18" rx="2"/>
+        <path d="M3 9h18M9 9v12"/>
+      </svg>
+    </span>
+    <span class="txt">
+      <span class="t">Open the Job Board</span>
+      <span class="s">Assign crews, check due dates, close jobs out</span>
+    </span>
+    <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true">
+      <path d="M9 5l7 7-7 7"/>
+    </svg>
+  </a>
+
+  <a class="tile"
+     href="https://drive.google.com/drive/folders/1eLL1Id4G3jt62OA3SATnA6SX9MBH4wkR">
+    <span class="ico o" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+           stroke="#F26419" stroke-width="2" stroke-linecap="square">
+        <path d="M12 16V4M7 9l5-5 5 5"/>
+        <path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/>
+      </svg>
+    </span>
+    <span class="txt">
+      <span class="t">Drop CSV Exports</span>
+      <span class="s">Then run Import New Jobs on the board</span>
+    </span>
+    <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true">
+      <path d="M9 5l7 7-7 7"/>
+    </svg>
+  </a>
+
+  <footer>
+    <a href="https://telecomcontractorsolutions.com">telecomcontractorsolutions.com</a>
+  </footer>
+
+</div>
+</body>
+</html>
