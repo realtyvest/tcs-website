@@ -9,21 +9,726 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MJPFLRBR');</script>
 <!-- End Google Tag Manager -->
 
-<meta charset="UTF-8">
-<link rel="canonical" href="https://telecomcontractorsolutions.com/">
-<meta property="og:image" content="https://telecomcontractorsolutions.com/assets/og-default.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://telecomcontractorsolutions.com/assets/og-default.png">
-<meta http-equiv="refresh" content="0;url=index.html#about">
-<title>About | Telecom Contractor Solutions</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Gil Ramirez | Telecom Contractor Solutions</title>
+  <meta name="description" content="Gil Ramirez founded Telecom Contractor Solutions in Houston after watching telecom contractors lose six figures a year to systems that worked at 10 techs and broke at 40.">
+  <link rel="canonical" href="https://telecomcontractorsolutions.com/about.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="profile">
+  <meta property="og:url" content="https://telecomcontractorsolutions.com/about.html">
+  <meta property="og:title" content="About Gil Ramirez | Telecom Contractor Solutions">
+  <meta property="og:description" content="Gil Ramirez founded Telecom Contractor Solutions in Houston after watching telecom contractors lose six figures a year to systems that worked at 10 techs and broke at 40.">
+  <meta property="og:image" content="https://telecomcontractorsolutions.com/assets/og-default.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="Telecom Contractor Solutions">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="About Gil Ramirez | Telecom Contractor Solutions">
+  <meta name="twitter:description" content="Gil Ramirez founded Telecom Contractor Solutions in Houston after watching telecom contractors lose six figures a year to systems that worked at 10 techs and broke at 40.">
+  <meta name="twitter:image" content="https://telecomcontractorsolutions.com/assets/og-default.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Favicon: fiber logo mark -->
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0B1829;
+      --navy-mid: #152236;
+      --navy-light: #1E3350;
+      --electric: #2A8EFF;
+      --electric-dim: #1a6fd0;
+      --orange: #F26419;
+      --orange-dim: #d4551a;
+      --white: #FFFFFF;
+      --off-white: #F4F7FB;
+      --muted: #9BB3CC;
+      --text-light: #C8D8EA;
+      --border: rgba(255,255,255,0.08);
+      --border-light: rgba(42,142,255,0.2);
+      --font-display: 'Barlow Condensed', sans-serif;
+      --font-body: 'Barlow', sans-serif;
+      --success: #10B981;
+      --warning: #F59E0B;
+      --error: #EF4444;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--navy);
+      color: var(--white);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--electric); text-decoration: none; transition: color 0.2s; }
+    a:hover { color: var(--electric-dim); }
+
+    /* SKIP LINK */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--electric);
+      color: var(--white);
+      padding: 8px 16px;
+      text-decoration: none;
+      z-index: 100;
+      border-radius: 0 0 6px 0;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(11,24,41,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+
+    .nav-logo {
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.3px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-cta {
+      background: var(--electric) !important;
+      color: var(--white) !important;
+      padding: 9px 20px;
+      border-radius: 6px;
+      font-weight: 600 !important;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover { background: var(--electric-dim) !important; }
+
+    /* Mobile nav toggle */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: all 0.25s;
+    }
+
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: 68px;
+      left: 0;
+      right: 0;
+      background: rgba(11,24,41,0.98);
+      border-bottom: 1px solid var(--border);
+      padding: 24px 5%;
+      flex-direction: column;
+      gap: 20px;
+      z-index: 99;
+    }
+
+    .mobile-menu.open { display: flex; }
+
+    .mobile-menu a {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text-light);
+      text-decoration: none;
+    }
+
+    .mobile-menu .nav-cta {
+      display: inline-block;
+      text-align: center;
+      padding: 12px 20px !important;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 5%;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 80% 50%, rgba(42,142,255,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(242,100,25,0.08) 0%, transparent 60%);
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 6vw, 64px);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: var(--text-light);
+      line-height: 1.6;
+      margin-bottom: 40px;
+    }
+
+    /* MAIN CONTENT */
+    main {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 80px 5%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    section h2 {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 700;
+      margin-bottom: 50px;
+      text-align: center;
+      letter-spacing: -0.5px;
+    }
+
+    /* COMPARISON TABLE */
+    .table-wrapper {
+      position: relative;
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .scroll-hint {
+      display: none;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--navy-mid);
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      padding: 16px 12px;
+      text-align: left;
+      border: 1px solid var(--border);
+      font-size: 14px;
+    }
+
+    .comparison-table th {
+      background: var(--navy-light);
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 0.3px;
+      color: var(--white);
+    }
+
+    .comparison-table td {
+      color: var(--text-light);
+      vertical-align: middle;
+    }
+
+    .feature-name {
+      font-weight: 600;
+      color: var(--white);
+      min-width: 200px;
+      white-space: normal;
+    }
+
+    /* TCS Column Highlight */
+    .col-tcs {
+      background: rgba(42,142,255,0.06);
+      border-left: 4px solid var(--electric);
+    }
+
+    .col-tcs th {
+      background: rgba(42,142,255,0.12);
+      color: var(--electric);
+      font-weight: 700;
+    }
+
+    /* Cell Content */
+    .cell-yes::before {
+      content: "✓ ";
+      color: var(--success);
+      font-weight: bold;
+    }
+
+    .cell-yes {
+      color: var(--success);
+    }
+
+    .cell-no::before {
+      content: "✕ ";
+      color: var(--error);
+      font-weight: bold;
+    }
+
+    .cell-no {
+      color: var(--error);
+    }
+
+    .cell-limited::before {
+      content: "◐ ";
+      color: var(--warning);
+      font-weight: bold;
+    }
+
+    .cell-limited {
+      color: var(--warning);
+    }
+
+    .cell-partial::before {
+      content: "◐ ";
+      color: var(--warning);
+      font-weight: bold;
+    }
+
+    .cell-partial {
+      color: var(--warning);
+    }
+
+    .comparison-table tbody tr {
+      transition: background 0.2s;
+    }
+
+    .comparison-table tbody tr:hover {
+      background: rgba(42,142,255,0.08);
+    }
+
+    /* COLUMN FILTERS */
+    .column-filters {
+      margin-bottom: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    .column-filters label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--text-light);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .column-filters input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: var(--electric);
+    }
+
+    /* WHY IT MATTERS CARDS */
+    .cards-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .card {
+      background: var(--navy-light);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 36px;
+      transition: all 0.3s;
+    }
+
+    .card:hover {
+      border-color: var(--border-light);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(42,142,255,0.12);
+    }
+
+    .card h3 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--white);
+      letter-spacing: -0.3px;
+    }
+
+    .card p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text-light);
+    }
+
+    /* DIFFERENTIATORS */
+    .differentiators {
+      background: var(--navy-light);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 50px 40px;
+      margin-top: 50px;
+    }
+
+    .differentiators h3 {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 40px;
+      text-align: center;
+      letter-spacing: -0.5px;
+    }
+
+    .diff-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .diff-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .diff-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--electric);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    .diff-item h4 {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--white);
+    }
+
+    .diff-item p {
+      font-size: 14px;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+
+    /* CTA SECTION */
+    .cta-section {
+      background: linear-gradient(135deg, rgba(42,142,255,0.12) 0%, rgba(242,100,25,0.08) 100%);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 60px 40px;
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    .cta-section h3 {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+    }
+
+    .cta-section p {
+      font-size: 16px;
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto 30px;
+      line-height: 1.7;
+    }
+
+    .cta-button {
+      background: var(--electric);
+      color: var(--white);
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      letter-spacing: 0.3px;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .cta-button:hover {
+      background: var(--electric-dim);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(42,142,255,0.2);
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--navy-mid);
+      border-top: 1px solid var(--border);
+      padding: 50px 5%;
+      margin-top: 80px;
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      letter-spacing: -0.3px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer-col a {
+      font-size: 14px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover {
+      color: var(--electric);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 30px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .nav-hamburger {
+        display: flex;
+      }
+
+      section {
+        padding: 50px 5%;
+      }
+
+      .comparison-table th,
+      .comparison-table td {
+        padding: 12px 8px;
+        font-size: 13px;
+      }
+
+      .feature-name {
+        min-width: 140px;
+      }
+
+      .scroll-hint {
+        display: block;
+      }
+
+      .cards-container {
+        grid-template-columns: 1fr;
+      }
+
+      .differentiators {
+        padding: 30px 24px;
+      }
+
+      .cta-section {
+        padding: 40px 24px;
+      }
+
+      .cta-section h3 {
+        font-size: 24px;
+      }
+
+      .diff-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        padding: 50px 5%;
+        min-height: auto;
+      }
+
+      .hero h1 {
+        font-size: 28px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      section h2 {
+        font-size: 24px;
+        margin-bottom: 30px;
+      }
+
+      .table-wrapper {
+        border-radius: 8px;
+      }
+
+      .comparison-table th,
+      .comparison-table td {
+        padding: 10px 6px;
+        font-size: 12px;
+      }
+
+      .column-filters {
+        flex-direction: column;
+      }
+
+      .column-filters label {
+        font-size: 13px;
+      }
+
+      .card {
+        padding: 24px;
+      }
+
+      .differentiators {
+        padding: 24px;
+      }
+
+      .diff-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+      }
+
+      .cta-section {
+        padding: 30px 20px;
+      }
+    }
+  </style>
   <!-- v38: favicon -->
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0B1829">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Gil Ramirez",
+    "jobTitle": "Founder",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Telecom Contractor Solutions",
+      "url": "https://telecomcontractorsolutions.com/"
+    },
+    "url": "https://telecomcontractorsolutions.com/about.html",
+    "knowsAbout": [
+      "telecom contractor operations",
+      "field operations",
+      "job costing",
+      "billing and collections",
+      "aerial and underground infrastructure"
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Houston",
+      "addressRegion": "TX",
+      "addressCountry": "US"
+    }
+  }
+  </script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -31,6 +736,185 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<p>Redirecting to <a href="index.html#about">About Gil Ramirez</a>...</p>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <nav aria-label="Main navigation">
+    <a href="/" class="nav-logo">
+      <img src="/tcs-logo-horizontal.svg" alt="Telecom Contractor Solutions" height="44" style="display:block;">
+    </a>
+    <ul class="nav-links">
+      <li><a href="/#services">Services</a></li>
+      <li><a href="/#process">How It Works</a></li>
+      <li><a href="/#about">About</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/#contact" class="nav-cta">Book your fit call</a></li>
+    </ul>
+    <button class="nav-hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
+    <a href="/#services">Services</a>
+    <a href="/#process">How It Works</a>
+    <a href="/#about">About</a>
+    <a href="/blog.html">Blog</a>
+    <a href="/#contact" class="nav-cta">Book your fit call</a>
+  </div>
+
+  <main id="main-content">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <h1>I build the back office these operations should have had before the growth hit.</h1>
+        <p>I founded Telecom Contractor Solutions in Houston after watching telecom contractors lose six figures a year to systems that worked fine at 10 techs and collapsed at 40. They outgrow their tools long before they hit the scale that justifies enterprise software. The gap in between is where the money quietly disappears.</p>
+      </div>
+    </section>
+
+    <!-- THE GAP -->
+    <section>
+      <h2>What that gap actually looks like</h2>
+      <p>It is not exotic. It is the same handful of failures in almost every operation I walk into.</p>
+      <p>Billing that waits on the owner. Job closeout data living in group texts and camera rolls. Crews driving to the wrong site because the schedule changed after they left the yard. Overtime nobody planned. Invoices sitting 45 days out because the paperwork to support them is scattered across three phones. And underneath all of it, no reliable answer to the one question that decides everything: did that job make money?</p>
+      <p>I have sat in that chair. Not as an observer with a framework. As the person the invoices waited on.</p>
+    </section>
+
+    <!-- HOW I WORK -->
+    <section>
+      <h2>How I work</h2>
+      <p>Every engagement starts with an Operations Analysis. Two weeks, fixed fee, scoped to the size of the operation. I go through how the work actually moves from assignment to cash, crew by crew, and I come back with a map of where the money is walking out and what it is costing you per month.</p>
+      <p>You get the findings whether or not you build anything with me. If we do build, the analysis fee credits into the engagement.</p>
+      <p>What comes after that is different for every operation. Sometimes it is a dispatch board. Sometimes it is closing out billing at the job instead of on Sunday night. Sometimes the systems are fine and the real problem is that one person is the single point of failure for three functions. I would rather tell you that than sell you a build you do not need.</p>
+    </section>
+
+    <!-- RESULTS -->
+    <section>
+      <h2>What the work has produced</h2>
+      <p>At one client, revenue grew 40 percent while net margin improved more than four times over. At another, we rebuilt billing from scratch, and the owner stopped spending Fridays chasing payments from the week before. One client secured SBA financing and a working capital line on the back of financials that could finally be produced on demand.</p>
+      <p>Those are two operations. Yours will look like some of that, or none of it. The analysis is how we find out which.</p>
+    </section>
+
+    <!-- FIT -->
+    <section>
+      <h2>Who this is not for</h2>
+      <p>If you are running fewer than 10 field techs, you probably do not need me yet. If you want software you can buy, install, and forget, that is a different purchase and there are good options for it. If the plan is to hand this off and never look at it again, this will not work, because the crews have to adopt it and that takes you in the room for the first 90 days.</p>
+      <p>Based in Houston, Texas. Working with telecom contractors nationwide, aerial and underground, typically 10 to 100 field technicians.</p>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section>
+      <div class="cta-section">
+        <h3>Would it be a bad idea to spend 30 minutes on this?</h3>
+        <p>The fit call is 30 minutes and costs nothing. The only thing I need to know going in is what part of the operation is currently waiting on you.</p>
+        <a href="/#contact" class="cta-button">Book your fit call</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="/pre-bore-documentation.html">Dig Documentation</a></li>
+          <li><a href="/crew-management.html">Crew Management</a></li>
+          <li><a href="/job-tracking.html">Job Tracking</a></li>
+          <li><a href="/billing-automation.html">Billing Automation</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/blog.html">Blog</a></li>
+          <li><a href="/#contact">Contact</a></li>
+          <li><a href="/compare.html">Compare</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="/roi-calculator.html">ROI Calculator</a></li>
+          <li><a href="/faq.html">FAQ</a></li>
+          <li><a href="/#contact">Book your fit call</a></li>
+          <li><a href="/#process">How It Works</a></li>
+          <li><a href="/blog.html">Telecom Insights</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-family" style="margin-top:6px; font-size: 0.85rem; opacity: 0.85;">Telecom Contractor Solutions is the telecom practice of <a href="https://simplecontractorsystems.com/?utm_source=tcs&amp;utm_medium=site&amp;utm_campaign=cross-practice&amp;utm_content=footer" style="color:#A0B4D8;">Simple Contractor Systems</a>, serving electrical, HVAC, plumbing, GC and utility contractors with the same audit-first process.</p>
+    <p>&copy; 2026 Telecom Contractor Solutions. All rights reserved.</p>
+    </div>
+  <p class="footer-nap" style="margin-top:12px;font-size:14px;line-height:1.6;color:#A0B4D8;"><a href="tel:+18329170091" style="color:#A0B4D8;text-decoration:none;">(832) 917-0091</a><br>Arena Tower, 7324 Southwest Freeway, Suite 264<br>Houston, TX 77074</p>
+  </footer>
+
+  <script>
+    // Mobile hamburger menu toggle
+    const hamburger = document.querySelector('.nav-hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.contains('open');
+      mobileMenu.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', !isOpen);
+    });
+
+    // Close mobile menu when clicking a link
+    const mobileLinks = mobileMenu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Column toggle functionality
+    const columnToggles = document.querySelectorAll('.col-toggle');
+
+    columnToggles.forEach(toggle => {
+      toggle.addEventListener('change', updateTableVisibility);
+    });
+
+    function updateTableVisibility() {
+      const table = document.querySelector('.comparison-table');
+      const allCells = table.querySelectorAll('[data-column]');
+      const visibleColumns = new Set();
+
+      columnToggles.forEach(toggle => {
+        if (toggle.checked) {
+          visibleColumns.add(toggle.dataset.column);
+        }
+      });
+
+      allCells.forEach(cell => {
+        const column = cell.dataset.column;
+        if (visibleColumns.has(column)) {
+          cell.style.display = '';
+        } else {
+          cell.style.display = 'none';
+        }
+      });
+    }
+
+    // Smooth scroll behavior already set in CSS
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href !== '#') {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      });
+    });
+  </script>
 </body>
 </html>
