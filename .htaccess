@@ -1,0 +1,4 @@
+RewriteEngine On
+RewriteRule ^fit-call$ /fit-call/ [R=301,L]
+RewriteRule ^fit-call\.html$ /fit-call/ [R=301,L]
+RewriteRule ^book\.html$ /fit-call/ [R=301,L]
