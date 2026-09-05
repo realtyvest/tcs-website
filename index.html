@@ -70,7 +70,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     --font-display: 'Barlow Condensed', sans-serif;
     --font-body: 'Barlow', sans-serif;
     --nav-h: 64px;
-    --nav-h-mobile: 60px;
+    --nav-h-mobile: 64px;
   }
 
   html { scroll-behavior: smooth; }
@@ -143,14 +143,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     align-items: center;
     flex-shrink: 1;
     min-width: 0;
-    max-width: 320px;
+    max-width: 360px;
   }
 
   .nav-logo img {
     display: block;
-    height: 44px;
+    height: 52px;
     width: auto;
-    max-height: 48px;
+    max-height: 56px;
     max-width: 100%;
     object-fit: contain;
   }
@@ -558,6 +558,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   /* keep legacy .diagrams unused; avoid mobile stacking lanes */
 
 
+
+  /* Option B: 10–100 slim strip under lanes (not chip card) */
+  .hero-fit-strip {
+    margin: 0.75rem 0 0;
+    padding: 0;
+    color: var(--muted);
+    font-size: 0.8125rem;
+    line-height: 1.4;
+  }
+  .hero-fit-strip strong {
+    color: var(--white);
+    font-weight: 700;
+    margin-right: 0.35rem;
+  }
+  .hero .swimlanes {
+    margin-top: 1rem;
+  }
+  .hero-below {
+    margin-top: 1.25rem;
+  }
+  .hero-below .hero-actions {
+    margin-top: 0.75rem;
+  }
+
   /* OUTCOMES */
   .outcomes-list {
     list-style: none;
@@ -850,24 +874,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
 
 
-  /* LOGO_SIZE_LOCK 2026-09-05 · Gil bump 48px mobile (40 too small on iPhone) */
+  /* LOGO_SIZE_LOCK rev · Gil LOCK Option B · 56px mobile */
   @media (max-width: 1023px) {
-    nav { height: 60px; }
-    .mobile-menu { top: 60px; }
-    .nav-logo { max-width: 300px; }
+    nav { height: 64px; }
+    .mobile-menu { top: 64px; }
+    .nav-logo { max-width: 340px; }
     .nav-logo img {
-      height: 44px;
-      max-height: 44px;
+      height: 56px;
+      max-height: 56px;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
     }
   }
 
   @media (max-width: 767px) {
-    nav { height: 60px; }
-    .mobile-menu { top: 60px; }
-    .nav-logo { max-width: min(300px, 78vw); }
+    nav { height: 64px; }
+    .mobile-menu { top: 64px; }
+    .nav-logo { max-width: min(320px, 82vw); }
     .nav-logo img {
-      height: 48px;
-      max-height: 48px;
+      height: 56px;
+      max-height: 56px;
       width: auto;
       max-width: 100%;
       object-fit: contain;
@@ -892,10 +919,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .mobile-menu { top: var(--nav-h-mobile); }
     .nav-links { display: none; }
     .nav-hamburger { display: flex; }
-    .nav-logo { max-width: min(300px, 78vw); }
+    .nav-logo { max-width: min(320px, 82vw); }
     .nav-logo img {
-      height: 48px;
-      max-height: 48px;
+      height: 56px;
+      max-height: 56px;
       width: auto;
       max-width: 100%;
       object-fit: contain;
@@ -921,12 +948,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
 
     .hero {
-      padding: 2.25rem 16px 2rem;
-      min-height: auto;
+      padding: 1.5rem 16px 1.25rem;
+      min-height: calc(100dvh - var(--nav-h-mobile));
     }
     .punch { font-size: 0.9375rem; font-weight: 700; }
-    .hero-actions { margin-top: 1rem; }
-    .chips { margin-top: 0.75rem; }
+    .hero-actions { margin-top: 0.75rem; }
+    .hero .swimlanes { margin-top: 0.85rem; }
+    .hero-fit-strip { margin-top: 0.65rem; }
+    .hero-below { margin-top: 1.5rem; }
+    .chips { display: none; }
 
     h1 {
       font-size: clamp(36px, 9vw, 44px);
@@ -1043,32 +1073,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <main id="main-content">
 
-<!-- 1 · HERO -->
+<!-- 1 · HERO (Option B math-led fold) -->
 <section class="hero" id="home" data-hero>
   <div class="hero-inner">
     <p class="eyebrow hero-enter">Telecom Contractor Solutions · Houston · ISP contractors nationwide</p>
     <div class="hero-rule hero-enter" aria-hidden="true"></div>
     <h1 class="hero-enter">From Field to Financials</h1>
     <p class="punch hero-enter">Stop rebuilding Tuesday’s job on Friday.</p>
-    <p class="sub prose hero-enter">Capture the work once in the field. Move production, photos, closeouts, job cost, and billing through one connected workflow, so the office isn’t rebuilding Tuesday’s job on Friday.</p>
     <div class="hero-actions hero-enter">
       <a class="btn" href="/fit-call">Book a Fit Call</a>
-      <a class="btn btn-ghost" href="#how">See How the System Works</a>
     </div>
-    <div class="chips hero-enter" aria-label="Proof points">
-      <div class="chip"><strong>10–100</strong> Field technicians, our exact fit</div>
-    </div>
-  </div>
-</section>
-<div class="hero-bridge" aria-hidden="true"></div>
 
-<!-- 2 · PROBLEM -->
-<section class="section section--alt" id="problem">
-  <div class="section-inner">
-    <h2>Your field knows what happened. Your office shouldn’t have to reconstruct it.</h2>
-    <p class="sub prose">Most ISP contractors don’t lose money because crews don’t work. They lose it in the handoffs: WhatsApp, phone photos, paper, one spreadsheet, then another, then accounting, until Friday is a rebuild of Tuesday.</p>
-
-    <div class="swimlanes" aria-label="Current handoffs versus target workflow">
+    <div class="swimlanes hero-enter" aria-label="Current handoffs versus target workflow">
       <div class="swimlanes-head">
         <span class="diagram-label">Before → after</span>
         <span class="pill">7 steps → 5</span>
@@ -1098,6 +1114,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
     </div>
+    <p class="hero-fit-strip hero-enter"><strong>10–100</strong> <span>Field technicians, our exact fit</span></p>
+
+    <div class="hero-below hero-enter">
+      <p class="sub prose">Capture the work once in the field. Move production, photos, closeouts, job cost, and billing through one connected workflow, so the office isn’t rebuilding Tuesday’s job on Friday.</p>
+      <div class="hero-actions">
+        <a class="btn btn-ghost" href="#how">See How the System Works</a>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="hero-bridge" aria-hidden="true"></div>
+
+<!-- 2 · PROBLEM -->
+<section class="section section--alt" id="problem">
+  <div class="section-inner">
+    <h2>Your field knows what happened. Your office shouldn’t have to reconstruct it.</h2>
+    <p class="sub prose">Most ISP contractors don’t lose money because crews don’t work. They lose it in the handoffs: WhatsApp, phone photos, paper, one spreadsheet, then another, then accounting, until Friday is a rebuild of Tuesday.</p>
   </div>
 </section>
 
