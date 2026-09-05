@@ -9,7 +9,7 @@
   width: 100%;
   max-width: var(--content-max, 1120px);
   margin-top: 1rem;
-  background: rgba(11, 24, 41, 0.55);
+  background: var(--wt-navy);
   border: 1px solid var(--wt-border);
   border-radius: var(--radius, 8px);
   padding: 1.15rem 1.2rem 1.25rem;
@@ -201,6 +201,13 @@
   visibility: hidden;
 }
 
+/* Settled lock: wins over incomplete scrub / CSS opacity:0 fights */
+.wt-closing.is-settled {
+  opacity: 1 !important;
+  visibility: visible !important;
+  color: var(--white, #fff);
+}
+
 .wt.is-reduced .wt-card--current {
   display: none;
 }
@@ -215,6 +222,11 @@
   opacity: 1;
   visibility: visible;
   transform: none;
+}
+
+.wt.is-reduced .wt-closing.is-settled {
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .wt.is-reduced [data-wt-chrome-current] {
@@ -240,6 +252,19 @@
 
   .wt-stage {
     overflow-x: hidden;
+  }
+
+  /* Persistent target stack while current groups fade (no Flip absolute merge) */
+  .wt-col--target {
+    position: sticky;
+    top: calc(var(--nav-h-mobile, 56px) + 8px);
+    z-index: 2;
+    background: var(--wt-navy);
+    padding-bottom: 2px;
+  }
+
+  .wt-card--current.is-merged {
+    pointer-events: none;
   }
 }
 

@@ -592,35 +592,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     align-items: stretch;
     gap: 8px;
   }
-  .lane-target-wrap {
-    position: relative;
-    min-width: 0;
-  }
-  .lane-target-track {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    padding-right: 22px; /* peek next card */
-  }
-  .lane-target-track::-webkit-scrollbar { display: none; }
-  .lane-target-track .lane--target {
-    flex: 0 0 calc(100% - 20px);
-    scroll-snap-align: start;
-    min-width: 0;
-  }
-  .lane-target-fade {
-    pointer-events: none;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 28px;
-    width: 28px;
-    background: linear-gradient(to right, transparent, var(--navy));
-  }
   .lane-dots {
     display: flex;
     justify-content: center;

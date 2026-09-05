@@ -150,6 +150,21 @@
     };
   }
 
+  /** Force settled closing contrast; .is-settled clears CSS opacity fights. */
+  function settleClosing(gsap, el) {
+    if (!el) return;
+    el.classList.add("is-settled");
+    el.style.opacity = "1";
+    el.style.visibility = "visible";
+    gsap.set(el, { autoAlpha: 1, visibility: "visible", opacity: 1 });
+  }
+
+  /** Drop settle lock so scrub can drive closing again on reverse scroll. */
+  function unlockClosing(el) {
+    if (!el) return;
+    el.classList.remove("is-settled");
+  }
+
   function initRoot(root) {
     ensureMarkup(root);
 
@@ -184,7 +199,7 @@
         el.classList.add("is-visible");
       });
       gsap.set(callouts, { autoAlpha: 1, y: 0, visibility: "visible" });
-      if (closing) gsap.set(closing, { autoAlpha: 1, visibility: "visible" });
+      settleClosing(gsap, closing);
       if (chromeCurrent) gsap.set(chromeCurrent, { autoAlpha: 0.4 });
       if (chromeTarget) gsap.set(chromeTarget, { autoAlpha: 1 });
     }
@@ -208,13 +223,18 @@
         el.classList.remove("is-visible");
         gsap.set(el, { clearProps: "transform,opacity,visibility" });
       });
+      if (closing) {
+        closing.classList.remove("is-settled");
+        closing.style.removeProperty("opacity");
+        closing.style.removeProperty("visibility");
+      }
 
       if (reduceMq.matches) {
         applyReduced();
         return;
       }
 
-      // Reveal targets briefly so Flip.fit can measure real geometry
+      // Reveal targets briefly so Flip.fit can measure real geometry (desktop)
       gsap.set(currentCards, { x: 0, y: 0, scale: 1, autoAlpha: 1, transformOrigin: "50% 50%" });
       gsap.set(targetCards, {
         autoAlpha: 1,
@@ -225,20 +245,35 @@
       });
       void root.offsetHeight;
 
-      var fits = GROUPS.map(function (g) {
-        var target = targetCards[g.target];
-        return g.sources.map(function (si) {
-          return fitVars(Flip, currentCards[si], target);
+      var desktop = desktopMq.matches;
+
+      // Desktop only: Flip-fit absolute merges. Mobile (max-width 820): fade/hide
+      // current groups in place and reveal the sticky target stack — no overlapping
+      // absolute transforms across the long stacked list.
+      var fits = null;
+      if (desktop) {
+        fits = GROUPS.map(function (g) {
+          var target = targetCards[g.target];
+          return g.sources.map(function (si) {
+            return fitVars(Flip, currentCards[si], target);
+          });
         });
-      });
+      }
 
       gsap.set(targetCards, { autoAlpha: 0, visibility: "hidden", scale: 0.94 });
       gsap.set(callouts, { autoAlpha: 0, y: 6, visibility: "hidden" });
-      if (closing) gsap.set(closing, { autoAlpha: 0, visibility: "hidden" });
+      if (closing) {
+        closing.classList.remove("is-settled");
+        closing.style.removeProperty("opacity");
+        closing.style.removeProperty("visibility");
+        gsap.set(closing, { autoAlpha: 0, visibility: "hidden", opacity: 0 });
+      }
       if (chromeCurrent) gsap.set(chromeCurrent, { autoAlpha: 1 });
       if (chromeTarget) gsap.set(chromeTarget, { autoAlpha: 0.35 });
 
-      var desktop = desktopMq.matches;
+      function forceSettledClosing() {
+        settleClosing(gsap, closing);
+      }
 
       ctx = gsap.context(function () {
         var tl = gsap.timeline({ defaults: { ease: "none" } });
@@ -253,33 +288,53 @@
             return currentCards[si];
           });
 
-          srcEls.forEach(function (el, j) {
-            var d = fits[gi][j];
-            tl.to(
-              el,
-              {
-                x: d.x,
-                y: d.y,
-                scale: Math.max(0.7, Math.min(d.scale || 0.85, 0.95)),
-                duration: dur * 0.85,
-                onStart: function () {
-                  el.classList.add("is-merging");
+          if (desktop && fits) {
+            srcEls.forEach(function (el, j) {
+              var d = fits[gi][j];
+              tl.to(
+                el,
+                {
+                  x: d.x,
+                  y: d.y,
+                  scale: Math.max(0.7, Math.min(d.scale || 0.85, 0.95)),
+                  duration: dur * 0.85,
+                  onStart: function () {
+                    el.classList.add("is-merging");
+                  },
                 },
-              },
-              g.start
-            );
-            tl.to(
-              el,
-              {
-                autoAlpha: 0,
-                duration: dur * 0.35,
-                onComplete: function () {
-                  el.classList.add("is-merged");
+                g.start
+              );
+              tl.to(
+                el,
+                {
+                  autoAlpha: 0,
+                  duration: dur * 0.35,
+                  onComplete: function () {
+                    el.classList.add("is-merged");
+                  },
                 },
-              },
-              g.start + dur * 0.55
-            );
-          });
+                g.start + dur * 0.55
+              );
+            });
+          } else {
+            // Mobile: fade current cards out of the group (no Flip absolute merge)
+            srcEls.forEach(function (el) {
+              tl.to(
+                el,
+                {
+                  autoAlpha: 0,
+                  duration: dur * 0.75,
+                  onStart: function () {
+                    el.classList.add("is-merging");
+                  },
+                  onComplete: function () {
+                    el.classList.add("is-merged");
+                  },
+                },
+                g.start
+              );
+            });
+          }
 
           tl.fromTo(
             target,
@@ -334,7 +389,13 @@
         if (closing) {
           tl.to(
             closing,
-            { autoAlpha: 1, visibility: "visible", duration: 0.12 },
+            {
+              autoAlpha: 1,
+              visibility: "visible",
+              opacity: 1,
+              duration: 0.12,
+              onComplete: forceSettledClosing,
+            },
             0.88
           );
         }
@@ -343,11 +404,16 @@
           animation: tl,
           trigger: root,
           start: desktop ? "top top+=72" : "top 75%",
-          end: desktop ? "+=240%" : "bottom 25%",
+          end: desktop ? "+=240%" : "bottom 20%",
           scrub: desktop ? 0.65 : 0.45,
           pin: desktop,
           anticipatePin: desktop ? 1 : 0,
           invalidateOnRefresh: true,
+          onUpdate: function (self) {
+            if (self.progress >= 0.88) forceSettledClosing();
+            else unlockClosing(closing);
+          },
+          onLeave: forceSettledClosing,
         });
       }, root);
     }
