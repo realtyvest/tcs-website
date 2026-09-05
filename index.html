@@ -11,15 +11,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Telecom Contractor Solutions | Operations Audits for ISP Contractors</title>
-<meta name="description" content="Operations audits, AI agents, and custom ops systems for ISP and telecom contractors running 10 to 100 field techs. We diagnose before we prescribe. Every build is different, because every operation is different.">
+<title>Telecom Contractor Solutions | From Field to Financial</title>
+<meta name="description" content="Capture the work once in the field. Move production, photos, closeouts, job cost, and billing through one connected workflow — so the office isn’t rebuilding Tuesday’s job on Friday.">
 <link rel="canonical" href="https://telecomcontractorsolutions.com/">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://telecomcontractorsolutions.com/">
-<meta property="og:title" content="Telecom Contractor Solutions | Operations Audits for ISP Contractors">
-<meta property="og:description" content="Operations audits, AI agents, and custom ops systems for ISP and telecom contractors running 10 to 100 field techs. We diagnose before we prescribe. Every build is different, because every operation is different.">
+<meta property="og:title" content="From Field to Financial | Telecom Contractor Solutions">
+<meta property="og:description" content="Capture work once in the field and move production, photos, closeouts, job cost, and billing through one connected workflow for ISP contractors.">
 <meta property="og:image" content="https://telecomcontractorsolutions.com/assets/og-home.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -28,29 +28,32 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Telecom Contractor Solutions | Operations Audits for ISP Contractors">
-<meta name="twitter:description" content="Operations audits, AI agents, and custom ops systems for ISP and telecom contractors running 10 to 100 field techs. We diagnose before we prescribe.">
+<meta name="twitter:title" content="From Field to Financial | Telecom Contractor Solutions">
+<meta name="twitter:description" content="Capture work once in the field. Move it through one connected workflow to invoice-ready — for ISP contractors.">
 <meta name="twitter:image" content="https://telecomcontractorsolutions.com/assets/og-home.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 
-<!-- Favicon: fiber logo mark -->
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/tcs-nav.css">
+
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
     --navy: #0B1829;
-    --navy-mid: #152236;
+    --navy-mid: #132338;
     --navy-light: #1E3350;
     --electric: #2A8EFF;
     --electric-dim: #1a6fd0;
     --orange: #F26419;
-    --orange-dim: #d4551a;
     --white: #FFFFFF;
-    --off-white: #F4F7FB;
-    --muted: #9BB3CC;
+    --muted: #8BA3C1;
     --text-light: #C8D8EA;
     --border: rgba(255,255,255,0.08);
     --border-light: rgba(42,142,255,0.2);
@@ -69,16 +72,31 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     -webkit-font-smoothing: antialiased;
   }
 
-  /* ANNOUNCEMENT */
-  .announcement {
+  a { color: inherit; }
+
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    z-index: 999;
     background: var(--electric);
-    text-align: center;
-    padding: 10px 5%;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.3px;
+    color: var(--white);
+    padding: 12px 24px;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 0 0 8px 0;
   }
-  .announcement a { color: var(--white); text-decoration: underline; text-underline-offset: 2px; }
+  .skip-link:focus {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: auto;
+    height: auto;
+    overflow: visible;
+  }
 
   /* NAV */
   nav {
@@ -99,7 +117,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     text-decoration: none;
     display: flex;
     align-items: center;
-    gap: 0;
     flex-shrink: 0;
   }
 
@@ -108,16 +125,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     align-items: center;
     gap: 28px;
     list-style: none;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    padding: 0 4px;
   }
-
-  .nav-links::-webkit-scrollbar { display: none; }
-
-  .nav-links li { flex-shrink: 0; }
 
   .nav-links a {
     font-size: 14px;
@@ -134,7 +142,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .nav-cta {
     background: var(--electric) !important;
     color: var(--white) !important;
-    padding: 9px 20px;
+    padding: 10px 20px !important;
     border-radius: 6px;
     font-weight: 600 !important;
     transition: background 0.2s !important;
@@ -142,7 +150,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   .nav-cta:hover { background: var(--electric-dim) !important; }
 
-  /* Mobile nav toggle */
   .nav-hamburger {
     display: none;
     flex-direction: column;
@@ -159,7 +166,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     height: 2px;
     background: var(--white);
     border-radius: 2px;
-    transition: all 0.25s;
   }
 
   .mobile-menu {
@@ -188,854 +194,465 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .mobile-menu .nav-cta {
     display: inline-block;
     text-align: center;
-    padding: 12px 20px !important;
+    padding: 14px 20px !important;
+  }
+
+  /* BUTTONS */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--electric);
+    color: var(--white);
+    padding: 14px 22px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    min-height: 48px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: var(--font-body);
+  }
+
+  .btn:hover { background: var(--electric-dim); }
+
+  .btn-ghost {
+    background: transparent;
+    border: 1px solid #3a5270;
+    color: var(--white);
+  }
+
+  .btn-ghost:hover {
+    background: rgba(255,255,255,0.04);
+    border-color: var(--electric);
+  }
+
+  .btn-white {
+    background: var(--white);
+    color: var(--navy);
+  }
+
+  .btn-white:hover { background: var(--off-white, #F4F7FB); }
+
+  /* LAYOUT */
+  .section {
+    padding: 72px 5%;
+    border-bottom: 1px solid #1c2a3d;
+  }
+
+  .section-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+
+  .prose {
+    max-width: 760px;
+  }
+
+  .eyebrow {
+    color: var(--muted);
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(40px, 7vw, 56px);
+    line-height: 1.05;
+    font-weight: 800;
+    margin: 0 0 16px;
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4vw, 36px);
+    line-height: 1.15;
+    font-weight: 800;
+    margin: 0 0 16px;
+  }
+
+  .sub {
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.5;
   }
 
   /* HERO */
   .hero {
-    position: relative;
-    min-height: 90vh;
+    background: var(--navy);
+    padding: 80px 5% 56px;
+    min-height: 78vh;
     display: flex;
     align-items: center;
-    padding: 80px 5%;
-    overflow: hidden;
   }
 
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 60% 50% at 80% 50%, rgba(42,142,255,0.12) 0%, transparent 70%),
-      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(242,100,25,0.08) 0%, transparent 60%);
-  }
-
-  .hero-grid-lines {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 680px;
-  }
-
-  .hero-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(42,142,255,0.12);
-    border: 1px solid rgba(42,142,255,0.3);
-    border-radius: 4px;
-    padding: 6px 14px;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--electric);
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    margin-bottom: 24px;
-  }
-
-  .eyebrow-dot {
-    width: 6px;
-    height: 6px;
-    background: var(--electric);
-    border-radius: 50%;
-    animation: pulse 2s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.8); }
-  }
-
-  .hero h1 {
-    font-family: var(--font-display);
-    font-size: clamp(52px, 7vw, 86px);
-    font-weight: 800;
-    line-height: 1.0;
-    letter-spacing: -0.5px;
-    margin-bottom: 24px;
-  }
-
-  .hero-highlight { color: var(--electric); }
-
-  .hero-sub {
-    font-size: clamp(17px, 2vw, 20px);
-    color: var(--text-light);
-    max-width: 540px;
-    line-height: 1.65;
-    margin-bottom: 40px;
+  .hero-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    width: 100%;
   }
 
   .hero-actions {
     display: flex;
-    align-items: center;
-    gap: 20px;
     flex-wrap: wrap;
-    margin-bottom: 56px;
+    gap: 12px;
+    margin-top: 28px;
   }
 
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--electric);
-    color: var(--white);
-    font-family: var(--font-body);
-    font-size: 16px;
-    font-weight: 600;
-    padding: 14px 28px;
-    border-radius: 8px;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
+  .chips {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+    flex-wrap: wrap;
   }
 
-  .btn-primary:hover { background: var(--electric-dim); transform: translateY(-1px); }
-
-  .btn-ghost {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--text-light);
-    font-size: 15px;
-    font-weight: 500;
-    text-decoration: none;
-    border: none;
-    background: none;
-    cursor: pointer;
-    transition: color 0.2s;
-  }
-
-  .btn-ghost:hover { color: var(--white); }
-
-  .hero-proof { display: flex; align-items: center; gap: 16px; }
-  .proof-stars { color: #FFB800; font-size: 16px; letter-spacing: 2px; }
-  .proof-text { font-size: 13px; color: var(--muted); }
-  .proof-text strong { color: var(--text-light); }
-
-  /* STATS */
-  .stats-bar {
+  .chip {
     background: var(--navy-mid);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 40px 5%;
-  }
-
-  .stats-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 32px;
-  }
-
-  .stat { text-align: center; }
-
-  .stat-number {
-    font-family: var(--font-display);
-    font-size: 52px;
-    font-weight: 800;
-    line-height: 1;
-    color: var(--electric);
-    margin-bottom: 6px;
-  }
-
-  .stat-label { font-size: 14px; color: var(--muted); line-height: 1.4; }
-
-  /* SECTIONS */
-  section { padding: 96px 5%; }
-  .section-inner { max-width: 1100px; margin: 0 auto; }
-
-  .section-eyebrow {
-    font-family: var(--font-display);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--electric);
-    margin-bottom: 14px;
-  }
-
-  .section-title {
-    font-family: var(--font-display);
-    font-size: clamp(36px, 4.5vw, 54px);
-    font-weight: 800;
-    line-height: 1.05;
-    margin-bottom: 20px;
-  }
-
-  .section-subtitle {
-    font-size: 17px;
+    border: 1px solid #24344a;
+    padding: 12px 14px;
+    border-radius: 6px;
+    font-size: 13px;
     color: var(--muted);
-    max-width: 560px;
-    line-height: 1.65;
+    min-width: 160px;
   }
 
-  /* PROBLEM */
-  .problem { background: var(--navy-mid); }
+  .chip strong {
+    color: var(--white);
+    display: block;
+    font-size: 18px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
 
-  .problem-grid {
+  /* PROBLEM / DIAGRAMS */
+  .diagrams {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 64px;
+    gap: 28px;
+    margin-top: 28px;
+  }
+
+  .diagram-label {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--electric);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .diagram {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
     align-items: center;
   }
 
-  .problem-pains {
-    list-style: none;
-    margin-top: 32px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  .node {
+    background: var(--navy-mid);
+    border: 1px solid #2a3b52;
+    padding: 8px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    font-weight: 600;
   }
 
-  .pain-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    padding: 18px 20px;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    font-size: 15px;
-    color: var(--text-light);
+  .node.bad {
+    opacity: 0.7;
+    border-color: #3a4556;
+  }
+
+  .node.good {
+    border-color: var(--electric);
+  }
+
+  .arrow {
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .arrow.good { color: var(--orange); }
+
+  /* OUTCOMES */
+  .outcomes-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 28px;
+    margin-top: 8px;
+  }
+
+  .outcomes-list li {
+    color: var(--muted);
+    padding-left: 28px;
+    position: relative;
     line-height: 1.5;
   }
 
-  .pain-icon { color: var(--orange); font-size: 18px; margin-top: 1px; flex-shrink: 0; }
-
-  .solution-card {
-    background: linear-gradient(135deg, var(--navy-light) 0%, rgba(42,142,255,0.08) 100%);
-    border: 1px solid var(--border-light);
-    border-radius: 16px;
-    padding: 40px;
-  }
-
-  .solution-title {
-    font-family: var(--font-display);
-    font-size: 32px;
-    font-weight: 800;
-    margin-bottom: 16px;
+  .outcomes-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
     color: var(--electric);
+    font-weight: 700;
   }
 
-  .solution-text {
-    font-size: 16px;
-    color: var(--text-light);
-    line-height: 1.7;
-    margin-bottom: 28px;
+  /* HOW STEPS */
+  .steps {
+    counter-reset: step;
+    list-style: none;
+    margin: 24px 0 32px;
+    max-width: 720px;
   }
 
-  .solution-checklist { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .steps li {
+    margin: 0 0 16px;
+    padding-left: 44px;
+    position: relative;
+    color: var(--muted);
+    line-height: 1.5;
+  }
 
-  .solution-checklist li {
+  .steps li::before {
+    counter-increment: step;
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--navy-mid);
+    border: 1px solid var(--electric);
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 700;
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: center;
+  }
+
+  .steps strong { color: var(--white); }
+
+  /* PROOF */
+  .quote {
+    background: var(--navy-mid);
+    padding: 24px;
+    border-radius: 8px;
+    border-left: 3px solid var(--electric);
+    color: var(--muted);
+    max-width: 720px;
+    font-size: 16px;
+    line-height: 1.65;
+    font-style: italic;
+  }
+
+  .quote-attr {
+    margin-top: 14px;
+    font-style: normal;
     font-size: 14px;
     color: var(--text-light);
   }
 
-  .check {
-    width: 18px; height: 18px;
-    background: rgba(42,142,255,0.2);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    font-size: 10px;
-    color: var(--electric);
-  }
-
-  /* SERVICES */
-  .services-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 56px;
-    flex-wrap: wrap;
-    gap: 24px;
-  }
-
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-bottom: 32px;
-  }
-
-  .service-card {
-    background: var(--navy-mid);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 32px;
-    transition: border-color 0.25s, transform 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .service-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: var(--electric);
-    opacity: 0;
-    transition: opacity 0.25s;
-  }
-
-  .service-card:hover { border-color: rgba(42,142,255,0.3); transform: translateY(-3px); }
-  .service-card:hover::before { opacity: 1; }
-
-  .service-icon {
-    width: 48px; height: 48px;
-    background: rgba(42,142,255,0.12);
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 20px;
-  }
-
-  .service-icon svg { width: 22px; height: 22px; stroke: var(--electric); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-
-  .service-name { font-family: var(--font-display); font-size: 22px; font-weight: 700; margin-bottom: 12px; }
-
-  .service-desc { font-size: 14px; color: var(--muted); line-height: 1.65; margin-bottom: 20px; }
-
-  .service-outcomes { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-
-  .service-outcomes li {
-    display: flex; align-items: center; gap: 8px;
-    font-size: 13px; color: var(--text-light);
-  }
-
-  .service-outcomes li::before {
-    content: '';
-    width: 4px; height: 4px;
-    background: var(--electric);
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  /* PROCESS */
-  .process { background: var(--navy-mid); }
-
-  .process-steps {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
-    margin-top: 56px;
-    position: relative;
-  }
-
-  .process-steps::before {
-    content: '';
-    position: absolute;
-    top: 32px;
-    left: calc(12.5% + 12px);
-    right: calc(12.5% + 12px);
-    height: 1px;
-    background: linear-gradient(90deg, var(--electric), rgba(42,142,255,0.2));
-  }
-
-  .process-step {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 0 16px;
-    position: relative;
-  }
-
-  .step-number {
-    width: 64px; height: 64px;
-    background: var(--navy-light);
-    border: 2px solid var(--electric);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-display);
-    font-size: 26px; font-weight: 800;
-    color: var(--electric);
-    margin-bottom: 24px;
-    position: relative; z-index: 2;
-  }
-
-  .step-title { font-family: var(--font-display); font-size: 18px; font-weight: 700; margin-bottom: 10px; }
-  .step-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
-
-  /* PRICING */
-  .pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px 24px;
-    margin-top: 56px;
-  }
-
-  .pricing-card {
-    background: var(--navy-mid);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 36px 32px;
-    display: grid;
-    grid-row: span 6;
-    grid-template-rows: subgrid;
-    row-gap: 0;
-  }
-
-  .pricing-card.featured {
-    border-color: var(--electric);
-    background: linear-gradient(160deg, var(--navy-light) 0%, rgba(42,142,255,0.06) 100%);
-    position: relative;
-  }
-
-  .pricing-bundle {
-    margin-top: 36px;
-    overflow: visible;
-    background: linear-gradient(160deg, var(--navy-light) 0%, rgba(42,142,255,0.06) 100%);
-    border: 2px solid var(--electric);
-    border-radius: 12px;
-    padding: 40px;
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
-    align-items: center;
-  }
-
-  .bundle-savings {
-    display: inline-block;
-    background: rgba(42,142,255,0.12);
-    color: var(--electric);
-    font-size: 13px;
-    font-weight: 700;
-    padding: 4px 12px;
-    border-radius: 6px;
-    margin-top: 8px;
-  }
-
-  .featured-badge {
-    position: absolute;
-    top: -13px; left: 50%;
-    transform: translateX(-50%);
-    background: var(--electric);
-    color: var(--white);
-    font-size: 11px; font-weight: 700;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    padding: 4px 16px;
-    border-radius: 20px;
-    white-space: nowrap;
-  }
-
-  .plan-name {
-    font-family: var(--font-display);
-    font-size: 20px; font-weight: 700;
-    margin-bottom: 6px;
+  .quote-attr span {
     color: var(--muted);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    align-self: start;
+    font-size: 13px;
   }
 
-  .plan-tagline { font-size: 14px; color: var(--muted); margin-bottom: 24px; line-height: 1.5; align-self: start; }
-
-  .plan-price { margin-bottom: 8px; align-self: end; }
-
-  .price-setup {
-    font-size: 13px; color: var(--muted);
-    margin-bottom: 24px; padding-bottom: 24px;
-    border-bottom: 1px solid var(--border);
-    align-self: start;
+  .proof-todo {
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--muted);
+    opacity: 0.75;
   }
 
-  .price-amount { font-family: var(--font-display); font-size: 44px; font-weight: 800; line-height: 1; }
-  .price-period { font-size: 14px; color: var(--muted); margin-left: 4px; }
-
-  .plan-features { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; align-self: start; }
-
-  .plan-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--text-light); line-height: 1.5; }
-
-  .feat-check { color: var(--electric); flex-shrink: 0; margin-top: 2px; font-size: 14px; }
-
-  .pricing-card > .btn-primary { align-self: end; }
-
-  /* TESTIMONIALS */
-  .testimonials { background: var(--navy); }
-
-  .testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-top: 56px;
-  }
-
-  .testimonial-card {
+  /* SOFTWARE SOFT */
+  .software {
     background: var(--navy-mid);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 32px;
   }
 
-  .testimonial-stars { color: #FFB800; font-size: 14px; letter-spacing: 2px; margin-bottom: 16px; }
-
-  .testimonial-text { font-size: 15px; color: var(--text-light); line-height: 1.7; margin-bottom: 24px; font-style: italic; }
-
-  .testimonial-author { display: flex; align-items: center; gap: 14px; }
-
-  .author-avatar {
-    width: 42px; height: 42px;
-    background: var(--electric);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-display);
-    font-weight: 700; font-size: 16px;
-    color: var(--white);
-    flex-shrink: 0;
-  }
-
-  .author-name { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
-  .author-title { font-size: 12px; color: var(--muted); }
-
-  /* ABOUT */
-  .about { background: var(--navy-mid); }
-
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-  }
-
-  .about-photo-placeholder {
-    width: 100%;
-    aspect-ratio: 3/4;
-    background: linear-gradient(135deg, var(--navy-light), rgba(42,142,255,0.15));
-    border-radius: 16px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 14px; color: var(--muted);
+  /* FINAL CTA */
+  .final-cta {
     text-align: center;
-    flex-direction: column;
-    gap: 10px;
-    position: relative;
-    overflow: hidden;
-  }
-  .about-photo-placeholder img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-    border-radius: 16px;
+    padding: 80px 5%;
+    background: var(--navy);
   }
 
-  .about-photo-badge {
-    position: absolute;
-    bottom: 24px; left: -24px;
-    background: var(--electric);
-    border-radius: 10px;
-    padding: 16px 20px;
-    font-family: var(--font-display);
+  .final-cta h2 {
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 28px;
   }
-
-  .badge-number { font-size: 36px; font-weight: 800; line-height: 1; }
-  .badge-text { font-size: 12px; font-weight: 600; opacity: 0.85; }
-
-  .about-bio { font-size: 16px; color: var(--text-light); line-height: 1.7; margin-bottom: 16px; }
-
-  .about-credentials { display: flex; flex-direction: column; gap: 12px; margin-top: 32px; }
-
-  .credential { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--text-light); }
-
-  .credential-dot { width: 8px; height: 8px; background: var(--orange); border-radius: 50%; flex-shrink: 0; }
-
-  /* CTA */
-  .cta-section {
-    background: linear-gradient(135deg, var(--electric) 0%, #1a5fa8 100%);
-    padding: 96px 5%;
-  }
-
-  .cta-inner { max-width: 800px; margin: 0 auto; text-align: center; }
-
-  .cta-title {
-    font-family: var(--font-display);
-    font-size: clamp(40px, 5vw, 64px);
-    font-weight: 800;
-    line-height: 1.05;
-    margin-bottom: 20px;
-  }
-
-  .cta-sub { font-size: 18px; opacity: 0.88; line-height: 1.65; margin-bottom: 40px; }
 
   .cta-form {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 12px;
-    max-width: 580px;
-    margin: 0 auto 20px;
+    max-width: 560px;
+    margin: 28px auto 0;
+    text-align: left;
   }
+
+  .cta-form .form-full { grid-column: 1 / -1; }
 
   .cta-form input,
   .cta-form select {
     width: 100%;
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.3);
-    border-radius: 8px;
-    padding: 14px 18px;
+    padding: 14px 16px;
+    border-radius: 6px;
+    border: 1px solid #3a5270;
+    background: var(--navy-mid);
     color: var(--white);
     font-family: var(--font-body);
     font-size: 15px;
-    outline: none;
-    appearance: none;
-    -webkit-appearance: none;
+    min-height: 48px;
   }
 
-  .cta-form input::placeholder { color: rgba(255,255,255,0.6); }
-  .cta-form input:focus,
-  .cta-form select:focus { border-color: rgba(255,255,255,0.7); }
+  .cta-form input::placeholder { color: var(--muted); }
 
-  .cta-form select option { background: #1a5fa8; color: var(--white); }
-
-  .cta-form .form-full { grid-column: 1 / -1; }
+  .cta-form select { color: var(--muted); }
+  .cta-form select:valid { color: var(--white); }
 
   .cta-form-msg {
     grid-column: 1 / -1;
     font-size: 14px;
-    font-weight: 600;
-    padding: 12px 18px;
-    border-radius: 8px;
-    text-align: center;
-    display: none;
+    min-height: 1.2em;
   }
 
-  .cta-form-msg.success { background: rgba(255,255,255,0.2); display: block; }
-  .cta-form-msg.error   { background: rgba(242,100,25,0.3);  display: block; }
+  .cta-form-msg.success { color: #4ade80; }
+  .cta-form-msg.error { color: #f87171; }
 
-  .btn-white {
-    background: var(--white);
-    color: var(--electric);
-    border: none;
-    border-radius: 8px;
-    padding: 14px 24px;
-    font-family: var(--font-body);
-    font-size: 15px; font-weight: 700;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: opacity 0.2s;
+  .cta-note {
+    margin-top: 18px;
+    color: var(--muted);
+    font-size: 14px;
   }
-
-  .btn-white:hover { opacity: 0.92; }
-
-  .cta-note { font-size: 13px; opacity: 0.75; line-height: 1.6; }
-  .cta-note a { color: rgba(255,255,255,0.85); }
 
   /* FOOTER */
   footer {
-    background: rgba(0,0,0,0.4);
+    background: var(--navy-mid);
     border-top: 1px solid var(--border);
-    padding: 48px 5%;
+    padding: 48px 5% 28px;
   }
 
   .footer-inner {
-    max-width: 1100px;
+    max-width: 1120px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 40px;
+    gap: 32px;
     flex-wrap: wrap;
   }
 
-  .footer-tagline { font-size: 13px; color: var(--muted); margin: 8px 0 16px; max-width: 240px; }
-
-  .footer-contact { display: flex; flex-direction: column; gap: 6px; }
-
-  .footer-contact a { font-size: 14px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
-  .footer-contact a:hover { color: var(--white); }
-  .footer-contact span { font-size: 13px; color: var(--muted); }
-
-  .footer-col-title {
-    font-size: 11px; font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--electric);
-    margin-bottom: 16px;
+  .footer-brand {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
   }
 
-  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-  .footer-links a { font-size: 14px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
-  .footer-links a:hover { color: var(--white); }
+  .footer-brand strong {
+    color: var(--white);
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .footer-powered {
+    opacity: 0.7;
+    font-size: 13px;
+    margin-top: 8px;
+  }
+
+  .footer-powered a {
+    color: #A0B4D8;
+    text-decoration: none;
+  }
 
   .footer-bottom {
-    max-width: 1100px;
-    margin: 32px auto 0;
-    padding-top: 24px;
+    max-width: 1120px;
+    margin: 28px auto 0;
+    padding-top: 20px;
     border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 13px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    font-size: 12px; color: var(--muted);
-    flex-wrap: wrap; gap: 8px;
+    gap: 16px;
+    flex-wrap: wrap;
   }
 
-  /* STORY CARDS */
-  .story-cards { display: flex; flex-direction: column; gap: 24px; margin-bottom: 48px; }
-  .story-card {
-    background: var(--navy-mid);
-    border: 1px solid var(--border);
-    border-left: 4px solid var(--electric);
-    border-radius: 0 12px 12px 0;
-    padding: 32px;
-  }
-  .story-card.active { border-left-color: #D4A017; }
-  .story-card-title {
-    font-family: var(--font-display);
-    font-size: 20px; font-weight: 700;
-    margin-bottom: 12px; color: var(--white);
-  }
-  .story-card-outcome {
-    font-size: 15px; color: var(--electric);
-    font-weight: 600; margin-bottom: 16px;
-    line-height: 1.5;
-  }
-  .story-card p { font-size: 15px; color: var(--text-light); line-height: 1.7; margin-bottom: 12px; }
-  .story-card p:last-child { margin-bottom: 0; }
-
-  /* RESPONSIVE */
-  @media (max-width: 960px) {
-    .stats-inner { grid-template-columns: repeat(2, 1fr); }
-    .services-grid { grid-template-columns: 1fr; }
-    .services-bottom-grid { grid-template-columns: 1fr !important; }
-    .process-steps { grid-template-columns: repeat(2, 1fr); }
-    .process-steps::before { display: none; }
-    .pricing-grid { grid-template-columns: 1fr; }
-    .pricing-card { grid-row: span 1; grid-template-rows: none; display: flex; flex-direction: column; }
-    .pricing-bundle { grid-template-columns: 1fr; text-align: center; }
-    .testimonials-grid { grid-template-columns: 1fr; }
-    .problem-grid { grid-template-columns: 1fr; }
-    .about-grid { grid-template-columns: 1fr; }
-    .about-photo-badge { left: 0; }
-    .nav-links { gap: 20px; }
+  .footer-links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    flex-wrap: wrap;
   }
 
-  @media (max-width: 640px) {
+  .footer-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14px;
+  }
+
+  .footer-links a:hover { color: var(--electric); }
+
+  @media (max-width: 820px) {
     .nav-links { display: none; }
     .nav-hamburger { display: flex; }
-  }
 
-  @media (max-width: 560px) {
-    .hero-actions { flex-direction: column; align-items: flex-start; }
-    .cta-form { grid-template-columns: 1fr; }
-    .cta-form .form-full { grid-column: 1; }
-    .stats-inner { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-    .stat-number { font-size: 40px; }
+    .diagrams,
+    .outcomes-list,
+    .cta-form {
+      grid-template-columns: 1fr;
+    }
+
+    .hero { padding: 56px 5% 40px; min-height: auto; }
+
+    .hero-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .hero-actions .btn { width: 100%; }
+
+    .section { padding: 56px 5%; }
+
+    .footer-inner { flex-direction: column; }
   }
 </style>
-<!-- Structured Data -->
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "LocalBusiness",
-      "name": "Telecom Contractor Solutions",
-      "url": "https://telecomcontractorsolutions.com",
-      "logo": "https://telecomcontractorsolutions.com/assets/logo.png",
-      "image": "https://telecomcontractorsolutions.com/assets/og-home.png",
-      "description": "Custom operations systems for ISP and telecom contractors with 10-100 field technicians. Job tracking, crew management, billing automation, and job costing.",
-      "founder": {
-        "@type": "Person",
-        "name": "Gil Ramirez",
-        "jobTitle": "Founder"
-      },
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Arena Tower, 7324 Southwest Freeway, Suite 264",
-        "addressLocality": "Houston",
-        "addressRegion": "TX",
-        "postalCode": "77074",
-        "addressCountry": "US"
-      },
-      "telephone": "+1-832-917-0091",
-      "areaServed": {
-        "@type": "Country",
-        "name": "US"
-      },
-      "priceRange": "$$",
-      "email": "Gil@TelecomContractorSolutions.com"
-    },
-    {
-      "@type": "Service",
-      "name": "Job Tracking",
-      "provider": {"@type": "LocalBusiness", "name": "Telecom Contractor Solutions"},
-      "description": "ISP platform import, field app, closeout to billing, and duplicate detection for telecom contractors."
-    },
-    {
-      "@type": "Service",
-      "name": "Crew and Contractor Management",
-      "provider": {"@type": "LocalBusiness", "name": "Telecom Contractor Solutions"},
-      "description": "COI and DWC83 compliance tracking, equipment tracking, and contractor invoice management."
-    },
-    {
-      "@type": "Service",
-      "name": "Billing Automation",
-      "provider": {"@type": "LocalBusiness", "name": "Telecom Contractor Solutions"},
-      "description": "Rate cards by service code and ISP contract, PO linking, QuickBooks and Xero integration."
-    },
-    {
-      "@type": "Service",
-      "name": "Job Costing",
-      "provider": {"@type": "LocalBusiness", "name": "Telecom Contractor Solutions"},
-      "description": "Labor costs vs. production pay vs. billed revenue, crew-level job costing and margin tracking."
-    },
-    {
-      "@type": "Service",
-      "name": "Dig Documentation and Damage Defense",
-      "provider": {"@type": "LocalBusiness", "name": "Telecom Contractor Solutions"},
-      "description": "Pre-bore photo documentation, GPS-tagged records, damage incident tracking, and claim management."
-    },
-    {
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "How long does it take to get an operations system running?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Every engagement starts with a two-week Operations Audit. The custom build that follows runs 30 to 180 days depending on what the audit prescribes. We stay through 90 days of adoption support after launch."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What does the free fit call include?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "A 30-minute call to determine if the Operations Audit is a fit for your operation, or whether off-the-shelf software would serve you better. We also scope and quote the audit on this call. The fit call is free; the audit is paid and quoted based on operation size."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Do you work with crews that are already using spreadsheets or group texts?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes. Most of our clients come from spreadsheets, group texts, or systems that were built but never adopted. We build around how your crews actually work and stay through the adoption process."
-          }
-        }
-      ]
-    }
-  ]
+  "@type": "LocalBusiness",
+  "name": "Telecom Contractor Solutions",
+  "url": "https://telecomcontractorsolutions.com/",
+  "logo": "https://telecomcontractorsolutions.com/assets/logo.png",
+  "image": "https://telecomcontractorsolutions.com/assets/og-home.png",
+  "description": "From Field to Financial — connected field capture through invoice-ready workflows for ISP and telecom contractors with 10–100 field technicians.",
+  "telephone": "+1-832-917-0091",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Arena Tower, 7324 Southwest Freeway, Suite 264",
+    "addressLocality": "Houston",
+    "addressRegion": "TX",
+    "postalCode": "77074",
+    "addressCountry": "US"
+  },
+  "areaServed": "US"
 }
 </script>
-
-  <!-- v38: favicon -->
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-  <link rel="manifest" href="/site.webmanifest">
-  <meta name="theme-color" content="#0B1829">
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -1043,23 +660,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
-<!-- SKIP NAV -->
-<a href="#main-content" class="skip-link" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:999;background:var(--electric);color:var(--white);padding:12px 24px;font-weight:700;text-decoration:none;border-radius:0 0 8px 0;" onfocus="this.style.position='fixed';this.style.left='0';this.style.top='0';this.style.width='auto';this.style.height='auto';this.style.overflow='visible';" onblur="this.style.position='absolute';this.style.left='-9999px';this.style.width='1px';this.style.height='1px';this.style.overflow='hidden';">Skip to main content</a>
-
-<!-- NAV -->
 <nav aria-label="Main navigation">
   <a href="#home" class="nav-logo">
     <img src="tcs-logo-horizontal.svg" alt="Telecom Contractor Solutions" height="44" style="display:block;">
   </a>
 
   <ul class="nav-links">
-    <li><a href="#services">What We Build</a></li>
-    <li><a href="#process">How It Works</a></li>
-    <li></li>
-    <li><a href="#about">About</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#proof">Proof</a></li>
+    <li><a href="/about.html">About</a></li>
     <li><a href="/blog.html">Blog</a></li>
-    <li><a href="#contact" class="nav-cta">Book your fit call</a></li>
+    <li><a href="/fit-call.html" class="nav-cta">Book a Fit Call</a></li>
   </ul>
 
   <button class="nav-hamburger" onclick="var m=document.getElementById('mobile-menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'))" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
@@ -1067,609 +680,162 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </button>
 </nav>
 
-<!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
-  <a href="#services" onclick="document.getElementById('mobile-menu').classList.remove('open')">What We Build</a>
-  <a href="#process" onclick="document.getElementById('mobile-menu').classList.remove('open')">How It Works</a>
-  <a href="#about" onclick="document.getElementById('mobile-menu').classList.remove('open')">About</a>
+  <a href="#how" onclick="document.getElementById('mobile-menu').classList.remove('open')">How it works</a>
+  <a href="#proof" onclick="document.getElementById('mobile-menu').classList.remove('open')">Proof</a>
+  <a href="/about.html" onclick="document.getElementById('mobile-menu').classList.remove('open')">About</a>
   <a href="/blog.html" onclick="document.getElementById('mobile-menu').classList.remove('open')">Blog</a>
-  <a href="#contact" class="nav-cta" onclick="document.getElementById('mobile-menu').classList.remove('open')">Book your fit call</a>
+  <a href="/fit-call.html" class="nav-cta" onclick="document.getElementById('mobile-menu').classList.remove('open')">Book a Fit Call</a>
 </div>
 
-<!-- HERO -->
 <main id="main-content">
+
+<!-- 1 · HERO -->
 <section class="hero" id="home">
-  <div class="hero-bg"></div>
-  <div class="hero-grid-lines"></div>
-  <div class="hero-content">
-    <div class="hero-eyebrow">
-      <div class="eyebrow-dot"></div>
-      Build &middot; Train &middot; Optimize
-    </div>
-    <h1>Your crews are working.<br>Your <span class="hero-highlight">systems</span> should be too.</h1>
-    <p class="hero-sub">
-      Most contractors don&rsquo;t need another tool. They need someone to look at how the operation actually runs, find where the money is walking out, and build exactly what&rsquo;s missing. Sometimes it&rsquo;s a dispatch board. Sometimes it&rsquo;s billing automation. Sometimes it&rsquo;s an AI agent that answers the phone at 11 PM so you don&rsquo;t have to. Every operation gets a different answer, because every operation is different.
-    </p>
-    <p class="hero-sub">
-      You don&rsquo;t have to be the one who fights your crew to use something new. We build the system around how your crews actually work, then stay through the adoption process until the team is actually using it.
-    </p>
+  <div class="hero-inner">
+    <p class="eyebrow">Telecom Contractor Solutions · Houston · ISP contractors nationwide</p>
+    <h1>From Field to Financial</h1>
+    <p class="sub" style="max-width:620px;">Capture the work once in the field. Move production, photos, closeouts, job cost, and billing through one connected workflow — so the office isn’t rebuilding Tuesday’s job on Friday.</p>
     <div class="hero-actions">
-      <a href="#contact" class="btn-primary">
-        Book Your Operations Audit
-        <svg width="16" height="16" fill="none" viewBox="0 0 16 16" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-      <a href="#process" class="btn-ghost">
-        See how it works
-        <svg width="14" height="14" fill="none" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M7 3v8M3 7l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
+      <a class="btn" href="/fit-call.html">Book a Fit Call</a>
+      <a class="btn btn-ghost" href="#how">See How the System Works</a>
     </div>
-
+    <div class="chips" aria-label="Proof points">
+      <div class="chip"><strong>10–100</strong> Field technicians, our exact fit</div>
+    </div>
   </div>
 </section>
 
-<!-- STATS BAR -->
-<div class="stats-bar">
-  <div class="stats-inner">
-    <div class="stat">
-      <div class="stat-number">2&ndash;3</div>
-      <div class="stat-label">Weeks faster billing<br>cycles after go-live</div>
-    </div>
-    <div class="stat">
-      <div class="stat-number">10&ndash;100</div>
-      <div class="stat-label">Field technicians,<br>our exact fit</div>
-    </div>
-    <div class="stat">
-      <div class="stat-number">90</div>
-      <div class="stat-label">Days, average time to<br>full team adoption</div>
-    </div>
-  </div>
-</div>
-
-<!-- PROBLEM / SOLUTION -->
-<section class="problem" id="problem">
+<!-- 2 · PROBLEM -->
+<section class="section" id="problem">
   <div class="section-inner">
-    <div class="problem-grid">
+    <h2>Your field knows what happened. Your office shouldn’t have to reconstruct it.</h2>
+    <p class="sub prose">Most ISP contractors don’t lose money because crews don’t work. They lose it in the handoffs — WhatsApp, phone photos, paper, one spreadsheet, then another, then accounting — until Friday is a rebuild of Tuesday.</p>
+
+    <div class="diagrams">
       <div>
-        <p class="section-eyebrow">The Problem</p>
-        <h2 class="section-title">Sound familiar?</h2>
-        <p class="section-subtitle">The systems that worked when you were starting out are not the systems that scale with the operation you have now.</p>
-        <p style="font-style: italic; color: var(--muted); font-size: 15px; margin-top: 16px; margin-bottom: 8px; line-height: 1.65;">The problem isn&rsquo;t that contractors don&rsquo;t know what&rsquo;s wrong. It&rsquo;s that they&rsquo;ve been managing around it so long it starts to feel normal.</p>
-        <ul class="problem-pains">
-          <li class="pain-item">
-            <span class="pain-icon">&#10005;</span>
-            Dispatch still runs on group texts, spreadsheets, or whiteboards. Jobs fall through the cracks.
-          </li>
-          <li class="pain-item">
-            <span class="pain-icon">&#10005;</span>
-            Billing falls behind because closeout docs are scattered across texts, emails, and job notes, and nobody has a consistent process to collect them before invoicing.
-          </li>
-          <li class="pain-item">
-            <span class="pain-icon">&#10005;</span>
-            You have no real-time visibility into where crews are or what they&rsquo;ve finished today.
-          </li>
-          <li class="pain-item">
-            <span class="pain-icon">&#10005;</span>
-            The big operations software companies want $50K+ and a 6-month setup. That&rsquo;s built for companies three times your size.
-          </li>
-          <li class="pain-item">
-            <span class="pain-icon">&#10005;</span>
-            You tried a new system before. The crew ignored it, went back to spreadsheets, and you&rsquo;re still cleaning up the mess.
-          </li>
-        </ul>
-        <p style="font-size: 14px; color: var(--text-light); line-height: 1.7; margin-top: 20px; padding: 16px 20px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px;">That last one is the one nobody talks about. Building the system is the easy part. Getting a crew that ran on spreadsheets and group texts to actually adopt something new? That&rsquo;s the work. Most consultants hand you a template and disappear right when adoption gets hard. We stay through it. We&rsquo;re still in it 90 days after go-live, because that&rsquo;s when the real adoption work happens.</p>
-        <p style="font-size: 15px; color: var(--text-light); line-height: 1.7; margin-top: 16px; font-weight: 600;">Every contractor we&rsquo;ve worked with has some version of these five problems. The mix is always different. The tools that fix them are always different. That&rsquo;s why we don&rsquo;t sell packages. We haven&rsquo;t seen your operation yet.</p>
-      </div>
-      <div class="solution-card">
-        <p class="solution-title">There&rsquo;s a better way.</p>
-        <p class="solution-text">
-          We build custom operations systems that give your team full visibility into dispatch, billing, and finance, at a fraction of the cost of enterprise software. We do it in weeks, not months. No off-the-shelf software. No generic templates. A system built around how your crews actually work.
-        </p>
-        <ul class="solution-checklist">
-          <li><span class="check">&#10003;</span>Job tracking from assignment to closeout, visible to your whole team</li>
-          <li><span class="check">&#10003;</span>Billing queue that updates the moment a job closes in the field</li>
-          <li><span class="check">&#10003;</span>Crew and contractor compliance tracked in one place</li>
-          <li><span class="check">&#10003;</span>Job costing that shows margin on every job before the invoice goes out</li>
-          <li><span class="check">&#10003;</span>Pre-bore documentation that protects you if a damage claim arrives</li>
-          <li><span class="check">&#10003;</span>Built on a platform your team can access from the field or the office, no expensive licenses</li>
-        </ul>
-      </div>
-    </div>
-    <div style="text-align: center; margin-top: 56px; padding-top: 40px; border-top: 1px solid var(--border);">
-      <p style="font-family: var(--font-display); font-size: clamp(22px, 3vw, 28px); font-weight: 800; color: var(--white); line-height: 1.3;">We build the system. We train the team. We stay until it works.</p>
-    </div>
-  </div>
-</section>
-
-<!-- DIAGNOSE BEFORE PRESCRIBE (v38) -->
-<section style="background: var(--navy-mid);">
-  <div class="section-inner">
-    <p class="section-eyebrow">Why every engagement starts with the audit</p>
-    <h2 class="section-title">We don&rsquo;t sell software.<br>We diagnose before we prescribe.</h2>
-    <div style="max-width: 760px; margin-top: 24px;">
-      <p style="font-size: 16px; color: var(--text-light); line-height: 1.75; margin-bottom: 18px;">You&rsquo;ve probably already looked at the software. FieldRoutes, Procore, ServiceTitan. Some combination of spreadsheets and a group text nobody checks.</p>
-      <p style="font-size: 16px; color: var(--text-light); line-height: 1.75; margin-bottom: 18px;">Here&rsquo;s the problem with all of them. They were built for somebody else&rsquo;s operation. Maybe a residential HVAC company in California. Maybe a commercial GC in New York. The dispatch flow doesn&rsquo;t match how your crews actually work. The billing module doesn&rsquo;t know your ISP rate codes. The compliance tracker doesn&rsquo;t know what a DWC83 is.</p>
-      <p style="font-size: 16px; color: var(--text-light); line-height: 1.75; margin-bottom: 18px;">So you bend your operation to fit the tool. And the parts that don&rsquo;t bend get left on spreadsheets and text threads and Post-it notes on the monitor.</p>
-      <p style="font-size: 16px; color: var(--text-light); line-height: 1.75; margin-bottom: 18px;">We do the opposite. We start with how your operation actually runs, find where it&rsquo;s bleeding time and money, and build the fix around that. Sometimes it&rsquo;s a full ops system. Sometimes it&rsquo;s one AI agent taking over one task that was costing you ten hours a week. Sometimes it&rsquo;s both.</p>
-      <p style="font-size: 16px; color: var(--text-light); line-height: 1.75; margin-bottom: 24px;">We can&rsquo;t quote you a build price until we&rsquo;ve seen the operation. Any consultant who quotes you before the audit is selling you a package, not a solution. That&rsquo;s why every engagement starts with the Operations Audit.</p>
-      <a href="#contact" class="btn-primary" style="display: inline-flex;">
-        Book Your Operations Audit
-        <svg width="16" height="16" fill="none" viewBox="0 0 16 16" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- THE OPERATIONS AUDIT -->
-<section>
-  <div class="section-inner">
-    <p class="section-eyebrow">The Operations Audit</p>
-    <h2 class="section-title">Every engagement starts<br>with a two-week Operations Audit.</h2>
-    <p class="section-subtitle">Fixed scope. Fixed fee. Real deliverable you can act on, whether you hire us to build or not.</p>
-
-    <div style="max-width: 820px; margin-top: 32px;">
-      <h3 class="service-name" style="color: var(--electric); margin-top: 24px; margin-bottom: 12px;">What the fee covers</h3>
-      <p style="font-size: 16px; color: var(--text-light); line-height: 1.75; margin-bottom: 16px;">The Audit is a paid engagement, not a sales call. The fee pays for recorded interviews with ownership and crew, a written opportunity matrix, a prioritized roadmap, and ROI math on every recommendation. It pays for the time it takes to do the work right.</p>
-      <p style="font-size: 16px; color: var(--text-light); line-height: 1.75; margin-bottom: 24px;">We scope and quote your audit on the fit call. You know what it costs before you commit. No surprises.</p>
-
-      <h3 class="service-name" style="color: var(--electric); margin-top: 24px; margin-bottom: 12px;">Week 1. Interviews and process mapping.</h3>
-      <p style="font-size: 16px; color: var(--text-light); line-height: 1.75; margin-bottom: 16px;">We sit down with leadership and get the strategic view. Where are you falling short on your KPIs? What&rsquo;s eating the most hours? Where are you watching money walk out the door?</p>
-      <p style="font-size: 16px; color: var(--text-light); line-height: 1.75; margin-bottom: 16px;">Then we talk to the crew. Dispatchers, PMs, billing, techs in the field. We ask them to walk us through a typical day, step by step. What&rsquo;s the most boring, repetitive part of their job? What workaround have they built because the tools are broken? If they had an assistant, what would they hand off first?</p>
-      <p style="font-size: 16px; color: var(--text-light); line-height: 1.75; margin-bottom: 24px;">We record every call. We use an AI notetaker so nobody is taking notes by hand. We do 80 percent listening, 20 percent talking.</p>
-
-      <h3 class="service-name" style="color: var(--electric); margin-top: 24px; margin-bottom: 12px;">Week 2. Opportunity matrix and roadmap.</h3>
-      <p style="font-size: 16px; color: var(--text-light); line-height: 1.75; margin-bottom: 12px;">We plot every finding on a 2x2 grid: business impact on one axis, implementation effort on the other. Four quadrants come out of that:</p>
-      <ul style="font-size: 16px; color: var(--text-light); line-height: 1.8; margin-bottom: 16px; padding-left: 20px;">
-        <li>Quick wins. Low effort, high impact. The first 30 to 90 days.</li>
-        <li>Big swings. High effort, high impact. Months 4 to 18.</li>
-        <li>Nice to have. Low effort, low impact. Bonus.</li>
-        <li>Skip. High effort, low impact. Don&rsquo;t waste the money.</li>
-      </ul>
-      <p style="font-size: 16px; color: var(--text-light); line-height: 1.75; margin-bottom: 24px;">Then we sit down with you and co-build the roadmap. You tell us which quick wins resonate. Which solutions your team would actually adopt. Which ones would get fought tooth and nail. By the end of that session, the plan is yours as much as it is ours, because you helped build it.</p>
-
-      <h3 class="service-name" style="color: var(--electric); margin-top: 24px; margin-bottom: 12px;">What you walk out with</h3>
-      <ul style="font-size: 16px; color: var(--text-light); line-height: 1.8; margin-bottom: 24px; padding-left: 20px;">
-        <li>Recorded interviews and themes, searchable, yours to keep</li>
-        <li>The full opportunity matrix, every finding plotted by impact and effort</li>
-        <li>A prioritized roadmap: quick wins (30 to 90 days), medium swings (4 to 8 months), transformational projects (9 to 18 months)</li>
-        <li>ROI math on the top opportunities: hours saved per week, people affected, annual dollar impact, implementation cost, Year 1 ROI</li>
-        <li>A written recommendation of what to build first, what to build next, and what not to build at all</li>
-      </ul>
-
-      <h3 class="service-name" style="color: var(--electric); margin-top: 24px; margin-bottom: 12px;">Why it&rsquo;s not free</h3>
-      <p style="font-size: 16px; color: var(--text-light); line-height: 1.75; margin-bottom: 16px;">A proper audit requires sit-down time with ownership and with the people actually doing the work. It takes two weeks of real effort, not a 30-minute demo call. Consultants who give the audit away for free are either cutting corners on the discovery, or they&rsquo;re not actually looking at the specific operation. The math is simple. If we invest the time to do it right, the fee has to reflect that.</p>
-      <p style="font-size: 16px; color: var(--text-light); line-height: 1.75; margin-bottom: 24px;">The math works the other way too. Most contractors don&rsquo;t realize how much the current operation is costing them until they see the matrix. The audit pays for itself on the first quick win, if you choose to build it. And if you don&rsquo;t build with us, you still walk out with the roadmap and the ROI math. Take it to another consultant. Use it yourself. It&rsquo;s yours.</p>
-
-      <div style="border-left: 4px solid var(--electric); padding-left: 24px; margin: 32px 0;">
-        <p style="font-family: var(--font-display); font-size: clamp(20px, 2.5vw, 24px); color: var(--white); line-height: 1.5; font-weight: 700; font-style: italic;">Most consultants present ideas. We present math.</p>
-      </div>
-
-      <a href="#contact" class="btn-primary" style="display: inline-flex;">
-        Book your fit call to scope the audit
-        <svg width="16" height="16" fill="none" viewBox="0 0 16 16" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- SERVICES -->
-<section id="services">
-  <div class="section-inner">
-    <div class="services-header">
-      <div>
-        <p class="section-eyebrow">Past Builds</p>
-        <h2 class="section-title">Here&rsquo;s what the audit<br>has produced for other contractors.</h2>
-      </div>
-      <p class="section-subtitle">Every operation gets a different build. These are the patterns we see most often, not a menu and not a price sheet. Your build will look like some of this, none of this, or something we haven&rsquo;t built before.</p>
-    </div>
-
-    <p style="font-style: italic; color: var(--muted); font-size: 16px; line-height: 1.65; margin-bottom: 32px;">Two contractors. Two completely different builds. Both started with an audit.</p>
-
-    <div class="story-cards">
-      <div class="story-card">
-        <span style="display:inline-block; font-size:11px; font-weight:700; letter-spacing:0.8px; text-transform:uppercase; color:var(--electric); background:rgba(42,142,255,0.1); padding:3px 10px; border-radius:4px; margin-bottom:10px;">Dispatch</span>
-        <h3 class="story-card-title">From WhatsApp to a real operation</h3>
-        <p class="story-card-outcome">Today the crew has a live dispatch board, full billing visibility, and real-time status on every job in the field.</p>
-        <p>Before we started, everything ran on WhatsApp. Dispatch, damage tracking, job follow-up, all by text message. Information disappeared into group threads. Billing was delayed because nobody could find the completed job documentation. What should have taken minutes took ten times longer, and errors were absorbed as part of the cost of doing business.</p>
-        <p>We designed and built a system that integrates dispatch, operations, and billing into a single flow. Fewer errors. Faster collections. Decisions based on real data instead of the last text message someone remembered to send.</p>
-        <p style="font-weight: 600; color: var(--white);">The crew didn&rsquo;t want to change. Three months later, they don&rsquo;t want to go back.</p>
-      </div>
-      <div class="story-card">
-        <span style="display:inline-block; font-size:11px; font-weight:700; letter-spacing:0.8px; text-transform:uppercase; color:var(--electric); background:rgba(42,142,255,0.1); padding:3px 10px; border-radius:4px; margin-bottom:10px;">Billing</span>
-        <h3 class="story-card-title">Billing that was weeks behind, now closed out at the job</h3>
-        <p class="story-card-outcome">Today every dollar owed gets tracked and collected. Invoices generate the moment a tech closes a job.</p>
-        <p>Before, there was no real billing system. Work was completed and documented somewhere: in texts, in notes, on paper. But pulling it together into an invoice took days. Sometimes weeks. Clients were getting billed late if at all, and nobody had a real picture of what was outstanding.</p>
-        <p>We rebuilt the billing process from scratch: a single system where every closed job surfaces what needs to be invoiced, with full visibility into what&rsquo;s outstanding and how old it is. Invoicing connects directly to your accounting software, no more chasing paperwork across job sites.</p>
-        <p style="font-weight: 600; color: var(--white);">Cash flow stabilized. Collections accelerated. The owner stopped spending Fridays chasing down payments from the week before.</p>
-      </div>
-    </div>
-
-    <p style="text-align: center; font-weight: 700; font-size: 18px; color: var(--white); margin-bottom: 48px;">Here are five patterns we see most often. Yours will look like some of these, or none of these.</p>
-
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><circle cx="17.5" cy="17.5" r="3.5"/><path d="M17.5 16v1.5l1 1"/></svg>
-        </div>
-        <h3 class="service-name">Job Tracking</h3>
-        <p class="service-desc">A single job record from assignment to closeout. Built for a contractor re-entering the same job data into three different systems. ISP portal to dispatch sheet to billing system. Same numbers, three places, every time. Field app captured footage, equipment, photos. No manual re-entry.</p>
-        <ul class="service-outcomes">
-          <li>Jobs import directly from your ISP platform, no manual re-entry</li>
-          <li>Each job tracks status, crew assignment, locate tickets, and key dates</li>
-          <li>Field app captures what the tech did: footage, equipment installed, photos, hours</li>
-          <li>Closeout data flows directly to the billing queue, no paperwork chase</li>
-          <li>Duplicate detection flags repeat addresses before they become billing errors</li>
-        </ul>
-        <p style="font-size: 14px; color: var(--muted); font-style: italic; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border);">Your operation might need this. It might not. The audit is how we find out.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-        </div>
-        <h3 class="service-name">Crew &amp; Contractor Management</h3>
-        <p class="service-desc">Crew and contractor compliance tracking. Built for a contractor who had two COI expirations blow up the same week. One outside crew showed up to a job uninsured, the other got pulled off site by the GC. Compliance expiration alerts, equipment assignment visibility, contractor invoice workflows with approval gates.</p>
-        <ul class="service-outcomes">
-          <li>Crew and contractor roster with rates, pay types, and market assignments</li>
-          <li>Compliance document tracking: COI, DWC83, contracts, with expiration alerts</li>
-          <li>Equipment and vehicle assignment, know who has what and when it&rsquo;s due back</li>
-          <li>Contractor invoice management with PM approval workflow</li>
-          <li>Flag non-compliant contractors before they&rsquo;re assigned to a job</li>
-        </ul>
-        <p style="font-size: 14px; color: var(--muted); font-style: italic; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border);">Your operation might need this. It might not. The audit is how we find out.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">
-          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8M16 17H8M10 9H8"/></svg>
-        </div>
-        <h3 class="service-name">Billing Automation</h3>
-        <p class="service-desc">Billing automation tied to job closeout. Built for a contractor whose billing cycle was 21 days behind the job. Jobs auto-populated a billing queue on closeout. Rate codes by ISP contract. Direct integration with their accounting system, QuickBooks or Xero.</p>
-        <ul class="service-outcomes">
-          <li>Billing queue updates when a job closes, invoice-ready without chasing paperwork</li>
-          <li>Rate cards by service code and ISP contract, right rate, every time</li>
-          <li>Invoices link to the project, PO, and ISP contact automatically</li>
-          <li>Accounting software sync (QuickBooks, Xero)</li>
-          <li>Open invoice visibility: what&rsquo;s been sent, what&rsquo;s outstanding, what&rsquo;s overdue</li>
-        </ul>
-        <p style="font-size: 14px; color: var(--muted); font-style: italic; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border);">Your operation might need this. It might not. The audit is how we find out.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">
-          <svg viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
-        </div>
-        <h3 class="service-name">Job Costing</h3>
-        <p class="service-desc">Real-time job costing. Built for a contractor running jobs at a loss and not finding out until the books closed two weeks later. Crew-level margin analysis. Budget trend alerts before closeout, while the job could still be saved.</p>
-        <ul class="service-outcomes">
-          <li>Cost vs. billed on every job, see margin in real time</li>
-          <li>Crew-level job costing, know which techs and crews run at rate</li>
-          <li>Labor and materials tracked against the original quote</li>
-          <li>Flag jobs that are trending over budget before they close</li>
-        </ul>
-        <p style="font-size: 14px; color: var(--muted); font-style: italic; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border);">Your operation might need this. It might not. The audit is how we find out.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <h3 class="service-name">Dig Documentation &amp; Damage Defense</h3>
-        <p class="service-desc">Dig documentation and damage defense. Built for a contractor who took a six-figure damage claim without GPS-tagged pre-bore photos to defend the crew. Pre-bore documentation, damage incident records, claim tracking. The one they wished they&rsquo;d had before the claim arrived.</p>
-        <p class="service-desc">Three photos and a ticket number on every bore. Locate marks as found, bore path, 811 ticket. The record exists permanently, tied to the job, timestamped and GPS-tagged. If a claim arrives six months later, you&rsquo;re not relying on memory, you&rsquo;re pulling the file.</p>
-        <ul class="service-outcomes">
-          <li>Pre-bore photo documentation: locate marks as found, bore path, 811 ticket confirmation</li>
-          <li>GPS-tagged, timestamped photos tied to the job record</li>
-          <li>Notes for mark conditions, utility reps on site, and daily bore progress</li>
-          <li>Damage incident record: photos, strike location, operator notification log</li>
-          <li>Claim tracking: status, amount, correspondence, and resolution</li>
-        </ul>
-        <p style="font-size: 14px; color: var(--muted); font-style: italic; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border);">Your operation might need this. It might not. The audit is how we find out.</p>
-      </div>
-    </div>
-
-    <div style="margin-top: 24px;">
-      <div class="service-card" style="background: linear-gradient(135deg, rgba(42,142,255,0.08), var(--navy-light));">
-        <h3 class="service-name" style="color: var(--electric); margin-bottom: 16px;">Most builds combine multiple workflows. The audit tells us which ones.</h3>
-        <p class="service-desc" style="margin-bottom: 16px; font-size: 15px;">Job closes in the field, billing queue updates, labor cost is recorded, the job costing dashboard reflects the margin in real time, and the dig documentation record for that same job is already on file. That&rsquo;s what a connected build looks like. Whether yours needs all of it, some of it, or one piece nobody else has built yet, the audit is where we figure that out.</p>
-        <p style="font-size: 14px; color: var(--muted); font-style: italic; margin-bottom: 20px;">This is a partial list. The audit will tell us whether any of this applies to you, or whether your build looks completely different.</p>
-        <a href="#contact" class="btn-primary" style="display: inline-flex;">
-          Book Your Operations Audit
-          <svg width="16" height="16" fill="none" viewBox="0 0 16 16" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- AI AGENTS (v38) -->
-<section style="background: var(--navy-mid);">
-  <div class="section-inner">
-    <p class="section-eyebrow">AI Agents and Automation</p>
-    <h2 class="section-title">We also build AI agents that take over<br>the work your crew shouldn&rsquo;t be doing by hand.</h2>
-    <div style="max-width: 820px; margin-top: 24px;">
-      <p style="font-size: 16px; color: var(--text-light); line-height: 1.75; margin-bottom: 18px;">This is where the ten-hours-a-week-back-in-your-pocket work happens. An AI agent is a piece of software that runs in the background, does a specific job, and hands you the output.</p>
-      <p style="font-size: 16px; color: var(--text-light); line-height: 1.75; margin-bottom: 18px;">Every operation has work that eats time but doesn&rsquo;t require judgment. Reading resumes. Sorting email. Answering the same customer question 30 times a day. Pulling job data out of an ISP portal and typing it into your system. Chasing an outside crew for the same COI every quarter.</p>
-      <p style="font-size: 16px; color: var(--text-light); line-height: 1.75; margin-bottom: 24px;">That&rsquo;s what AI agents are for. Not replacing your people. Replacing the work that shouldn&rsquo;t have been on their plate in the first place.</p>
-
-      <h3 class="service-name" style="color: var(--electric); margin-top: 24px; margin-bottom: 16px;">Examples of what we&rsquo;ve built or are actively building</h3>
-      <ul style="font-size: 16px; color: var(--text-light); line-height: 1.8; margin-bottom: 24px; padding-left: 20px;">
-        <li style="margin-bottom: 12px;"><strong style="color: var(--white);">Phone agent.</strong> Receives inbound calls, routes ISP job assignments into the dispatch board, takes tech check-ins, answers customer status questions, escalates emergencies. Runs around the clock. No voicemail at 5:01 PM.</li>
-        <li style="margin-bottom: 12px;"><strong style="color: var(--white);">Hiring agent.</strong> Screens every applicant against your actual criteria: CDL class, OSHA certs, aerial vs. underground experience, ISP-specific qualifications. Ranks the shortlist. Sends interview invitations to the ones who make the cut. You open the top five resumes, not 140.</li>
-        <li style="margin-bottom: 12px;"><strong style="color: var(--white);">Bid package agent.</strong> Pulls your company profile, crew certs, insurance, and compliance history and assembles a complete bid package or safety plan in minutes. ISP-specific formatting. Cert expiration validation before the package generates.</li>
-        <li style="margin-bottom: 12px;"><strong style="color: var(--white);">Invoice follow-up agent.</strong> Monitors your AR aging and drafts follow-up emails on overdue invoices. Professional, branded, signed by you. You approve the send or auto-send the routine ones.</li>
-        <li style="margin-bottom: 12px;"><strong style="color: var(--white);">Ops coordinator agent.</strong> Triages email, manages the calendar, tracks follow-ups on compliance docs and crew invoices, does research on new markets you don&rsquo;t have time to dig into, and delivers a daily briefing before you open the inbox.</li>
-        <li style="margin-bottom: 12px;"><strong style="color: var(--white);">Custom agents.</strong> Most of what we build is specific to the operation. If there&rsquo;s a repetitive task eating your week, there&rsquo;s probably an agent that can take it over. The audit is where we find those.</li>
-      </ul>
-
-      <p style="font-size: 16px; color: var(--text-light); line-height: 1.75; margin-bottom: 24px;">The audit is where we figure out which of these, or which custom ones, are worth building for you. Some operations need one agent. Some need five. Some don&rsquo;t need any. We won&rsquo;t build one for the sake of building one.</p>
-
-      <a href="#contact" class="btn-primary" style="display: inline-flex;">
-        Book your fit call
-        <svg width="16" height="16" fill="none" viewBox="0 0 16 16" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- PROCESS -->
-<section class="process" id="process">
-  <div class="section-inner">
-    <p class="section-eyebrow">How It Works</p>
-    <h2 class="section-title">How we work with you.</h2>
-    <div class="process-steps">
-      <div class="process-step">
-        <div class="step-number">1</div>
-        <h3 class="step-title">Free 30-minute fit call</h3>
-        <p class="step-desc">We talk for 30 minutes. You tell us what&rsquo;s hurting. We tell you whether the Operations Audit is a fit for your operation, or whether you&rsquo;d be better off buying off-the-shelf software and skipping the consulting entirely. We also scope and quote the audit on this call.</p>
-      </div>
-      <div class="process-step">
-        <div class="step-number">2</div>
-        <h3 class="step-title">Operations Audit<br><span style="font-size: 14px; font-weight: 600; color: var(--electric);">Two weeks</span></h3>
-        <p class="step-desc">Discovery interviews with ownership and crew, process mapping, opportunity matrix, roadmap, ROI math. You walk out with a written plan you can act on, whether you hire us to build or not.</p>
-      </div>
-      <div class="process-step">
-        <div class="step-number">3</div>
-        <h3 class="step-title">Custom build<br><span style="font-size: 14px; font-weight: 600; color: var(--electric);">30 to 180 days, scoped to the roadmap</span></h3>
-        <p class="step-desc">We build whatever the audit said to build. Might be a full ops system. Might be three AI agents. Might be one dashboard. Might be a combination. Weekly progress check-ins and a working pilot before the full build launches.</p>
-      </div>
-      <div class="process-step">
-        <div class="step-number">4</div>
-        <h3 class="step-title">90 days of adoption support<br><span style="font-size: 14px; font-weight: 600; color: var(--electric);">Included</span></h3>
-        <p class="step-desc">This is the part most consultants skip. Building the system is the easy part. Getting a crew that ran on spreadsheets and group texts to actually use something new is the work. We stay through that.</p>
-      </div>
-      
-    </div>
-  </div>
-</section>
-
-<!-- VALUE ANCHOR -->
-<section style="background: var(--navy-mid);">
-  <div class="section-inner">
-    <p class="section-eyebrow">What This Is Worth</p>
-    <h2 class="section-title" style="margin-bottom: 24px;">The cost of the gap between<br>running and optimized.</h2>
-    <div style="max-width: 720px;">
-      <p style="font-size: 16px; color: var(--text-light); line-height: 1.75; margin-bottom: 20px;">You have crews in the field, contracts active, customers getting served. Most contractors at your stage haven&rsquo;t built what you have. That matters.</p>
-      <p style="font-size: 16px; color: var(--text-light); line-height: 1.75; margin-bottom: 20px;">The gap between running and optimized is where money quietly disappears. Invoices that go out two weeks late. Overtime from crews running inefficient routes. Jobs that fall through because dispatch was a group text. A damage claim with no pre-bore photos to defend it.</p>
-      <p style="font-size: 16px; color: var(--text-light); line-height: 1.75; margin-bottom: 20px;">Most contractors don&rsquo;t know how much that gap is costing them until the audit puts a number on each piece. Hours per week. Dollars per month. People affected. Year 1 ROI on every fix.</p>
-      <div style="border-left: 4px solid var(--electric); padding-left: 24px; margin-top: 8px;">
-        <p style="font-family: var(--font-display); font-size: clamp(20px, 2.5vw, 24px); color: var(--white); line-height: 1.5; font-weight: 700; font-style: italic;">Most consultants present ideas. We present math.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="testimonials" id="testimonials">
-  <div class="section-inner">
-    <p class="section-eyebrow">Client Results</p>
-    <h2 class="section-title">What contractors say<br>after going live.</h2>
-    <p style="font-style: italic; color: var(--muted); font-size: 16px; line-height: 1.65; margin-top: 16px; margin-bottom: 24px; max-width: 720px;">Two contractors who started with an audit and ended up with custom builds. Neither build looked the same.</p>
-
-    <div class="testimonials-grid">
-      <div class="testimonial-card">
-        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="testimonial-text">&ldquo;Before this, our billing was a mess: completed jobs sitting in text threads, work orders we couldn&rsquo;t find, invoices going out weeks late. Now the invoice triggers the moment a tech closes the job. We stopped chasing payments. That alone covered what we paid for the build.&rdquo;</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">LV</div>
-          <div>
-            <p class="author-name">Operations Manager</p>
-            <p class="author-title">Low-voltage contractor</p>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-card">
-        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="testimonial-text">&ldquo;We were running dispatch on spreadsheets and group texts and jobs were falling through the cracks constantly. Gil rebuilt the whole system. The structure he put in place is already changing how we operate.&rdquo;</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">TC</div>
-          <div>
-            <p class="author-name">Owner</p>
-            <p class="author-title">Telecom contractor</p>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-card" style="background: linear-gradient(135deg, rgba(42,142,255,0.08), var(--navy-mid)); border-color: var(--border-light);">
-        <p class="service-desc" style="font-size: 16px; color: var(--text-light); margin-bottom: 16px; font-style: normal;">The fit call is free. The audit is paid and scoped to your operation. We quote it on the call before you commit.</p>
-        <a href="#contact" class="btn-primary" style="display: inline-flex; font-size: 14px;">
-          Book your fit call &rarr;
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section class="about" id="about">
-  <div class="section-inner">
-    <div class="about-grid">
-      <div style="position: relative;">
-        <div class="about-photo-placeholder">
-          <img src="gil-headshot.jpg?v=2" alt="Gil Ramirez, founder of Telecom Contractor Solutions" loading="lazy">
+        <div class="diagram-label">Diagram A — current</div>
+        <div class="diagram" aria-label="Current fragmented handoff path">
+          <span class="node bad">CREW</span><span class="arrow" aria-hidden="true">→</span>
+          <span class="node bad">WhatsApp</span><span class="arrow" aria-hidden="true">→</span>
+          <span class="node bad">Photos</span><span class="arrow" aria-hidden="true">→</span>
+          <span class="node bad">Paper</span><span class="arrow" aria-hidden="true">→</span>
+          <span class="node bad">Spreadsheet</span><span class="arrow" aria-hidden="true">→</span>
+          <span class="node bad">Another Spreadsheet</span><span class="arrow" aria-hidden="true">→</span>
+          <span class="node bad">Accounting</span>
         </div>
       </div>
       <div>
-        <p class="section-eyebrow">About Gil Ramirez</p>
-        <h2 class="section-title">Built by someone<br>who knows the industry.</h2>
-        <p class="about-bio">
-          I founded Telecom Contractor Solutions in Houston, TX after watching contractors lose six figures a year to systems that worked fine at 10 techs and collapsed at 40. They&rsquo;d outgrow their tools before reaching the scale to justify enterprise software, and the gap in between is where money quietly disappeared.
-        </p>
-        <p class="about-bio">
-          That gap is where I work: billing delays, missed jobs, crews driving to the wrong site, overtime from routes nobody optimized. I built a repeatable operations system to close it. It works because it&rsquo;s built specifically for this industry, not adapted from some generic template.
-        </p>
-        <p class="about-bio" style="font-weight: 600; color: var(--white);">
-          I build the system they should have had before the growth hit.
-        </p>
-        <div class="about-credentials">
-          <div class="credential"><div class="credential-dot"></div>Based in Houston, TX. Serving telecom contractors nationwide</div>
-          <div class="credential"><div class="credential-dot"></div>Right fit for ISP contractors running 10 to 100 field technicians</div>
-          <div class="credential"><div class="credential-dot"></div>Aerial and underground infrastructure operations experience</div>
-          <div class="credential"><div class="credential-dot"></div>No off-the-shelf templates. Every system is built to your operation</div>
+        <div class="diagram-label">Diagram B — target</div>
+        <div class="diagram" aria-label="Connected field-to-financial path">
+          <span class="node good">FIELD CAPTURE</span><span class="arrow good" aria-hidden="true">→</span>
+          <span class="node good">VALIDATED PRODUCTION</span><span class="arrow good" aria-hidden="true">→</span>
+          <span class="node good">CLOSEOUT</span><span class="arrow good" aria-hidden="true">→</span>
+          <span class="node good">JOB COST</span><span class="arrow good" aria-hidden="true">→</span>
+          <span class="node good">INVOICE READY</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CTA / CONTACT -->
-<section class="cta-section" id="contact">
-  <div class="cta-inner">
-    <h2 class="cta-title">Would it be a bad idea to spend 30 minutes finding out if this is a fit for your operation?</h2>
-    <p class="cta-sub">The fit call is free. We scope and quote the audit on that call, so you know what it costs before you commit. The build, if there is one, is built around what the audit finds. No package to pick. No modules to decide between. No commitment until you&rsquo;ve seen the roadmap and the ROI math.<br><br>What would you need to see from that call to feel like it was worth your time? That&rsquo;s what we&rsquo;ll cover.</p>
-    <div class="cta-form" id="contact-form">
-      <input type="text"  id="f-name"    placeholder="Your name"         name="name"    aria-label="Your name">
-      <input type="text"  id="f-company" placeholder="Company name"       name="company" aria-label="Company name">
-      <input type="email" id="f-email"   placeholder="Your email"         name="email"   aria-label="Your email">
-      <input type="tel"   id="f-phone"   placeholder="Your phone number"  name="phone"   aria-label="Your phone number">
-      <select id="f-techs" name="field_techs" aria-label="Number of field techs" class="form-full">
-        <option value="" disabled selected>How many field techs?</option>
-        <option value="10-20">10 &ndash; 20 techs</option>
-        <option value="21-50">21 &ndash; 50 techs</option>
-        <option value="51-75">51 &ndash; 75 techs</option>
-        <option value="76-100">76 &ndash; 100 techs</option>
-        <option value="100+">100+ techs</option>
-      </select>
-      <button class="btn-white form-full" type="button" id="submit-btn" onclick="submitForm()">Book your fit call</button>
-      <div class="cta-form-msg" id="form-msg"></div>
-    </div>
-    <p class="cta-note">
-      One call. You leave knowing exactly what&rsquo;s costing you and what it would take to fix it.
-    </p>
+<!-- 3 · PHILOSOPHY -->
+<section class="section" id="philosophy">
+  <div class="section-inner prose">
+    <h2>The Field Is the Source of Truth</h2>
+    <p class="sub">TCS does not start with another office dashboard. It starts where the work happens — the map, the codes, the photos, the closeout — so production and billing inherit the same truth the crew already lived.</p>
   </div>
 </section>
 
-<script>
-async function submitForm() {
-  const name    = document.getElementById('f-name').value.trim();
-  const company = document.getElementById('f-company').value.trim();
-  const email   = document.getElementById('f-email').value.trim();
-  const phone   = document.getElementById('f-phone').value.trim();
-  const techs   = document.getElementById('f-techs').value;
-  const msg     = document.getElementById('form-msg');
-  const btn     = document.getElementById('submit-btn');
-
-  // Clear previous highlights
-  ['f-name','f-company','f-email','f-phone','f-techs'].forEach(function(id) {
-    document.getElementById(id).style.borderColor = '';
-  });
-
-  // Validate and highlight empty fields
-  var missing = [];
-  if (!name)    missing.push('f-name');
-  if (!company) missing.push('f-company');
-  if (!email)   missing.push('f-email');
-  if (!phone)   missing.push('f-phone');
-  if (!techs)   missing.push('f-techs');
-
-  if (missing.length > 0) {
-    missing.forEach(function(id) {
-      document.getElementById(id).style.borderColor = '#e74c3c';
-    });
-    document.getElementById(missing[0]).focus();
-    msg.className = 'cta-form-msg error';
-    msg.textContent = 'Please fill in the highlighted fields.';
-    return;
-  }
-
-  btn.textContent = 'Sending...';
-  btn.disabled = true;
-  msg.className = 'cta-form-msg';
-
-  var WEBHOOK_URL = 'https://hook.us2.make.com/ufy2psw2mv3377lfvmxnu60999bg7e8d';
-  var submitted_at = new Date().toISOString();
-  var source = 'telecomcontractorsolutions.com';
-
-  try {
-    await fetch(WEBHOOK_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
-        name:        name,
-        company:     company,
-        email:       email,
-        phone:       phone,
-        field_techs: techs,
-        submitted_at: submitted_at,
-        source:      source
-      }).toString()
-    });
-    msg.className = 'cta-form-msg success';
-    msg.textContent = "You\u2019re on the calendar. Gil will reach out within one business day to schedule your fit call.";
-    document.getElementById('f-name').value    = '';
-    document.getElementById('f-company').value = '';
-    document.getElementById('f-email').value   = '';
-    document.getElementById('f-phone').value   = '';
-    document.getElementById('f-techs').value   = '';
-    btn.textContent = 'Book your fit call';
-    btn.disabled = false;
-  } catch (err) {
-    msg.className = 'cta-form-msg error';
-    msg.textContent = 'Something went wrong. Please try again in a moment.';
-    btn.textContent = 'Book your fit call';
-    btn.disabled = false;
-  }
-}
-</script>
+<!-- 4 · OUTCOMES -->
+<section class="section" id="outcomes">
+  <div class="section-inner">
+    <h2>What changes when the field is trusted</h2>
+    <ul class="outcomes-list">
+      <li>Faster, complete closeouts</li>
+      <li>Less duplicate entry between portal, sheet, and invoice</li>
+      <li>Earlier job-cost visibility</li>
+      <li>Fewer billing corrections and kicked codes</li>
+      <li>Visibility into completed-but-unbilled work</li>
+      <li>Clearer subcontractor accountability</li>
+      <li>More capacity without matching admin headcount</li>
+    </ul>
+  </div>
 </section>
 
-<!-- FOOTER -->
+<!-- 5 · HOW -->
+<section class="section" id="how">
+  <div class="section-inner">
+    <h2>How we work with you</h2>
+    <ol class="steps">
+      <li><strong>Fit Call</strong> — 30 minutes. Is the Operations Audit a fit?</li>
+      <li><strong>Operations Audit</strong> — fixed scope discovery, roadmap + math you keep either way (scoped on the Fit Call)</li>
+      <li><strong>Roadmap</strong> — what to build first, what to skip</li>
+      <li><strong>Implementation</strong> — build around how your crews actually work</li>
+      <li><strong>Software rollout</strong> — only when the workflow needs a system to run on (no package menu here)</li>
+      <li><strong>Measure and improve</strong> — adoption support after go-live</li>
+    </ol>
+    <a class="btn" href="/fit-call.html">Book a Fit Call</a>
+  </div>
+</section>
+
+<!-- 6 · PROOF -->
+<section class="section" id="proof">
+  <div class="section-inner">
+    <h2>What telecom contractors say</h2>
+    <div class="quote">
+      “We were running dispatch on spreadsheets and group texts and jobs were falling through the cracks constantly. Gil rebuilt the whole system. The structure he put in place is already changing how we operate.”
+      <div class="quote-attr">Owner <span>· Telecom contractor</span></div>
+    </div>
+    <!-- TODO(Marketing): add additional telecom-only quotes/reviews; do not invent; LV/low-voltage attributions stay off this page -->
+    <p class="proof-todo">More telecom contractor proof coming soon.</p>
+  </div>
+</section>
+
+<!-- 7 · SOFTWARE SOFT -->
+<section class="section software" id="software">
+  <div class="section-inner prose">
+    <h2>The system doesn’t stop at a roadmap</h2>
+    <p class="sub">We can implement the workflow and provide the software that runs it — field capture through invoice-ready — without making your office reconstruct the job.</p>
+  </div>
+</section>
+
+<!-- 8 · FINAL CTA -->
+<section class="final-cta" id="contact">
+  <h2>Find the gaps between your field and your financials.</h2>
+  <a class="btn" href="/fit-call.html">Book a Fit Call</a>
+  <p class="cta-note">Free 30 minutes. We’ll tell you whether an Operations Audit is a fit.</p>
+</section>
+
 </main>
 
 <footer>
   <div class="footer-inner">
-    <div>
-      <img src="tcs-logo-horizontal.svg" alt="Telecom Contractor Solutions" height="38" style="display:block; margin-bottom:10px;">
-      <p class="footer-tagline" style="font-size:15px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--white); margin-bottom:4px;">Build &middot; Train &middot; Optimize</p>
-      <p class="footer-tagline">Custom operations systems for ISP &amp; telecom contractors with 10&ndash;100 field technicians.</p>
-      <p class="footer-tagline" style="margin-top:10px;"><a href="tel:+18329170091" style="color:#A0B4D8;text-decoration:none;">(832) 917-0091</a><br>Arena Tower, 7324 Southwest Freeway, Suite 264<br>Houston, TX 77074</p>
-      <div class="footer-contact">
-        <a href="#contact" style="color:var(--electric); text-decoration:none; font-weight:600;">Book your fit call &rarr;</a>
-        <span>Houston, TX &middot; Serving contractors nationwide</span>
-      </div>
+    <div class="footer-brand">
+      <strong>Telecom Contractor Solutions</strong>
+      Houston · ISP contractors nationwide
+      <p class="footer-powered">Powered by <a href="https://simplecontractorsystems.com/?utm_source=tcs&amp;utm_medium=site&amp;utm_campaign=cross-practice&amp;utm_content=footer">Simple Contractor Systems</a></p>
+      <p style="margin-top:12px;"><a href="tel:+18329170091" style="color:#A0B4D8;text-decoration:none;">(832) 917-0091</a><br>Arena Tower, 7324 Southwest Freeway, Suite 264<br>Houston, TX 77074</p>
     </div>
     <div>
-      <p class="footer-col-title">Past Builds</p>
       <ul class="footer-links">
-        <li><a href="/job-tracking.html">Job Tracking</a></li>
-        <li><a href="/crew-management.html">Crew &amp; Contractor Management</a></li>
-        <li><a href="/billing-automation.html">Billing Automation</a></li>
-        <li><a href="/job-costing.html">Job Costing</a></li>
-        <li><a href="/dig-documentation.html">Dig Documentation</a></li>
-      </ul>
-    </div>
-    <div>
-      <p class="footer-col-title">Company</p>
-      <ul class="footer-links">
-        <li><a href="#about">About Gil Ramirez</a></li>
-        <li><a href="#process">How It Works</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#proof">Proof</a></li>
+        <li><a href="/about.html">About</a></li>
         <li><a href="/blog.html">Blog</a></li>
         <li><a href="/faq.html">FAQ</a></li>
-        <li><a href="/roi-calculator.html">ROI Calculator</a></li>
-        <li><a href="/compare.html">Compare Software</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="/fit-call.html">Book a Fit Call</a></li>
       </ul>
+    </div>
+    <div>
+      <a class="btn" href="/fit-call.html">Book a Fit Call</a>
     </div>
   </div>
   <div class="footer-bottom">
-    <p class="footer-family" style="margin-top:6px; font-size: 0.85rem; opacity: 0.85;">Telecom Contractor Solutions is the telecom practice of <a href="https://simplecontractorsystems.com/?utm_source=tcs&amp;utm_medium=site&amp;utm_campaign=cross-practice&amp;utm_content=footer" style="color:#A0B4D8;">Simple Contractor Systems</a>, serving electrical, HVAC, plumbing, GC and utility contractors with the same audit-first process.</p>
     <p>&copy; 2026 Telecom Contractor Solutions. All rights reserved.</p>
   </div>
 </footer>
 
+<script src="/assets/tcs-nav.js" defer></script>
 </body>
 </html>
