@@ -676,10 +676,32 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   .software .section-inner { max-width: 720px; }
 
+  /* LOWER_BAND_SPACING_LOCK: soft software + closer + footer */
+  #software.section {
+    padding: 52px 5%;
+  }
+  #software h2 {
+    margin-bottom: 12px;
+  }
+  #software .sub {
+    margin: 0;
+  }
+  /* facing pads software→cta: combined empty ≤32px mobile / 40px desktop */
+  #software.section {
+    padding-bottom: 20px;
+  }
+  .final-cta {
+    padding-top: 20px;
+  }
+  @media (min-width: 821px) {
+    #software.section { padding: 52px 5% 24px; }
+    .final-cta { padding: 24px 5% 56px; }
+  }
+
   /* FINAL CTA */
   .final-cta {
     text-align: center;
-    padding: 96px 5%;
+    padding: 60px 5% 56px;
     background: var(--navy);
   }
 
@@ -687,7 +709,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     max-width: 22ch;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 1.75rem;
+    margin-bottom: 1.125rem;
   }
 
   .cta-form {
@@ -729,7 +751,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .cta-form-msg.error { color: #f87171; }
 
   .cta-note {
-    margin-top: 1.25rem;
+    margin-top: 0.75rem;
     color: var(--muted);
     font-size: 0.875rem;
   }
@@ -738,7 +760,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   footer {
     background: var(--panel);
     border-top: 1px solid var(--border);
-    padding: 3rem 5% 1.75rem;
+    padding: 32px 5% 28px;
   }
 
   .footer-inner {
@@ -905,7 +927,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     .section { padding: clamp(3.25rem, 10vw, 5rem) 5%; }
 
-    .final-cta { padding: clamp(3.25rem, 10vw, 5rem) 5%; }
+    .final-cta { padding: 16px 5% 40px; }
+    #software.section { padding: 40px 5% 16px; }
 
     .footer-inner { flex-direction: column; }
 
@@ -913,7 +936,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     .section { padding: 48px 5%; }
     .section--alt { padding: 40px 5%; }
-    .final-cta { padding: 72px 5%; }
+    .final-cta { padding: 16px 5% 40px; }
+    #software.section { padding: 40px 5% 16px; }
+    footer { padding: 28px 5% 24px; }
 
   }
 </style>
@@ -1091,7 +1116,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="section" id="software">
   <div class="section-inner prose">
     <h2>The system doesn’t stop at a roadmap</h2>
-    <p class="sub">We can implement the workflow and provide the software that runs it. field capture through invoice-ready. without making your office reconstruct the job.</p>
+    <p class="sub">We can implement the workflow and provide the software that runs it: field capture through invoice-ready, without making your office reconstruct the job.</p>
   </div>
 </section>
 
