@@ -575,7 +575,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     font-weight: 700;
     margin-right: 0.35rem;
   }
-  .hero .swimlanes {
+  .hero .wt {
     margin-top: 1rem;
   }
   .hero-below {
@@ -1022,7 +1022,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
     .punch { font-size: 0.9375rem; font-weight: 700; }
     .hero-actions { margin-top: 0.75rem; }
-    .hero .swimlanes { margin-top: 0.85rem; }
+    .hero .wt { margin-top: 0.85rem; }
     .hero-fit-strip { margin-top: 0.65rem; }
     .hero-below { margin-top: 1.5rem; }
     .chips { display: none; }
@@ -1105,6 +1105,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   "areaServed": "US"
 }
 </script>
+  <link rel="stylesheet" href="/assets/workflow-transformation.css">
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -1153,50 +1154,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <a class="btn" href="/fit-call">Book a Fit Call</a>
     </div>
 
-    <div class="swimlanes hero-enter" aria-label="Current handoffs versus target module stories" data-dual-target>
-      <div class="swimlanes-head">
-        <span class="diagram-label">Before → after</span>
-      </div>
-      <div class="lanes lanes--carousel">
-        <div class="lane lane--current">
-          <h3 class="lane-title">Current</h3>
-          <ol class="lane-steps" data-lane-current>
-            <li>Intake</li>
-            <li>Copy to spreadsheet</li>
-            <li>Distribute to field</li>
-            <li>WhatsApp (codes, qty, photos mixed) or paper job logs</li>
-            <li>Admin sorts / job log / closeout docs and rekeys info</li>
-            <li>As-builts created from field (hand-drawn)</li>
-            <li>Office re-enters digitally for a clean copy to match the invoice</li>
-            <li>Final approval</li>
-            <li>Invoice sent with closeout docs</li>
-          </ol>
-        </div>
-        <div class="lane-target-wrap">
-          <div class="lane-target-track" data-target-track tabindex="0" aria-label="Target module examples. Swipe for more.">
-            <div class="lane lane--target" data-target-card="annotator">
-              <h3 class="lane-title">Target <span class="lane-example-tag">Map Annotator</span></h3>
-              <ol class="lane-steps">
-                <li>Mark codes on the map</li>
-                <li>Submit</li>
-                <li>Tally equals the marks</li>
-              </ol>
-            </div>
-            <div class="lane lane--target" data-target-card="invoice">
-              <h3 class="lane-title">Target <span class="lane-example-tag">Same-day Invoice</span></h3>
-              <ol class="lane-steps">
-                <li>Office drafts the invoice from tallies</li>
-                <li>Issue</li>
-              </ol>
-            </div>
-          </div>
-          <div class="lane-target-fade" aria-hidden="true"></div>
-          <div class="lane-dots" role="presentation" aria-hidden="true">
-            <span class="lane-dot is-active" data-dot="0"></span>
-            <span class="lane-dot" data-dot="1"></span>
-          </div>
-        </div>
-      </div>
+    <div
+      class="wt hero-enter"
+      id="workflow-transformation"
+      data-workflow-transformation
+      aria-label="Workflow transformation from 9 current steps to 4 target steps"
+    >
+      <!-- Mapping + markup: assets/workflow-transformation.js / components/WorkflowTransformation.tsx -->
     </div>
     <div class="hero-below hero-enter">
       <p class="sub prose">Capture the work once in the field. Move production, photos, closeouts, job cost, and billing through one connected workflow, so the office isn’t rebuilding Tuesday’s job on Friday.</p>
@@ -1314,31 +1278,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <script src="/assets/tcs-nav.js" defer></script>
 
-<script>
-(function () {
-  var root = document.querySelector('[data-dual-target]');
-  if (!root) return;
-  var track = root.querySelector('[data-target-track]');
-  var dots = root.querySelectorAll('.lane-dot');
-  if (!track || !dots.length) return;
-  function syncDots() {
-    var cards = track.querySelectorAll('[data-target-card]');
-    if (!cards.length) return;
-    var idx = 0;
-    var left = track.scrollLeft;
-    var best = Infinity;
-    for (var i = 0; i < cards.length; i++) {
-      var d = Math.abs(cards[i].offsetLeft - left);
-      if (d < best) { best = d; idx = i; }
-    }
-    dots.forEach(function (d, i) {
-      d.classList.toggle('is-active', i === idx);
-    });
-  }
-  track.addEventListener('scroll', syncDots, { passive: true });
-  syncDots();
-})();
-</script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js"></script>
+<script src="/assets/workflow-transformation.js" defer></script>
 
 
 <script>
