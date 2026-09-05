@@ -277,8 +277,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     font-size: 12px;
   }
 
-  /* TODO(GUI): replace .calendar-placeholder with live Google Appointment Schedule iframe.
-     Do NOT invent a calendar ID. Do NOT reuse the SCS schedule from simplecontractorsystems.com/contact.html. */
+  /* Calendar: GUI-locked SCS Google Appointment Schedule embed (2026-09-04). */
 
   .secondary-links {
     display: flex;
@@ -453,13 +452,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p class="helper">ISP contractors, 10–100 field techs. Aerial and underground. No package to pick on this page.</p>
 
     <div class="calendar-wrap" id="fit-call-calendar">
-      <!-- TODO(GUI): Paste TCS Google Appointment Schedule iframe here.
-           Source pattern (SCS, do not reuse ID): calendar.google.com/calendar/appointments/schedules/...
-           Do NOT invent a calendar ID. -->
-      <div class="calendar-placeholder" role="status">
-        <strong>Calendar embed coming soon</strong>
-        <span>Google Appointment Schedule for TCS Fit Calls.</span>
-        <code>TODO(GUI): paste TCS Fit Call calendar embed</code>
+      <!-- GUI lock 2026-09-04: reuse SCS Google Appointment Schedule embed -->
+      <div class="booker" style="border-radius:16px;overflow:hidden;background:#fff;border:1px solid rgba(42,142,255,.35)">
+        <div style="background:#2A8EFF;padding:15px 22px;display:flex;align-items:center;gap:13px">
+          <span aria-hidden="true" style="flex:none;width:34px;height:34px;border-radius:8px;background:#0B1829;display:flex;align-items:center;justify-content:center">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2A8EFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="1.5"></rect><path d="M3 9h18M8 2.5v4M16 2.5v4"></path></svg>
+          </span>
+          <div style="line-height:1.25">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.03em;color:#0B1829;font-size:16px">Pick a time for your Fit Call</div>
+            <div style="font-family:Barlow,sans-serif;color:rgba(11,24,41,.72);font-size:13px">Free 30 minutes. Choose a slot — no back and forth.</div>
+          </div>
+        </div>
+        <iframe title="Book a Fit Call with Telecom Contractor Solutions" src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0G1G6qwSzO7BDh60L_wITstx8SF_qEfTYoZOi6tYhFiopmBqNIzJEUEDHywGgOBImzx07eZiWG?gv=true" style="border:0;display:block;background:#fff" width="100%" height="700" frameborder="0"></iframe>
       </div>
     </div>
 
