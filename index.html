@@ -310,7 +310,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     font-size: 0.8125rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    margin-bottom: 14px;
+    margin-bottom: 10px;
+  }
+
+  .hero-rule {
+    width: 40px;
+    height: 3px;
+    background: var(--orange);
+    margin: 0 0 14px;
+    border-radius: 2px;
+  }
+
+  .punch {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: clamp(1.0625rem, 2.5vw, 1.25rem);
+    line-height: 1.35;
+    color: var(--white);
+    margin: 0 0 0.875rem;
+    max-width: var(--prose-max);
   }
 
   h1 {
@@ -422,29 +440,32 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     border-top: 1px solid rgba(255,255,255,0.06);
   }
 
-  #problem .diagrams {
-    margin-bottom: 8px;
-  }
-
-  /* DIAGRAM CARDS */
-  .diagrams {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    margin-top: 2rem;
+  /* SWIM-LANES — Option 1 LOCK (parallel Current | Target) */
+  #problem .swimlanes {
+    margin-top: 1.75rem;
     margin-bottom: 48px;
   }
 
-  .card {
-    background: var(--navy-mid);
+  .swimlanes {
+    background: rgba(11,24,41,0.55);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 1.25rem 1.35rem;
+    padding: 1.15rem 1.2rem 1.25rem;
     box-shadow: var(--shadow-card);
+    max-width: var(--content-max);
   }
 
-  .section--alt .card {
-    background: rgba(11,24,41,0.55);
+  .swimlanes-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 0.875rem;
+    flex-wrap: wrap;
+  }
+
+  .swimlanes-head .diagram-label {
+    margin-bottom: 0;
   }
 
   .diagram-label {
@@ -452,67 +473,78 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--electric);
-    margin-bottom: 0.875rem;
     font-weight: 600;
   }
 
-  .diagram {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    gap: 0;
-    align-items: stretch;
+  .pill {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--electric);
+    background: rgba(42,142,255,0.15);
+    border: 1px solid rgba(42,142,255,0.28);
+    padding: 5px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
   }
 
-  .diagram .node {
-    display: block;
-    text-align: center;
-    width: 100%;
-    box-sizing: border-box;
+  .lanes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    align-items: start;
   }
 
-  .diagram .arrow {
-    display: block;
-    text-align: center;
-    line-height: 1;
-    padding: 6px 0;
-    font-size: 0; /* hide raw → ; show ↓ via ::before */
-  }
-  .diagram .arrow::before {
-    content: "↓";
-    font-size: 0.875rem;
+  .lane-title {
+    margin: 0 0 8px;
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     color: var(--muted);
   }
-  .diagram .arrow.good::before {
-    color: var(--orange);
+
+  .lane-steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
   }
 
-  .node {
-    background: var(--panel);
+  .lane-steps li {
+    background: var(--navy);
     border: 1px solid rgba(255,255,255,0.1);
-    padding: 10px 14px;
     border-radius: 6px;
-    font-size: 0.8125rem; /* ~13px */
-    letter-spacing: 0.04em;
+    padding: 8px 10px;
+    font-size: 0.6875rem;
     font-weight: 600;
+    letter-spacing: 0.04em;
+    line-height: 1.3;
+    color: var(--text-light);
   }
 
-  .node.bad {
-    opacity: 0.75;
+  .lane--current .lane-steps li {
+    opacity: 0.78;
     border-color: rgba(255,255,255,0.08);
   }
 
-  .node.good {
-    border-color: var(--border-light);
+  .lane--target .lane-steps li {
+    border-color: rgba(42,142,255,0.35);
     background: rgba(42,142,255,0.08);
+    color: var(--white);
+    opacity: 1;
   }
 
-  .arrow {
-    color: var(--muted);
-    font-size: 0.75rem;
+  .lane--target .lane-title {
+    color: var(--electric);
   }
 
-  .arrow.good { color: var(--orange); }
+  /* keep legacy .diagrams unused; avoid mobile stacking lanes */
+
 
   /* OUTCOMES */
   .outcomes-list {
@@ -812,10 +844,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       object-fit: contain;
     }
 
-    .diagrams,
     .outcomes-list,
     .cta-form {
       grid-template-columns: 1fr;
+    }
+
+    .lanes {
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .lane-steps li {
+      padding: 7px 8px;
+      font-size: 0.625rem;
+    }
+
+    .swimlanes {
+      padding: 0.9rem 0.75rem 1rem;
     }
 
     .hero {
@@ -916,7 +961,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="hero" id="home" data-hero>
   <div class="hero-inner">
     <p class="eyebrow hero-enter">Telecom Contractor Solutions · Houston · ISP contractors nationwide</p>
+    <div class="hero-rule hero-enter" aria-hidden="true"></div>
     <h1 class="hero-enter">From Field to Financials</h1>
+    <p class="punch hero-enter">Stop rebuilding Tuesday’s job on Friday.</p>
     <p class="sub prose hero-enter">Capture the work once in the field. Move production, photos, closeouts, job cost, and billing through one connected workflow — so the office isn’t rebuilding Tuesday’s job on Friday.</p>
     <div class="hero-actions hero-enter">
       <a class="btn" href="/fit-call">Book a Fit Call</a>
@@ -935,27 +982,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h2>Your field knows what happened. Your office shouldn’t have to reconstruct it.</h2>
     <p class="sub prose">Most ISP contractors don’t lose money because crews don’t work. They lose it in the handoffs — WhatsApp, phone photos, paper, one spreadsheet, then another, then accounting — until Friday is a rebuild of Tuesday.</p>
 
-    <div class="diagrams">
-      <div class="card">
-        <div class="diagram-label">Diagram A — current</div>
-        <div class="diagram" aria-label="Current fragmented handoff path">
-          <span class="node bad">CREW</span><span class="arrow" aria-hidden="true">→</span>
-          <span class="node bad">WhatsApp</span><span class="arrow" aria-hidden="true">→</span>
-          <span class="node bad">Photos</span><span class="arrow" aria-hidden="true">→</span>
-          <span class="node bad">Paper</span><span class="arrow" aria-hidden="true">→</span>
-          <span class="node bad">Spreadsheet</span><span class="arrow" aria-hidden="true">→</span>
-          <span class="node bad">Another Spreadsheet</span><span class="arrow" aria-hidden="true">→</span>
-          <span class="node bad">Accounting</span>
-        </div>
+    <div class="swimlanes" aria-label="Current handoffs versus target workflow">
+      <div class="swimlanes-head">
+        <span class="diagram-label">Before → after</span>
+        <span class="pill">7 steps → 5</span>
       </div>
-      <div class="card">
-        <div class="diagram-label">Diagram B — target</div>
-        <div class="diagram" aria-label="Connected field-to-financial path">
-          <span class="node good">FIELD CAPTURE</span><span class="arrow good" aria-hidden="true">→</span>
-          <span class="node good">VALIDATED PRODUCTION</span><span class="arrow good" aria-hidden="true">→</span>
-          <span class="node good">CLOSEOUT</span><span class="arrow good" aria-hidden="true">→</span>
-          <span class="node good">JOB COST</span><span class="arrow good" aria-hidden="true">→</span>
-          <span class="node good">INVOICE READY</span>
+      <div class="lanes">
+        <div class="lane lane--current">
+          <h3 class="lane-title">Current</h3>
+          <ol class="lane-steps">
+            <li>CREW</li>
+            <li>WhatsApp</li>
+            <li>Photos</li>
+            <li>Paper</li>
+            <li>Spreadsheet</li>
+            <li>Another Spreadsheet</li>
+            <li>Accounting</li>
+          </ol>
+        </div>
+        <div class="lane lane--target">
+          <h3 class="lane-title">Target</h3>
+          <ol class="lane-steps">
+            <li>FIELD CAPTURE</li>
+            <li>VALIDATED PRODUCTION</li>
+            <li>CLOSEOUT</li>
+            <li>JOB COST</li>
+            <li>INVOICE READY</li>
+          </ol>
         </div>
       </div>
     </div>
