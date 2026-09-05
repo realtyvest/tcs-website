@@ -676,33 +676,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   .software .section-inner { max-width: 720px; }
 
-  /* LOWER_BAND_SPACING_LOCK: soft software + closer + footer */
-  #software.section {
-    padding: 52px 5%;
-  }
+  /* LOWER_BAND_SPACING_LOCK (+ REVISE): soft software + closer + footer
+     Facing pads: mobile ≤32 (16+16), desktop ≤40 (20+20).
+     Mobile final-cta pb ~28. One .final-cta shorthand (no dead early pt). */
   #software h2 {
     margin-bottom: 12px;
   }
   #software .sub {
     margin: 0;
   }
-  /* facing pads software→cta: combined empty ≤32px mobile / 40px desktop */
   #software.section {
-    padding-bottom: 20px;
+    padding: 40px 5% 16px;
   }
-  .final-cta {
-    padding-top: 20px;
-  }
-  @media (min-width: 821px) {
-    #software.section { padding: 52px 5% 24px; }
-    .final-cta { padding: 24px 5% 56px; }
-  }
-
-  /* FINAL CTA */
   .final-cta {
     text-align: center;
-    padding: 60px 5% 56px;
+    padding: 16px 5% 28px;
     background: var(--navy);
+  }
+  @media (min-width: 821px) {
+    #software.section { padding: 52px 5% 20px; }
+    .final-cta { padding: 20px 5% 56px; }
   }
 
   .final-cta h2 {
@@ -927,17 +920,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     .section { padding: clamp(3.25rem, 10vw, 5rem) 5%; }
 
-    .final-cta { padding: 16px 5% 40px; }
-    #software.section { padding: 40px 5% 16px; }
-
     .footer-inner { flex-direction: column; }
 
     .chip { width: 100%; }
 
     .section { padding: 48px 5%; }
     .section--alt { padding: 40px 5%; }
-    .final-cta { padding: 16px 5% 40px; }
-    #software.section { padding: 40px 5% 16px; }
+    /* lower-band pads live in base + 821px rules above */
     footer { padding: 28px 5% 24px; }
 
   }
