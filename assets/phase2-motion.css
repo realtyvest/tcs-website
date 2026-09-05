@@ -1,0 +1,9 @@
+/* Design Phase 2 motion LOCK: How stagger + Final CTA rise.
+   End-state safety for prefers-reduced-motion (Phase 2 only; WT untouched). */
+@media (prefers-reduced-motion: reduce) {
+  #how .steps li,
+  #contact.final-cta {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
