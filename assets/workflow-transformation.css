@@ -205,7 +205,8 @@
 .wt-closing.is-settled {
   opacity: 1 !important;
   visibility: visible !important;
-  color: var(--white, #fff);
+  color: var(--white, #fff) !important;
+  pointer-events: auto;
 }
 
 .wt.is-reduced .wt-card--current {
@@ -254,13 +255,23 @@
     overflow-x: hidden;
   }
 
-  /* Persistent target stack while current groups fade (no Flip absolute merge) */
+  /* Non-sticky target column below current: four distinct cards, no sticky clip */
   .wt-col--target {
-    position: sticky;
-    top: calc(var(--nav-h-mobile, 56px) + 8px);
-    z-index: 2;
+    position: relative;
+    top: auto;
+    z-index: 1;
     background: var(--wt-navy);
     padding-bottom: 2px;
+    margin-top: 0.35rem;
+  }
+
+  .wt-list--target {
+    gap: 8px;
+  }
+
+  .wt-card--target {
+    position: relative;
+    z-index: 1;
   }
 
   .wt-card--current.is-merged {

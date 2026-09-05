@@ -150,19 +150,26 @@
     };
   }
 
-  /** Force settled closing contrast; .is-settled clears CSS opacity fights. */
+  /** Force settled closing contrast; inline !important + class must stick past scrub. */
   function settleClosing(gsap, el) {
     if (!el) return;
     el.classList.add("is-settled");
-    el.style.opacity = "1";
-    el.style.visibility = "visible";
-    gsap.set(el, { autoAlpha: 1, visibility: "visible", opacity: 1 });
+    el.style.setProperty("opacity", "1", "important");
+    el.style.setProperty("visibility", "visible", "important");
+    gsap.set(el, {
+      autoAlpha: 1,
+      visibility: "visible",
+      opacity: 1,
+      overwrite: "auto",
+    });
   }
 
   /** Drop settle lock so scrub can drive closing again on reverse scroll. */
   function unlockClosing(el) {
     if (!el) return;
     el.classList.remove("is-settled");
+    el.style.removeProperty("opacity");
+    el.style.removeProperty("visibility");
   }
 
   function initRoot(root) {
@@ -248,7 +255,7 @@
       var desktop = desktopMq.matches;
 
       // Desktop only: Flip-fit absolute merges. Mobile (max-width 820): fade/hide
-      // current groups in place and reveal the sticky target stack — no overlapping
+      // current groups in place and reveal the target stack below — no overlapping
       // absolute transforms across the long stacked list.
       var fits = null;
       if (desktop) {
@@ -271,8 +278,15 @@
       if (chromeCurrent) gsap.set(chromeCurrent, { autoAlpha: 1 });
       if (chromeTarget) gsap.set(chromeTarget, { autoAlpha: 0.35 });
 
+      var closingLocked = false;
       function forceSettledClosing() {
+        closingLocked = true;
         settleClosing(gsap, closing);
+      }
+      function tryUnlockClosing(progress) {
+        if (progress >= 0.55) return;
+        closingLocked = false;
+        unlockClosing(closing);
       }
 
       ctx = gsap.context(function () {
@@ -287,33 +301,39 @@
           var srcEls = g.sources.map(function (si) {
             return currentCards[si];
           });
+          var nSrc = srcEls.length;
 
           if (desktop && fits) {
+            // Flip one source at a time; fade Current out fast so mid-merge is not a held pile
             srcEls.forEach(function (el, j) {
               var d = fits[gi][j];
+              var slice = nSrc > 1 ? dur / nSrc : dur;
+              var t0 = g.start + (nSrc > 1 ? j * slice * 0.9 : 0);
+              var moveDur = Math.min(slice * 0.65, dur * 0.38);
+              var light = nSrc > 2;
               tl.to(
                 el,
                 {
-                  x: d.x,
-                  y: d.y,
-                  scale: Math.max(0.7, Math.min(d.scale || 0.85, 0.95)),
-                  duration: dur * 0.85,
+                  x: light ? d.x * 0.4 : d.x,
+                  y: light ? d.y * 0.4 : d.y,
+                  scale: Math.max(0.72, Math.min(d.scale || 0.85, light ? 0.92 : 0.95)),
+                  duration: moveDur,
                   onStart: function () {
                     el.classList.add("is-merging");
                   },
                 },
-                g.start
+                t0
               );
               tl.to(
                 el,
                 {
                   autoAlpha: 0,
-                  duration: dur * 0.35,
+                  duration: Math.max(0.04, Math.min(0.08, slice * 0.3)),
                   onComplete: function () {
                     el.classList.add("is-merged");
                   },
                 },
-                g.start + dur * 0.55
+                t0 + moveDur * 0.2
               );
             });
           } else {
@@ -346,6 +366,8 @@
               duration: dur * 0.45,
               onStart: function () {
                 target.classList.add("is-visible");
+                // Last target visible => force closing settle (hard keep)
+                if (g.target === 3) forceSettledClosing();
               },
             },
             g.start + dur * 0.35
@@ -393,7 +415,8 @@
               autoAlpha: 1,
               visibility: "visible",
               opacity: 1,
-              duration: 0.12,
+              duration: 0.1,
+              onStart: forceSettledClosing,
               onComplete: forceSettledClosing,
             },
             0.88
@@ -404,16 +427,29 @@
           animation: tl,
           trigger: root,
           start: desktop ? "top top+=72" : "top 75%",
-          end: desktop ? "+=240%" : "bottom 20%",
-          scrub: desktop ? 0.65 : 0.45,
+          end: desktop ? "+=220%" : "bottom 15%",
+          scrub: desktop ? 0.28 : 0.4,
           pin: desktop,
           anticipatePin: desktop ? 1 : 0,
           invalidateOnRefresh: true,
           onUpdate: function (self) {
-            if (self.progress >= 0.88) forceSettledClosing();
-            else unlockClosing(closing);
+            var last = targetCards[3];
+            var lastVisible = !!(last && last.classList.contains("is-visible"));
+            if (self.progress >= 0.88 || (lastVisible && self.progress >= 0.82)) {
+              forceSettledClosing();
+            } else if (self.progress < 0.55) {
+              tryUnlockClosing(self.progress);
+            } else if (closingLocked) {
+              // Keep full-white closing through mid band after settle/leave
+              forceSettledClosing();
+            }
           },
-          onLeave: forceSettledClosing,
+          onLeave: function () {
+            forceSettledClosing();
+          },
+          onEnterBack: function (self) {
+            if (self.progress < 0.55) tryUnlockClosing(self.progress);
+          },
         });
       }, root);
     }
