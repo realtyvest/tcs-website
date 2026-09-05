@@ -70,7 +70,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     --font-display: 'Barlow Condensed', sans-serif;
     --font-body: 'Barlow', sans-serif;
     --nav-h: 64px;
-    --nav-h-mobile: 56px;
+    --nav-h-mobile: 60px;
   }
 
   html { scroll-behavior: smooth; }
@@ -793,7 +793,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .footer-links a:hover { color: var(--electric); }
 
 
-  /* LOGO_SIZE_LOCK 2026-09-05 */
+  /* LOGO_SIZE_LOCK 2026-09-05 · Gil bump 48px mobile (40 too small on iPhone) */
   @media (max-width: 1023px) {
     nav { height: 60px; }
     .mobile-menu { top: 60px; }
@@ -805,12 +805,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
 
   @media (max-width: 767px) {
-    nav { height: max(var(--nav-h-mobile), 56px); }
-    .mobile-menu { top: max(var(--nav-h-mobile), 56px); }
-    .nav-logo { max-width: min(280px, 72vw); }
+    nav { height: 60px; }
+    .mobile-menu { top: 60px; }
+    .nav-logo { max-width: min(300px, 78vw); }
     .nav-logo img {
-      height: 40px;
-      max-height: 40px;
+      height: 48px;
+      max-height: 48px;
       width: auto;
       max-width: 100%;
       object-fit: contain;
@@ -835,10 +835,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .mobile-menu { top: var(--nav-h-mobile); }
     .nav-links { display: none; }
     .nav-hamburger { display: flex; }
-    .nav-logo { max-width: min(280px, 72vw); }
+    .nav-logo { max-width: min(300px, 78vw); }
     .nav-logo img {
-      height: 40px;
-      max-height: 40px;
+      height: 48px;
+      max-height: 48px;
       width: auto;
       max-width: 100%;
       object-fit: contain;
