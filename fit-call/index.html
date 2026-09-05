@@ -462,6 +462,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.03em;color:#0B1829;font-size:16px">Pick a time for your Fit Call</div>
             <div style="font-family:Barlow,sans-serif;color:rgba(11,24,41,.72);font-size:13px">Free 30 minutes. Choose a slot — no back and forth.</div>
           </div>
+    <p class="agree-line" style="margin:16px 0 0;font-size:13px;color:#8BA3C1;line-height:1.5;">By continuing you agree to our <a href="/terms" style="color:#2A8EFF;">Terms</a> and <a href="/privacy" style="color:#2A8EFF;">Privacy Policy</a>.</p>
+
         </div>
         <iframe title="Book a Fit Call with Telecom Contractor Solutions" src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0G1G6qwSzO7BDh60L_wITstx8SF_qEfTYoZOi6tYhFiopmBqNIzJEUEDHywGgOBImzx07eZiWG?gv=true" style="border:0;display:block;background:#fff" width="100%" height="700" frameborder="0"></iframe>
       </div>
@@ -486,6 +488,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <option value="100+">100+ techs</option>
         </select>
         <textarea id="f-hurt" name="whats_hurting" class="form-full" placeholder="What’s hurting most right now? (optional)" aria-label="What’s hurting most right now"></textarea>
+                <label style="grid-column:1/-1;display:flex;gap:10px;align-items:flex-start;font-size:13px;color:#8BA3C1;line-height:1.45;margin-top:4px;">
+          <input type="checkbox" id="f-agree" required style="margin-top:3px;flex-shrink:0;">
+          <span>I agree to the <a href="/terms">Terms</a> and <a href="/privacy">Privacy Policy</a>.</span>
+        </label>
         <button class="btn-primary form-full" type="button" id="submit-btn" onclick="submitForm()">Send my request</button>
         <div class="cta-form-msg" id="form-msg"></div>
       </div>
@@ -515,11 +521,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <a href="tel:+18329170091" style="color:#A0B4D8;text-decoration:none;">(832) 917-0091</a>
     </div>
   </div>
+      <p class="footer-legal" style="margin-top:12px;font-size:13px;"><a href="/terms" style="color:#A0B4D8;text-decoration:none;">Terms</a> · <a href="/privacy" style="color:#A0B4D8;text-decoration:none;">Privacy</a></p>
 </footer>
 
 
 <script>
 async function submitForm() {
+  var agree = document.getElementById('f-agree');
+  if (agree && !agree.checked) {
+    var msg = document.getElementById('form-msg');
+    if (msg) { msg.className = 'cta-form-msg error'; msg.textContent = 'Please agree to the Terms and Privacy Policy.'; }
+    agree.focus();
+    return;
+  }
+
   const name    = document.getElementById('f-name').value.trim();
   const company = document.getElementById('f-company').value.trim();
   const email   = document.getElementById('f-email').value.trim();
