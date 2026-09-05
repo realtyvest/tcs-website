@@ -586,29 +586,55 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
 
 
-  /* Dual Target Option A — Annotator | Field verify */
-  .lane-segment {
-    display: flex;
+  /* Target module carousel N=2 — no segment tabs */
+  .lanes--carousel {
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
     gap: 8px;
-    margin: 0.65rem 0 0.75rem;
   }
-  .lane-segment__btn {
-    flex: 1;
-    min-height: 44px;
-    padding: 0 12px;
-    border-radius: 8px;
-    border: 1px solid var(--border-light);
-    background: transparent;
-    color: var(--muted);
-    font-size: 0.8125rem;
-    font-weight: 600;
-    cursor: pointer;
+  .lane-target-wrap {
+    position: relative;
+    min-width: 0;
   }
-  .lane-segment__btn.is-active {
-    background: rgba(42,142,255,0.18);
-    border-color: var(--electric);
-    color: var(--white);
-    box-shadow: inset 0 0 0 1px var(--electric);
+  .lane-target-track {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-right: 22px; /* peek next card */
+  }
+  .lane-target-track::-webkit-scrollbar { display: none; }
+  .lane-target-track .lane--target {
+    flex: 0 0 calc(100% - 20px);
+    scroll-snap-align: start;
+    min-width: 0;
+  }
+  .lane-target-fade {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 28px;
+    width: 28px;
+    background: linear-gradient(to right, transparent, var(--navy));
+  }
+  .lane-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .lane-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--border-light);
+  }
+  .lane-dot.is-active {
+    background: var(--electric);
   }
   .lane-example-tag {
     display: block;
@@ -1127,16 +1153,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <a class="btn" href="/fit-call">Book a Fit Call</a>
     </div>
 
-    <div class="swimlanes hero-enter" aria-label="Current handoffs versus target workflow examples" data-dual-target>
+    <div class="swimlanes hero-enter" aria-label="Current handoffs versus target module stories" data-dual-target>
       <div class="swimlanes-head">
         <span class="diagram-label">Before → after</span>
-        <span class="pill" data-lane-pill>9 steps → 4</span>
       </div>
-      <div class="lane-segment" role="tablist" aria-label="Target examples">
-        <button type="button" class="lane-segment__btn is-active" role="tab" aria-selected="true" data-target-tab="annotator">Annotator</button>
-        <button type="button" class="lane-segment__btn" role="tab" aria-selected="false" data-target-tab="verify">Field verify</button>
-      </div>
-      <div class="lanes">
+      <div class="lanes lanes--carousel">
         <div class="lane lane--current">
           <h3 class="lane-title">Current</h3>
           <ol class="lane-steps" data-lane-current>
@@ -1151,23 +1172,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <li>Invoice sent with closeout docs</li>
           </ol>
         </div>
-        <div class="lane lane--target" data-target-panel="annotator">
-          <h3 class="lane-title">Target <span class="lane-example-tag">example · Annotator</span></h3>
-          <ol class="lane-steps" data-lane-annotator>
-            <li>Intake jobs</li>
-            <li>Route crews</li>
-            <li>Annotated map creates as-builts and tallies codes and quantities</li>
-            <li>Invoice and closeout docs sent</li>
-          </ol>
-        </div>
-        <div class="lane lane--target" data-target-panel="verify" hidden>
-          <h3 class="lane-title">Target <span class="lane-example-tag">example · Field verify</span></h3>
-          <ol class="lane-steps" data-lane-verify>
-            <li>Intake automated</li>
-            <li>Routing crew update</li>
-            <li>Verify</li>
-            <li>Closeout and invoice</li>
-          </ol>
+        <div class="lane-target-wrap">
+          <div class="lane-target-track" data-target-track tabindex="0" aria-label="Target module examples. Swipe for more.">
+            <div class="lane lane--target" data-target-card="annotator">
+              <h3 class="lane-title">Target <span class="lane-example-tag">Map Annotator</span></h3>
+              <ol class="lane-steps">
+                <li>Mark codes on the map</li>
+                <li>Submit</li>
+                <li>Tally equals the marks</li>
+              </ol>
+            </div>
+            <div class="lane lane--target" data-target-card="invoice">
+              <h3 class="lane-title">Target <span class="lane-example-tag">Same-day Invoice</span></h3>
+              <ol class="lane-steps">
+                <li>Office drafts the invoice from tallies</li>
+                <li>Issue</li>
+              </ol>
+            </div>
+          </div>
+          <div class="lane-target-fade" aria-hidden="true"></div>
+          <div class="lane-dots" role="presentation" aria-hidden="true">
+            <span class="lane-dot is-active" data-dot="0"></span>
+            <span class="lane-dot" data-dot="1"></span>
+          </div>
         </div>
       </div>
     </div>
@@ -1291,26 +1318,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 (function () {
   var root = document.querySelector('[data-dual-target]');
   if (!root) return;
-  var tabs = root.querySelectorAll('[data-target-tab]');
-  var panels = {
-    annotator: root.querySelector('[data-target-panel="annotator"]'),
-    verify: root.querySelector('[data-target-panel="verify"]')
-  };
-  tabs.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var key = btn.getAttribute('data-target-tab');
-      tabs.forEach(function (b) {
-        var on = b === btn;
-        b.classList.toggle('is-active', on);
-        b.setAttribute('aria-selected', on ? 'true' : 'false');
-      });
-      Object.keys(panels).forEach(function (k) {
-        if (!panels[k]) return;
-        if (k === key) panels[k].removeAttribute('hidden');
-        else panels[k].setAttribute('hidden', '');
-      });
+  var track = root.querySelector('[data-target-track]');
+  var dots = root.querySelectorAll('.lane-dot');
+  if (!track || !dots.length) return;
+  function syncDots() {
+    var cards = track.querySelectorAll('[data-target-card]');
+    if (!cards.length) return;
+    var idx = 0;
+    var left = track.scrollLeft;
+    var best = Infinity;
+    for (var i = 0; i < cards.length; i++) {
+      var d = Math.abs(cards[i].offsetLeft - left);
+      if (d < best) { best = d; idx = i; }
+    }
+    dots.forEach(function (d, i) {
+      d.classList.toggle('is-active', i === idx);
     });
-  });
+  }
+  track.addEventListener('scroll', syncDots, { passive: true });
+  syncDots();
 })();
 </script>
 
