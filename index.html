@@ -60,8 +60,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     --border-light: rgba(42,142,255,0.18);
     --shadow-card: 0 8px 28px rgba(0,0,0,0.22);
     --radius: 10px;
-    --section-pad-y: clamp(4rem, 8vw, 7rem);
-    --content-max: 1160px;
+    --section-pad-y: 80px;
+    --section-pad-y-alt: 64px;
+    --content-max: 1120px;
     --font-display: 'Barlow Condensed', sans-serif;
     --font-body: 'Barlow', sans-serif;
   }
@@ -267,6 +268,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   .section--alt {
     background: var(--panel);
+    padding: var(--section-pad-y-alt) 5%;
   }
 
   .section-inner {
@@ -275,7 +277,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
 
   .prose {
-    max-width: 68ch;
+    max-width: 720px;
   }
 
   .eyebrow {
@@ -300,7 +302,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     font-size: clamp(1.625rem, 3.5vw, 2.125rem);
     line-height: 1.2;
     font-weight: 800;
-    margin: 0 0 1rem;
+    margin: 0 0 18px;
     letter-spacing: -0.01em;
   }
 
@@ -360,6 +362,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     margin-bottom: 2px;
   }
 
+  /* Soft step hero → problem */
+  .hero-bridge {
+    height: 32px;
+    background: linear-gradient(180deg, var(--navy) 0%, var(--panel) 100%);
+  }
+
   /* DIAGRAM CARDS */
   .diagrams {
     display: grid;
@@ -392,14 +400,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .diagram {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 8px 10px;
+    row-gap: 12px;
     align-items: center;
   }
 
   .node {
     background: var(--panel);
     border: 1px solid rgba(255,255,255,0.1);
-    padding: 0.5rem 0.65rem;
+    padding: 10px 14px;
     border-radius: 6px;
     font-size: 0.6875rem;
     letter-spacing: 0.04em;
@@ -455,12 +464,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .steps {
     counter-reset: step;
     list-style: none;
-    margin: 1.75rem 0 2rem;
-    max-width: 68ch;
+    margin: 1.75rem 0 0;
+    max-width: 720px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
   }
 
   .steps li {
-    margin: 0 0 1.125rem;
+    margin: 0;
     padding: 0.85rem 1rem 0.85rem 3.25rem;
     position: relative;
     color: var(--muted);
@@ -491,15 +503,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   .steps strong { color: var(--white); }
 
+  #how .btn { margin-top: 32px; }
+
   /* PROOF */
   .quote {
     background: rgba(11,24,41,0.5);
-    padding: 1.5rem 1.6rem;
+    padding: 28px 32px;
     border-radius: var(--radius);
     border: 1px solid var(--border);
     border-left: 3px solid var(--electric);
     color: var(--muted);
-    max-width: 68ch;
+    max-width: 640px;
     font-size: 1.05rem;
     line-height: 1.65;
     font-style: italic;
@@ -525,10 +539,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     opacity: 0.75;
   }
 
+  .software .section-inner { max-width: 720px; }
+
   /* FINAL CTA */
   .final-cta {
     text-align: center;
-    padding: var(--section-pad-y) 5%;
+    padding: 96px 5%;
     background: var(--navy);
   }
 
@@ -687,6 +703,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .footer-inner { flex-direction: column; }
 
     .chip { width: 100%; }
+
+    .section { padding: 48px 5%; }
+    .section--alt { padding: 40px 5%; }
+    .final-cta { padding: 72px 5%; }
+
   }
 </style>
 
@@ -763,6 +784,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 </section>
+<div class="hero-bridge" aria-hidden="true"></div>
 
 <!-- 2 · PROBLEM -->
 <section class="section section--alt" id="problem">
