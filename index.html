@@ -11,14 +11,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Telecom Contractor Solutions | From Field to Financial</title>
+<title>Telecom Contractor Solutions | From Field to Financials</title>
 <meta name="description" content="Capture the work once in the field. Move production, photos, closeouts, job cost, and billing through one connected workflow — so the office isn’t rebuilding Tuesday’s job on Friday.">
 <link rel="canonical" href="https://telecomcontractorsolutions.com/">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://telecomcontractorsolutions.com/">
-<meta property="og:title" content="From Field to Financial | Telecom Contractor Solutions">
+<meta property="og:title" content="From Field to Financials | Telecom Contractor Solutions">
 <meta property="og:description" content="Capture work once in the field and move production, photos, closeouts, job cost, and billing through one connected workflow for ISP contractors.">
 <meta property="og:image" content="https://telecomcontractorsolutions.com/assets/og-home.png">
 <meta property="og:image:width" content="1200">
@@ -28,7 +28,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="From Field to Financial | Telecom Contractor Solutions">
+<meta name="twitter:title" content="From Field to Financials | Telecom Contractor Solutions">
 <meta name="twitter:description" content="Capture work once in the field. Move it through one connected workflow to invoice-ready — for ISP contractors.">
 <meta name="twitter:image" content="https://telecomcontractorsolutions.com/assets/og-home.png">
 
@@ -413,10 +413,33 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   .diagram {
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px 10px;
-    row-gap: 12px;
-    align-items: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0;
+    align-items: stretch;
+  }
+
+  .diagram .node {
+    display: block;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .diagram .arrow {
+    display: block;
+    text-align: center;
+    line-height: 1;
+    padding: 6px 0;
+    font-size: 0; /* hide raw → ; show ↓ via ::before */
+  }
+  .diagram .arrow::before {
+    content: "↓";
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+  .diagram .arrow.good::before {
+    color: var(--orange);
   }
 
   .node {
@@ -748,7 +771,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   "url": "https://telecomcontractorsolutions.com/",
   "logo": "https://telecomcontractorsolutions.com/assets/logo.png",
   "image": "https://telecomcontractorsolutions.com/assets/og-home.png",
-  "description": "From Field to Financial — connected field capture through invoice-ready workflows for ISP and telecom contractors with 10–100 field technicians.",
+  "description": "From Field to Financials — connected field capture through invoice-ready workflows for ISP and telecom contractors with 10–100 field technicians.",
   "telephone": "+1-832-917-0091",
   "address": {
     "@type": "PostalAddress",
@@ -802,7 +825,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="hero" id="home">
   <div class="hero-inner">
     <p class="eyebrow">Telecom Contractor Solutions · Houston · ISP contractors nationwide</p>
-    <h1>From Field to Financial</h1>
+    <h1>From Field to Financials</h1>
     <p class="sub prose">Capture the work once in the field. Move production, photos, closeouts, job cost, and billing through one connected workflow — so the office isn’t rebuilding Tuesday’s job on Friday.</p>
     <div class="hero-actions">
       <a class="btn" href="/fit-call">Book a Fit Call</a>
