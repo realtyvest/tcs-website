@@ -792,6 +792,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     text-decoration: none;
   }
 
+  .footer-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
   .footer-bottom {
     max-width: var(--content-max);
     margin: 1.75rem auto 0;
@@ -801,15 +808,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     font-size: 0.8125rem;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 1rem;
     flex-wrap: wrap;
   }
 
+  .footer-legal {
+    margin: 0;
+    font-size: 0.8125rem;
+  }
+
+  .footer-legal a {
+    color: #A0B4D8;
+    text-decoration: none;
+  }
+
+  .footer-legal a:hover { color: var(--electric); }
+
   .footer-links {
     display: flex;
-    gap: 1.25rem;
+    gap: 1.25rem; /* ≥20px desktop */
     list-style: none;
     flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
   }
 
   .footer-links a {
@@ -822,6 +844,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
 
   .footer-links a:hover { color: var(--electric); }
+
+  .footer-cta {
+    min-height: 48px;
+  }
 
 
   /* LOGO_SIZE_LOCK 2026-09-05 · Gil bump 48px mobile (40 too small on iPhone) */
@@ -920,7 +946,34 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     .section { padding: clamp(3.25rem, 10vw, 5rem) 5%; }
 
-    .footer-inner { flex-direction: column; }
+    .footer-inner {
+      flex-direction: column;
+      gap: 26px;
+    }
+
+    .footer-nav {
+      width: 100%;
+      gap: 16px;
+    }
+
+    .footer-links {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 18px;
+      row-gap: 10px;
+      width: 100%;
+    }
+
+    .footer-cta {
+      width: 100%;
+      text-align: center;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
 
     .chip { width: 100%; }
 
@@ -1126,24 +1179,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p class="footer-powered">Powered by <a href="https://simplecontractorsystems.com/?utm_source=tcs&amp;utm_medium=site&amp;utm_campaign=cross-practice&amp;utm_content=footer">Simple Contractor Systems</a></p>
       <p style="margin-top:12px;"><a href="tel:+18329170091" style="color:#A0B4D8;text-decoration:none;">(832) 917-0091</a><br>Arena Tower, 7324 Southwest Freeway, Suite 264<br>Houston, TX 77074</p>
     </div>
-    <div>
+    <div class="footer-nav">
       <ul class="footer-links">
         <li><a href="#how">How it works</a></li>
         <li><a href="#proof">Proof</a></li>
         <li><a href="/about.html">About</a></li>
         <li><a href="/blog.html">Blog</a></li>
         <li><a href="/faq.html">FAQ</a></li>
-        <li><a href="/fit-call">Book a Fit Call</a></li>
-        <li><a href="/terms">Terms</a></li>
-        <li><a href="/privacy">Privacy</a></li>
       </ul>
-    </div>
-    <div>
-      <a class="btn" href="/fit-call">Book a Fit Call</a>
+      <a class="btn footer-cta" href="/fit-call">Book a Fit Call</a>
     </div>
   </div>
-        <p class="footer-legal" style="margin-top:12px;font-size:13px;"><a href="/terms" style="color:#A0B4D8;text-decoration:none;">Terms</a> · <a href="/privacy" style="color:#A0B4D8;text-decoration:none;">Privacy</a></p>
   <div class="footer-bottom">
+    <p class="footer-legal"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
     <p>&copy; 2026 Telecom Contractor Solutions. All rights reserved.</p>
   </div>
 </footer>
