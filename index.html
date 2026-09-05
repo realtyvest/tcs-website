@@ -46,25 +46,31 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
+    /* Design System 2 / tcs-tokens.ts + DESIGN_DIRECTION */
     --navy: #0B1829;
-    --navy-mid: #132338;
-    --navy-light: #1E3350;
-    --panel: #101E31;
+    --navy-mid: #152236;
+    --navy-light: #22344F;
+    --panel: #152236;
     --electric: #2A8EFF;
     --electric-dim: #1a6fd0;
-    --orange: #F26419;
+    --electric-print: #1F63D6;
+    --orange: #F26419; /* marker only */
     --white: #FFFFFF;
-    --muted: #8BA3C1;
-    --text-light: #C8D8EA;
-    --border: rgba(255,255,255,0.06);
+    --paper: #F4F7FB;
+    --muted: #8CA3BE;
+    --text-light: #C3D2E4;
+    --border: rgba(255,255,255,0.08);
     --border-light: rgba(42,142,255,0.18);
-    --shadow-card: 0 8px 28px rgba(0,0,0,0.22);
-    --radius: 10px;
+    --shadow-card: 0 8px 24px rgba(0,0,0,0.2);
+    --radius: 8px;
     --section-pad-y: 80px;
     --section-pad-y-alt: 64px;
     --content-max: 1120px;
+    --prose-max: 720px;
     --font-display: 'Barlow Condensed', sans-serif;
     --font-body: 'Barlow', sans-serif;
+    --nav-h: 64px;
+    --nav-h-mobile: 56px;
   }
 
   html { scroll-behavior: smooth; }
@@ -112,22 +118,41 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(11,24,41,0.92);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    background: rgba(11,24,41,0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
     padding: 0 5%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 68px;
+    height: var(--nav-h);
+    gap: 16px;
+    transition: background 0.25s ease, backdrop-filter 0.25s ease;
+  }
+
+  nav.is-scrolled {
+    background: rgba(11,24,41,0.96);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
   }
 
   .nav-logo {
     text-decoration: none;
     display: flex;
     align-items: center;
-    flex-shrink: 0;
+    flex-shrink: 1;
+    min-width: 0;
+    max-width: min(280px, 62vw);
+  }
+
+  .nav-logo img {
+    display: block;
+    height: 42px;
+    width: auto;
+    max-height: 44px;
+    max-width: 100%;
+    object-fit: contain;
   }
 
   .nav-links {
@@ -188,7 +213,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .mobile-menu {
     display: none;
     position: absolute;
-    top: 68px;
+    top: var(--nav-h);
     left: 0;
     right: 0;
     background: rgba(11,24,41,0.98);
@@ -277,7 +302,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
 
   .prose {
-    max-width: 720px;
+    max-width: var(--prose-max);
   }
 
   .eyebrow {
@@ -290,7 +315,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   h1 {
     font-family: var(--font-display);
-    font-size: clamp(2.5rem, 7vw, 3.75rem);
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
     line-height: 1.05;
     font-weight: 800;
     margin: 0 0 1.125rem;
@@ -310,6 +335,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     color: var(--muted);
     font-size: 1.125rem;
     line-height: 1.6;
+  }
+
+  /* HERO ENTER — staggered once; reduced-motion shows final */
+  .hero-enter {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  .hero.is-ready .hero-enter {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .hero.is-ready .hero-enter:nth-child(1) { transition-delay: 0ms; }
+  .hero.is-ready .hero-enter:nth-child(2) { transition-delay: 80ms; }
+  .hero.is-ready .hero-enter:nth-child(3) { transition-delay: 160ms; }
+  .hero.is-ready .hero-enter:nth-child(4) { transition-delay: 240ms; }
+  .hero.is-ready .hero-enter:nth-child(5) { transition-delay: 320ms; }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-enter { opacity: 1; transform: none; }
+    .hero.is-ready .hero-enter { transition: none; }
   }
 
   /* HERO — more air under nav; CTAs + proof not cramped */
@@ -726,8 +771,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       padding-top: 48px;
     }
 
+    nav {
+      height: var(--nav-h-mobile);
+      padding: 0 16px;
+    }
+    .mobile-menu { top: var(--nav-h-mobile); }
     .nav-links { display: none; }
     .nav-hamburger { display: flex; }
+    .nav-logo { max-width: min(220px, 58vw); }
+    .nav-logo img {
+      height: 30px;
+      max-height: 32px;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+    }
 
     .diagrams,
     .outcomes-list,
@@ -736,17 +794,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
 
     .hero {
-      padding: 3.5rem 5% 3rem;
+      padding: 2.75rem 16px 2.5rem;
       min-height: auto;
     }
+
+    h1 {
+      font-size: clamp(36px, 9vw, 44px);
+      line-height: 1.08;
+    }
+
+    .sub { font-size: 1.0625rem; }
 
     .hero-actions {
       flex-direction: column;
       align-items: stretch;
       gap: 0.875rem;
+      margin-top: 1.5rem;
     }
 
-    .hero-actions .btn { width: 100%; }
+    .hero-actions .btn { width: 100%; min-height: 48px; }
 
     .section { padding: clamp(3.25rem, 10vw, 5rem) 5%; }
 
@@ -795,7 +861,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <nav aria-label="Main navigation">
   <a href="#home" class="nav-logo">
-    <img src="assets/tcs-logo-horizontal-dark.png" alt="Telecom Contractor Solutions" height="44" style="display:block;">
+    <img src="/assets/tcs-logo-horizontal-dark.png" alt="Telecom Contractor Solutions" width="220" height="55" decoding="async">
   </a>
 
   <ul class="nav-links">
@@ -822,16 +888,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <main id="main-content">
 
 <!-- 1 · HERO -->
-<section class="hero" id="home">
+<section class="hero" id="home" data-hero>
   <div class="hero-inner">
-    <p class="eyebrow">Telecom Contractor Solutions · Houston · ISP contractors nationwide</p>
-    <h1>From Field to Financials</h1>
-    <p class="sub prose">Capture the work once in the field. Move production, photos, closeouts, job cost, and billing through one connected workflow — so the office isn’t rebuilding Tuesday’s job on Friday.</p>
-    <div class="hero-actions">
+    <p class="eyebrow hero-enter">Telecom Contractor Solutions · Houston · ISP contractors nationwide</p>
+    <h1 class="hero-enter">From Field to Financials</h1>
+    <p class="sub prose hero-enter">Capture the work once in the field. Move production, photos, closeouts, job cost, and billing through one connected workflow — so the office isn’t rebuilding Tuesday’s job on Friday.</p>
+    <div class="hero-actions hero-enter">
       <a class="btn" href="/fit-call">Book a Fit Call</a>
       <a class="btn btn-ghost" href="#how">See How the System Works</a>
     </div>
-    <div class="chips" aria-label="Proof points">
+    <div class="chips hero-enter" aria-label="Proof points">
       <div class="chip"><strong>10–100</strong> Field technicians, our exact fit</div>
     </div>
   </div>
@@ -972,5 +1038,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </footer>
 
 <script src="/assets/tcs-nav.js" defer></script>
+
+<script>
+(function () {
+  var nav = document.querySelector('nav');
+  var hero = document.querySelector('[data-hero]');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function onScroll() {
+    if (!nav) return;
+    nav.classList.toggle('is-scrolled', window.scrollY > 32);
+  }
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  if (hero) {
+    if (reduce) {
+      hero.classList.add('is-ready');
+    } else {
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { hero.classList.add('is-ready'); });
+      });
+    }
+  }
+})();
+</script>
+
 </body>
 </html>
