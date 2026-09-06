@@ -9,6 +9,12 @@
  * a time via the .m2i.is-pinned overlap layout (CSS). settleFinal (CLEAR_STATE)
  * settles on Invoice items only. Only prefers-reduced-motion opts out of the
  * pin+scrub: static state 4. Gil supersedes the earlier mobile pin:false here.
+ *
+ * PIN_HOLD_REVISE: (1) panel swap is now SEQUENTIAL (hide outgoing fully, THEN
+ * show next; zero overlap) so no ghost/overlapping titles mid-scrub; (2) pinned
+ * stage/panels/visual heights fit the active card (CSS) so no blank navy void
+ * under the card on mobile. Kept: pin on all breakpoints, syncStep, settleFinal
+ * Invoice, end +=300% scroll distance, WT untouched.
  */
 (function () {
   "use strict";
@@ -223,19 +229,27 @@
      * the step highlight is NOT driven by per-tween onStart (which scrub can
      * skip or fire out of order). Instead one syncStep() derives the active
      * index from the timeline's own playhead time and is fired both on every
-     * update AND by tl.call() at each crossfade midpoint — the SAME position as
-     * the panel crossfade. Because both the panel autoAlpha and the label
-     * highlight read the same tl.time(), they can never desync, and scrubbing
-     * in reverse restores the prior step automatically.
+     * update AND by tl.call() at the swap point — the SAME position as the
+     * panel swap. Because both the panel autoAlpha and the label highlight
+     * read the same tl.time(), they can never desync, and scrubbing in reverse
+     * restores the prior step automatically.
+     *
+     * GHOST FIX (PIN_HOLD_REVISE): the earlier crossfade faded outgoing and
+     * incoming panels SIMULTANEOUSLY (both started at `at`, dur 0.35), so
+     * mid-scrub two panel titles were readable at once. Now the swap is
+     * SEQUENTIAL with zero overlap: the outgoing panel reaches autoAlpha 0
+     * over FADE, THEN the next fades in over FADE starting at `at + FADE`.
+     * At most one title is ever visible. settleFinal end is unchanged.
      */
     var SEQ_START = 0.6; // enter (labels) finishes before the panel sequence
-    var STEP_DUR = 0.5; // time between successive crossfade starts
-    var CROSS = 0.35; // crossfade duration
+    var STEP_DUR = 0.5; // time between successive step swaps
+    var FADE = 0.16; // per-half fade; sequential (out THEN in), zero overlap
 
-    // Which step should be lit at timeline time t (switch at crossfade midpoint)
+    // Which step should be lit at timeline time t (switch when the outgoing
+    // panel is fully hidden and the next begins — the sequential swap point).
     function activeStepAtTime(t) {
       for (var i = 3; i >= 1; i--) {
-        var mid = SEQ_START + (i - 1) * STEP_DUR + CROSS / 2;
+        var mid = SEQ_START + (i - 1) * STEP_DUR + FADE;
         if (t >= mid) return i;
       }
       return 0;
@@ -269,20 +283,22 @@
         0
       );
 
-      // Same timeline: crossfade panels in order. tl.call at each crossfade
-      // midpoint re-derives the active step from the playhead — reverse-safe.
+      // Same timeline: swap panels in order. SEQUENTIAL (GHOST FIX) — hide the
+      // outgoing panel fully (autoAlpha 0) over FADE, THEN reveal the next over
+      // FADE starting at `at + FADE`, so no two titles overlap mid-scrub.
+      // tl.call at the swap point re-derives the active step — reverse-safe.
       for (var i = 0; i < 3; i++) {
         (function (from) {
           var next = from + 1;
           var at = SEQ_START + from * STEP_DUR;
-          tl.to(panels[from], { autoAlpha: 0, y: -8, duration: CROSS }, at);
+          tl.to(panels[from], { autoAlpha: 0, y: -6, duration: FADE }, at);
           tl.fromTo(
             panels[next],
-            { autoAlpha: 0, y: 10 },
-            { autoAlpha: 1, y: 0, duration: CROSS },
-            at
+            { autoAlpha: 0, y: 8 },
+            { autoAlpha: 1, y: 0, duration: FADE },
+            at + FADE
           );
-          tl.call(syncStep, null, at + CROSS / 2);
+          tl.call(syncStep, null, at + FADE);
         })(i);
       }
       return tl;

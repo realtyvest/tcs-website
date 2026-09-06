@@ -385,18 +385,25 @@
    overriding the mobile static stack. Higher specificity (.m2i.is-pinned ...,
    3 classes) beats the single-class mobile rules regardless of source order;
    placed after the media queries so the visual/map ties resolve here too.
-   Layout/labels stay responsive per breakpoint (untouched). */
+   Layout/labels stay responsive per breakpoint (untouched).
+
+   PIN_HOLD_REVISE — VOID FIX: because panels are absolute/inset:0 they fill the
+   container's min-height; the earlier 320px/220px applied on ALL breakpoints, so
+   on mobile (short card) ~90px of navy showed below the visual. Base (mobile)
+   heights now fit the tallest card snugly; desktop bumps back up via the
+   fine-pointer override below. The pin RUNWAY is the ScrollTrigger end "+=300%"
+   (pinSpacing) — independent of this chrome height, so scroll distance is kept. */
 .m2i.is-pinned .m2i-stage {
   border: 1px solid var(--m2i-border);
   background: var(--m2i-navy);
   overflow: hidden;
-  min-height: 320px;
+  min-height: 244px;
 }
 
 .m2i.is-pinned .m2i-panels {
   position: relative;
   display: block;
-  min-height: 320px;
+  min-height: 244px;
 }
 
 .m2i.is-pinned .m2i-panel {
@@ -418,8 +425,23 @@
 
 .m2i.is-pinned .m2i-visual,
 .m2i.is-pinned .m2i-map {
-  height: 220px;
-  min-height: 220px;
+  height: 168px;
+  min-height: 168px;
+}
+
+/* Desktop fine pointer: taller card fits the 220px visual with no void.
+   Placed after the base pinned rules so this same-specificity override wins. */
+@media (min-width: 1025px) and (pointer: fine) {
+  .m2i.is-pinned .m2i-stage,
+  .m2i.is-pinned .m2i-panels {
+    min-height: 300px;
+  }
+
+  .m2i.is-pinned .m2i-visual,
+  .m2i.is-pinned .m2i-map {
+    height: 220px;
+    min-height: 220px;
+  }
 }
 
 /* Reduced motion: static stack, final invoice emphasis via class on root */
