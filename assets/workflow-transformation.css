@@ -146,8 +146,9 @@
   visibility: hidden;
 }
 
+/* No !important — GSAP inline opacity must win during the once-enter fade (VISIBLE_MOTION) */
 .wt-card--target.is-visible {
-  opacity: 1 !important;
+  opacity: 1;
   visibility: visible;
 }
 
@@ -303,13 +304,10 @@
   /* inherits hero-enter transition from page */
 }
 
-/* Dual-stack: Target always solid (NO_TARGET_JUMPY_REVISE) */
-.wt.is-dual-stack .wt-card--target,
-.wt.is-dual-stack .wt-card--target.is-visible {
-  opacity: 1 !important;
-  visibility: visible !important;
-}
-.wt.is-dual-stack .wt-card--current {
-  opacity: 1 !important;
-  visibility: visible !important;
+/* Dual-stack settled: solid after enter (VISIBLE_MOTION) — no !important so GSAP can animate */
+.wt.is-dual-stack.is-motion-done .wt-card--target,
+.wt.is-dual-stack.is-motion-done .wt-card--target.is-visible,
+.wt.is-dual-stack.is-motion-done .wt-card--current {
+  opacity: 1;
+  visibility: visible;
 }
