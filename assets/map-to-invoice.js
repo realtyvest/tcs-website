@@ -187,20 +187,74 @@
       setActive(labels, panels, 3);
     }
 
-    function applyStacked() {
+    function applyTouchScrub() {
       killLocal();
       m2i.classList.remove("is-reduced");
-      gsap.set(panels, { clearProps: "opacity,visibility,transform" });
-      labels.forEach(function (el) {
-        el.classList.remove("is-active", "is-done");
-      });
-      panels.forEach(function (el) {
-        el.classList.add("is-active");
-      });
-      /* Keep all four labels readable as an index */
-      labels.forEach(function (el) {
-        el.classList.add("is-done");
-      });
+
+      ctx = gsap.context(function () {
+        setActive(labels, panels, 0);
+
+        panels.forEach(function (panel, i) {
+          gsap.set(panel, {
+            opacity: i === 0 ? 1 : 0,
+            visibility: i === 0 ? "visible" : "hidden",
+            y: i === 0 ? 0 : 10,
+          });
+        });
+
+        var tl = gsap.timeline({
+          defaults: { ease: "none" },
+        });
+
+        for (var i = 0; i < 3; i++) {
+          (function (from) {
+            var next = from + 1;
+            tl.to(
+              panels[from],
+              {
+                opacity: 0,
+                y: -8,
+                visibility: "hidden",
+                duration: 0.2,
+              },
+              from + 0.8
+            );
+            tl.fromTo(
+              panels[next],
+              { opacity: 0, y: 10, visibility: "hidden" },
+              {
+                opacity: 1,
+                y: 0,
+                visibility: "visible",
+                duration: 0.2,
+                onStart: function () {
+                  setActive(labels, panels, next);
+                },
+              },
+              from + 0.8
+            );
+          })(i);
+        }
+
+        st = ScrollTrigger.create({
+          animation: tl,
+          trigger: section,
+          start: "top 75%",
+          end: "bottom 20%",
+          scrub: 0.35,
+          pin: false,
+          pinSpacing: false,
+          invalidateOnRefresh: true,
+          onUpdate: function (self) {
+            var step = Math.min(3, Math.floor(self.progress * 4));
+            if (self.progress >= 0.99) step = 3;
+            setActive(labels, panels, step);
+          },
+          onLeave: function () {
+            setActive(labels, panels, 3);
+          },
+        });
+      }, section);
     }
 
     function applyPinned() {
@@ -285,7 +339,7 @@
         applyPinned();
         return;
       }
-      applyStacked();
+      applyTouchScrub();
     }
 
     build();

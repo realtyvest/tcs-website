@@ -428,7 +428,7 @@
         }
 
         // Desktop canPin: pin end +=120%, scrub ~0.25.
-        // Touch !canPin: static stacked CURRENT+TARGET (no once-play; no blank CURRENT).
+        // Touch !canPin: scrub, pin false (motion tracks scroll; merged cards collapse).
         if (canPin) {
           st = ScrollTrigger.create({
             animation: tl,
@@ -461,36 +461,39 @@
             },
           });
         } else {
-          // Touch / coarse / <=1024: no scrub, no once-play timeline.
-          // Static stacked CURRENT + TARGET (both visible) — avoids blank CURRENT
-          // column (faded cards keeping height) and jumpy enter animation.
-          root.classList.add("is-static-touch");
-          gsap.set(currentCards, {
-            clearProps: "transform,opacity,visibility",
-            autoAlpha: 1,
-            visibility: "visible",
-            x: 0,
-            y: 0,
-            scale: 1,
+          // Touch / coarse / <=1024: scrub timeline with NO pin.
+          // Scroll through the section drives 9→4; merged cards collapse
+          // (CSS display:none) so CURRENT never leaves a blank hole.
+          // Reversible scrub = motion is not once-and-gone.
+          root.classList.remove("is-static-touch");
+          st = ScrollTrigger.create({
+            animation: tl,
+            trigger: root,
+            start: "top 80%",
+            end: "bottom 20%",
+            scrub: 0.35,
+            pin: false,
+            pinSpacing: false,
+            anticipatePin: 0,
+            invalidateOnRefresh: true,
+            onUpdate: function (self) {
+              var last = targetCards[3];
+              var lastVisible = !!(last && last.classList.contains("is-visible"));
+              if (self.progress >= 0.88 || (lastVisible && self.progress >= 0.82)) {
+                forceSettledClosing();
+              } else if (self.progress < 0.55) {
+                tryUnlockClosing(self.progress);
+              } else if (closingLocked) {
+                forceSettledClosing();
+              }
+            },
+            onLeave: function () {
+              forceSettledClosing();
+            },
+            onEnterBack: function (self) {
+              if (self.progress < 0.55) tryUnlockClosing(self.progress);
+            },
           });
-          currentCards.forEach(function (el) {
-            el.classList.remove("is-merging", "is-merged");
-          });
-          targetCards.forEach(function (el) {
-            el.classList.add("is-visible");
-            gsap.set(el, {
-              autoAlpha: 1,
-              visibility: "visible",
-              scale: 1,
-              x: 0,
-              y: 0,
-            });
-          });
-          gsap.set(callouts, { autoAlpha: 1, y: 0, visibility: "visible" });
-          if (chromeCurrent) gsap.set(chromeCurrent, { autoAlpha: 1 });
-          if (chromeTarget) gsap.set(chromeTarget, { autoAlpha: 1 });
-          forceSettledClosing();
-          tl.kill();
         }
       }, root);
     }
