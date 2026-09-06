@@ -3,18 +3,21 @@
  * Design LOCK: four states only - Annotated map / Tally = marks /
  * Ready to bill / Invoice same day. No marketing body copy. No dollar signs.
  *
- * PIN_HOLD_LOCK: pin #map-to-invoice on ALL breakpoints (incl. mobile/iPhone).
- * One pin + scrub (~0.4) drives the shared gsap.timeline(); end +=300% gives
- * ~1 viewport per step so Annotated map is never skipped. One panel visible at
- * a time via the .m2i.is-pinned overlap layout (CSS). settleFinal (CLEAR_STATE)
- * settles on Invoice items only. Only prefers-reduced-motion opts out of the
- * pin+scrub: static state 4. Gil supersedes the earlier mobile pin:false here.
+ * MAP_TO_INVOICE_PROGRESS_BAR_STORY_LOCK (Pattern A) — replaces PIN_HOLD scrub.
+ * Layout: a 4-step workflow PROGRESS BAR sits on top (the story driver); below
+ * it one panel (image + one short title line) shows the ACTIVE step only.
+ * One gsap.timeline() owns BOTH the bar fill/lights AND the panel swap, so they
+ * can never desync. A short ScrollTrigger pin holds the island for ~1.4
+ * viewports total (end "+=140%", NOT the old +=300% pin-scrub) while the bar
+ * lights left->right and the panels follow the same playhead. The bar goes
+ * incomplete -> active -> complete; completed steps stay lit. CLEAR_STATE on
+ * leave: full bar lit + Invoice same day panel. Optional ST snap per step on
+ * coarse (mobile) pointers. prefers-reduced-motion: static full bar + Invoice,
+ * no pin.
  *
- * PIN_HOLD_REVISE: (1) panel swap is now SEQUENTIAL (hide outgoing fully, THEN
- * show next; zero overlap) so no ghost/overlapping titles mid-scrub; (2) pinned
- * stage/panels/visual heights fit the active card (CSS) so no blank navy void
- * under the card on mobile. Kept: pin on all breakpoints, syncStep, settleFinal
- * Invoice, end +=300% scroll distance, WT untouched.
+ * Cites: cheatsheet https://gsap.com/cheatsheet · gsap-core · gsap-timeline
+ * https://gsap.com/docs/v3/GSAP/Timeline · gsap-scrolltrigger
+ * https://gsap.com/docs/v3/Plugins/ScrollTrigger/
  */
 (function () {
   "use strict";
@@ -25,6 +28,8 @@
     "Ready to bill",
     "Invoice same day",
   ];
+  // Breadcrumb short codes (shown in the chrome route line).
+  var CODES = ["MAP", "TALLY", "BILL", "INVOICE"];
 
   function ready(fn) {
     if (document.readyState === "loading") {
@@ -41,20 +46,21 @@
       '<div class="m2i" data-m2i-root>' +
       '<div class="m2i-chrome">' +
       '<p class="m2i-chrome-id">JOB-4821 · FIBER DROP</p>' +
-      '<p class="m2i-chrome-route">MAP → TALLY → BILL → INVOICE</p>' +
+      '<p class="m2i-chrome-route">' +
+      CODES.join(" → ") +
+      "</p>" +
       "</div>" +
-      '<div class="m2i-layout">' +
-      '<ol class="m2i-labels" data-m2i-labels aria-label="Map to invoice states">';
+      /* ---- Progress bar (story driver) ---- */
+      '<ol class="m2i-bar" data-m2i-bar aria-label="Map to invoice progress">' +
+      '<span class="m2i-bar-track" aria-hidden="true"><span class="m2i-bar-fill" data-m2i-fill></span></span>';
 
     LABELS.forEach(function (label, i) {
       html +=
-        '<li class="m2i-label" data-m2i-label="' +
+        '<li class="m2i-bar-step" data-m2i-step="' +
         i +
         '">' +
-        '<span class="m2i-label-num">' +
-        (i + 1) +
-        "</span>" +
-        "<span>" +
+        '<span class="m2i-bar-dot" aria-hidden="true"></span>' +
+        '<span class="m2i-bar-label">' +
         label +
         "</span></li>";
     });
@@ -87,7 +93,7 @@
       '<circle class="m2i-map-mark" cx="290" cy="70" r="4"/>' +
       '<circle class="m2i-map-mark" cx="210" cy="190" r="4"/>' +
       "</svg></div></div></div>" +
-      /* 1 Verified quantities */
+      /* 1 Tally = marks */
       '<div class="m2i-panel" data-m2i-panel="1">' +
       '<div class="m2i-panel-head">' +
       '<p class="m2i-panel-title">Tally = marks</p>' +
@@ -113,7 +119,7 @@
       '<div class="m2i-packet-row"><span>QTY SHEET</span><span class="m2i-packet-status">READY</span></div>' +
       '<div class="m2i-packet-row"><span>CREW LOG</span><span class="m2i-packet-status">READY</span></div>' +
       "</div></div></div>" +
-      /* 3 Invoice items */
+      /* 3 Invoice same day */
       '<div class="m2i-panel" data-m2i-panel="3">' +
       '<div class="m2i-panel-head">' +
       '<p class="m2i-panel-title">Invoice same day</p>' +
@@ -126,15 +132,17 @@
       '<li><span class="m2i-invoice-code">2301 SPLICE</span><span class="m2i-invoice-qty">6 EA</span><span class="m2i-invoice-flag">LINE</span></li>' +
       '<li><span class="m2i-invoice-code">2105 LOCATE</span><span class="m2i-invoice-qty">2 EA</span><span class="m2i-invoice-flag">LINE</span></li>' +
       "</ul></div></div>" +
-      "</div></div></div></div>";
+      "</div></div></div>";
 
     root.innerHTML = html;
   }
 
-  function setActive(labels, panels, index) {
-    labels.forEach(function (el, i) {
+  // Light the bar left->right: active = current step, complete = every step
+  // before it (completed stay lit). Panels: exactly one active.
+  function setActive(steps, panels, index) {
+    steps.forEach(function (el, i) {
       el.classList.toggle("is-active", i === index);
-      el.classList.toggle("is-done", i < index);
+      el.classList.toggle("is-complete", i < index);
     });
     panels.forEach(function (el, i) {
       el.classList.toggle("is-active", i === index);
@@ -145,36 +153,38 @@
     ensureMarkup(section);
 
     var m2i = section.querySelector("[data-m2i-root]");
-    var labels = Array.prototype.slice.call(
-      section.querySelectorAll("[data-m2i-label]")
+    var steps = Array.prototype.slice.call(
+      section.querySelectorAll("[data-m2i-step]")
     );
     var panels = Array.prototype.slice.call(
       section.querySelectorAll("[data-m2i-panel]")
     );
-    var pinTarget = section;
+    var fill = section.querySelector("[data-m2i-fill]");
+    var pinTarget = m2i; // pin the island (stage) only — short hold
 
-    if (!m2i || !labels.length || !panels.length) return function () {};
+    if (!m2i || !steps.length || !panels.length) return function () {};
 
     /*
-     * settleFinal — CLEAR_STATE fix (shared by mobile clearState, desktop
-     * onLeave, and the timeline onComplete). Ghost bug root cause: on mobile
-     * (@media max-width:1024 / coarse) CSS forces ALL .m2i-panel to
-     * opacity:1 / visibility:visible / position:static, so clearProps on the
-     * panels RESTORES that stack — previous panel titles (e.g. "Closeout
-     * package") reappear under Invoice. Fix: never clearProps the panels;
-     * explicitly hide every panel but 3 via autoAlpha and reset y.
-     * Labels may clearProps (they read fine either way).
+     * settleFinal — CLEAR_STATE. On leaving the pin (scrolled past) settle on
+     * the full lit bar + Invoice same day panel only. Never clearProps the
+     * panels (mobile/reduced CSS would restore the whole stack and re-show
+     * earlier titles). Explicitly light every step and show panel 3 alone.
      * https://gsap.com/docs/v3/GSAP/Timeline · https://gsap.com/cheatsheet
      */
     function settleFinal() {
-      setActive(labels, panels, 3);
+      steps.forEach(function (el, i) {
+        el.classList.add("is-complete");
+        el.classList.toggle("is-active", i === 3);
+      });
+      if (fill) gsap.set(fill, { scaleX: 1 });
       panels.forEach(function (p, i) {
         gsap.set(p, { autoAlpha: i === 3 ? 1 : 0, y: 0 });
       });
     }
 
     if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") {
-      setActive(labels, panels, 3);
+      setActive(steps, panels, 3);
+      if (fill) fill.style.transform = "scaleX(1)";
       m2i.classList.add("is-reduced");
       return function () {};
     }
@@ -182,18 +192,10 @@
     gsap.registerPlugin(ScrollTrigger);
 
     var reduceMq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    var pinWideMq = window.matchMedia("(min-width: 1025px)");
     var coarseMq = window.matchMedia("(pointer: coarse)");
 
     var ctx = null;
     var st = null;
-
-    // PIN_HOLD_LOCK: m2i pins on ALL breakpoints (incl. mobile/iPhone/coarse/
-    // touch). Only prefers-reduced-motion opts out of pin+scrub. Gil supersedes
-    // the earlier mobile pin:false for THIS section only.
-    function canPinNow() {
-      return !reduceMq.matches;
-    }
 
     function killLocal() {
       if (ctx) {
@@ -213,51 +215,40 @@
       killLocal();
       m2i.classList.remove("is-pinned");
       m2i.classList.add("is-reduced");
-      gsap.set(labels, { clearProps: "opacity,visibility,transform" });
+      gsap.set(steps, { clearProps: "opacity,visibility,transform" });
       gsap.set(panels, { clearProps: "opacity,visibility,transform" });
-      setActive(labels, panels, 3);
+      settleFinal(); // static full bar + Invoice
     }
 
     /*
-     * MAP_TO_INVOICE_TIMELINE_LOCK — https://gsap.com/docs/v3/GSAP/Timeline
-     *                                https://gsap.com/cheatsheet
-     * One gsap.timeline(): enter staggers steps 1–4 in (autoAlpha + slight y),
-     * then the SAME timeline crossfades the panels
-     * Annotated map → Verified quantities → Closeout → Invoice.
+     * MAP_TO_INVOICE_PROGRESS_BAR_STORY_LOCK — one gsap.timeline() owns the bar
+     * fill/lights AND the panel swap so they share a single playhead.
+     * https://gsap.com/docs/v3/GSAP/Timeline · https://gsap.com/cheatsheet
      *
-     * SYNC LOCK (Gil FAIL was step 4 lit while panel still Annotated map):
-     * the step highlight is NOT driven by per-tween onStart (which scrub can
-     * skip or fire out of order). Instead one syncStep() derives the active
-     * index from the timeline's own playhead time and is fired both on every
-     * update AND by tl.call() at the swap point — the SAME position as the
-     * panel swap. Because both the panel autoAlpha and the label highlight
-     * read the same tl.time(), they can never desync, and scrubbing in reverse
-     * restores the prior step automatically.
-     *
-     * GHOST FIX (PIN_HOLD_REVISE): the earlier crossfade faded outgoing and
-     * incoming panels SIMULTANEOUSLY (both started at `at`, dur 0.35), so
-     * mid-scrub two panel titles were readable at once. Now the swap is
-     * SEQUENTIAL with zero overlap: the outgoing panel reaches autoAlpha 0
-     * over FADE, THEN the next fades in over FADE starting at `at + FADE`.
-     * At most one title is ever visible. settleFinal end is unchanged.
+     * Time budget (STEP_DUR = 1): four equal quarters over a total duration of
+     * 4 — step 0 lives in [0,1), 1 in [1,2), 2 in [2,3), 3 (INVOICE) holds
+     * [3,4]. The fill tween (scaleX 0->1, duration 4) IS the longest child, so
+     * it fixes the timeline length and the trailing INVOICE hold exists. Panel
+     * swaps are SEQUENTIAL (hide outgoing over FADE, THEN show incoming) so at
+     * most one panel title is visible mid-scrub. The lit step is derived from
+     * the playhead (syncStep) on every update AND at each swap point, so bar +
+     * panel can never desync and reverse-scrub restores the prior step.
      */
-    var SEQ_START = 0.6; // enter (labels) finishes before the panel sequence
-    var STEP_DUR = 0.5; // time between successive step swaps
-    var FADE = 0.16; // per-half fade; sequential (out THEN in), zero overlap
+    var STEP_DUR = 1;
+    var FADE = 0.16;
+    var TOTAL = 4; // 4 equal quarters (step 3 holds the last quarter)
 
-    // Which step should be lit at timeline time t (switch when the outgoing
-    // panel is fully hidden and the next begins — the sequential swap point).
     function activeStepAtTime(t) {
       for (var i = 3; i >= 1; i--) {
-        var mid = SEQ_START + (i - 1) * STEP_DUR + FADE;
+        var mid = i * STEP_DUR + FADE; // switch just after the swap begins
         if (t >= mid) return i;
       }
       return 0;
     }
 
     function buildSequenceTimeline() {
-      setActive(labels, panels, 0);
-      gsap.set(labels, { autoAlpha: 0, y: 8 });
+      setActive(steps, panels, 0);
+      gsap.set(fill, { scaleX: 0, transformOrigin: "left center" });
       panels.forEach(function (panel, i) {
         gsap.set(panel, { autoAlpha: i === 0 ? 1 : 0, y: i === 0 ? 0 : 10 });
       });
@@ -267,7 +258,7 @@
         var idx = activeStepAtTime(tl.time());
         if (force === true || idx !== lastStep) {
           lastStep = idx;
-          setActive(labels, panels, idx);
+          setActive(steps, panels, idx);
         }
       }
 
@@ -276,21 +267,17 @@
         onUpdate: syncStep,
       });
 
-      // Enter: stagger the four steps in (position parameter 0 = timeline start)
-      tl.to(
-        labels,
-        { autoAlpha: 1, y: 0, duration: 0.4, stagger: 0.08, ease: "power2.out" },
-        0
-      );
+      // Bar fill grows left->right across the whole timeline (ambient progress
+      // under the dots). Part of the SAME timeline as the panel swap.
+      tl.to(fill, { scaleX: 1, duration: TOTAL }, 0);
 
-      // Same timeline: swap panels in order. SEQUENTIAL (GHOST FIX) — hide the
-      // outgoing panel fully (autoAlpha 0) over FADE, THEN reveal the next over
-      // FADE starting at `at + FADE`, so no two titles overlap mid-scrub.
-      // tl.call at the swap point re-derives the active step — reverse-safe.
+      // Sequential panel swaps at t = 1, 2, 3. Hide outgoing over FADE, THEN
+      // reveal the next over FADE at at+FADE. tl.call re-derives the lit step
+      // at the swap point (reverse-safe).
       for (var i = 0; i < 3; i++) {
         (function (from) {
           var next = from + 1;
-          var at = SEQ_START + from * STEP_DUR;
+          var at = STEP_DUR * (from + 1);
           tl.to(panels[from], { autoAlpha: 0, y: -6, duration: FADE }, at);
           tl.fromTo(
             panels[next],
@@ -305,15 +292,13 @@
     }
 
     /*
-     * PIN_HOLD_LOCK — pin + scrub drives the shared timeline on ALL breakpoints
-     * (desktop AND mobile/iPhone). The .m2i.is-pinned class flips the panels to
-     * the overlap layout so exactly one panel is visible at a time while the
-     * section is frozen; the matching slide holds until the sequence completes,
-     * then the page scrolls on. end +=300% ≈ one viewport per step across the
-     * four steps so Annotated map is never skipped. onLeave settleFinal leaves
-     * Invoice items only (no ghost Closeout).
-     * https://gsap.com/docs/v3/GSAP/Timeline · https://gsap.com/scroll/
-     * https://gsap.com/docs/v3/Plugins/ScrollTrigger/
+     * Short pin — freeze the island (bar + stage) for ~1.4 viewports total
+     * (end "+=140%", NOT the old +=300% pin-scrub) while the bar lights and the
+     * panels follow the same playhead. scrub ties timeline progress to scroll.
+     * onLeave settleFinal -> full bar + Invoice only. Optional snap per step on
+     * coarse (mobile) pointers: snap to each quarter midpoint (t = .5/1.5/2.5/
+     * 3.5) so a rest lands cleanly inside one state.
+     * https://gsap.com/docs/v3/Plugins/ScrollTrigger/ · https://gsap.com/scroll/
      */
     function applyPinned() {
       killLocal();
@@ -323,19 +308,31 @@
       ctx = gsap.context(function () {
         var tl = buildSequenceTimeline();
 
-        st = ScrollTrigger.create({
+        var cfg = {
           animation: tl,
           trigger: pinTarget,
           start: "top top+=72",
-          end: "+=300%", // ~1 viewport per step; Annotated map not skipped
-          scrub: 0.4,
+          end: "+=140%", // ~1.4 viewports TOTAL for the whole story
+          scrub: 0.5,
           pin: true,
           pinSpacing: true,
           anticipatePin: 1,
           fastScrollEnd: true,
           invalidateOnRefresh: true,
-          onLeave: settleFinal, // step + panel 3, no half-scrubbed panels left
-        });
+          onLeave: settleFinal,
+        };
+
+        // Optional per-step snap on mobile: quarter midpoints keep a rest
+        // clearly inside one state (progress = timeline time / TOTAL).
+        if (coarseMq.matches) {
+          cfg.snap = {
+            snapTo: [0.125, 0.375, 0.625, 0.875],
+            duration: { min: 0.15, max: 0.3 },
+            ease: "power1.inOut",
+          };
+        }
+
+        st = ScrollTrigger.create(cfg);
       }, section);
     }
 
@@ -344,8 +341,6 @@
         applyReduced();
         return;
       }
-      // PIN_HOLD_LOCK: pin+scrub on every breakpoint. canPinNow() is true for
-      // m2i except prefers-reduced-motion (already handled above).
       applyPinned();
     }
 
@@ -358,11 +353,9 @@
 
     if (reduceMq.addEventListener) {
       reduceMq.addEventListener("change", onChange);
-      pinWideMq.addEventListener("change", onChange);
       coarseMq.addEventListener("change", onChange);
     } else if (reduceMq.addListener) {
       reduceMq.addListener(onChange);
-      pinWideMq.addListener(onChange);
       coarseMq.addListener(onChange);
     }
 
@@ -380,11 +373,9 @@
       window.removeEventListener("resize", onResize);
       if (reduceMq.removeEventListener) {
         reduceMq.removeEventListener("change", onChange);
-        pinWideMq.removeEventListener("change", onChange);
         coarseMq.removeEventListener("change", onChange);
       } else if (reduceMq.removeListener) {
         reduceMq.removeListener(onChange);
-        pinWideMq.removeListener(onChange);
         coarseMq.removeListener(onChange);
       }
       killLocal();
