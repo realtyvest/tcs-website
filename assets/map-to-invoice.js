@@ -183,128 +183,69 @@
     function applyReduced() {
       killLocal();
       m2i.classList.add("is-reduced");
+      gsap.set(labels, { clearProps: "opacity,visibility,transform" });
       gsap.set(panels, { clearProps: "opacity,visibility,transform" });
       setActive(labels, panels, 3);
     }
 
-    function applyTouchScrub() {
-      killLocal();
-      m2i.classList.remove("is-reduced");
+    /*
+     * MAP_TO_INVOICE_TIMELINE_LOCK — https://gsap.com/docs/v3/GSAP/Timeline
+     * One gsap.timeline(): enter staggers steps 1–4 in (autoAlpha + slight y),
+     * then the SAME timeline crossfades the panels
+     * Annotated map → Verified quantities → Closeout → Invoice, calling
+     * setActive on each step. autoAlpha keeps hidden panels non-interactive.
+     */
+    function buildSequenceTimeline() {
+      setActive(labels, panels, 0);
+      gsap.set(labels, { autoAlpha: 0, y: 8 });
+      panels.forEach(function (panel, i) {
+        gsap.set(panel, { autoAlpha: i === 0 ? 1 : 0, y: i === 0 ? 0 : 10 });
+      });
 
-      ctx = gsap.context(function () {
-        setActive(labels, panels, 0);
+      var tl = gsap.timeline({ defaults: { ease: "none" } });
 
-        panels.forEach(function (panel, i) {
-          gsap.set(panel, {
-            opacity: i === 0 ? 1 : 0,
-            visibility: i === 0 ? "visible" : "hidden",
-            y: i === 0 ? 0 : 10,
-          });
-        });
+      // Enter: stagger the four steps in (position parameter 0 = timeline start)
+      tl.to(
+        labels,
+        { autoAlpha: 1, y: 0, duration: 0.4, stagger: 0.08, ease: "power2.out" },
+        0
+      );
 
-        var tl = gsap.timeline({
-          defaults: { ease: "none" },
-        });
-
-        for (var i = 0; i < 3; i++) {
-          (function (from) {
-            var next = from + 1;
-            tl.to(
-              panels[from],
-              {
-                opacity: 0,
-                y: -8,
-                visibility: "hidden",
-                duration: 0.2,
+      // Same timeline: crossfade panels in order; setActive each step
+      var seqStart = 0.6;
+      for (var i = 0; i < 3; i++) {
+        (function (from) {
+          var next = from + 1;
+          var at = seqStart + from * 0.5;
+          tl.to(panels[from], { autoAlpha: 0, y: -8, duration: 0.35 }, at);
+          tl.fromTo(
+            panels[next],
+            { autoAlpha: 0, y: 10 },
+            {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.35,
+              onStart: function () {
+                setActive(labels, panels, next);
               },
-              from + 0.8
-            );
-            tl.fromTo(
-              panels[next],
-              { opacity: 0, y: 10, visibility: "hidden" },
-              {
-                opacity: 1,
-                y: 0,
-                visibility: "visible",
-                duration: 0.2,
-                onStart: function () {
-                  setActive(labels, panels, next);
-                },
+              onReverseComplete: function () {
+                setActive(labels, panels, from);
               },
-              from + 0.8
-            );
-          })(i);
-        }
-
-        var natural = tl.duration();
-        if (natural > 0) tl.timeScale(natural / 1.4);
-        tl.pause(0);
-        st = ScrollTrigger.create({
-          animation: tl,
-          trigger: section,
-          start: "top 75%",
-          end: "bottom 20%",
-          scrub: false,
-          pin: false,
-          pinSpacing: false,
-          toggleActions: "play reverse play reverse",
-          invalidateOnRefresh: true,
-          onLeave: function () {
-            setActive(labels, panels, 3);
-          },
-        });
-      }, section);
+            },
+            at
+          );
+        })(i);
+      }
+      return tl;
     }
 
+    /* Desktop (fine pointer, wide): short pin + scrub drives the same timeline. */
     function applyPinned() {
       killLocal();
       m2i.classList.remove("is-reduced");
 
       ctx = gsap.context(function () {
-        setActive(labels, panels, 0);
-
-        panels.forEach(function (panel, i) {
-          gsap.set(panel, {
-            opacity: i === 0 ? 1 : 0,
-            visibility: i === 0 ? "visible" : "hidden",
-            y: i === 0 ? 0 : 10,
-          });
-        });
-
-        var tl = gsap.timeline({
-          defaults: { ease: "none" },
-        });
-
-        /* Four equal steps across the scrub range */
-        for (var i = 0; i < 3; i++) {
-          (function (from) {
-            var next = from + 1;
-            tl.to(
-              panels[from],
-              {
-                opacity: 0,
-                y: -8,
-                visibility: "hidden",
-                duration: 0.2,
-              },
-              from + 0.8
-            );
-            tl.fromTo(
-              panels[next],
-              { opacity: 0, y: 10, visibility: "hidden" },
-              {
-                opacity: 1,
-                y: 0,
-                visibility: "visible",
-                duration: 0.2,
-                onStart: function () {
-                  setActive(labels, panels, next);
-                },
-              },
-              from + 0.8
-            );
-          })(i);
-        }
+        var tl = buildSequenceTimeline();
 
         st = ScrollTrigger.create({
           animation: tl,
@@ -317,13 +258,49 @@
           anticipatePin: 1,
           fastScrollEnd: true,
           invalidateOnRefresh: true,
-          onUpdate: function (self) {
-            var step = Math.min(3, Math.floor(self.progress * 4));
-            if (self.progress >= 0.99) step = 3;
-            setActive(labels, panels, step);
-          },
           onLeave: function () {
             setActive(labels, panels, 3);
+          },
+        });
+      }, section);
+    }
+
+    /*
+     * Mobile / touch: panels are a static readable stack (CSS). No pin, no
+     * scrub fight — one gsap.timeline() plays ONCE on enter, staggering the
+     * steps and panels in. End state stays complete (nothing left hidden).
+     */
+    function applyOncePlay() {
+      killLocal();
+      m2i.classList.remove("is-reduced");
+
+      ctx = gsap.context(function () {
+        var played = false;
+
+        setActive(labels, panels, 3);
+        gsap.set(labels, { autoAlpha: 0, y: 8 });
+        gsap.set(panels, { autoAlpha: 0, y: 12 });
+
+        var tl = gsap.timeline({
+          paused: true,
+          defaults: { ease: "power2.out" },
+        });
+        tl.to(labels, { autoAlpha: 1, y: 0, duration: 0.4, stagger: 0.08 }, 0);
+        tl.to(panels, { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.12 }, 0.1);
+
+        function play() {
+          if (played) return;
+          played = true;
+          tl.play();
+        }
+
+        st = ScrollTrigger.create({
+          trigger: section,
+          start: "top 85%",
+          pin: false,
+          onEnter: play,
+          onRefresh: function (self) {
+            if (!played && self.scroll() >= self.start) play();
           },
         });
       }, section);
@@ -338,7 +315,7 @@
         applyPinned();
         return;
       }
-      applyTouchScrub();
+      applyOncePlay();
     }
 
     build();
