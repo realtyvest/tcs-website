@@ -1,7 +1,7 @@
 /**
  * Map-to-invoice island (Hostinger static)
- * Design LOCK: four states only - Annotated map / Verified quantities /
- * Closeout package / Invoice items. No marketing body copy. No dollar signs.
+ * Design LOCK: four states only - Mark the map / Tally = marks /
+ * Ready to bill / Invoice same day. No marketing body copy. No dollar signs.
  *
  * PIN_HOLD_LOCK: pin #map-to-invoice on ALL breakpoints (incl. mobile/iPhone).
  * One pin + scrub (~0.4) drives the shared gsap.timeline(); end +=300% gives
@@ -20,10 +20,10 @@
   "use strict";
 
   var LABELS = [
-    "Annotated map",
-    "Verified quantities",
-    "Closeout package",
-    "Invoice items",
+    "Mark the map",
+    "Tally = marks",
+    "Ready to bill",
+    "Invoice same day",
   ];
 
   function ready(fn) {
@@ -41,7 +41,7 @@
       '<div class="m2i" data-m2i-root>' +
       '<div class="m2i-chrome">' +
       '<p class="m2i-chrome-id">JOB-4821 · FIBER DROP</p>' +
-      '<p class="m2i-chrome-route">MAP → QTY → CLOSEOUT → INVOICE</p>' +
+      '<p class="m2i-chrome-route">MAP → TALLY → BILL → INVOICE</p>' +
       "</div>" +
       '<div class="m2i-layout">' +
       '<ol class="m2i-labels" data-m2i-labels aria-label="Map to invoice states">';
@@ -66,7 +66,7 @@
       /* 0 Annotated map */
       '<div class="m2i-panel" data-m2i-panel="0">' +
       '<div class="m2i-panel-head">' +
-      '<p class="m2i-panel-title">Annotated map</p>' +
+      '<p class="m2i-panel-title">Mark the map</p>' +
       '<p class="m2i-panel-meta">SEG-07 · RT-A</p>' +
       "</div>" +
       '<div class="m2i-visual">' +
@@ -90,7 +90,7 @@
       /* 1 Verified quantities */
       '<div class="m2i-panel" data-m2i-panel="1">' +
       '<div class="m2i-panel-head">' +
-      '<p class="m2i-panel-title">Verified quantities</p>' +
+      '<p class="m2i-panel-title">Tally = marks</p>' +
       '<p class="m2i-panel-meta">TALLY · LOCKED</p>' +
       "</div>" +
       '<div class="m2i-visual">' +
@@ -100,10 +100,10 @@
       '<li><span class="m2i-tally-code">SPLICE</span><span><span class="m2i-tally-qty">6 EA</span><span class="m2i-tally-ok">OK</span></span></li>' +
       '<li><span class="m2i-tally-code">LOCATE</span><span><span class="m2i-tally-qty">2 EA</span><span class="m2i-tally-ok">OK</span></span></li>' +
       "</ul></div></div>" +
-      /* 2 Closeout package */
+      /* 2 Ready to bill */
       '<div class="m2i-panel" data-m2i-panel="2">' +
       '<div class="m2i-panel-head">' +
-      '<p class="m2i-panel-title">Closeout package</p>' +
+      '<p class="m2i-panel-title">Ready to bill</p>' +
       '<p class="m2i-panel-meta">PKG-19</p>' +
       "</div>" +
       '<div class="m2i-visual">' +
@@ -116,7 +116,7 @@
       /* 3 Invoice items */
       '<div class="m2i-panel" data-m2i-panel="3">' +
       '<div class="m2i-panel-head">' +
-      '<p class="m2i-panel-title">Invoice items</p>' +
+      '<p class="m2i-panel-title">Invoice same day</p>' +
       '<p class="m2i-panel-meta">INV-LINES</p>' +
       "</div>" +
       '<div class="m2i-visual">' +
