@@ -82,6 +82,35 @@
   .wt-stage {
     overflow-y: visible;
     min-height: 420px;
+    transition: min-height 0.45s ease;
+  }
+}
+
+/*
+ * WT_DESKTOP_DENSITY_REVISE — desktop only. Same PASS motion language
+ * (fade/slide, power2.out). After the 9 Current cards leave, the Current
+ * column collapses to width 0 (Target-primary), Target combines to centre,
+ * and the REMOVED cluster (3 orange lines + "9 handoffs → 4 connected steps")
+ * settles centred UNDER the Target stack — never bottom-left of empty Current.
+ * Mobile dual-stack / fire path is untouched (rules scoped ≥ 821px only).
+ */
+@media (min-width: 821px) {
+  .wt.is-condensed .wt-stage {
+    min-height: 340px;
+  }
+  .wt.is-condensed .wt-lists {
+    grid-template-columns: minmax(0, 520px);
+    justify-content: center;
+  }
+  .wt.is-condensed .wt-col--current {
+    display: none;
+  }
+  .wt.is-condensed .wt-callouts,
+  .wt.is-condensed .wt-closing {
+    width: 100%;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 

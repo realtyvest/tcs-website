@@ -172,12 +172,23 @@
     el.style.removeProperty("visibility");
   }
 
+  // Desktop-only story: Current collapses, Target combines to centre, REMOVED
+  // cluster settles under Target. Mobile (< 821px) keeps the dual-stack fire path.
+  function isDesktop() {
+    return (
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(min-width: 821px)").matches
+    );
+  }
+
   function initRoot(root) {
     ensureMarkup(root);
 
     if (!window.gsap) {
       console.warn("[WorkflowTransformation] GSAP missing");
       root.classList.add("is-dual-stack", "is-reduced");
+      // Desktop static CLEAR_STATE: CSS collapses Current, centres Target + cluster.
+      if (isDesktop()) root.classList.add("is-condensed");
       root.querySelectorAll("[data-wt-target], [data-wt-current]").forEach(function (el) {
         el.classList.add("is-visible");
         el.style.opacity = "1";
@@ -246,10 +257,121 @@
       if (closing) gsap.set(closing, { autoAlpha: 1, opacity: 1, visibility: "visible" });
     }
 
+    // Desktop CLEAR_STATE (static): Current collapsed, Target primary, REMOVED
+    // cluster centred under Target. Current inline props cleared so a resize back
+    // to mobile restores the dual-stack (CSS display:none only hides it >= 821px).
+    function applyCondensedStatic() {
+      root.classList.add("is-dual-stack", "is-motion-done", "is-condensed");
+      root.classList.remove("is-reduced", "is-static-touch");
+      currentCards.forEach(function (el) {
+        el.classList.remove("is-merging", "is-merged");
+      });
+      targetCards.forEach(function (el) {
+        el.classList.add("is-visible");
+      });
+      gsap.set(targetCards, {
+        clearProps: "transform,x,y,rotation,xPercent",
+        autoAlpha: 1,
+        opacity: 1,
+        visibility: "visible",
+      });
+      gsap.set(callouts, { autoAlpha: 1, opacity: 1, y: 0, visibility: "visible" });
+      gsap.set(listLabels, { autoAlpha: 1, opacity: 1, y: 0 });
+      if (chromeCurrent) gsap.set(chromeCurrent, { autoAlpha: 1, opacity: 1 });
+      if (chromeTarget) gsap.set(chromeTarget, { autoAlpha: 1, opacity: 1 });
+      gsap.set(currentCards, {
+        clearProps: "opacity,autoAlpha,visibility,transform,x,y,scale,rotation,xPercent",
+      });
+      settleClosing(gsap, closing);
+    }
+
+    // Land the condensed resting state; clear Current inline props (resize-safe —
+    // CSS display:none hides Current on desktop, so no flash under is-condensed).
+    function finalizeCondensed() {
+      gsap.set(currentCards, {
+        clearProps: "opacity,autoAlpha,visibility,transform,x,y,scale,rotation,xPercent",
+      });
+      settleClosing(gsap, closing);
+    }
+
+    // Second beat of the desktop story: Current has faded out — collapse its
+    // column, glide Target to centre (mini-FLIP, same fade/slide language), and
+    // fade/slide the REMOVED cluster in beneath Target as the cards leave.
+    function settleCondensed() {
+      var tCol = root.querySelector(".wt-col--target");
+      var first = tCol ? tCol.getBoundingClientRect() : null;
+
+      root.classList.add("is-dual-stack", "is-motion-done", "is-condensed");
+      root.classList.remove("is-reduced", "is-static-touch");
+      targetCards.forEach(function (el) {
+        el.classList.add("is-visible");
+      });
+      gsap.set(targetCards, { autoAlpha: 1, opacity: 1, visibility: "visible", y: 0 });
+      gsap.set(listLabels, { autoAlpha: 1, y: 0 });
+      if (chromeCurrent) gsap.set(chromeCurrent, { autoAlpha: 1 });
+      if (chromeTarget) gsap.set(chromeTarget, { autoAlpha: 1 });
+
+      if (tCol && first) {
+        var dx = first.left - tCol.getBoundingClientRect().left;
+        if (Math.abs(dx) > 0.5) {
+          gsap.fromTo(
+            tCol,
+            { x: dx },
+            { x: 0, duration: 0.5, ease: "power2.out", clearProps: "x" }
+          );
+        }
+      }
+
+      gsap.fromTo(
+        callouts,
+        { autoAlpha: 0, y: 8, visibility: "hidden" },
+        {
+          autoAlpha: 1,
+          y: 0,
+          visibility: "visible",
+          stagger: 0.08,
+          duration: 0.4,
+          ease: "power2.out",
+        }
+      );
+
+      if (closing) {
+        gsap.fromTo(
+          closing,
+          { autoAlpha: 0, y: 6, visibility: "hidden" },
+          {
+            autoAlpha: 1,
+            y: 0,
+            visibility: "visible",
+            duration: 0.4,
+            delay: 0.1,
+            ease: "power2.out",
+            onStart: function () {
+              settleClosing(gsap, closing);
+            },
+            onComplete: finalizeCondensed,
+          }
+        );
+      } else {
+        finalizeCondensed();
+      }
+    }
+
+    // First beat: the 9 Current cards disappear/combine (fade out), then collapse.
+    function condenseDesktop() {
+      gsap.to(currentCards, {
+        autoAlpha: 0,
+        duration: 0.4,
+        ease: "power2.out",
+        onComplete: settleCondensed,
+      });
+    }
+
     function prepEnterPose() {
       // Pre-enter: cards ready to animate in (layout reserved via dual-stack classes)
       root.classList.add("is-dual-stack");
-      root.classList.remove("is-motion-done");
+      // Show the full Current 9 for the enter — drop any prior condensed collapse.
+      root.classList.remove("is-motion-done", "is-condensed");
       currentCards.forEach(function (el) {
         el.classList.remove("is-merged", "is-merging");
       });
@@ -275,6 +397,8 @@
     function playVisibleEntrance() {
       if (played) return;
       played = true;
+
+      var desk = isDesktop();
 
       // Cheatsheet: gsap.to / stagger / power2.out — obvious enter
       gsap.to(listLabels, {
@@ -307,7 +431,10 @@
           ease: "power2.out",
           delay: 0.15,
           onComplete: function () {
-            applyDualStack();
+            // Desktop: Current leaves, Target combines to centre, REMOVED cluster
+            // settles under Target. Mobile: solid dual-stack (fire path unchanged).
+            if (desk) condenseDesktop();
+            else applyDualStack();
           },
         }
       );
@@ -315,27 +442,32 @@
       if (chromeCurrent) gsap.to(chromeCurrent, { autoAlpha: 1, duration: 0.35, ease: "power2.out" });
       if (chromeTarget) gsap.to(chromeTarget, { autoAlpha: 1, duration: 0.4, delay: 0.1, ease: "power2.out" });
 
-      gsap.to(callouts, {
-        autoAlpha: 1,
-        y: 0,
-        visibility: "visible",
-        stagger: 0.08,
-        duration: 0.4,
-        delay: 0.35,
-        ease: "power2.out",
-      });
-
-      if (closing) {
-        gsap.to(closing, {
+      // Mobile only: REMOVED cluster fades in during the enter. On desktop it is
+      // held back and fades/slides in during the condense (settleCondensed), so it
+      // arrives as the Current cards disappear.
+      if (!desk) {
+        gsap.to(callouts, {
           autoAlpha: 1,
+          y: 0,
           visibility: "visible",
+          stagger: 0.08,
           duration: 0.4,
-          delay: 0.45,
+          delay: 0.35,
           ease: "power2.out",
-          onStart: function () {
-            settleClosing(gsap, closing);
-          },
         });
+
+        if (closing) {
+          gsap.to(closing, {
+            autoAlpha: 1,
+            visibility: "visible",
+            duration: 0.4,
+            delay: 0.45,
+            ease: "power2.out",
+            onStart: function () {
+              settleClosing(gsap, closing);
+            },
+          });
+        }
       }
     }
 
@@ -425,7 +557,9 @@
           motionIo.disconnect();
           motionIo = null;
         }
-        applyDualStack();
+        // Desktop: static condensed CLEAR_STATE. Mobile: solid dual-stack.
+        if (isDesktop()) applyCondensedStatic();
+        else applyDualStack();
         return function () {
           root.classList.remove("is-reduced");
           if (!played) {
