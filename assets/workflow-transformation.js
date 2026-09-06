@@ -204,9 +204,11 @@
     var closing = root.querySelector("[data-wt-closing]");
 
     var mm = null;
-    var built = false;
     var motionIo = null;
     var played = false;
+    var scrolled = false;
+    var inView = false;
+    var fallbackId = null;
 
     function applyDualStack() {
       root.classList.add("is-dual-stack");
@@ -254,8 +256,8 @@
       targetCards.forEach(function (el) {
         el.classList.add("is-visible");
       });
-      gsap.set(currentCards, { autoAlpha: 0, opacity: 0, y: 16, x: 0, xPercent: 0, visibility: "hidden" });
-      gsap.set(targetCards, { autoAlpha: 0, opacity: 0, y: 20, x: 0, xPercent: 0, visibility: "hidden" });
+      gsap.set(currentCards, { autoAlpha: 0, opacity: 0, y: 40, x: 0, xPercent: 0, visibility: "hidden" });
+      gsap.set(targetCards, { autoAlpha: 0, opacity: 0, y: 40, x: 0, xPercent: 0, visibility: "hidden" });
       gsap.set(listLabels, { autoAlpha: 0, y: 10 });
       gsap.set(callouts, { autoAlpha: 0, y: 8, visibility: "hidden" });
       if (chromeCurrent) gsap.set(chromeCurrent, { autoAlpha: 0.35 });
@@ -288,8 +290,8 @@
         opacity: 1,
         visibility: "visible",
         y: 0,
-        stagger: 0.05,
-        duration: 0.45,
+        stagger: 0.08,
+        duration: 0.55,
         ease: "power2.out",
       });
 
@@ -300,10 +302,10 @@
           opacity: 1,
           visibility: "visible",
           y: 0,
-          stagger: 0.07,
-          duration: 0.5,
+          stagger: 0.1,
+          duration: 0.6,
           ease: "power2.out",
-          delay: 0.12,
+          delay: 0.15,
           onComplete: function () {
             applyDualStack();
           },
@@ -337,100 +339,109 @@
       }
     }
 
-    function mountMobile() {
+    function removeArmListeners() {
+      window.removeEventListener("scroll", onUserScroll);
+      window.removeEventListener("wheel", onUserScroll);
+      window.removeEventListener("touchmove", onUserScroll);
+      window.removeEventListener("keydown", onUserScroll);
+    }
+
+    function doPlay() {
+      if (played) return;
+      removeArmListeners();
+      if (fallbackId) {
+        clearTimeout(fallbackId);
+        fallbackId = null;
+      }
+      if (motionIo) {
+        motionIo.disconnect();
+        motionIo = null;
+      }
+      playVisibleEntrance();
+    }
+
+    function tryPlay() {
+      // Gate: both conditions must hold — the user has scrolled AND WT is in view.
+      if (!played && scrolled && inView) doPlay();
+    }
+
+    function onUserScroll() {
+      scrolled = true;
+      tryPlay();
+    }
+
+    /*
+     * Scroll-arm (WT_DUAL_JUMPY revise): WT lives in the hero and is already
+     * intersecting on load, so a plain once-enter finished before Gil ever
+     * looked. Gate the entrance on a real user scroll so the motion is obvious.
+     * No pin/scrub on any breakpoint — IntersectionObserver only. Cheatsheet:
+     * https://gsap.com/cheatsheet  (gsap.to / stagger / power2.out)
+     */
+    function armEntrance() {
       killRootTriggers();
-      prepEnterPose();
+      scrolled = false;
+      inView = false;
+
+      window.addEventListener("scroll", onUserScroll, { passive: true });
+      window.addEventListener("wheel", onUserScroll, { passive: true });
+      window.addEventListener("touchmove", onUserScroll, { passive: true });
+      window.addEventListener("keydown", onUserScroll);
 
       if (typeof IntersectionObserver !== "undefined") {
         motionIo = new IntersectionObserver(
           function (entries) {
             for (var i = 0; i < entries.length; i++) {
               if (entries[i].isIntersecting) {
-                playVisibleEntrance();
-                if (motionIo) {
-                  motionIo.disconnect();
-                  motionIo = null;
-                }
+                inView = true;
+                tryPlay();
                 break;
               }
             }
           },
-          { root: null, rootMargin: "40px 0px", threshold: 0.15 }
+          { root: null, rootMargin: "0px 0px -10% 0px", threshold: 0.15 }
         );
         motionIo.observe(root);
       } else {
-        playVisibleEntrance();
-      }
-    }
-
-    function mountDesktop() {
-      killRootTriggers();
-      prepEnterPose();
-
-      if (!ScrollTrigger) {
-        playVisibleEntrance();
-        return;
+        inView = true;
       }
 
-      ScrollTrigger.create({
-        trigger: root,
-        start: "top 75%",
-        end: "bottom top",
-        pin: false,
-        once: true,
-        toggleActions: "play none none none",
-        onEnter: function () {
-          playVisibleEntrance();
-        },
-        onRefresh: function (self) {
-          if (!played && self.scroll() < self.start) {
-            prepEnterPose();
-          } else if (!played && self.scroll() >= self.start) {
-            // already past — play once, don't leave blank
-            playVisibleEntrance();
-          }
-        },
-      });
+      // Anti-blank guarantee: Target never stays hidden long-term. If no scroll
+      // arrives shortly after load, play anyway so nothing is left blank.
+      fallbackId = setTimeout(function () {
+        if (!played) doPlay();
+      }, 2600);
     }
 
     function mountMotion() {
-      if (built) return;
-      built = true;
-
       mm = gsap.matchMedia();
-      mm.add(
-        {
-          isDesktop: "(min-width: 1025px) and (pointer: fine) and (hover: hover)",
-          isTouch: "(max-width: 1024px), (pointer: coarse)",
-          reduceMotion: "(prefers-reduced-motion: reduce)",
-        },
-        function (context) {
-          var cond = context.conditions;
-          killRootTriggers();
-          played = false;
-
-          if (cond.reduceMotion) {
-            applyDualStack();
-            return function () {
-              root.classList.remove("is-dual-stack", "is-reduced");
-            };
-          }
-
-          if (cond.isTouch || !cond.isDesktop) {
-            mountMobile();
-            return function () {
-              if (motionIo) motionIo.disconnect();
-              motionIo = null;
-              killRootTriggers();
-            };
-          }
-
-          mountDesktop();
-          return function () {
-            killRootTriggers();
-          };
+      mm.add({ reduceMotion: "(prefers-reduced-motion: reduce)" }, function () {
+        // Reduced motion: solid dual-stack immediately, no entrance.
+        removeArmListeners();
+        if (fallbackId) {
+          clearTimeout(fallbackId);
+          fallbackId = null;
         }
-      );
+        if (motionIo) {
+          motionIo.disconnect();
+          motionIo = null;
+        }
+        applyDualStack();
+        return function () {
+          root.classList.remove("is-reduced");
+          if (!played) {
+            prepEnterPose();
+            armEntrance();
+          }
+        };
+      });
+
+      // Non-reduced users: arm the scroll-gated entrance (mobile & desktop alike).
+      if (
+        typeof window.matchMedia !== "function" ||
+        !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ) {
+        armEntrance();
+      }
     }
 
     // Classes on for CSS dual-stack; pose for enter animation
@@ -438,6 +449,8 @@
     mountMotion();
 
     return function cleanup() {
+      removeArmListeners();
+      if (fallbackId) clearTimeout(fallbackId);
       if (motionIo) motionIo.disconnect();
       if (mm) mm.revert();
       killRootTriggers();

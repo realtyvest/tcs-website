@@ -259,50 +259,119 @@
           fastScrollEnd: true,
           invalidateOnRefresh: true,
           onLeave: function () {
+            // Force complete sync: step + panel 3, no half-scrubbed panels left.
             setActive(labels, panels, 3);
+            panels.forEach(function (p, i) {
+              gsap.set(p, { autoAlpha: i === 3 ? 1 : 0, y: 0 });
+            });
           },
         });
       }, section);
     }
 
     /*
-     * Mobile / touch: panels are a static readable stack (CSS). No pin, no
-     * scrub fight — one gsap.timeline() plays ONCE on enter, staggering the
-     * steps and panels in. End state stays complete (nothing left hidden).
+     * Mobile / touch: pin false. Play the SAME shared sequence timeline ONCE on
+     * enter — but only after a real user scroll (scroll-arm, same as WT), so Gil
+     * actually sees it fire instead of it finishing off-screen. On complete OR
+     * leave, CLEAR_STATE forces step + panel 3 and restores the readable stacked
+     * layout so nothing is ever left hidden.
+     * https://gsap.com/docs/v3/GSAP/Timeline
      */
-    function applyOncePlay() {
+    function applyOncePlayMobile() {
       killLocal();
       m2i.classList.remove("is-reduced");
 
       ctx = gsap.context(function () {
+        var tl = buildSequenceTimeline();
+        tl.pause(0);
+
         var played = false;
+        var scrolled = false;
+        var inView = false;
+        var fallbackId = null;
+        var io = null;
 
-        setActive(labels, panels, 3);
-        gsap.set(labels, { autoAlpha: 0, y: 8 });
-        gsap.set(panels, { autoAlpha: 0, y: 12 });
+        function clearState() {
+          // CLEAR_STATE: settle on step + panel 3, restore stacked visibility.
+          setActive(labels, panels, 3);
+          gsap.set(labels, { clearProps: "opacity,visibility,transform" });
+          gsap.set(panels, { clearProps: "opacity,visibility,transform" });
+        }
 
-        var tl = gsap.timeline({
-          paused: true,
-          defaults: { ease: "power2.out" },
-        });
-        tl.to(labels, { autoAlpha: 1, y: 0, duration: 0.4, stagger: 0.08 }, 0);
-        tl.to(panels, { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.12 }, 0.1);
+        function removeArm() {
+          window.removeEventListener("scroll", onScroll);
+          window.removeEventListener("wheel", onScroll);
+          window.removeEventListener("touchmove", onScroll);
+          window.removeEventListener("keydown", onScroll);
+        }
 
         function play() {
           if (played) return;
           played = true;
-          tl.play();
+          removeArm();
+          if (fallbackId) {
+            clearTimeout(fallbackId);
+            fallbackId = null;
+          }
+          if (io) {
+            io.disconnect();
+            io = null;
+          }
+          tl.eventCallback("onComplete", clearState);
+          tl.play(0);
         }
 
-        st = ScrollTrigger.create({
-          trigger: section,
-          start: "top 85%",
-          pin: false,
-          onEnter: play,
-          onRefresh: function (self) {
-            if (!played && self.scroll() >= self.start) play();
-          },
-        });
+        function tryPlay() {
+          if (!played && scrolled && inView) play();
+        }
+
+        function onScroll() {
+          scrolled = true;
+          tryPlay();
+        }
+
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("wheel", onScroll, { passive: true });
+        window.addEventListener("touchmove", onScroll, { passive: true });
+        window.addEventListener("keydown", onScroll);
+
+        if (typeof IntersectionObserver !== "undefined") {
+          io = new IntersectionObserver(
+            function (entries) {
+              for (var i = 0; i < entries.length; i++) {
+                if (entries[i].isIntersecting) {
+                  inView = true;
+                  tryPlay();
+                  break;
+                }
+              }
+            },
+            { root: null, rootMargin: "0px 0px -10% 0px", threshold: 0.2 }
+          );
+          io.observe(section);
+        } else {
+          inView = true;
+        }
+
+        // Anti-blank: if no scroll arrives shortly after the section is
+        // reachable, force the completed stacked state — nothing stays hidden.
+        fallbackId = setTimeout(function () {
+          if (!played) {
+            played = true;
+            removeArm();
+            if (io) {
+              io.disconnect();
+              io = null;
+            }
+            clearState();
+          }
+        }, 2600);
+
+        return function () {
+          removeArm();
+          if (fallbackId) clearTimeout(fallbackId);
+          if (io) io.disconnect();
+        };
       }, section);
     }
 
@@ -315,7 +384,7 @@
         applyPinned();
         return;
       }
-      applyOncePlay();
+      applyOncePlayMobile();
     }
 
     build();
