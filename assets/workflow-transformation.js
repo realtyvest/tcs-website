@@ -194,6 +194,9 @@
     var closing = root.querySelector("[data-wt-closing]");
     var reduceMq = window.matchMedia("(prefers-reduced-motion: reduce)");
     var desktopMq = window.matchMedia("(min-width: 821px)");
+    // Pin only large fine-pointer desktops. Coarse (touch) or ≤1024: natural scroll.
+    var pinWideMq = window.matchMedia("(min-width: 1025px)");
+    var coarseMq = window.matchMedia("(pointer: coarse)");
 
     var ctx = null;
     var st = null;
@@ -253,6 +256,7 @@
       void root.offsetHeight;
 
       var desktop = desktopMq.matches;
+      var canPin = pinWideMq.matches && !coarseMq.matches;
 
       // Desktop only: Flip-fit absolute merges. Mobile (max-width 820): fade/hide
       // current groups in place and reveal the target stack below — no overlapping
@@ -426,11 +430,14 @@
         st = ScrollTrigger.create({
           animation: tl,
           trigger: root,
-          start: desktop ? "top top+=72" : "top 75%",
-          end: desktop ? "+=220%" : "bottom 15%",
-          scrub: desktop ? 0.28 : 0.4,
-          pin: desktop,
-          anticipatePin: desktop ? 1 : 0,
+          start: canPin ? "top top+=72" : "top 75%",
+          // LOCK: short pin band so scroll releases past WT (was +=220%, trapped).
+          end: canPin ? "+=120%" : "bottom 15%",
+          scrub: 0.25,
+          pin: canPin,
+          pinSpacing: canPin,
+          anticipatePin: canPin ? 1 : 0,
+          fastScrollEnd: true,
           invalidateOnRefresh: true,
           onUpdate: function (self) {
             var last = targetCards[3];
@@ -464,9 +471,13 @@
     if (reduceMq.addEventListener) {
       reduceMq.addEventListener("change", onChange);
       desktopMq.addEventListener("change", onChange);
+      pinWideMq.addEventListener("change", onChange);
+      coarseMq.addEventListener("change", onChange);
     } else if (reduceMq.addListener) {
       reduceMq.addListener(onChange);
       desktopMq.addListener(onChange);
+      pinWideMq.addListener(onChange);
+      coarseMq.addListener(onChange);
     }
 
     var resizeTimer;
@@ -484,9 +495,13 @@
       if (reduceMq.removeEventListener) {
         reduceMq.removeEventListener("change", onChange);
         desktopMq.removeEventListener("change", onChange);
+        pinWideMq.removeEventListener("change", onChange);
+        coarseMq.removeEventListener("change", onChange);
       } else if (reduceMq.removeListener) {
         reduceMq.removeListener(onChange);
         desktopMq.removeListener(onChange);
+        pinWideMq.removeListener(onChange);
+        coarseMq.removeListener(onChange);
       }
       if (ctx) ctx.revert();
       if (st) st.kill();

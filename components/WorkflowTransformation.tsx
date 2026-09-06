@@ -128,6 +128,9 @@ export function WorkflowTransformation({ className }: Props) {
 
     const reduceMq = window.matchMedia("(prefers-reduced-motion: reduce)");
     const desktopMq = window.matchMedia("(min-width: 821px)");
+    // Pin only large fine-pointer desktops. Coarse (touch) or ≤1024: natural scroll.
+    const pinWideMq = window.matchMedia("(min-width: 1025px)");
+    const coarseMq = window.matchMedia("(pointer: coarse)");
 
     let ctx: gsap.Context | null = null;
     let st: ScrollTrigger | null = null;
@@ -186,6 +189,7 @@ export function WorkflowTransformation({ className }: Props) {
       void root.offsetHeight;
 
       const desktop = desktopMq.matches;
+      const canPin = pinWideMq.matches && !coarseMq.matches;
 
       // Desktop only: Flip-fit absolute merges. Mobile (max-width 820): fade/hide
       // current groups in place and reveal the target stack below — no overlapping
@@ -342,11 +346,14 @@ export function WorkflowTransformation({ className }: Props) {
         st = ScrollTrigger.create({
           animation: tl,
           trigger: root,
-          start: desktop ? "top top+=72" : "top 75%",
-          end: desktop ? "+=220%" : "bottom 15%",
-          scrub: desktop ? 0.28 : 0.4,
-          pin: desktop,
-          anticipatePin: desktop ? 1 : 0,
+          start: canPin ? "top top+=72" : "top 75%",
+          // LOCK: short pin band so scroll releases past WT (was +=220%, trapped).
+          end: canPin ? "+=120%" : "bottom 15%",
+          scrub: 0.25,
+          pin: canPin,
+          pinSpacing: canPin,
+          anticipatePin: canPin ? 1 : 0,
+          fastScrollEnd: true,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
             const last = targetCards[3];
@@ -382,11 +389,15 @@ export function WorkflowTransformation({ className }: Props) {
 
     reduceMq.addEventListener("change", onChange);
     desktopMq.addEventListener("change", onChange);
+    pinWideMq.addEventListener("change", onChange);
+    coarseMq.addEventListener("change", onChange);
     window.addEventListener("resize", onResize);
 
     return () => {
       reduceMq.removeEventListener("change", onChange);
       desktopMq.removeEventListener("change", onChange);
+      pinWideMq.removeEventListener("change", onChange);
+      coarseMq.removeEventListener("change", onChange);
       window.removeEventListener("resize", onResize);
       ctx?.revert();
       st?.kill();
