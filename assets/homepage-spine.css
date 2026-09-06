@@ -1,0 +1,142 @@
+/* HOMEPAGE SPINE — HOMEPAGE_SPINE_PLACEMENT_LOCK + Design Option A
+   Calm vertical step list. TCS navy/electric/orange only.
+   No ScrollTrigger. No pin. Light enter stagger (IO-driven .in class).
+   Leaves WT + map-to-invoice untouched. */
+
+#spine {
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+#spine .spine-head {
+  margin: 0 0 8px;
+}
+
+#spine .spine-sub {
+  color: var(--muted);
+  margin: 0 0 32px;
+  max-width: 56ch;
+}
+
+/* Vertical step list */
+#spine .spine-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 680px;
+  position: relative;
+}
+
+/* The spine line runs behind the numbered nodes */
+#spine .spine-list::before {
+  content: "";
+  position: absolute;
+  left: 17px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--electric) 0%, var(--navy-light) 100%);
+  opacity: 0.55;
+}
+
+#spine .spine-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  column-gap: 16px;
+  align-items: start;
+  padding: 0 0 22px;
+}
+
+#spine .spine-step:last-child {
+  padding-bottom: 0;
+}
+
+/* Numbered node */
+#spine .spine-num {
+  position: relative;
+  z-index: 1;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.0625rem;
+  color: var(--white);
+  background: var(--navy-mid);
+  border: 2px solid var(--electric);
+  box-shadow: var(--shadow-card);
+}
+
+#spine .spine-body {
+  padding-top: 4px;
+}
+
+#spine .spine-label {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1875rem;
+  letter-spacing: 0.01em;
+  color: var(--white);
+  line-height: 1.25;
+}
+
+#spine .spine-detail {
+  display: block;
+  color: var(--text-light);
+  font-size: 0.9375rem;
+  margin-top: 2px;
+}
+
+/* Final step: office issues the invoice — anchor node in orange (marker) */
+#spine .spine-step--final .spine-num {
+  border-color: var(--orange);
+}
+
+/* Optional packet line, nested under step 5 */
+#spine .spine-optional {
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-left: 2px solid var(--orange);
+  background: rgba(242,100,25,0.06);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+/* Light enter stagger — hidden state only applies once JS marks the list.
+   No-JS users see everything immediately. */
+#spine .spine-list.spine-anim .spine-step {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+#spine .spine-list.spine-anim.in .spine-step {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+#spine .spine-list.spine-anim.in .spine-step:nth-child(1) { transition-delay: 0ms; }
+#spine .spine-list.spine-anim.in .spine-step:nth-child(2) { transition-delay: 80ms; }
+#spine .spine-list.spine-anim.in .spine-step:nth-child(3) { transition-delay: 160ms; }
+#spine .spine-list.spine-anim.in .spine-step:nth-child(4) { transition-delay: 240ms; }
+#spine .spine-list.spine-anim.in .spine-step:nth-child(5) { transition-delay: 320ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  #spine .spine-list.spine-anim .spine-step {
+    opacity: 1;
+    transform: none;
+  }
+  #spine .spine-list.spine-anim.in .spine-step {
+    transition: none;
+  }
+}
+
+@media (max-width: 640px) {
+  #spine .spine-sub { margin-bottom: 24px; }
+  #spine .spine-label { font-size: 1.125rem; }
+}
