@@ -255,23 +255,10 @@
       });
       void root.offsetHeight;
 
-      var desktop = desktopMq.matches;
-      var canPin = pinWideMq.matches && !coarseMq.matches && !(navigator.maxTouchPoints > 0);
-
-      // Desktop only: Flip-fit absolute merges. Mobile (max-width 820): fade/hide
-      // current groups in place and reveal the target stack below — no overlapping
-      // absolute transforms across the long stacked list.
-      var fits = null;
-      if (desktop) {
-        fits = GROUPS.map(function (g) {
-          var target = targetCards[g.target];
-          return g.sources.map(function (si) {
-            return fitVars(Flip, currentCards[si], target);
-          });
-        });
-      }
-
-      gsap.set(targetCards, { autoAlpha: 0, visibility: "hidden", scale: 0.94 });
+      // desktopMq / pinWide kept for resize rebuild; fly-off LOCK uses one path (no pin).
+      // WT_CARDS_FLY_OFF_LEFT_LOCK: one story — Current flies off LEFT, Target arrives.
+      // pin:false always (mobile bar). Scrub ~0.35 over section. No Flip. No blank gaps.
+      gsap.set(targetCards, { autoAlpha: 0, visibility: "hidden", y: 24, scale: 1 });
       gsap.set(callouts, { autoAlpha: 0, y: 6, visibility: "hidden" });
       if (closing) {
         closing.classList.remove("is-settled");
@@ -296,116 +283,62 @@
       ctx = gsap.context(function () {
         var tl = gsap.timeline({ defaults: { ease: "none" } });
 
-        // 0–15%: hold all 9 current
-        tl.to({}, { duration: 0.15 });
+        // Hold Current visible briefly
+        tl.to({}, { duration: 0.12 });
 
-        GROUPS.forEach(function (g, gi) {
-          var dur = g.end - g.start;
-          var target = targetCards[g.target];
-          var srcEls = g.sources.map(function (si) {
-            return currentCards[si];
-          });
-          var nSrc = srcEls.length;
+        // Current 9: stagger fly-off LEFT, then collapse (is-merged → display:none)
+        currentCards.forEach(function (el, i) {
+          var t0 = 0.12 + i * 0.055;
+          var rot = i % 2 === 0 ? -6 : -4;
+          tl.to(
+            el,
+            {
+              x: "-110vw",
+              autoAlpha: 0,
+              rotate: rot,
+              duration: 0.11,
+              onStart: function () {
+                el.classList.add("is-merging");
+              },
+              onComplete: function () {
+                el.classList.add("is-merged");
+              },
+            },
+            t0
+          );
+        });
 
-          if (desktop && fits) {
-            // Flip one source at a time; fade Current out fast so mid-merge is not a held pile
-            srcEls.forEach(function (el, j) {
-              var d = fits[gi][j];
-              var slice = nSrc > 1 ? dur / nSrc : dur;
-              var t0 = g.start + (nSrc > 1 ? j * slice * 0.9 : 0);
-              var moveDur = Math.min(slice * 0.65, dur * 0.38);
-              var light = nSrc > 2;
-              tl.to(
-                el,
-                {
-                  x: light ? d.x * 0.4 : d.x,
-                  y: light ? d.y * 0.4 : d.y,
-                  scale: Math.max(0.72, Math.min(d.scale || 0.85, light ? 0.92 : 0.95)),
-                  duration: moveDur,
-                  onStart: function () {
-                    el.classList.add("is-merging");
-                  },
-                },
-                t0
-              );
-              tl.to(
-                el,
-                {
-                  autoAlpha: 0,
-                  duration: Math.max(0.04, Math.min(0.08, slice * 0.3)),
-                  onComplete: function () {
-                    el.classList.add("is-merged");
-                  },
-                },
-                t0 + moveDur * 0.2
-              );
-            });
-          } else {
-            // Mobile: fade current cards out of the group (no Flip absolute merge)
-            srcEls.forEach(function (el) {
-              tl.to(
-                el,
-                {
-                  autoAlpha: 0,
-                  duration: dur * 0.75,
-                  onStart: function () {
-                    el.classList.add("is-merging");
-                  },
-                  onComplete: function () {
-                    el.classList.add("is-merged");
-                  },
-                },
-                g.start
-              );
-            });
-          }
-
+        // Target 4: fade/slide up as Current peels (~progress 0.15+)
+        targetCards.forEach(function (el, i) {
           tl.fromTo(
-            target,
-            { autoAlpha: 0, visibility: "hidden", scale: 0.94 },
+            el,
+            { autoAlpha: 0, visibility: "hidden", y: 24 },
             {
               autoAlpha: 1,
               visibility: "visible",
-              scale: 1,
-              duration: dur * 0.45,
+              y: 0,
+              duration: 0.1,
               onStart: function () {
-                target.classList.add("is-visible");
-                // Last target visible => force closing settle (hard keep)
-                if (g.target === 3) forceSettledClosing();
+                el.classList.add("is-visible");
+                if (i === 3) forceSettledClosing();
               },
             },
-            g.start + dur * 0.35
+            0.2 + i * 0.08
           );
-
-          if (g.callout >= 0 && callouts[g.callout]) {
-            tl.to(
-              callouts[g.callout],
-              { autoAlpha: 1, y: 0, visibility: "visible", duration: 0.08 },
-              g.start + dur * 0.4
-            );
-          }
-
-          if (gi === 2 && callouts[2]) {
-            tl.to(
-              callouts[2],
-              { autoAlpha: 1, y: 0, visibility: "visible", duration: 0.08 },
-              0.6
-            );
-          }
         });
 
-        // 85–100%: four targets settle
-        tl.to(
-          targetCards,
-          {
-            scale: 1,
-            autoAlpha: 1,
-            visibility: "visible",
-            duration: 0.1,
-            stagger: 0.02,
-          },
-          0.85
-        );
+        // Callouts + chrome + closing near end
+        if (callouts[0]) {
+          tl.to(callouts[0], { autoAlpha: 1, y: 0, visibility: "visible", duration: 0.08 }, 0.35);
+        }
+        if (callouts[1]) {
+          tl.to(callouts[1], { autoAlpha: 1, y: 0, visibility: "visible", duration: 0.08 }, 0.5);
+        }
+        if (callouts[2]) {
+          tl.to(callouts[2], { autoAlpha: 1, y: 0, visibility: "visible", duration: 0.08 }, 0.65);
+        }
+
+        tl.to(targetCards, { scale: 1, autoAlpha: 1, visibility: "visible", duration: 0.08, stagger: 0.02 }, 0.85);
         if (chromeCurrent) {
           tl.to(chromeCurrent, { autoAlpha: 0.35, duration: 0.1 }, 0.85);
         }
@@ -427,68 +360,33 @@
           );
         }
 
-        // Desktop canPin: pin end +=120%, scrub ~0.25.
-        // Touch !canPin: play/reverse, no scrub/pin (Design: motion without scrub owning scroll).
-        if (canPin) {
-          st = ScrollTrigger.create({
-            animation: tl,
-            trigger: root,
-            start: "top top+=72",
-            end: "+=120%",
-            scrub: 0.25,
-            pin: true,
-            pinSpacing: true,
-            anticipatePin: 1,
-            fastScrollEnd: true,
-            invalidateOnRefresh: true,
-            onUpdate: function (self) {
-              var last = targetCards[3];
-              var lastVisible = !!(last && last.classList.contains("is-visible"));
-              if (self.progress >= 0.88 || (lastVisible && self.progress >= 0.82)) {
-                forceSettledClosing();
-              } else if (self.progress < 0.55) {
-                tryUnlockClosing(self.progress);
-              } else if (closingLocked) {
-                // Keep full-white closing through mid band after settle/leave
-                forceSettledClosing();
-              }
-            },
-            onLeave: function () {
+        // pin:false always; scrub over section only; reverse via scrub
+        st = ScrollTrigger.create({
+          animation: tl,
+          trigger: root,
+          start: "top 80%",
+          end: "bottom 20%",
+          scrub: 0.35,
+          pin: false,
+          pinSpacing: false,
+          anticipatePin: 0,
+          invalidateOnRefresh: true,
+          onUpdate: function (self) {
+            if (self.progress >= 0.88) {
               forceSettledClosing();
-            },
-            onEnterBack: function (self) {
-              if (self.progress < 0.55) tryUnlockClosing(self.progress);
-            },
-          });
-        } else {
-          // Touch: play/reverse 9→4 on enter (NO scrub, NO pin).
-          // Design WT_ANIMATION_GONE_ONE_SCROLL_REVISE: motion communicates
-          // without scrub owning scroll; merged cards display:none (no blank hole).
-          root.classList.remove("is-static-touch");
-          var ENTER_DUR = 1.6;
-          var natural = tl.duration();
-          if (natural > 0) tl.timeScale(natural / ENTER_DUR);
-          tl.pause(0);
-
-          st = ScrollTrigger.create({
-            animation: tl,
-            trigger: root,
-            start: "top 75%",
-            end: "bottom 20%",
-            scrub: false,
-            pin: false,
-            pinSpacing: false,
-            anticipatePin: 0,
-            toggleActions: "play reverse play reverse",
-            invalidateOnRefresh: true,
-            onLeave: function () {
+            } else if (self.progress < 0.55) {
+              tryUnlockClosing(self.progress);
+            } else if (closingLocked) {
               forceSettledClosing();
-            },
-            onComplete: function () {
-              forceSettledClosing();
-            },
-          });
-        }
+            }
+          },
+          onLeave: function () {
+            forceSettledClosing();
+          },
+          onEnterBack: function (self) {
+            if (self.progress < 0.55) tryUnlockClosing(self.progress);
+          },
+        });
       }, root);
     }
 

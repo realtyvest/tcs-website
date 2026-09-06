@@ -234,6 +234,11 @@
   opacity: 0.4;
 }
 
+.wt-card--current.is-merged {
+  display: none;
+  pointer-events: none;
+}
+
 @media (max-width: 820px) {
   .wt {
     margin-top: 0.85rem;
@@ -272,11 +277,6 @@
   .wt-card--target {
     position: relative;
     z-index: 1;
-  }
-
-  .wt-card--current.is-merged {
-    display: none;
-    pointer-events: none;
   }
 
   /* Static touch: both stacks visible; native scroll, no blank CURRENT */
