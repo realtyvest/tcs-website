@@ -14,10 +14,13 @@
   border-radius: var(--radius, 8px);
   padding: 1.15rem 1.2rem 1.25rem;
   box-shadow: var(--shadow-card, 0 8px 24px rgba(0,0,0,0.2));
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
+  touch-action: pan-y;
 }
 
 .wt-inner {
+  touch-action: pan-y;
   position: relative;
 }
 
@@ -52,6 +55,7 @@
 }
 
 .wt-stage {
+  touch-action: pan-y;
   position: relative;
   display: grid;
   grid-template-columns: 1fr;
@@ -76,11 +80,13 @@
     align-items: start;
   }
   .wt-stage {
+    overflow-y: visible;
     min-height: 420px;
   }
 }
 
 .wt-list {
+  touch-action: pan-y;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -104,6 +110,7 @@
 }
 
 .wt-card {
+  touch-action: pan-y;
   display: flex;
   align-items: flex-start;
   gap: 10px;
@@ -115,7 +122,6 @@
   font-weight: 600;
   line-height: 1.35;
   color: var(--wt-text);
-  will-change: transform, opacity;
   transform-origin: center center;
   width: 100%;
   box-sizing: border-box;
@@ -257,7 +263,8 @@
   }
 
   .wt-stage {
-    overflow-x: hidden;
+    overflow-y: visible;
+    overflow-x: clip;
   }
 
   /* Non-sticky target column below current: four distinct cards, no sticky clip */
