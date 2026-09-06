@@ -275,7 +275,19 @@
   }
 
   .wt-card--current.is-merged {
+    display: none;
     pointer-events: none;
+  }
+
+  /* Static touch: both stacks visible; native scroll, no blank CURRENT */
+  .wt.is-static-touch .wt-card--current {
+    opacity: 0.9;
+    visibility: visible;
+  }
+
+  .wt.is-static-touch .wt-card--target {
+    opacity: 1;
+    visibility: visible;
   }
 }
 

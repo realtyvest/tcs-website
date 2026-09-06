@@ -224,7 +224,7 @@
         st = null;
       }
 
-      root.classList.remove("is-reduced");
+      root.classList.remove("is-reduced", "is-static-touch");
       currentCards.forEach(function (el) {
         el.classList.remove("is-merging", "is-merged");
         gsap.set(el, { clearProps: "transform,opacity,visibility" });
@@ -427,9 +427,8 @@
           );
         }
 
-        // WT_SCROLL_STUCK_REVISE_2:
-        // !canPin (phone/coarse/touch/<=1024): scrub HARD false; pin false; play once on enter.
-        // canPin desktop: pin end +=120%, scrub ~0.25.
+        // Desktop canPin: pin end +=120%, scrub ~0.25.
+        // Touch !canPin: static stacked CURRENT+TARGET (no once-play; no blank CURRENT).
         if (canPin) {
           st = ScrollTrigger.create({
             animation: tl,
@@ -462,53 +461,36 @@
             },
           });
         } else {
-          var ENTER_DUR = 1.5;
-          var natural = tl.duration();
-          if (natural > 0) tl.timeScale(natural / ENTER_DUR);
-          tl.pause(0);
-
-          function settleInstant() {
-            tl.timeScale(1);
-            tl.progress(1);
-            currentCards.forEach(function (el) {
-              el.classList.add("is-merged");
-              gsap.set(el, { autoAlpha: 0 });
+          // Touch / coarse / <=1024: no scrub, no once-play timeline.
+          // Static stacked CURRENT + TARGET (both visible) — avoids blank CURRENT
+          // column (faded cards keeping height) and jumpy enter animation.
+          root.classList.add("is-static-touch");
+          gsap.set(currentCards, {
+            clearProps: "transform,opacity,visibility",
+            autoAlpha: 1,
+            visibility: "visible",
+            x: 0,
+            y: 0,
+            scale: 1,
+          });
+          currentCards.forEach(function (el) {
+            el.classList.remove("is-merging", "is-merged");
+          });
+          targetCards.forEach(function (el) {
+            el.classList.add("is-visible");
+            gsap.set(el, {
+              autoAlpha: 1,
+              visibility: "visible",
+              scale: 1,
+              x: 0,
+              y: 0,
             });
-            targetCards.forEach(function (el) {
-              el.classList.add("is-visible");
-              gsap.set(el, { autoAlpha: 1, visibility: "visible", scale: 1 });
-            });
-            gsap.set(callouts, { autoAlpha: 1, y: 0, visibility: "visible" });
-            if (chromeCurrent) gsap.set(chromeCurrent, { autoAlpha: 0.35 });
-            if (chromeTarget) gsap.set(chromeTarget, { autoAlpha: 1 });
-            forceSettledClosing();
-          }
-
-          var vh = window.innerHeight || 1;
-          var rect = root.getBoundingClientRect();
-          // Mid-section (or deeper): jump to settled 4 + callouts + closing.
-          var alreadyMid = rect.top < vh * 0.4 && rect.bottom > vh * 0.15;
-
-          if (alreadyMid) {
-            settleInstant();
-          } else {
-            st = ScrollTrigger.create({
-              animation: tl,
-              trigger: root,
-              start: "top 75%",
-              end: "bottom top",
-              scrub: false,
-              pin: false,
-              pinSpacing: false,
-              anticipatePin: 0,
-              once: true,
-              toggleActions: "play none none none",
-              invalidateOnRefresh: true,
-              onLeave: function () {
-                forceSettledClosing();
-              },
-            });
-          }
+          });
+          gsap.set(callouts, { autoAlpha: 1, y: 0, visibility: "visible" });
+          if (chromeCurrent) gsap.set(chromeCurrent, { autoAlpha: 1 });
+          if (chromeTarget) gsap.set(chromeTarget, { autoAlpha: 1 });
+          forceSettledClosing();
+          tl.kill();
         }
       }, root);
     }
