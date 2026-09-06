@@ -254,7 +254,12 @@
       });
       if (fill) gsap.set(fill, { scaleX: 1 });
       panels.forEach(function (p, i) {
-        gsap.set(p, { autoAlpha: i === LAST ? 1 : 0, y: 0 });
+        // Last panel at rest (no leftover x/y); the rest parked off-right, hidden.
+        gsap.set(p, {
+          autoAlpha: i === LAST ? 1 : 0,
+          xPercent: i === LAST ? 0 : 28,
+          y: 0,
+        });
       });
     }
 
@@ -305,18 +310,20 @@
      * 4 — step 0 lives in [0,1), 1 in [1,2), 2 in [2,3), 3 (INVOICE) holds
      * [3,4]. The fill tween (scaleX 0->1, duration 4) IS the longest child, so
      * it fixes the timeline length and the trailing INVOICE hold exists. Panel
-     * swaps are SEQUENTIAL (hide outgoing over FADE, THEN show incoming) so at
-     * most one panel title is visible mid-scrub. The lit step is derived from
-     * the playhead (syncStep) on every update AND at each swap point, so bar +
+     * swaps are SEQUENTIAL fly-ins (outgoing slides off-left + fades over SWAP,
+     * THEN incoming flies in from off-right + fades over SWAP) so at most one
+     * panel title is visible mid-scrub. Incoming: xPercent 28->0 power2.out;
+     * outgoing: xPercent ->-18 power2.in. The lit step is derived from the
+     * playhead (syncStep) on every update AND at each swap point, so bar +
      * panel can never desync and reverse-scrub restores the prior step.
      */
     var STEP_DUR = 1;
-    var FADE = 0.16;
+    var SWAP = 0.3; // per half (out, then in) — a hair longer than the old fade
     var TOTAL = 4; // 4 equal quarters (last step holds the last quarter)
 
     function activeStepAtTime(t) {
       for (var i = LAST; i >= 1; i--) {
-        var mid = i * STEP_DUR + FADE; // switch just after the swap begins
+        var mid = i * STEP_DUR + SWAP; // switch just after the incoming fly-in begins
         if (t >= mid) return i;
       }
       return 0;
@@ -326,7 +333,12 @@
       setActive(steps, panels, 0);
       gsap.set(fill, { scaleX: 0, transformOrigin: "left center" });
       panels.forEach(function (panel, i) {
-        gsap.set(panel, { autoAlpha: i === 0 ? 1 : 0, y: i === 0 ? 0 : 10 });
+        // First panel at rest; every inactive panel parked off-right, hidden.
+        gsap.set(panel, {
+          xPercent: i === 0 ? 0 : 28,
+          autoAlpha: i === 0 ? 1 : 0,
+          y: 0,
+        });
       });
 
       var lastStep = 0;
@@ -347,21 +359,26 @@
       // under the dots). Part of the SAME timeline as the panel swap.
       tl.to(fill, { scaleX: 1, duration: TOTAL }, 0);
 
-      // Sequential panel swaps at t = 1, 2, 3. Hide outgoing over FADE, THEN
-      // reveal the next over FADE at at+FADE. tl.call re-derives the lit step
-      // at the swap point (reverse-safe).
+      // Sequential fly-in swaps at t = 1, 2, 3. Outgoing slides off-left and
+      // fades over SWAP (power2.in), THEN the incoming panel flies in from
+      // off-right and fades over SWAP (power2.out) at at+SWAP. tl.call
+      // re-derives the lit step at the swap point (reverse-safe).
       for (var i = 0; i < LAST; i++) {
         (function (from) {
           var next = from + 1;
           var at = STEP_DUR * (from + 1);
-          tl.to(panels[from], { autoAlpha: 0, y: -6, duration: FADE }, at);
+          tl.to(
+            panels[from],
+            { xPercent: -18, autoAlpha: 0, duration: SWAP, ease: "power2.in" },
+            at
+          );
           tl.fromTo(
             panels[next],
-            { autoAlpha: 0, y: 8 },
-            { autoAlpha: 1, y: 0, duration: FADE },
-            at + FADE
+            { xPercent: 28, autoAlpha: 0 },
+            { xPercent: 0, autoAlpha: 1, duration: SWAP, ease: "power2.out" },
+            at + SWAP
           );
-          tl.call(syncStep, null, at + FADE);
+          tl.call(syncStep, null, at + SWAP);
         })(i);
       }
       return tl;

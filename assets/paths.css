@@ -162,6 +162,8 @@
 .pth-panels {
   position: relative;
   min-height: 288px;
+  /* Clip panels flying in from off-right / out to off-left (xPercent). */
+  overflow: hidden;
 }
 
 .pth-panel {
