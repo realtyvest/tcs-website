@@ -110,9 +110,9 @@
         { label: "Mark the map", helper: "Codes and quantities on the address" },
         { label: "Submit", helper: "Once, from the field" },
         { label: "Tally = marks", helper: "What left the drop is what gets tallied" },
-        // Step 4 title shows the helper "Packet ready. Ready to bill" — helper
-        // only, NOT a 5th bar step.
-        { label: "Invoice same day", helper: "Packet ready. Ready to bill" },
+        // Step 4 title shows the helper "Ready to bill. Invoice the same day."
+        // — helper only, NOT a 5th bar step.
+        { label: "Invoice same day", helper: "Ready to bill. Invoice the same day." },
       ],
     },
   };
