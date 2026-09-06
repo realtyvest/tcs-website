@@ -302,3 +302,14 @@
 .hero .wt.hero-enter {
   /* inherits hero-enter transition from page */
 }
+
+/* Dual-stack: Target always solid (NO_TARGET_JUMPY_REVISE) */
+.wt.is-dual-stack .wt-card--target,
+.wt.is-dual-stack .wt-card--target.is-visible {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+.wt.is-dual-stack .wt-card--current {
+  opacity: 1 !important;
+  visibility: visible !important;
+}

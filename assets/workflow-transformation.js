@@ -177,7 +177,17 @@
 
     if (!window.gsap || !window.ScrollTrigger) {
       console.warn("[WorkflowTransformation] GSAP/ScrollTrigger missing");
-      root.classList.add("is-reduced");
+      root.classList.add("is-dual-stack", "is-reduced");
+      root.querySelectorAll("[data-wt-target]").forEach(function (el) {
+        el.classList.add("is-visible");
+        el.style.opacity = "1";
+        el.style.visibility = "visible";
+      });
+      root.querySelectorAll("[data-wt-current]").forEach(function (el) {
+        el.classList.remove("is-merged", "is-merging");
+        el.style.opacity = "1";
+        el.style.visibility = "visible";
+      });
       return function () {};
     }
 
@@ -186,10 +196,9 @@
     gsap.registerPlugin(ScrollTrigger);
 
     /*
-     * WT_DEMO_CLEAR_STATE_LOCK
-     * Cite: https://gsap.com/docs/v3/GSAP/ + https://gsap.com/scroll/
-     * Discrete states — toggleActions play once (NO scrub park). Cite https://gsap.com/cheatsheet
-     * Target always finishes autoAlpha:1. No xPercent. pin:false.
+     * WT_NO_TARGET_JUMPY_REVISE + https://gsap.com/cheatsheet
+     * Stabilize: Target 4 always in DOM + visible. Mobile dual-stack.
+     * Never blank under TARGET. Content > play-once motion.
      */
     var currentCards = gsap.utils.toArray(root.querySelectorAll("[data-wt-current]"));
     var targetCards = gsap.utils.toArray(root.querySelectorAll("[data-wt-target]"));
@@ -202,62 +211,27 @@
     var built = false;
     var refreshTimer = null;
 
-    function applyReduced() {
-      root.classList.add("is-reduced");
-      forceStateB();
-    }
-
-    function forceStateA() {
-      // Current full; Target fully hidden — resting demonstrative state
+    function applyDualStack() {
+      // Always-visible Current 9 + Target 4 — solid chrome, no hide
+      root.classList.add("is-dual-stack");
+      root.classList.remove("is-reduced", "is-static-touch");
       currentCards.forEach(function (el) {
         el.classList.remove("is-merging", "is-merged");
-      });
-      targetCards.forEach(function (el) {
-        el.classList.remove("is-visible");
-      });
-      gsap.set(currentCards, {
-        clearProps: "transform,x,y,rotation,xPercent",
-        x: 0,
-        y: 0,
-        xPercent: 0,
-        autoAlpha: 1,
-        visibility: "visible",
-        opacity: 1,
-      });
-      gsap.set(targetCards, {
-        clearProps: "transform,x,y,rotation,xPercent",
-        x: 0,
-        y: 16,
-        xPercent: 0,
-        autoAlpha: 0,
-        visibility: "hidden",
-        opacity: 0,
-      });
-      gsap.set(callouts, { autoAlpha: 0, y: 8, visibility: "hidden", opacity: 0 });
-      if (closing) {
-        closing.classList.remove("is-settled");
-        gsap.set(closing, { autoAlpha: 0, visibility: "hidden", opacity: 0 });
-      }
-      if (chromeCurrent) gsap.set(chromeCurrent, { autoAlpha: 1, opacity: 1 });
-      if (chromeTarget) gsap.set(chromeTarget, { autoAlpha: 0.35, opacity: 0.35 });
-    }
-
-    function forceStateB() {
-      // Complete Target — NEVER leave ghosted mid-fade
-      currentCards.forEach(function (el) {
-        el.classList.add("is-merged");
-        el.classList.remove("is-merging");
       });
       targetCards.forEach(function (el) {
         el.classList.add("is-visible");
       });
       gsap.set(currentCards, {
-        autoAlpha: 0,
-        opacity: 0,
-        visibility: "hidden",
-        y: -12,
+        clearProps: "transform,x,y,rotation,xPercent",
+        autoAlpha: 1,
+        opacity: 1,
+        visibility: "visible",
+        y: 0,
+        x: 0,
+        xPercent: 0,
       });
       gsap.set(targetCards, {
+        clearProps: "transform,x,y,rotation,xPercent",
         autoAlpha: 1,
         opacity: 1,
         visibility: "visible",
@@ -266,7 +240,7 @@
         xPercent: 0,
       });
       gsap.set(callouts, { autoAlpha: 1, opacity: 1, y: 0, visibility: "visible" });
-      if (chromeCurrent) gsap.set(chromeCurrent, { autoAlpha: 0.35, opacity: 0.35 });
+      if (chromeCurrent) gsap.set(chromeCurrent, { autoAlpha: 1, opacity: 1 });
       if (chromeTarget) gsap.set(chromeTarget, { autoAlpha: 1, opacity: 1 });
       settleClosing(gsap, closing);
       if (closing) {
@@ -274,127 +248,69 @@
       }
     }
 
-    function resetCards() {
-      root.classList.remove("is-reduced", "is-static-touch");
-      forceStateA();
+    function applyReduced() {
+      root.classList.add("is-reduced");
+      applyDualStack();
     }
 
-    function buildDemo() {
-      resetCards();
+    function buildLightReveal() {
+      // Desktop optional: both stacks visible; light opacity nod only (never hide Target)
+      applyDualStack();
 
-      // One-shot timeline — plays to completion (core GSAP)
+      gsap.set(targetCards, { autoAlpha: 0.35, opacity: 0.35 });
+      targetCards.forEach(function (el) {
+        el.classList.add("is-visible");
+      });
+
       var tl = gsap.timeline({
         paused: true,
         defaults: { ease: "power1.out" },
         onComplete: function () {
-          forceStateB();
+          applyDualStack();
         },
         onReverseComplete: function () {
-          forceStateA();
+          applyDualStack();
+          gsap.set(targetCards, { autoAlpha: 0.35, opacity: 0.35 });
+          targetCards.forEach(function (el) {
+            el.classList.add("is-visible");
+          });
         },
       });
-
-      tl.to(
-        currentCards,
-        {
-          autoAlpha: 0,
-          opacity: 0,
-          y: -12,
-          stagger: 0.05,
-          duration: 0.4,
-          onStart: function () {
-            currentCards.forEach(function (el) {
-              el.classList.add("is-merging");
-            });
-          },
-        },
-        0
-      );
 
       tl.to(
         targetCards,
         {
           autoAlpha: 1,
           opacity: 1,
-          visibility: "visible",
-          y: 0,
-          stagger: 0.07,
-          duration: 0.45,
-          onStart: function () {
-            targetCards.forEach(function (el) {
-              el.classList.add("is-visible");
-            });
-          },
+          stagger: 0.06,
+          duration: 0.4,
         },
-        0.15
+        0
       );
-
-      if (callouts.length) {
-        tl.to(
-          callouts,
-          {
-            autoAlpha: 1,
-            opacity: 1,
-            y: 0,
-            visibility: "visible",
-            stagger: 0.08,
-            duration: 0.3,
-          },
-          0.35
-        );
-      }
-
-      if (chromeCurrent) tl.to(chromeCurrent, { autoAlpha: 0.35, opacity: 0.35, duration: 0.25 }, 0.2);
-      if (chromeTarget) tl.to(chromeTarget, { autoAlpha: 1, opacity: 1, duration: 0.25 }, 0.2);
-
-      if (closing) {
-        tl.to(
-          closing,
-          {
-            autoAlpha: 1,
-            opacity: 1,
-            visibility: "visible",
-            duration: 0.3,
-            onStart: function () {
-              settleClosing(gsap, closing);
-            },
-          },
-          0.5
-        );
-      }
-
-      // Final beat guarantees full Target before timeline ends
-      tl.add(function () {
-        forceStateB();
-      });
+      if (chromeTarget) tl.to(chromeTarget, { autoAlpha: 1, opacity: 1, duration: 0.3 }, 0);
 
       ScrollTrigger.create({
         trigger: root,
-        start: "top 65%",
+        start: "top 70%",
         end: "bottom top",
         pin: false,
-        // Discrete: play once forward; reverse when scrolling back above start
         toggleActions: "play none none reverse",
         onEnter: function () {
           tl.play(0);
         },
         onLeave: function () {
-          // If user scrolls past mid-play, snap to complete Target
           tl.progress(1);
-          forceStateB();
-        },
-        onEnterBack: function () {
-          // Still past start — keep or finish Target
-          if (tl.progress() < 1) {
-            tl.play();
-          }
+          applyDualStack();
         },
         onLeaveBack: function () {
           tl.reverse();
         },
         onRefresh: function () {
-          // REVISE a2d0c29 + https://gsap.com/cheatsheet: rest/refresh = State A until onEnter
-          forceStateA();
+          applyDualStack();
+          gsap.set(targetCards, { autoAlpha: 0.35, opacity: 0.35 });
+          targetCards.forEach(function (el) {
+            el.classList.add("is-visible");
+          });
           tl.pause(0);
         },
       });
@@ -414,19 +330,20 @@
         },
         function (context) {
           var cond = context.conditions;
-          if (cond.reduceMotion) {
-            applyReduced();
+          if (cond.reduceMotion || cond.isTouch) {
+            // Mobile / reduce: dual-stack only — no ST, no jumpy, Target always visible
+            applyDualStack();
             return function () {
-              root.classList.remove("is-reduced");
+              root.classList.remove("is-dual-stack", "is-reduced");
             };
           }
-          var tl = buildDemo();
+          var tl = buildLightReveal();
           return function () {
             ScrollTrigger.getAll().forEach(function (t) {
               if (t.trigger === root) t.kill();
             });
             if (tl) tl.kill();
-            resetCards();
+            applyDualStack();
           };
         }
       );
@@ -441,6 +358,9 @@
         if (built) ScrollTrigger.refresh();
       }, 200);
     }
+
+    // Paint dual-stack immediately so Target never blank before ST mounts
+    applyDualStack();
 
     var io = null;
     if (typeof IntersectionObserver !== "undefined") {
@@ -461,9 +381,9 @@
     } else if (window.requestIdleCallback) {
       window.requestIdleCallback(function () {
         mountMotion();
-      }, { timeout: 1200 });
+      }, { timeout: 800 });
     } else {
-      setTimeout(mountMotion, 400);
+      setTimeout(mountMotion, 200);
     }
 
     window.addEventListener("resize", scheduleRefresh);
