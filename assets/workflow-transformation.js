@@ -428,7 +428,7 @@
         }
 
         // Desktop canPin: pin end +=120%, scrub ~0.25.
-        // Touch !canPin: scrub, pin false (motion tracks scroll; merged cards collapse).
+        // Touch !canPin: play/reverse, no scrub/pin (Design: motion without scrub owning scroll).
         if (canPin) {
           st = ScrollTrigger.create({
             animation: tl,
@@ -461,37 +461,31 @@
             },
           });
         } else {
-          // Touch / coarse / <=1024: scrub timeline with NO pin.
-          // Scroll through the section drives 9→4; merged cards collapse
-          // (CSS display:none) so CURRENT never leaves a blank hole.
-          // Reversible scrub = motion is not once-and-gone.
+          // Touch: play/reverse 9→4 on enter (NO scrub, NO pin).
+          // Design WT_ANIMATION_GONE_ONE_SCROLL_REVISE: motion communicates
+          // without scrub owning scroll; merged cards display:none (no blank hole).
           root.classList.remove("is-static-touch");
+          var ENTER_DUR = 1.6;
+          var natural = tl.duration();
+          if (natural > 0) tl.timeScale(natural / ENTER_DUR);
+          tl.pause(0);
+
           st = ScrollTrigger.create({
             animation: tl,
             trigger: root,
-            start: "top 80%",
+            start: "top 75%",
             end: "bottom 20%",
-            scrub: 0.35,
+            scrub: false,
             pin: false,
             pinSpacing: false,
             anticipatePin: 0,
+            toggleActions: "play reverse play reverse",
             invalidateOnRefresh: true,
-            onUpdate: function (self) {
-              var last = targetCards[3];
-              var lastVisible = !!(last && last.classList.contains("is-visible"));
-              if (self.progress >= 0.88 || (lastVisible && self.progress >= 0.82)) {
-                forceSettledClosing();
-              } else if (self.progress < 0.55) {
-                tryUnlockClosing(self.progress);
-              } else if (closingLocked) {
-                forceSettledClosing();
-              }
-            },
             onLeave: function () {
               forceSettledClosing();
             },
-            onEnterBack: function (self) {
-              if (self.progress < 0.55) tryUnlockClosing(self.progress);
+            onComplete: function () {
+              forceSettledClosing();
             },
           });
         }

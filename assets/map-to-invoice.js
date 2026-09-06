@@ -236,20 +236,19 @@
           })(i);
         }
 
+        var natural = tl.duration();
+        if (natural > 0) tl.timeScale(natural / 1.4);
+        tl.pause(0);
         st = ScrollTrigger.create({
           animation: tl,
           trigger: section,
           start: "top 75%",
           end: "bottom 20%",
-          scrub: 0.35,
+          scrub: false,
           pin: false,
           pinSpacing: false,
+          toggleActions: "play reverse play reverse",
           invalidateOnRefresh: true,
-          onUpdate: function (self) {
-            var step = Math.min(3, Math.floor(self.progress * 4));
-            if (self.progress >= 0.99) step = 3;
-            setActive(labels, panels, step);
-          },
           onLeave: function () {
             setActive(labels, panels, 3);
           },
