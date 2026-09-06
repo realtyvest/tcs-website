@@ -3,10 +3,12 @@
  * Design LOCK: four states only - Annotated map / Verified quantities /
  * Closeout package / Invoice items. No marketing body copy. No dollar signs.
  *
- * Desktop (fine pointer · no touch · >=1025): one pin, scrub ~0.25, end +=120%,
- * fastScrollEnd. Kill pin if coarse OR maxTouchPoints>0 OR width <=1024.
- * Mobile/coarse/touch/<=1024: stacked panels, no pin.
- * Reduced motion: static stack, Invoice items active, no scrub/pin.
+ * PIN_HOLD_LOCK: pin #map-to-invoice on ALL breakpoints (incl. mobile/iPhone).
+ * One pin + scrub (~0.4) drives the shared gsap.timeline(); end +=300% gives
+ * ~1 viewport per step so Annotated map is never skipped. One panel visible at
+ * a time via the .m2i.is-pinned overlap layout (CSS). settleFinal (CLEAR_STATE)
+ * settles on Invoice items only. Only prefers-reduced-motion opts out of the
+ * pin+scrub: static state 4. Gil supersedes the earlier mobile pin:false here.
  */
 (function () {
   "use strict";
@@ -180,8 +182,11 @@
     var ctx = null;
     var st = null;
 
+    // PIN_HOLD_LOCK: m2i pins on ALL breakpoints (incl. mobile/iPhone/coarse/
+    // touch). Only prefers-reduced-motion opts out of pin+scrub. Gil supersedes
+    // the earlier mobile pin:false for THIS section only.
     function canPinNow() {
-      return pinWideMq.matches && !coarseMq.matches && !(navigator.maxTouchPoints > 0) && !reduceMq.matches;
+      return !reduceMq.matches;
     }
 
     function killLocal() {
@@ -200,6 +205,7 @@
 
     function applyReduced() {
       killLocal();
+      m2i.classList.remove("is-pinned");
       m2i.classList.add("is-reduced");
       gsap.set(labels, { clearProps: "opacity,visibility,transform" });
       gsap.set(panels, { clearProps: "opacity,visibility,transform" });
@@ -282,10 +288,21 @@
       return tl;
     }
 
-    /* Desktop (fine pointer, wide): short pin + scrub drives the same timeline. */
+    /*
+     * PIN_HOLD_LOCK — pin + scrub drives the shared timeline on ALL breakpoints
+     * (desktop AND mobile/iPhone). The .m2i.is-pinned class flips the panels to
+     * the overlap layout so exactly one panel is visible at a time while the
+     * section is frozen; the matching slide holds until the sequence completes,
+     * then the page scrolls on. end +=300% ≈ one viewport per step across the
+     * four steps so Annotated map is never skipped. onLeave settleFinal leaves
+     * Invoice items only (no ghost Closeout).
+     * https://gsap.com/docs/v3/GSAP/Timeline · https://gsap.com/scroll/
+     * https://gsap.com/docs/v3/Plugins/ScrollTrigger/
+     */
     function applyPinned() {
       killLocal();
       m2i.classList.remove("is-reduced");
+      m2i.classList.add("is-pinned");
 
       ctx = gsap.context(function () {
         var tl = buildSequenceTimeline();
@@ -294,8 +311,8 @@
           animation: tl,
           trigger: pinTarget,
           start: "top top+=72",
-          end: "+=120%",
-          scrub: 0.25,
+          end: "+=300%", // ~1 viewport per step; Annotated map not skipped
+          scrub: 0.4,
           pin: true,
           pinSpacing: true,
           anticipatePin: 1,
@@ -306,128 +323,14 @@
       }, section);
     }
 
-    /*
-     * Mobile / touch: pin false. Play the SAME shared sequence timeline ONCE on
-     * enter — but only after a real user scroll (scroll-arm, same as WT), so Gil
-     * actually sees it fire instead of it finishing off-screen. On complete OR
-     * leave, CLEAR_STATE forces step + panel 3 and restores the readable stacked
-     * layout so nothing is ever left hidden.
-     * https://gsap.com/docs/v3/GSAP/Timeline
-     */
-    function applyOncePlayMobile() {
-      killLocal();
-      m2i.classList.remove("is-reduced");
-
-      ctx = gsap.context(function () {
-        var tl = buildSequenceTimeline();
-        tl.pause(0);
-
-        var played = false;
-        var scrolled = false;
-        var inView = false;
-        var fallbackId = null;
-        var io = null;
-
-        function clearState() {
-          // CLEAR_STATE: settle on step + panel 3 via the shared helper so no
-          // previous panel title (e.g. "Closeout package") is left stacked
-          // under Invoice on mobile. Labels may clearProps — panels must NOT.
-          gsap.set(labels, { clearProps: "opacity,visibility,transform" });
-          settleFinal();
-        }
-
-        function removeArm() {
-          window.removeEventListener("scroll", onScroll);
-          window.removeEventListener("wheel", onScroll);
-          window.removeEventListener("touchmove", onScroll);
-          window.removeEventListener("keydown", onScroll);
-        }
-
-        function play() {
-          if (played) return;
-          played = true;
-          removeArm();
-          if (fallbackId) {
-            clearTimeout(fallbackId);
-            fallbackId = null;
-          }
-          if (io) {
-            io.disconnect();
-            io = null;
-          }
-          tl.eventCallback("onComplete", clearState);
-          tl.play(0);
-        }
-
-        function tryPlay() {
-          if (!played && scrolled && inView) play();
-        }
-
-        function onScroll() {
-          scrolled = true;
-          tryPlay();
-        }
-
-        window.addEventListener("scroll", onScroll, { passive: true });
-        window.addEventListener("wheel", onScroll, { passive: true });
-        window.addEventListener("touchmove", onScroll, { passive: true });
-        window.addEventListener("keydown", onScroll);
-
-        if (typeof IntersectionObserver !== "undefined") {
-          io = new IntersectionObserver(
-            function (entries) {
-              for (var i = 0; i < entries.length; i++) {
-                if (entries[i].isIntersecting) {
-                  inView = true;
-                  tryPlay();
-                  break;
-                }
-              }
-            },
-            { root: null, rootMargin: "0px 0px -10% 0px", threshold: 0.2 }
-          );
-          io.observe(section);
-        } else {
-          inView = true;
-        }
-
-        // Anti-blank: if no scroll arrives shortly after the section is
-        // reachable, do NOT skip the sequence when it is on screen — play the
-        // shared timeline so Gil sees it fire. Only fall back to a clean state 3
-        // stack if the section was never entered (never in view).
-        fallbackId = setTimeout(function () {
-          if (played) return;
-          if (inView) {
-            play();
-          } else {
-            played = true;
-            removeArm();
-            if (io) {
-              io.disconnect();
-              io = null;
-            }
-            clearState();
-          }
-        }, 2600);
-
-        return function () {
-          removeArm();
-          if (fallbackId) clearTimeout(fallbackId);
-          if (io) io.disconnect();
-        };
-      }, section);
-    }
-
     function build() {
       if (reduceMq.matches) {
         applyReduced();
         return;
       }
-      if (canPinNow()) {
-        applyPinned();
-        return;
-      }
-      applyOncePlayMobile();
+      // PIN_HOLD_LOCK: pin+scrub on every breakpoint. canPinNow() is true for
+      // m2i except prefers-reduced-motion (already handled above).
+      applyPinned();
     }
 
     build();

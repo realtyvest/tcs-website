@@ -378,6 +378,50 @@
   }
 }
 
+/* ===== PIN_HOLD_LOCK: pinned scrub mode (ALL breakpoints incl. mobile) =====
+   Gil: freeze #map-to-invoice, present the matching slide below until complete,
+   then scroll on. JS adds .m2i.is-pinned in applyPinned(). This overlaps the
+   panels (absolute) so exactly ONE panel is visible at a time while pinned,
+   overriding the mobile static stack. Higher specificity (.m2i.is-pinned ...,
+   3 classes) beats the single-class mobile rules regardless of source order;
+   placed after the media queries so the visual/map ties resolve here too.
+   Layout/labels stay responsive per breakpoint (untouched). */
+.m2i.is-pinned .m2i-stage {
+  border: 1px solid var(--m2i-border);
+  background: var(--m2i-navy);
+  overflow: hidden;
+  min-height: 320px;
+}
+
+.m2i.is-pinned .m2i-panels {
+  position: relative;
+  display: block;
+  min-height: 320px;
+}
+
+.m2i.is-pinned .m2i-panel {
+  position: absolute;
+  inset: 0;
+  padding: 1rem 1.05rem 1.15rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  pointer-events: none;
+}
+
+.m2i.is-pinned .m2i-panel.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  pointer-events: auto;
+}
+
+.m2i.is-pinned .m2i-visual,
+.m2i.is-pinned .m2i-map {
+  height: 220px;
+  min-height: 220px;
+}
+
 /* Reduced motion: static stack, final invoice emphasis via class on root */
 .m2i.is-reduced .m2i-panel {
   position: static !important;
