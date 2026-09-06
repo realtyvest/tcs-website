@@ -11,8 +11,10 @@
  *    only.
  *  - ONE gsap.timeline() per island owns BOTH the bar fill/lights AND the panel
  *    swap, so they share a single playhead and can never desync.
- *  - a short ScrollTrigger pin holds the island for ~1.4 viewports (end "+=140%")
+ *  - a short ScrollTrigger pin holds the framed section (.section-inner: topic +
+ *    breadcrumb + bar + active card + CTA) for ~1.4 viewports (end "+=140%")
  *    while the bar lights left->right and the panels follow the same playhead.
+ *    Pin start clears the measured sticky-nav height so the H2 stays readable.
  *  - completed steps stay lit; CLEAR_STATE on leave (settleFinal): full bar lit
  *    + last-step panel only.
  *  - SEQUENTIAL pins: sections init in document order (Construction before
@@ -196,6 +198,28 @@
     });
   }
 
+  /*
+   * Measure the REAL sticky nav height so the pin start clears it on every
+   * device. A hardcoded 72px sat too low under the iPhone header, dropping the
+   * H2/breadcrumb behind the nav. Prefer the live rendered height of the
+   * sticky/fixed <nav>; fall back to the --nav-h CSS var, then 64. Pin start is
+   * navHeight + 8 (small breathing gap under the nav).
+   */
+  function getStickyNavHeight() {
+    var nav = document.querySelector("nav");
+    if (nav) {
+      var pos = window.getComputedStyle(nav).position;
+      if (pos === "sticky" || pos === "fixed") {
+        var h = Math.round(nav.getBoundingClientRect().height);
+        if (h > 0) return h;
+      }
+    }
+    var root = window.getComputedStyle(document.documentElement);
+    var v = parseInt(root.getPropertyValue("--nav-h"), 10);
+    if (!isNaN(v) && v > 0) return v;
+    return 64;
+  }
+
   function initPath(section, cfg) {
     ensureMarkup(section, cfg);
 
@@ -207,7 +231,11 @@
       section.querySelectorAll("[data-pth-panel]")
     );
     var fill = section.querySelector("[data-pth-fill]");
-    var pinTarget = pth; // pin the island (bar + stage) only — short hold
+    // PATH_SCROLL_HOLD_REVISE — pin the .section-inner (H2 + sub + breadcrumb +
+    // progress bar + active card + Fit Call CTA) so the whole framed view holds
+    // while scrubbing. Pinning the island alone let the H2/sub scroll off (and
+    // under the sticky nav). Fall back to the island only if inner is missing.
+    var pinTarget = section.querySelector(".section-inner") || pth;
     var LAST = steps.length - 1; // 3
 
     if (!pth || !steps.length || !panels.length) return function () {};
@@ -340,10 +368,12 @@
     }
 
     /*
-     * Short pin — freeze the island (bar + stage) for ~1.4 viewports total
-     * (end "+=140%") while the bar lights and the panels follow the same
-     * playhead. scrub ties timeline progress to scroll. onLeave settleFinal ->
-     * full bar + last panel only. Sequential pins: sections init in document
+     * Short pin — freeze the framed section (topic + breadcrumb + bar + active
+     * card + CTA) for ~1.4 viewports total (end "+=140%") while the bar lights
+     * and the panels follow the same playhead. scrub ties timeline progress to
+     * scroll. Pin start = measured sticky-nav height + 8 so the H2/breadcrumb
+     * never sit under the nav (72px was too low on iPhone). onLeave settleFinal
+     * -> full bar + last panel only. Sequential pins: sections init in document
      * order with pinSpacing, so Construction fully unpins before Drops arms.
      * Optional snap per step on coarse (mobile) pointers: snap to each quarter
      * midpoint (t = .5/1.5/2.5/3.5) so a rest lands cleanly inside one state.
@@ -357,10 +387,12 @@
       ctx = gsap.context(function () {
         var tl = buildSequenceTimeline();
 
+        var navH = getStickyNavHeight();
+
         var cfg2 = {
           animation: tl,
           trigger: pinTarget,
-          start: "top top+=72",
+          start: "top top+=" + (navH + 8),
           end: "+=140%", // ~1.4 viewports TOTAL for the whole story
           scrub: 0.5,
           pin: true,
