@@ -186,10 +186,10 @@
     gsap.registerPlugin(ScrollTrigger);
 
     /*
-     * WT_CARDS_OFFSCREEN_STUCK_REVISE + STRIPPED_SLOW_LOCK + GSAP_SCROLL_SOURCE_LOCK
-     * Rest: transforms cleared, cards fully on-screen.
-     * Fly-off only after scrub progresses (long lead-in).
-     * pin:false; touch-action handled in CSS.
+     * WT_GSAP_ALTERNATIVE_FADE_LOCK + GSAP_SCROLL_SOURCE_LOCK
+     * Cite: https://gsap.com/scroll/ — scrub:1 timeline, pin:false
+     * NO xPercent / fly-off. Current: autoAlpha + slight y only.
+     * Target: fade/slide in. Resting: transforms cleared, cards on-screen.
      */
     var currentCards = gsap.utils.toArray(root.querySelectorAll("[data-wt-current]"));
     var targetCards = gsap.utils.toArray(root.querySelectorAll("[data-wt-target]"));
@@ -213,15 +213,15 @@
       if (chromeTarget) gsap.set(chromeTarget, { autoAlpha: 1 });
     }
 
-    function clearCurrentTransforms() {
+    function clearRestTransforms() {
       currentCards.forEach(function (el) {
         el.classList.remove("is-merging", "is-merged");
       });
-      // LOCK A: force home pose before any scrub progress
       gsap.set(currentCards, { clearProps: "transform,x,y,rotation,xPercent" });
       gsap.set(currentCards, {
         xPercent: 0,
         x: 0,
+        y: 0,
         rotate: 0,
         rotation: 0,
         autoAlpha: 1,
@@ -231,10 +231,10 @@
 
     function resetCards() {
       root.classList.remove("is-reduced", "is-static-touch");
-      clearCurrentTransforms();
+      clearRestTransforms();
       targetCards.forEach(function (el) {
         el.classList.remove("is-visible");
-        gsap.set(el, { clearProps: "transform,opacity,visibility,y" });
+        gsap.set(el, { clearProps: "transform,opacity,visibility,x,y,rotation,xPercent" });
       });
       if (closing) {
         closing.classList.remove("is-settled");
@@ -244,7 +244,6 @@
     }
 
     function syncMerged(progress) {
-      // Collapse only well after peel; never while still resting
       var threshold = 0.55;
       currentCards.forEach(function (el) {
         if (progress >= threshold) el.classList.add("is-merged");
@@ -252,23 +251,22 @@
       });
     }
 
-    function buildFlyOff(scrubAmount) {
+    function buildFade(scrubAmount) {
       resetCards();
+      clearRestTransforms();
 
-      // Resting paint: NO force3D / xPercent bake — clear transforms
-      clearCurrentTransforms();
-      gsap.set(targetCards, { autoAlpha: 0, visibility: "hidden", y: 28 });
+      gsap.set(targetCards, { autoAlpha: 0, visibility: "hidden", y: 16, x: 0, xPercent: 0 });
       gsap.set(callouts, { autoAlpha: 0, y: 8, visibility: "hidden" });
       if (closing) gsap.set(closing, { autoAlpha: 0, visibility: "hidden", opacity: 0 });
       if (chromeCurrent) gsap.set(chromeCurrent, { autoAlpha: 1 });
       if (chromeTarget) gsap.set(chromeTarget, { autoAlpha: 0.35 });
 
+      // Official scrubbed timeline shape — https://gsap.com/scroll/
       var tl = gsap.timeline({
         defaults: { ease: "none" },
         scrollTrigger: {
           trigger: root,
-          // Start later so cards are fully on-screen at progress 0
-          start: "top 45%",
+          start: "top 70%",
           end: "bottom 20%",
           scrub: scrubAmount,
           pin: false,
@@ -276,12 +274,10 @@
           invalidateOnRefresh: true,
           fastScrollEnd: true,
           onRefresh: function (self) {
-            if (self.progress < 0.08) clearCurrentTransforms();
+            if (self.progress < 0.05) clearRestTransforms();
           },
           onUpdate: function (self) {
-            if (self.progress < 0.08) {
-              clearCurrentTransforms();
-            }
+            if (self.progress < 0.05) clearRestTransforms();
             syncMerged(self.progress);
           },
           onLeave: function () {
@@ -289,46 +285,44 @@
             settleClosing(gsap, closing);
           },
           onEnterBack: function (self) {
-            if (self.progress < 0.08) clearCurrentTransforms();
+            if (self.progress < 0.05) clearRestTransforms();
             syncMerged(self.progress);
           },
         },
       });
 
-      // Long rest hold — fly-off only after scrub progresses
-      tl.to({}, { duration: 0.42 });
+      // Rest hold — no motion until scrub progresses
+      tl.to({}, { duration: 0.2 });
 
-      tl.fromTo(
+      // Current: stagger autoAlpha + slight y ONLY (NO xPercent)
+      tl.to(
         currentCards,
-        { xPercent: 0, rotation: 0, autoAlpha: 1 },
         {
-          xPercent: -130,
           autoAlpha: 0,
-          rotation: function (i) {
-            return i % 2 === 0 ? -6 : -4;
-          },
-          stagger: 0.05,
+          y: -12,
+          stagger: 0.04,
           duration: 0.35,
           immediateRender: false,
-          force3D: true,
           onStart: function () {
             currentCards.forEach(function (el) {
               el.classList.add("is-merging");
             });
           },
         },
-        0.42
+        0.2
       );
 
-      tl.to(
+      // Target: fade/slide in
+      tl.fromTo(
         targetCards,
+        { autoAlpha: 0, visibility: "hidden", y: 16 },
         {
           autoAlpha: 1,
           visibility: "visible",
           y: 0,
-          stagger: 0.07,
-          duration: 0.3,
-          force3D: true,
+          stagger: 0.06,
+          duration: 0.35,
+          immediateRender: false,
           onStart: function () {
             targetCards.forEach(function (el) {
               el.classList.add("is-visible");
@@ -338,7 +332,7 @@
             settleClosing(gsap, closing);
           },
         },
-        0.58
+        0.35
       );
 
       if (callouts.length) {
@@ -350,12 +344,13 @@
             visibility: "visible",
             stagger: 0.08,
             duration: 0.2,
+            immediateRender: false,
           },
-          0.7
+          0.5
         );
       }
-      if (chromeCurrent) tl.to(chromeCurrent, { autoAlpha: 0.35, duration: 0.15 }, 0.85);
-      if (chromeTarget) tl.to(chromeTarget, { autoAlpha: 1, duration: 0.15 }, 0.85);
+      if (chromeCurrent) tl.to(chromeCurrent, { autoAlpha: 0.35, duration: 0.15 }, 0.7);
+      if (chromeTarget) tl.to(chromeTarget, { autoAlpha: 1, duration: 0.15 }, 0.7);
       if (closing) {
         tl.to(
           closing,
@@ -364,6 +359,7 @@
             visibility: "visible",
             opacity: 1,
             duration: 0.15,
+            immediateRender: false,
             onStart: function () {
               settleClosing(gsap, closing);
             },
@@ -371,7 +367,7 @@
               settleClosing(gsap, closing);
             },
           },
-          0.9
+          0.8
         );
       }
 
@@ -396,8 +392,8 @@
               root.classList.remove("is-reduced");
             };
           }
-          var scrubAmt = cond.isTouch ? 1 : true;
-          var tl = buildFlyOff(scrubAmt);
+          // scrub:1 everywhere per LOCK (prefer no pin)
+          var tl = buildFade(1);
           return function () {
             if (tl && tl.scrollTrigger) tl.scrollTrigger.kill();
             if (tl) tl.kill();
