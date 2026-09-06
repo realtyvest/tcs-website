@@ -1,18 +1,29 @@
-/* TCS v38 mobile navigation.
-   Adds a hamburger toggle to the site header on pages that do not already have one.
-   Bails out quietly if the page already carries its own mobile menu. */
+/* TCS mobile navigation.
+   Full-viewport opaque overlay (homepage OTP target) for pages without their own menu. */
 (function () {
   'use strict';
 
   var BREAKPOINT = 820;
 
-  function init() {
-    var navs = document.getElementsByTagName('nav');
+  var CANONICAL = [
+    { href: '/#how', label: 'How it works' },
+    { href: '/#proof', label: 'Proof' },
+    { href: '/about.html', label: 'About' },
+    { href: '/blog.html', label: 'Blog' },
+    { href: '/faq.html', label: 'FAQ' }
+  ];
 
+  function pad(n) {
+    return n < 10 ? '0' + n : String(n);
+  }
+
+  function init() {
+    if (document.getElementById('tcs-mobile-menu')) return;
+    if (document.getElementById('mobile-menu')) return;
+
+    var navs = document.getElementsByTagName('nav');
     for (var i = 0; i < navs.length; i++) {
       var nav = navs[i];
-
-      // already processed, or the page ships its own mobile menu
       if (nav.querySelector('.tcs-nav-toggle')) return;
       if (nav.querySelector('.hamburger, .nav-hamburger, .menu-toggle, .nav-toggle')) return;
 
@@ -21,40 +32,91 @@
       if (ul.getElementsByTagName('a').length < 2) continue;
 
       var host = ul.parentNode;
-
-      nav.className += ' tcs-nav-root';
-      host.className += ' tcs-nav-host';
-      ul.className += ' tcs-nav-panel';
+      nav.className += (nav.className ? ' ' : '') + 'tcs-nav-root';
+      host.className += (host.className ? ' ' : '') + 'tcs-nav-host';
+      ul.className += (ul.className ? ' ' : '') + 'tcs-nav-panel';
       if (!ul.id) ul.id = 'tcs-primary-nav';
 
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'tcs-nav-toggle';
+      btn.id = 'tcs-nav-toggle';
       btn.setAttribute('aria-expanded', 'false');
-      btn.setAttribute('aria-controls', ul.id);
+      btn.setAttribute('aria-controls', 'tcs-mobile-menu');
       btn.setAttribute('aria-label', 'Open menu');
       btn.innerHTML = '<span></span><span></span><span></span>';
-      // before the list, so that when the row wraps the toggle stays on line one
       host.insertBefore(btn, ul);
 
-      bind(nav, ul, btn);
+      var overlay = document.createElement('div');
+      overlay.className = 'tcs-mobile-menu';
+      overlay.id = 'tcs-mobile-menu';
+      overlay.setAttribute('role', 'dialog');
+      overlay.setAttribute('aria-modal', 'true');
+      overlay.setAttribute('aria-label', 'Site menu');
+      overlay.hidden = true;
+
+      var top = document.createElement('div');
+      top.className = 'tcs-mobile-menu-top';
+      var closeBtn = document.createElement('button');
+      closeBtn.type = 'button';
+      closeBtn.className = 'tcs-mobile-menu-close';
+      closeBtn.id = 'tcs-mobile-menu-close';
+      closeBtn.setAttribute('aria-label', 'Close menu');
+      closeBtn.innerHTML = '&times;';
+      top.appendChild(closeBtn);
+      overlay.appendChild(top);
+
+      var menuNav = document.createElement('nav');
+      menuNav.className = 'tcs-mobile-menu-nav';
+      menuNav.setAttribute('aria-label', 'Mobile navigation');
+
+      for (var j = 0; j < CANONICAL.length; j++) {
+        var item = CANONICAL[j];
+        var a = document.createElement('a');
+        a.className = 'tcs-mobile-menu-link';
+        a.href = item.href;
+        a.innerHTML = '<span class="n">' + pad(j + 1) + '</span><span>' + item.label + '</span>';
+        menuNav.appendChild(a);
+      }
+
+      var cta = document.createElement('a');
+      cta.className = 'tcs-mobile-menu-cta';
+      cta.href = '/fit-call';
+      cta.textContent = 'Book a Fit Call';
+      menuNav.appendChild(cta);
+      overlay.appendChild(menuNav);
+
+      var legal = document.createElement('div');
+      legal.className = 'tcs-mobile-menu-legal';
+      legal.innerHTML =
+        '<a href="/terms">Terms</a><span class="sep">·</span><a href="/privacy">Privacy</a>';
+      overlay.appendChild(legal);
+
+      document.body.appendChild(overlay);
+      bind(nav, btn, overlay, closeBtn);
       return;
     }
   }
 
-  function bind(nav, ul, btn) {
+  function bind(nav, btn, overlay, closeBtn) {
     function setOpen(open) {
       if (open) {
         if (nav.className.indexOf('tcs-nav-open') === -1) nav.className += ' tcs-nav-open';
+        overlay.classList.add('open');
+        overlay.hidden = false;
+        document.body.classList.add('tcs-menu-open');
       } else {
         nav.className = nav.className.replace(/\s*tcs-nav-open\b/g, '');
+        overlay.classList.remove('open');
+        overlay.hidden = true;
+        document.body.classList.remove('tcs-menu-open');
       }
       btn.setAttribute('aria-expanded', open ? 'true' : 'false');
       btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     }
 
     function isOpen() {
-      return nav.className.indexOf('tcs-nav-open') > -1;
+      return overlay.classList.contains('open');
     }
 
     btn.addEventListener('click', function (e) {
@@ -63,16 +125,20 @@
       setOpen(!isOpen());
     });
 
-    ul.addEventListener('click', function (e) {
-      var el = e.target;
-      while (el && el !== ul) {
-        if (el.tagName === 'A') { setOpen(false); return; }
-        el = el.parentNode;
-      }
+    closeBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      setOpen(false);
     });
 
-    document.addEventListener('click', function (e) {
-      if (isOpen() && !nav.contains(e.target)) setOpen(false);
+    overlay.addEventListener('click', function (e) {
+      var el = e.target;
+      while (el && el !== overlay) {
+        if (el.tagName === 'A') {
+          setOpen(false);
+          return;
+        }
+        el = el.parentNode;
+      }
     });
 
     document.addEventListener('keydown', function (e) {

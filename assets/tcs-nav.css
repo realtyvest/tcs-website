@@ -1,6 +1,4 @@
-/* TCS v38 mobile navigation.
-   Loaded after each page's inline <style>, so it wins on ties.
-   Every layout rule sits inside the media query. Desktop is untouched. */
+/* TCS mobile navigation — full-viewport overlay (matches homepage OTP hamburger). */
 
 .tcs-nav-toggle {
   display: none;
@@ -23,7 +21,7 @@
   width: 24px;
   height: 2px;
   border-radius: 2px;
-  background-color: #C8D8EA;
+  background-color: #fff;
   transition: transform .2s ease, opacity .2s ease;
 }
 
@@ -36,11 +34,160 @@
   outline-offset: 2px;
 }
 
-@media (max-width: 820px) {
+.tcs-mobile-menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  width: 100%;
+  height: 100%;
+  min-height: 100dvh;
+  background: #0B1829;
+  flex-direction: column;
+  align-items: stretch;
+  padding: max(12px, env(safe-area-inset-top)) 20px max(20px, env(safe-area-inset-bottom));
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
 
+.tcs-mobile-menu.open {
+  display: flex;
+}
+
+.tcs-mobile-menu-top {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 48px;
+  margin-bottom: 12px;
+}
+
+.tcs-mobile-menu-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  font-size: 28px;
+  line-height: 1;
+}
+
+.tcs-mobile-menu-close:focus-visible {
+  outline: 2px solid #2A8EFF;
+  outline-offset: 2px;
+}
+
+.tcs-mobile-menu-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  flex: 1 1 auto;
+  padding: 8px 0 24px;
+}
+
+.tcs-mobile-menu-link {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  text-align: left;
+  width: 100%;
+  gap: 14px;
+  padding: 18px 0;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(1.75rem, 7vw, 2.25rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+  line-height: 1.15;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.tcs-mobile-menu-link .n {
+  display: inline-block;
+  font-size: 0.85em;
+  font-weight: 600;
+  color: #8BA3C1;
+  letter-spacing: 0.02em;
+  flex: 0 0 1.75em;
+  width: 1.75em;
+  min-width: 1.75em;
+  text-align: left;
+  font-variant-numeric: tabular-nums;
+}
+
+.tcs-mobile-menu-link:hover,
+.tcs-mobile-menu-link:focus-visible {
+  color: #2A8EFF;
+}
+
+.tcs-mobile-menu-cta {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 28px;
+  padding: 16px 22px !important;
+  min-height: 48px;
+  border-radius: 999px;
+  background: #2A8EFF !important;
+  color: #fff !important;
+  font-family: 'Barlow', sans-serif;
+  font-size: 1.0625rem;
+  font-weight: 700 !important;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  text-transform: none;
+}
+
+.tcs-mobile-menu-cta:hover {
+  background: #1a6fd0 !important;
+}
+
+.tcs-mobile-menu-legal {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 28px;
+  font-size: 0.8125rem;
+  color: #8BA3C1;
+}
+
+.tcs-mobile-menu-legal a {
+  color: #8BA3C1;
+  text-decoration: none;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.tcs-mobile-menu-legal a:hover {
+  color: #2A8EFF;
+}
+
+.tcs-mobile-menu-legal .sep {
+  opacity: 0.5;
+}
+
+body.tcs-menu-open {
+  overflow: hidden;
+}
+
+@media (max-width: 820px) {
   .tcs-nav-host {
     display: flex !important;
-    flex-wrap: wrap !important;
+    flex-wrap: nowrap !important;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
@@ -51,59 +198,9 @@
     display: flex;
   }
 
+  /* Keep desktop list out of the sticky bar; overlay owns mobile nav */
   .tcs-nav-panel {
     display: none !important;
-  }
-
-  .tcs-nav-root.tcs-nav-open .tcs-nav-panel {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: stretch !important;
-    flex-wrap: nowrap !important;
-    justify-content: flex-start !important;
-    flex-basis: 100%;
-    width: 100%;
-    gap: 0 !important;
-    margin: 4px 0 0;
-    padding: 4px 0 6px;
-    list-style: none;
-    border-top: 1px solid rgba(42, 142, 255, .2);
-    max-height: 70vh;
-    overflow-y: auto;
-  }
-
-  .tcs-nav-root.tcs-nav-open .tcs-nav-panel > li {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .tcs-nav-root.tcs-nav-open .tcs-nav-panel > li:empty {
-    display: none;
-  }
-
-  .tcs-nav-root.tcs-nav-open .tcs-nav-panel a {
-    display: block;
-    width: 100%;
-    padding: 14px 2px;
-    font-size: 1rem;
-    line-height: 1.3;
-    text-align: left;
-    white-space: normal;
-    border-bottom: 1px solid rgba(42, 142, 255, .15);
-  }
-
-  .tcs-nav-root.tcs-nav-open .tcs-nav-panel a.cta-button,
-  .tcs-nav-root.tcs-nav-open .tcs-nav-panel a.nav-cta {
-    margin-top: 14px;
-    padding: 14px 18px;
-    border-bottom: 0;
-    border-radius: 4px;
-    background-color: #2A8EFF;
-    color: #0B1829;
-    font-weight: 600;
-    text-align: center;
   }
 
   .tcs-nav-root.tcs-nav-open .tcs-nav-toggle span:nth-child(1) {
