@@ -175,8 +175,8 @@
   function initRoot(root) {
     ensureMarkup(root);
 
-    if (!window.gsap || !window.ScrollTrigger) {
-      console.warn("[WorkflowTransformation] GSAP/ScrollTrigger missing");
+    if (!window.gsap) {
+      console.warn("[WorkflowTransformation] GSAP missing");
       root.classList.add("is-dual-stack", "is-reduced");
       root.querySelectorAll("[data-wt-target]").forEach(function (el) {
         el.classList.add("is-visible");
@@ -192,13 +192,15 @@
     }
 
     var gsap = window.gsap;
+    // ScrollTrigger optional — mobile uses none (kill jumpy)
     var ScrollTrigger = window.ScrollTrigger;
-    gsap.registerPlugin(ScrollTrigger);
+    if (ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
 
     /*
-     * WT_NO_TARGET_JUMPY_REVISE + https://gsap.com/cheatsheet
-     * Stabilize: Target 4 always in DOM + visible. Mobile dual-stack.
-     * Never blank under TARGET. Content > play-once motion.
+     * WT_DUAL_JUMPY_NO_MOTION_REVISE + https://gsap.com/cheatsheet
+     * 1) Dual stack always solid (content PASS)
+     * 2) Mobile: NO ScrollTrigger/pin/scrub — IntersectionObserver + autoAlpha only
+     * 3) Never hide Target (floor autoAlpha 0.55 during soft entrance)
      */
     var currentCards = gsap.utils.toArray(root.querySelectorAll("[data-wt-current]"));
     var targetCards = gsap.utils.toArray(root.querySelectorAll("[data-wt-target]"));
@@ -209,10 +211,9 @@
 
     var mm = null;
     var built = false;
-    var refreshTimer = null;
+    var motionIo = null;
 
     function applyDualStack() {
-      // Always-visible Current 9 + Target 4 — solid chrome, no hide
       root.classList.add("is-dual-stack");
       root.classList.remove("is-reduced", "is-static-touch");
       currentCards.forEach(function (el) {
@@ -243,84 +244,129 @@
       if (chromeCurrent) gsap.set(chromeCurrent, { autoAlpha: 1, opacity: 1 });
       if (chromeTarget) gsap.set(chromeTarget, { autoAlpha: 1, opacity: 1 });
       settleClosing(gsap, closing);
-      if (closing) {
-        gsap.set(closing, { autoAlpha: 1, opacity: 1, visibility: "visible" });
+      if (closing) gsap.set(closing, { autoAlpha: 1, opacity: 1, visibility: "visible" });
+    }
+
+    function killRootTriggers() {
+      if (!ScrollTrigger) return;
+      ScrollTrigger.getAll().forEach(function (t) {
+        if (t.trigger === root) t.kill();
+      });
+    }
+
+    /** Mobile: soft cheatsheet autoAlpha — never below readable floor, never hide Target */
+    function playSoftEntrance() {
+      applyDualStack();
+      // Start readable (not blank), settle to full — https://gsap.com/cheatsheet gsap.fromTo + stagger
+      gsap.fromTo(
+        currentCards,
+        { autoAlpha: 0.88, opacity: 0.88 },
+        {
+          autoAlpha: 1,
+          opacity: 1,
+          stagger: 0.03,
+          duration: 0.35,
+          ease: "power1.out",
+          overwrite: "auto",
+        }
+      );
+      gsap.fromTo(
+        targetCards,
+        { autoAlpha: 0.6, opacity: 0.6 },
+        {
+          autoAlpha: 1,
+          opacity: 1,
+          stagger: 0.07,
+          duration: 0.5,
+          ease: "power1.out",
+          overwrite: "auto",
+          onComplete: function () {
+            applyDualStack();
+          },
+        }
+      );
+      if (chromeTarget) {
+        gsap.fromTo(
+          chromeTarget,
+          { autoAlpha: 0.7, opacity: 0.7 },
+          { autoAlpha: 1, opacity: 1, duration: 0.4, ease: "power1.out" }
+        );
       }
     }
 
-    function applyReduced() {
-      root.classList.add("is-reduced");
+    function mountMobile() {
       applyDualStack();
+      killRootTriggers();
+
+      var played = false;
+      if (typeof IntersectionObserver !== "undefined") {
+        motionIo = new IntersectionObserver(
+          function (entries) {
+            for (var i = 0; i < entries.length; i++) {
+              if (entries[i].isIntersecting && !played) {
+                played = true;
+                playSoftEntrance();
+                if (motionIo) {
+                  motionIo.disconnect();
+                  motionIo = null;
+                }
+                break;
+              }
+            }
+          },
+          { root: null, rootMargin: "0px", threshold: 0.25 }
+        );
+        motionIo.observe(root);
+      } else {
+        playSoftEntrance();
+      }
     }
 
-    function buildLightReveal() {
-      // Desktop optional: both stacks visible; light opacity nod only (never hide Target)
+    function mountDesktop() {
       applyDualStack();
+      if (!ScrollTrigger) {
+        playSoftEntrance();
+        return;
+      }
 
-      gsap.set(targetCards, { autoAlpha: 0.35, opacity: 0.35 });
-      targetCards.forEach(function (el) {
-        el.classList.add("is-visible");
-      });
+      killRootTriggers();
 
+      // Desktop: one-shot autoAlpha only — pin false, no scrub (cheatsheet + scroll docs)
       var tl = gsap.timeline({
         paused: true,
         defaults: { ease: "power1.out" },
         onComplete: function () {
           applyDualStack();
         },
-        onReverseComplete: function () {
-          applyDualStack();
-          gsap.set(targetCards, { autoAlpha: 0.35, opacity: 0.35 });
-          targetCards.forEach(function (el) {
-            el.classList.add("is-visible");
-          });
-        },
       });
 
-      tl.to(
+      tl.fromTo(
         targetCards,
-        {
-          autoAlpha: 1,
-          opacity: 1,
-          stagger: 0.06,
-          duration: 0.4,
-        },
+        { autoAlpha: 0.55, opacity: 0.55 },
+        { autoAlpha: 1, opacity: 1, stagger: 0.06, duration: 0.45 },
         0
       );
-      if (chromeTarget) tl.to(chromeTarget, { autoAlpha: 1, opacity: 1, duration: 0.3 }, 0);
 
       ScrollTrigger.create({
         trigger: root,
         start: "top 70%",
         end: "bottom top",
         pin: false,
-        toggleActions: "play none none reverse",
+        once: true,
+        toggleActions: "play none none none",
         onEnter: function () {
           tl.play(0);
         },
-        onLeave: function () {
-          tl.progress(1);
-          applyDualStack();
-        },
-        onLeaveBack: function () {
-          tl.reverse();
-        },
         onRefresh: function () {
           applyDualStack();
-          gsap.set(targetCards, { autoAlpha: 0.35, opacity: 0.35 });
-          targetCards.forEach(function (el) {
-            el.classList.add("is-visible");
-          });
-          tl.pause(0);
         },
       });
-
-      return tl;
     }
 
     function mountMotion() {
       if (built) return;
       built = true;
+
       mm = gsap.matchMedia();
       mm.add(
         {
@@ -330,72 +376,43 @@
         },
         function (context) {
           var cond = context.conditions;
-          if (cond.reduceMotion || cond.isTouch) {
-            // Mobile / reduce: dual-stack only — no ST, no jumpy, Target always visible
+          killRootTriggers();
+
+          if (cond.reduceMotion) {
             applyDualStack();
             return function () {
               root.classList.remove("is-dual-stack", "is-reduced");
             };
           }
-          var tl = buildLightReveal();
+
+          if (cond.isTouch || !cond.isDesktop) {
+            mountMobile();
+            return function () {
+              if (motionIo) motionIo.disconnect();
+              motionIo = null;
+              killRootTriggers();
+              root.classList.remove("is-dual-stack");
+            };
+          }
+
+          mountDesktop();
           return function () {
-            ScrollTrigger.getAll().forEach(function (t) {
-              if (t.trigger === root) t.kill();
-            });
-            if (tl) tl.kill();
-            applyDualStack();
+            killRootTriggers();
+            root.classList.remove("is-dual-stack");
           };
         }
       );
-      requestAnimationFrame(function () {
-        ScrollTrigger.refresh();
-      });
+      // Do NOT ScrollTrigger.refresh() on mobile mount — that was jumpy
     }
 
-    function scheduleRefresh() {
-      if (refreshTimer) clearTimeout(refreshTimer);
-      refreshTimer = setTimeout(function () {
-        if (built) ScrollTrigger.refresh();
-      }, 200);
-    }
-
-    // Paint dual-stack immediately so Target never blank before ST mounts
+    // Paint solid dual stack immediately (never blank Target)
     applyDualStack();
-
-    var io = null;
-    if (typeof IntersectionObserver !== "undefined") {
-      io = new IntersectionObserver(
-        function (entries) {
-          for (var i = 0; i < entries.length; i++) {
-            if (entries[i].isIntersecting) {
-              mountMotion();
-              io.disconnect();
-              io = null;
-              break;
-            }
-          }
-        },
-        { root: null, rootMargin: "200px 0px", threshold: 0 }
-      );
-      io.observe(root);
-    } else if (window.requestIdleCallback) {
-      window.requestIdleCallback(function () {
-        mountMotion();
-      }, { timeout: 800 });
-    } else {
-      setTimeout(mountMotion, 200);
-    }
-
-    window.addEventListener("resize", scheduleRefresh);
+    mountMotion();
 
     return function cleanup() {
-      window.removeEventListener("resize", scheduleRefresh);
-      if (refreshTimer) clearTimeout(refreshTimer);
-      if (io) io.disconnect();
+      if (motionIo) motionIo.disconnect();
       if (mm) mm.revert();
-      ScrollTrigger.getAll().forEach(function (t) {
-        if (t.trigger === root) t.kill();
-      });
+      killRootTriggers();
     };
   }
 
