@@ -3,9 +3,9 @@
  * Design LOCK: four states only - Annotated map / Verified quantities /
  * Closeout package / Invoice items. No marketing body copy. No dollar signs.
  *
- * Desktop (fine pointer · >=1025): one pin, scrub ~0.25, end +=120%,
- * fastScrollEnd. Kill pin if (pointer: coarse) OR width <=1024.
- * Mobile/coarse/<=1024: stacked panels, no pin.
+ * Desktop (fine pointer · no touch · >=1025): one pin, scrub ~0.25, end +=120%,
+ * fastScrollEnd. Kill pin if coarse OR maxTouchPoints>0 OR width <=1024.
+ * Mobile/coarse/touch/<=1024: stacked panels, no pin.
  * Reduced motion: static stack, Invoice items active, no scrub/pin.
  */
 (function () {
@@ -163,7 +163,7 @@
     var st = null;
 
     function canPinNow() {
-      return pinWideMq.matches && !coarseMq.matches && !reduceMq.matches;
+      return pinWideMq.matches && !coarseMq.matches && !(navigator.maxTouchPoints > 0) && !reduceMq.matches;
     }
 
     function killLocal() {

@@ -189,7 +189,7 @@ export function WorkflowTransformation({ className }: Props) {
       void root.offsetHeight;
 
       const desktop = desktopMq.matches;
-      const canPin = pinWideMq.matches && !coarseMq.matches;
+      const canPin = pinWideMq.matches && !coarseMq.matches && !(navigator.maxTouchPoints > 0);
 
       // Desktop only: Flip-fit absolute merges. Mobile (max-width 820): fade/hide
       // current groups in place and reveal the target stack below — no overlapping
@@ -344,7 +344,7 @@ export function WorkflowTransformation({ className }: Props) {
         }
 
         // WT_SCROLL_STUCK_REVISE_2:
-        // !canPin (phone/coarse/<=1024): scrub HARD false; pin false; play once on enter.
+        // !canPin (phone/coarse/touch/<=1024): scrub HARD false; pin false; play once on enter.
         // canPin desktop: pin end +=120%, scrub ~0.25.
         if (canPin) {
           st = ScrollTrigger.create({
