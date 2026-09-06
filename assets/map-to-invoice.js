@@ -147,6 +147,24 @@
 
     if (!m2i || !labels.length || !panels.length) return function () {};
 
+    /*
+     * settleFinal — CLEAR_STATE fix (shared by mobile clearState, desktop
+     * onLeave, and the timeline onComplete). Ghost bug root cause: on mobile
+     * (@media max-width:1024 / coarse) CSS forces ALL .m2i-panel to
+     * opacity:1 / visibility:visible / position:static, so clearProps on the
+     * panels RESTORES that stack — previous panel titles (e.g. "Closeout
+     * package") reappear under Invoice. Fix: never clearProps the panels;
+     * explicitly hide every panel but 3 via autoAlpha and reset y.
+     * Labels may clearProps (they read fine either way).
+     * https://gsap.com/docs/v3/GSAP/Timeline · https://gsap.com/cheatsheet
+     */
+    function settleFinal() {
+      setActive(labels, panels, 3);
+      panels.forEach(function (p, i) {
+        gsap.set(p, { autoAlpha: i === 3 ? 1 : 0, y: 0 });
+      });
+    }
+
     if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") {
       setActive(labels, panels, 3);
       m2i.classList.add("is-reduced");
@@ -283,13 +301,7 @@
           anticipatePin: 1,
           fastScrollEnd: true,
           invalidateOnRefresh: true,
-          onLeave: function () {
-            // Force complete sync: step + panel 3, no half-scrubbed panels left.
-            setActive(labels, panels, 3);
-            panels.forEach(function (p, i) {
-              gsap.set(p, { autoAlpha: i === 3 ? 1 : 0, y: 0 });
-            });
-          },
+          onLeave: settleFinal, // step + panel 3, no half-scrubbed panels left
         });
       }, section);
     }
@@ -317,10 +329,11 @@
         var io = null;
 
         function clearState() {
-          // CLEAR_STATE: settle on step + panel 3, restore stacked visibility.
-          setActive(labels, panels, 3);
+          // CLEAR_STATE: settle on step + panel 3 via the shared helper so no
+          // previous panel title (e.g. "Closeout package") is left stacked
+          // under Invoice on mobile. Labels may clearProps — panels must NOT.
           gsap.set(labels, { clearProps: "opacity,visibility,transform" });
-          gsap.set(panels, { clearProps: "opacity,visibility,transform" });
+          settleFinal();
         }
 
         function removeArm() {
