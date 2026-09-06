@@ -1,0 +1,417 @@
+/* Construction + Drops path islands - control-room panels (S3)
+   Colors: navy #0B1829 / electric #2A8EFF / orange #F26419
+   Motion: transform + opacity only. No glow/particles/glass/bounce.
+
+   CONSTRUCTION_DROPS_LAYOUT_LOCK / PLACEMENT_LOCK: two Pattern A stacks
+   (#path-construction then #path-drops), each a 4-step progress bar on top
+   (story driver) + one active panel below. Shared module assets/paths.js pins
+   each island for a short hold (~1.4 viewports) while the bar lights
+   left->right and the panel swaps follow the same playhead. Sequential pins:
+   Construction finishes before Drops arms. Panels overlap (one visible) on ALL
+   breakpoints; reduced motion shows the full lit bar + final panel statically.
+
+   Pattern A adapted from map-to-invoice.css (MAP_TO_INVOICE_PROGRESS_BAR_STORY_
+   LOCK) into this shared, namespaced (.pth) module. */
+
+.path-section .section-inner > h2 {
+  margin-bottom: 0.4rem;
+}
+
+.path-sub {
+  margin: 0 0 1.6rem;
+  max-width: 52ch;
+  color: var(--muted, #8CA3BE);
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+.path-cta {
+  margin-top: 1.6rem;
+}
+
+.pth {
+  --pth-navy: var(--navy, #0B1829);
+  --pth-electric: var(--electric, #2A8EFF);
+  --pth-orange: var(--orange, #F26419);
+  --pth-muted: var(--muted, #8CA3BE);
+  --pth-text: var(--text-light, #C3D2E4);
+  --pth-border: var(--border, rgba(255, 255, 255, 0.08));
+  --pth-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  width: 100%;
+  max-width: var(--content-max, 1120px);
+}
+
+.pth-chrome {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  margin-bottom: 1.1rem;
+}
+
+.pth-chrome-id {
+  margin: 0;
+  font-family: var(--pth-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--pth-electric);
+}
+
+.pth-chrome-route {
+  margin: 0;
+  font-family: var(--pth-mono);
+  font-size: 0.6875rem;
+  color: var(--pth-muted);
+}
+
+/* ===== Progress bar (story driver) ===== */
+.pth-bar {
+  list-style: none;
+  margin: 0 0 1.15rem;
+  padding: 0;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+
+/* Track + fill run behind the dots and grow left->right (scaleX from JS). */
+.pth-bar-track {
+  position: absolute;
+  top: 7px; /* aligns with dot centers */
+  left: 8%;
+  right: 8%;
+  height: 2px;
+  background: var(--pth-border);
+  border-radius: 2px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.pth-bar-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--pth-electric);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.pth-bar-step {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  text-align: center;
+}
+
+.pth-bar-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--pth-muted);
+  background: var(--pth-navy);
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.pth-bar-label {
+  font-family: var(--font-body, 'Barlow', sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--pth-muted);
+  transition: color 0.2s ease;
+}
+
+/* completed steps stay lit */
+.pth-bar-step.is-complete .pth-bar-dot {
+  background: var(--pth-electric);
+  border-color: var(--pth-electric);
+}
+
+.pth-bar-step.is-complete .pth-bar-label {
+  color: var(--pth-text);
+}
+
+/* active step */
+.pth-bar-step.is-active .pth-bar-dot {
+  background: var(--pth-orange);
+  border-color: var(--pth-orange);
+  transform: scale(1.15);
+}
+
+.pth-bar-step.is-active .pth-bar-label {
+  color: var(--white, #fff);
+}
+
+/* ===== Stage: one panel visible at a time (all breakpoints) ===== */
+.pth-stage {
+  position: relative;
+  border: 1px solid var(--pth-border);
+  border-radius: var(--radius, 8px);
+  background: var(--pth-navy);
+  overflow: hidden;
+  min-height: 288px;
+}
+
+.pth-panels {
+  position: relative;
+  min-height: 288px;
+}
+
+.pth-panel {
+  position: absolute;
+  inset: 0;
+  padding: 1rem 1.05rem 1.15rem;
+  color: var(--pth-text);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  pointer-events: none;
+}
+
+.pth-panel.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  pointer-events: auto;
+}
+
+.pth-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.pth-panel-title {
+  margin: 0;
+  font-family: var(--font-display, 'Barlow Condensed', sans-serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--white, #fff);
+}
+
+.pth-panel-meta {
+  margin: 0;
+  font-family: var(--pth-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  color: var(--pth-muted);
+  white-space: nowrap;
+}
+
+.pth-visual {
+  position: relative;
+  border: 1px solid var(--pth-border);
+  border-radius: 6px;
+  background: #091320;
+  min-height: 168px;
+  overflow: hidden;
+}
+
+/* Per-step helper line under the visual (design labels, no marketing copy). */
+.pth-panel-helper {
+  margin: 0.7rem 0 0;
+  font-family: var(--font-body, 'Barlow', sans-serif);
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: var(--pth-text);
+}
+
+/* --- Annotated map --- */
+.pth-map {
+  position: relative;
+  width: 100%;
+  height: 168px;
+}
+
+.pth-map svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.pth-map-mark {
+  fill: var(--pth-orange);
+}
+
+.pth-map-route {
+  fill: none;
+  stroke: var(--pth-electric);
+  stroke-width: 1.25;
+  stroke-opacity: 0.85;
+}
+
+.pth-map-grid {
+  stroke: rgba(140, 163, 190, 0.18);
+  stroke-width: 1;
+}
+
+/* --- Submit (field submittal) --- */
+.pth-submit {
+  display: grid;
+  gap: 0.45rem;
+  padding: 0.85rem 0.9rem;
+}
+
+.pth-submit-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--pth-border);
+  border-left: 2px solid var(--pth-electric);
+  border-radius: 4px;
+  background: rgba(11, 24, 41, 0.65);
+  font-family: var(--pth-mono);
+  font-size: 0.72rem;
+  color: var(--pth-text);
+}
+
+.pth-submit-status {
+  color: var(--pth-orange);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.pth-submit-cta {
+  margin-top: 0.15rem;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--pth-electric);
+  border-radius: 4px;
+  text-align: center;
+  font-family: var(--pth-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pth-electric);
+}
+
+/* --- Tally = marks --- */
+.pth-tally {
+  list-style: none;
+  margin: 0;
+  padding: 0.85rem 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  font-family: var(--pth-mono);
+  font-size: 0.75rem;
+}
+
+.pth-tally li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--pth-text);
+}
+
+.pth-tally li:last-child {
+  border-bottom: 0;
+}
+
+.pth-tally-code {
+  color: var(--pth-electric);
+}
+
+.pth-tally-qty {
+  color: var(--white, #fff);
+  font-weight: 600;
+}
+
+.pth-tally-ok {
+  color: var(--pth-orange);
+  margin-left: 0.55rem;
+}
+
+/* --- Invoice --- */
+.pth-invoice {
+  list-style: none;
+  margin: 0;
+  padding: 0.85rem 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-family: var(--pth-mono);
+  font-size: 0.75rem;
+}
+
+.pth-invoice li {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--pth-text);
+}
+
+.pth-invoice li:last-child {
+  border-bottom: 0;
+}
+
+.pth-invoice-code {
+  color: var(--pth-electric);
+}
+
+.pth-invoice-qty {
+  color: var(--white, #fff);
+  font-weight: 600;
+}
+
+.pth-invoice-flag {
+  color: var(--pth-orange);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+}
+
+/* ===== Desktop: taller card so the 220px visual + helper fit with no void ===== */
+@media (min-width: 1025px) and (pointer: fine) {
+  .pth-stage,
+  .pth-panels {
+    min-height: 340px;
+  }
+
+  .pth-visual,
+  .pth-map {
+    height: 220px;
+    min-height: 220px;
+  }
+}
+
+/* ===== Compact bar labels on small screens ===== */
+@media (max-width: 560px) {
+  .pth-bar {
+    gap: 0.3rem;
+  }
+
+  .pth-bar-label {
+    font-size: 0.6875rem;
+  }
+}
+
+/* ===== Reduced motion: static full bar + final panel, no pin ===== */
+.pth.is-reduced .pth-bar-step .pth-bar-dot {
+  background: var(--pth-electric);
+  border-color: var(--pth-electric);
+}
+
+.pth.is-reduced .pth-bar-step.is-active .pth-bar-dot {
+  background: var(--pth-orange);
+  border-color: var(--pth-orange);
+}
+
+.pth.is-reduced .pth-bar-fill {
+  transform: scaleX(1) !important;
+}

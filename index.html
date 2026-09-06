@@ -1251,7 +1251,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </script>
   <link rel="stylesheet" href="/assets/workflow-transformation.css?v=fire1">
   <link rel="stylesheet" href="/assets/phase2-motion.css">
-  <link rel="stylesheet" href="/assets/map-to-invoice.css?v=bar1">
+  <link rel="stylesheet" href="/assets/paths.css?v=paths1">
   <link rel="stylesheet" href="/assets/homepage-spine.css?v=spine1">
 </head>
 <body>
@@ -1410,10 +1410,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
-<!-- 4b · MAP TO INVOICE -->
-<section class="section" id="map-to-invoice" data-map-to-invoice aria-label="Map to invoice">
+<!-- 4b · CONSTRUCTION PATH (CONSTRUCTION_DROPS_PLACEMENT_LOCK) -->
+<section class="section path-section" id="path-construction" data-path data-path-key="construction" aria-label="Construction path">
   <div class="section-inner">
-    <!-- Island markup: assets/map-to-invoice.js -->
+    <h2>Construction</h2>
+    <p class="path-sub">Multi-day work. Progressive billing from field marks.</p>
+    <div class="path-island" data-path-island>
+      <!-- Island markup (bar + stage): assets/paths.js -->
+    </div>
+    <p class="path-cta"><a class="btn" href="/fit-call">Book a Fit Call</a></p>
+  </div>
+</section>
+
+<!-- 4c · DROPS PATH (CONSTRUCTION_DROPS_PLACEMENT_LOCK) -->
+<!-- Redirect anchor: #map-to-invoice -> Drops path (standalone island removed). -->
+<span id="map-to-invoice" aria-hidden="true"></span>
+<section class="section path-section" id="path-drops" data-path data-path-key="drops" aria-label="Drops path">
+  <div class="section-inner">
+    <h2>Drops</h2>
+    <p class="path-sub">One day, one address. Invoice the same day.</p>
+    <div class="path-island" data-path-island>
+      <!-- Island markup (bar + stage): assets/paths.js -->
+    </div>
+    <p class="path-cta"><a class="btn" href="/fit-call">Book a Fit Call</a></p>
   </div>
 </section>
 
@@ -1494,7 +1513,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="/assets/workflow-transformation.js?v=fire1" defer></script>
 <script src="/assets/phase2-motion.js" defer></script>
-<script src="/assets/map-to-invoice.js?v=bar1" defer></script>
+<script src="/assets/paths.js?v=paths1" defer></script>
 <script src="/assets/homepage-spine.js?v=spine1" defer></script>
 
 
