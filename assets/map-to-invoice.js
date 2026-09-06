@@ -190,11 +190,33 @@
 
     /*
      * MAP_TO_INVOICE_TIMELINE_LOCK — https://gsap.com/docs/v3/GSAP/Timeline
+     *                                https://gsap.com/cheatsheet
      * One gsap.timeline(): enter staggers steps 1–4 in (autoAlpha + slight y),
      * then the SAME timeline crossfades the panels
-     * Annotated map → Verified quantities → Closeout → Invoice, calling
-     * setActive on each step. autoAlpha keeps hidden panels non-interactive.
+     * Annotated map → Verified quantities → Closeout → Invoice.
+     *
+     * SYNC LOCK (Gil FAIL was step 4 lit while panel still Annotated map):
+     * the step highlight is NOT driven by per-tween onStart (which scrub can
+     * skip or fire out of order). Instead one syncStep() derives the active
+     * index from the timeline's own playhead time and is fired both on every
+     * update AND by tl.call() at each crossfade midpoint — the SAME position as
+     * the panel crossfade. Because both the panel autoAlpha and the label
+     * highlight read the same tl.time(), they can never desync, and scrubbing
+     * in reverse restores the prior step automatically.
      */
+    var SEQ_START = 0.6; // enter (labels) finishes before the panel sequence
+    var STEP_DUR = 0.5; // time between successive crossfade starts
+    var CROSS = 0.35; // crossfade duration
+
+    // Which step should be lit at timeline time t (switch at crossfade midpoint)
+    function activeStepAtTime(t) {
+      for (var i = 3; i >= 1; i--) {
+        var mid = SEQ_START + (i - 1) * STEP_DUR + CROSS / 2;
+        if (t >= mid) return i;
+      }
+      return 0;
+    }
+
     function buildSequenceTimeline() {
       setActive(labels, panels, 0);
       gsap.set(labels, { autoAlpha: 0, y: 8 });
@@ -202,7 +224,19 @@
         gsap.set(panel, { autoAlpha: i === 0 ? 1 : 0, y: i === 0 ? 0 : 10 });
       });
 
-      var tl = gsap.timeline({ defaults: { ease: "none" } });
+      var lastStep = 0;
+      function syncStep(force) {
+        var idx = activeStepAtTime(tl.time());
+        if (force === true || idx !== lastStep) {
+          lastStep = idx;
+          setActive(labels, panels, idx);
+        }
+      }
+
+      var tl = gsap.timeline({
+        defaults: { ease: "none" },
+        onUpdate: syncStep,
+      });
 
       // Enter: stagger the four steps in (position parameter 0 = timeline start)
       tl.to(
@@ -211,29 +245,20 @@
         0
       );
 
-      // Same timeline: crossfade panels in order; setActive each step
-      var seqStart = 0.6;
+      // Same timeline: crossfade panels in order. tl.call at each crossfade
+      // midpoint re-derives the active step from the playhead — reverse-safe.
       for (var i = 0; i < 3; i++) {
         (function (from) {
           var next = from + 1;
-          var at = seqStart + from * 0.5;
-          tl.to(panels[from], { autoAlpha: 0, y: -8, duration: 0.35 }, at);
+          var at = SEQ_START + from * STEP_DUR;
+          tl.to(panels[from], { autoAlpha: 0, y: -8, duration: CROSS }, at);
           tl.fromTo(
             panels[next],
             { autoAlpha: 0, y: 10 },
-            {
-              autoAlpha: 1,
-              y: 0,
-              duration: 0.35,
-              onStart: function () {
-                setActive(labels, panels, next);
-              },
-              onReverseComplete: function () {
-                setActive(labels, panels, from);
-              },
-            },
+            { autoAlpha: 1, y: 0, duration: CROSS },
             at
           );
+          tl.call(syncStep, null, at + CROSS / 2);
         })(i);
       }
       return tl;
@@ -354,9 +379,14 @@
         }
 
         // Anti-blank: if no scroll arrives shortly after the section is
-        // reachable, force the completed stacked state — nothing stays hidden.
+        // reachable, do NOT skip the sequence when it is on screen — play the
+        // shared timeline so Gil sees it fire. Only fall back to a clean state 3
+        // stack if the section was never entered (never in view).
         fallbackId = setTimeout(function () {
-          if (!played) {
+          if (played) return;
+          if (inView) {
+            play();
+          } else {
             played = true;
             removeArm();
             if (io) {
