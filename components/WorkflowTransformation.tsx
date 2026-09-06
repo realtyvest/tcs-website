@@ -343,36 +343,88 @@ export function WorkflowTransformation({ className }: Props) {
           );
         }
 
-        st = ScrollTrigger.create({
-          animation: tl,
-          trigger: root,
-          start: canPin ? "top top+=72" : "top 75%",
-          // LOCK: short pin band so scroll releases past WT (was +=220%, trapped).
-          end: canPin ? "+=120%" : "bottom 15%",
-          scrub: 0.25,
-          pin: canPin,
-          pinSpacing: canPin,
-          anticipatePin: canPin ? 1 : 0,
-          fastScrollEnd: true,
-          invalidateOnRefresh: true,
-          onUpdate: (self) => {
-            const last = targetCards[3];
-            const lastVisible = !!(last && last.classList.contains("is-visible"));
-            if (self.progress >= 0.88 || (lastVisible && self.progress >= 0.82)) {
+        // WT_SCROLL_STUCK_REVISE_2:
+        // !canPin (phone/coarse/<=1024): scrub HARD false; pin false; play once on enter.
+        // canPin desktop: pin end +=120%, scrub ~0.25.
+        if (canPin) {
+          st = ScrollTrigger.create({
+            animation: tl,
+            trigger: root,
+            start: "top top+=72",
+            end: "+=120%",
+            scrub: 0.25,
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
+            fastScrollEnd: true,
+            invalidateOnRefresh: true,
+            onUpdate: (self) => {
+              const last = targetCards[3];
+              const lastVisible = !!(last && last.classList.contains("is-visible"));
+              if (self.progress >= 0.88 || (lastVisible && self.progress >= 0.82)) {
+                forceSettledClosing();
+              } else if (self.progress < 0.55) {
+                tryUnlockClosing(self.progress);
+              } else if (closingLocked) {
+                forceSettledClosing();
+              }
+            },
+            onLeave: () => {
               forceSettledClosing();
-            } else if (self.progress < 0.55) {
-              tryUnlockClosing(self.progress);
-            } else if (closingLocked) {
-              forceSettledClosing();
-            }
-          },
-          onLeave: () => {
+            },
+            onEnterBack: (self) => {
+              if (self.progress < 0.55) tryUnlockClosing(self.progress);
+            },
+          });
+        } else {
+          const ENTER_DUR = 1.5;
+          const natural = tl.duration();
+          if (natural > 0) tl.timeScale(natural / ENTER_DUR);
+          tl.pause(0);
+
+          const settleInstant = () => {
+            tl.timeScale(1);
+            tl.progress(1);
+            currentCards.forEach((el) => {
+              el.classList.add("is-merged");
+              gsap.set(el, { autoAlpha: 0 });
+            });
+            targetCards.forEach((el) => {
+              el.classList.add("is-visible");
+              gsap.set(el, { autoAlpha: 1, visibility: "visible", scale: 1 });
+            });
+            gsap.set(callouts, { autoAlpha: 1, y: 0, visibility: "visible" });
+            if (chromeCurrent) gsap.set(chromeCurrent, { autoAlpha: 0.35 });
+            if (chromeTarget) gsap.set(chromeTarget, { autoAlpha: 1 });
             forceSettledClosing();
-          },
-          onEnterBack: (self) => {
-            if (self.progress < 0.55) tryUnlockClosing(self.progress);
-          },
-        });
+          };
+
+          const vh = window.innerHeight || 1;
+          const rect = root.getBoundingClientRect();
+          // Mid-section (or deeper): jump to settled 4 + callouts + closing.
+          const alreadyMid = rect.top < vh * 0.4 && rect.bottom > vh * 0.15;
+
+          if (alreadyMid) {
+            settleInstant();
+          } else {
+            st = ScrollTrigger.create({
+              animation: tl,
+              trigger: root,
+              start: "top 75%",
+              end: "bottom top",
+              scrub: false,
+              pin: false,
+              pinSpacing: false,
+              anticipatePin: 0,
+              once: true,
+              toggleActions: "play none none none",
+              invalidateOnRefresh: true,
+              onLeave: () => {
+                forceSettledClosing();
+              },
+            });
+          }
+        }
       }, root);
     };
 
