@@ -188,7 +188,7 @@
     /*
      * WT_DEMO_CLEAR_STATE_LOCK
      * Cite: https://gsap.com/docs/v3/GSAP/ + https://gsap.com/scroll/
-     * Discrete states — toggleActions play once (NO scrub park).
+     * Discrete states — toggleActions play once (NO scrub park). Cite https://gsap.com/cheatsheet
      * Target always finishes autoAlpha:1. No xPercent. pin:false.
      */
     var currentCards = gsap.utils.toArray(root.querySelectorAll("[data-wt-current]"));
@@ -392,21 +392,10 @@
         onLeaveBack: function () {
           tl.reverse();
         },
-        onRefresh: function (self) {
-          if (self.isActive || self.progress > 0) {
-            // Already past start on load/hard-refresh → complete state, no ghost
-            if (self.progress >= 0.01 || self.direction === 1) {
-              // If scrolled into or past trigger, prefer complete Target when below start
-            }
-          }
-          if (!self.isActive && self.scroll() < self.start) {
-            forceStateA();
-            tl.pause(0);
-          } else if (self.scroll() >= self.start) {
-            // Hard-refresh mid-section: show complete Target, never half-fade
-            tl.progress(1);
-            forceStateB();
-          }
+        onRefresh: function () {
+          // REVISE a2d0c29 + https://gsap.com/cheatsheet: rest/refresh = State A until onEnter
+          forceStateA();
+          tl.pause(0);
         },
       });
 
