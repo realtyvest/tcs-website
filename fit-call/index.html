@@ -279,11 +279,35 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   /* Calendar: GUI-locked SCS Google Appointment Schedule embed (2026-09-04). */
 
+  /* FIT_CALL_BALANCE (Gil, 2026-09-08): consent row reads as one line inside
+     the card; the two links below sit centred under it. */
+  .cta-form .agree-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 4px;
+    font-size: 14px;
+    color: #8BA3C1;
+    line-height: 1.45;
+    cursor: pointer;
+  }
+  .cta-form .agree-row input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    padding: 0;
+    flex: 0 0 18px;
+    accent-color: #2A8EFF;
+    border-radius: 4px;
+  }
+  .cta-form .agree-row a { color: #2A8EFF; text-decoration: underline; text-underline-offset: 3px; }
   .secondary-links {
     display: flex;
     flex-wrap: wrap;
-    gap: 18px 28px;
+    justify-content: center;
+    gap: 18px 40px;
     align-items: center;
+    margin-top: 28px;
   }
 
   .secondary-links a {
@@ -478,8 +502,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <option value="100+">100+ techs</option>
         </select>
         <textarea id="f-hurt" name="whats_hurting" class="form-full" placeholder="What’s hurting most right now? (optional)" aria-label="What’s hurting most right now"></textarea>
-                <label style="grid-column:1/-1;display:flex;gap:10px;align-items:flex-start;font-size:13px;color:#8BA3C1;line-height:1.45;margin-top:4px;">
-          <input type="checkbox" id="f-agree" required style="margin-top:3px;flex-shrink:0;">
+        <label class="agree-row form-full">
+          <input type="checkbox" id="f-agree" required>
           <span>I agree to the <a href="/terms">Terms</a> and <a href="/privacy">Privacy Policy</a>.</span>
         </label>
         <button class="btn-primary form-full" type="button" id="submit-btn" onclick="submitForm()">Send my request</button>
@@ -519,8 +543,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 async function submitForm() {
   var agree = document.getElementById('f-agree');
   if (agree && !agree.checked) {
-    var msg = document.getElementById('form-msg');
-    if (msg) { msg.className = 'cta-form-msg error'; msg.textContent = 'Please agree to the Terms and Privacy Policy.'; }
+    var agreeMsg = document.getElementById('form-msg');
+    if (agreeMsg) { agreeMsg.className = 'cta-form-msg error'; agreeMsg.textContent = 'Please agree to the Terms and Privacy Policy.'; }
     agree.focus();
     return;
   }
