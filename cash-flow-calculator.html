@@ -523,7 +523,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="live-strip" id="live-strip" aria-live="polite">
     <div><span class="ls-k">Work to cash</span><span class="ls-v"><span id="ls-days-now">69</span> <span class="to">&rarr; <span id="ls-days-target">56</span></span> d</span></div>
     <div><span class="ls-k">Cash released</span><span class="ls-v is-orange" id="ls-release">$173,333</span></div>
-    <div class="ls-fee"><span class="ls-k">Fee stopped / yr</span><span class="ls-v is-orange" id="ls-fee">$52,000</span></div>
+    <div class="ls-fee"><span class="ls-k">Fee stopped / yr</span><span class="ls-v is-orange" id="ls-fee">$61,176</span></div>
   </div>
   <div class="calculator-container">
     <div class="calculator-inputs">
@@ -622,19 +622,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="v is-target" id="r-office-target">$13,333</div>
         </div>
         <div class="compare-row is-factor">
-          <div class="k">Yearly factoring fee on the cash your office lag makes you bridge<small>if you factor to cover that gap</small></div>
-          <div class="v" id="r-fee-now">$52,000</div>
-          <div class="v is-target" id="r-fee-target">$0</div>
+          <div class="k">Yearly factoring fee on the cash your office lag makes you bridge<small>on the invoice face you factor to raise that cash</small></div>
+          <div class="v" id="r-fee-now">$65,882</div>
+          <div class="v is-target" id="r-fee-target">$4,706</div>
         </div>
         <div class="compare-row is-factor">
           <div class="k">That fee as a share of gross margin<small>on a year of billings at your margin</small></div>
-          <div class="v" id="r-share-now">4.3%</div>
-          <div class="v is-target" id="r-share-target">0%</div>
+          <div class="v" id="r-share-now">5.5%</div>
+          <div class="v is-target" id="r-share-target">0.4%</div>
         </div>
         <div class="compare-row is-factor">
-          <div class="k">Reserve the factor holds at any time<small>unchanged by invoicing speed; set by terms and advance rate</small></div>
-          <div class="v" id="r-reserve-now">$110,000</div>
-          <div class="v is-target" id="r-reserve-target">$110,000</div>
+          <div class="k">Reserve the factor holds on those invoices<small>the share not advanced, held until the customer pays</small></div>
+          <div class="v" id="r-reserve-now">$32,941</div>
+          <div class="v is-target" id="r-reserve-target">$2,353</div>
         </div>
       </div>
 
@@ -647,7 +647,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <div class="headline-card is-hidden" id="fee-card">
         <h3>Factoring fee you stop paying, per year</h3>
-        <div class="big" id="r-fee-saved">$52,000</div>
+        <div class="big" id="r-fee-saved">$61,176</div>
         <p>Only if you currently factor to bridge the office lag. The fee on the invoices you still factor does not change; the customer's clock is the customer's.</p>
       </div>
       </div>
@@ -660,7 +660,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <li>Billings are spread evenly across the month, so cash waiting equals monthly billings times days waiting divided by 30.</li>
           <li>The factoring fee accrues on invoice face value per 30 days outstanding and is prorated. Real agreements use tiers, minimums, and 10 or 15 day steps, so treat the fee lines as an order of magnitude.</li>
           <li>The "Invoice on day one" column changes one thing: the invoice goes out one day after the work is complete. Payment terms, late days, and the factor's rate are unchanged.</li>
-          <li>The factoring lines price only the slice of cash the office lag makes you bridge. They are zero if you do not factor.</li>
+          <li>The factoring lines price only the slice of cash the office lag makes you bridge. To raise that cash the factor advances only the advance rate, so the invoice face you factor is the cash divided by the advance rate. The fee accrues on that face, and the reserve is the rest of it. All three lines are zero if you do not factor.</li>
         </ul>
       </div>
   <p class="disclaimer">Not financial advice and not a factoring offer. This is arithmetic on the inputs above. Your factor's agreement and your customer's contract govern the real numbers.</p>
@@ -800,14 +800,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     var releaseDays = Math.max(0, lag - TARGET_LAG);
     var release = perDay * releaseDays;
 
-    // Fee on the bridged slice: that slice is outstanding all year, so it is
-    // rented for twelve 30-day periods at the per-30-day rate.
-    var feeNow = factoring ? officeNow * fee * 12 : 0;
-    var feeTarget = factoring ? officeTarget * fee * 12 : 0;
+    // CASH_FLOW_RESERVE_FIX (Gil, 2026-09-08): every factoring line is priced
+    // on the same slice. To raise the cash the office lag ties up, the factor
+    // advances only the advance rate, so the invoice face you must factor is
+    // the cash divided by the advance rate. The fee accrues on that face for
+    // twelve 30-day periods a year, and the reserve is the part of that face
+    // the factor holds until the customer pays. Both shrink with the lag.
+    var faceNow = factoring && advance > 0 ? officeNow / advance : 0;
+    var faceTarget = factoring && advance > 0 ? officeTarget / advance : 0;
+    var feeNow = faceNow * fee * 12;
+    var feeTarget = faceTarget * fee * 12;
     var grossMarginYear = billings * 12 * margin;
     var shareNow = grossMarginYear > 0 ? (feeNow / grossMarginYear) * 100 : 0;
     var shareTarget = grossMarginYear > 0 ? (feeTarget / grossMarginYear) * 100 : 0;
-    var reserve = factoring ? perDay * (terms + late) * (1 - advance) : 0;
+    var reserveNow = faceNow * (1 - advance);
+    var reserveTarget = faceTarget * (1 - advance);
 
     $("r-days-now").textContent = daysNow;
     $("r-days-target").textContent = daysTarget;
@@ -819,8 +826,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     $("r-fee-target").textContent = money.format(feeTarget);
     $("r-share-now").textContent = pct(shareNow);
     $("r-share-target").textContent = pct(shareTarget);
-    $("r-reserve-now").textContent = money.format(reserve);
-    $("r-reserve-target").textContent = money.format(reserve);
+    $("r-reserve-now").textContent = money.format(reserveNow);
+    $("r-reserve-target").textContent = money.format(reserveTarget);
     $("r-release").textContent = money.format(release);
     $("r-release-days").textContent = releaseDays;
     $("r-fee-saved").textContent = money.format(Math.max(0, feeNow - feeTarget));
