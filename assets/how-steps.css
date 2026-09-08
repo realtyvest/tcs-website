@@ -1,0 +1,75 @@
+/* HOW_STEPS_ACHIEVE (Gil, 2026-09-08): "How we work with you" reads as
+   progress being made. Each step is checked off as it scrolls into view: the
+   number badge flips to a filled orange disc, a check draws in, the card's
+   edge lights. When all six are checked, a completion line appears and the
+   Fit Call button gives one pulse. Transform and opacity only; reduced motion
+   shows every step checked. */
+#how .steps li { transition: border-color 0.4s ease, background-color 0.4s ease; }
+#how .steps li .hw-check {
+  position: absolute;
+  left: 14px;
+  top: 16px;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: #F26419;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0);
+  transition: transform 0.45s cubic-bezier(0.34, 1.45, 0.64, 1);
+  will-change: transform;
+}
+#how .steps li .hw-check svg { width: 14px; height: 14px; display: block; }
+#how .steps li .hw-check path {
+  fill: none;
+  stroke: #FFFFFF;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 22;
+  stroke-dashoffset: 22;
+  transition: stroke-dashoffset 0.35s ease 0.22s;
+}
+#how .steps li.is-done .hw-check { transform: scale(1); }
+#how .steps li.is-done .hw-check path { stroke-dashoffset: 0; }
+#how .steps li.is-done { border-color: rgba(242, 100, 25, 0.55); background: rgba(242, 100, 25, 0.06); }
+#how .steps li::before { transition: opacity 0.25s ease; }
+#how .steps li.is-done::before { opacity: 0; }
+
+/* Completion line: appears once all six are checked */
+#how .hw-done {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 18px 0 0;
+  font-family: var(--font-display, 'Barlow Condensed', sans-serif);
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #F26419;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+#how .hw-done .hw-done-bar {
+  flex: 1 1 auto;
+  height: 2px;
+  background: rgba(242, 100, 25, 0.5);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 0.2s;
+}
+#how.is-complete .hw-done { opacity: 1; transform: none; }
+#how.is-complete .hw-done .hw-done-bar { transform: scaleX(1); }
+@keyframes hwPulse {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+#how.is-complete .btn { animation: hwPulse 0.7s cubic-bezier(0.34, 1.2, 0.64, 1) 0.5s 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  #how .steps li .hw-check, #how .steps li .hw-check path, #how .hw-done, #how .hw-done .hw-done-bar { transition: none !important; }
+  #how.is-complete .btn { animation: none !important; }
+}
