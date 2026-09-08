@@ -238,7 +238,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   @media (min-width: 1025px) {
     .kpi-row { grid-template-columns: 1.4fr 1fr; align-items: stretch; }
     .kpi-cards { grid-template-columns: 1fr !important; align-content: stretch; }
-    #cash-chart { height: 120px; }
+    #cash-chart { height: 150px; }
   }
   @media (min-width: 1025px) and (max-width: 1440px) {
     .calculator-results .compare-row { padding: 7px 16px; }
@@ -254,18 +254,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .calculator-results .panel-title { margin-bottom: 6px; }
     .calculator-results .compare-row { padding: 6px 16px; }
     .calculator-results .compare-head { padding: 7px 16px; }
-    .calculator-results .kpi-cards .headline-card { padding: 9px 14px 10px; }
-    #cash-kpis .headline-card .big { font-size: 22px !important; }
-    #cash-chart { height: 90px; }
+    .calculator-results .kpi-cards .headline-card { padding: 7px 12px 8px; }
+    #cash-kpis .headline-card h3 { margin-bottom: 3px; }
+    #cash-kpis .headline-card .big { font-size: 20px !important; }
+    #cash-kpis .headline-card p { font-size: 11.5px !important; line-height: 1.25 !important; margin-top: 3px; }
+    .kpi-cards { gap: 8px !important; }
+    #cash-chart { height: 118px; }
     #cash-chart-card { padding: 9px 14px 6px; }
-    #cash-chart-card .cash-chart-note { font-size: 11px !important; line-height: 1.3 !important; margin-top: 4px; }
-    .calculator-results .kpi-cards .headline-card p { line-height: 1.3 !important; }
+    #cash-chart-card .cash-chart-note { display: none; }
+    .kpi-sub { margin-top: 8px; padding-top: 8px; }
+    .kpi-sub .v { font-size: 18px; }
   }
   @media (min-width: 1600px) and (max-height: 900px) {
     .calculator-results .compare-row { padding: 10px 20px; }
-    .calculator-results .kpi-cards .headline-card { padding: 14px 20px 16px; }
-    #cash-kpis .headline-card .big { font-size: 32px !important; }
-    #cash-chart { height: 136px; }
+    .calculator-results .kpi-cards .headline-card { padding: 11px 18px 12px; }
+    #cash-kpis .headline-card .big { font-size: 28px !important; }
+    #cash-kpis .headline-card p { font-size: 12.5px !important; line-height: 1.3 !important; }
+    #cash-chart { height: 130px; }
+    #cash-chart-card .cash-chart-note { display: none; }
   }
   @media (max-width: 1024px) {
     .kpi-cards { display: grid; gap: 16px; }
@@ -452,6 +458,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   .headline-card p { color: var(--text-light); font-size: 14px; margin-top: 8px; }
   .headline-card p b { color: var(--white); }
+  /* BOTTOM_LINE_KPI (Gil, 2026-09-08): the chart's bottom-line gap as a card,
+     in the same electric blue as the band it measures. */
+  .headline-card.is-bottom-line { border-color: var(--electric); background: rgba(42, 142, 255, 0.12); }
+  .headline-card.is-bottom-line .big { color: var(--electric); }
+  .kpi-sub { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 14px; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.10); }
+  .kpi-sub > div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .kpi-sub .k { font-family: var(--font-display); font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--muted); }
+  .kpi-sub .v { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: var(--orange); line-height: 1.05; font-variant-numeric: tabular-nums; }
+  .kpi-sub .s { font-size: 11.5px; color: var(--text-light); line-height: 1.3; }
+  .kpi-sub .s b { color: var(--white); }
+  #fee-card.is-hidden { display: none; }
+  .kpi-sub:has(#fee-card.is-hidden) { grid-template-columns: 1fr; }
   .headline-card.is-hidden { display: none; }
 
   .assumptions {
@@ -748,16 +766,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p class="cash-chart-note" id="chart-caption">Starting from your balances, the two bank lines separate by the cash released. That gap is available for the bottom line.</p>
       </div>
       <div class="kpi-cards" id="cash-kpis">
-      <div class="headline-card">
-        <h3>Cash released once, by invoicing the day the work is done</h3>
-        <div class="big" id="r-release">$173,333</div>
-        <p><b id="r-release-days">13</b> days of billings out of the office wait. It comes back once, when the lag closes.</p>
-      </div>
-
-      <div class="headline-card is-hidden" id="fee-card">
-        <h3>Factoring fee you stop paying, per year</h3>
-        <div class="big" id="r-fee-saved">$130,000</div>
-        <p>Only if you factor. The fee on the face you no longer need to run through the factor.</p>
+      <div class="headline-card is-bottom-line" id="bottom-line-card">
+        <h3>Cash for the bottom line, 7 months</h3>
+        <div class="big" id="r-bottom-line">$248,128</div>
+        <p id="r-bottom-line-note">The gap between the two bank lines on the chart.</p>
+        <div class="kpi-sub">
+          <div>
+            <span class="k">Released from the wait, once</span>
+            <span class="v" id="r-release">$173,333</span>
+            <span class="s"><b id="r-release-days">13</b> days of billings out of the office</span>
+          </div>
+          <div id="fee-card">
+            <span class="k">Factoring fees not paid</span>
+            <span class="v" id="r-fee-saved-7">$74,795</span>
+            <span class="s"><span id="r-fee-saved">$130,000</span> per year, only if you factor</span>
+          </div>
+        </div>
       </div>
       </div>
       </div>
@@ -1067,14 +1091,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     // between the scenarios where it is widest: bank lines (cash for the
     // bottom line) and receivable lines (receivable brought down).
     function measure(a1, a2, tAt, label, color, side) {
-      var xx = x(tAt), y1 = y(a1[tAt]), y2 = y(a2[tAt]);
+      var xx = Math.min(x(tAt), cssW - padR - 4), y1 = y(a1[tAt]), y2 = y(a2[tAt]);
       ctx.save();
       ctx.strokeStyle = "#FFFFFF"; ctx.lineWidth = 1.25; ctx.setLineDash([]);
       ctx.beginPath(); ctx.moveTo(xx, y1); ctx.lineTo(xx, y2); ctx.stroke();
       ctx.beginPath(); ctx.moveTo(xx - 5, y1); ctx.lineTo(xx + 5, y1); ctx.moveTo(xx - 5, y2); ctx.lineTo(xx + 5, y2); ctx.stroke();
       ctx.font = "700 11px Barlow, sans-serif"; ctx.textBaseline = "middle";
       var tw = ctx.measureText(label).width, ph = 18, pw = tw + 12;
-      var ly = (y1 + y2) / 2, lx = side === "left" ? xx - 8 - pw : xx + 8;
+      var ly = (y1 + y2) / 2, lx = side === "left" ? xx - 10 - pw : xx + 8;
       lx = Math.max(padL, Math.min(cssW - padR - pw, lx));
       ly = Math.max(padT + ph / 2, Math.min(cssH - padB - ph / 2, ly));
       ctx.fillStyle = "rgba(11,24,41,0.92)"; ctx.beginPath();
@@ -1090,10 +1114,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         var gb = tgt.cash[q] - now.cash[q]; if (gb > bestB + 0.5) { bestB = gb; bestBAt = q; }
         var ga = now.ar[q] - tgt.ar[q]; if (ga > bestA + 0.5) { bestA = ga; bestAAt = q; }
       }
-      if (bestA > 0) measure(tgt.ar, now.ar, Math.min(days - 2, Math.max(bestAAt, Math.round(days * 0.62))), "-" + fmtK(bestA) + " receivable", ORANGE, "left");
-      if (bestB > 0) measure(now.cash, tgt.cash, Math.min(days - 2, bestBAt), "+" + fmtK(bestB) + " for the bottom line", ELECTRIC, "left");
+      // Both measures sit at the far right, where the lines end, with the
+      // pills to their left, so nothing sits on top of the lines mid-chart.
+      var endA = now.ar[days] - tgt.ar[days], endB = tgt.cash[days] - now.cash[days];
+      if (endA > 0) measure(tgt.ar, now.ar, days, "-" + fmtK(endA) + " receivable", ORANGE, "left");
+      if (endB > 0) measure(now.cash, tgt.cash, days, "+" + fmtK(endB) + " for the bottom line", ELECTRIC, "left");
     }
     var cap = $("chart-caption");
+    $("r-bottom-line").textContent = money.format(gap);
+    $("r-fee-saved-7").textContent = money.format(feePart);
+    $("r-bottom-line-note").textContent = "The gap between the two bank lines on the chart.";
     var gapText = money.format(gap) + " gap is cash for the bottom line";
     if (m.factoring && feePart > 0) gapText += ": " + money.format(releasePart) + " released from the wait plus " + money.format(feePart) + " of factoring fees not paid over " + MONTHS + " months";
     if (cap) cap.textContent = "From " + money.format(m.bank0) + " in the bank and " + money.format(m.ar0) + " receivable: by month " + MONTHS + ", today's lag leaves " + money.format(now.cash[days]) + " in the bank and " + money.format(now.ar[days]) + " receivable. Invoicing on day one brings receivable down to " + money.format(tgt.ar[days]) + " and the bank up to " + money.format(tgt.cash[days]) + ". The " + gapText + ".";
