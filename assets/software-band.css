@@ -1,0 +1,36 @@
+/* SOFTWARE_BAND_LOCK (Gil, 2026-09-08): the "system doesn't stop at a
+   roadmap" block flies in from the right as you scroll, and an orange band
+   fills left to right across the space between it and the final CTA,
+   in proportion to the scroll. Transform and opacity only. */
+.software-band-section {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 0;
+}
+
+.software-band-copy {
+  will-change: transform, opacity;
+}
+
+.software-band {
+  display: block;
+  height: 88px;
+  margin-top: 56px;
+  background: var(--orange, #F26419);
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
+}
+
+@media (max-width: 820px) {
+  .software-band {
+    height: 56px;
+    margin-top: 36px;
+  }
+}
+
+/* No JS or reduced motion: final state, no movement. */
+html.no-js .software-band,
+html.software-band-static .software-band {
+  transform: none;
+}

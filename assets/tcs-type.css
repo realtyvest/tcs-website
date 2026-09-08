@@ -1,0 +1,37 @@
+/* TYPE_FLOOR_LOCK: one readable scale across every page (Gil, 2026-09-08:
+   "a good size font easy to read throughout"). Loaded after each page's own
+   styles. Floors, not overrides: max(floor, inherited) keeps larger sizes. */
+body { font-size: 18px; line-height: 1.65; }
+
+main p:not(.eyebrow):not(.meta-label):not(.video-slot-k):not(.article-meta):not(.post-meta):not(.disclaimer):not(.input-help):not(.footer-family):not(.footer-nap):not(.note):not(.scroll-hint):not(.spine-sub),
+main li, main dd, main dt, main blockquote, main td, main th, main label, main figcaption, main summary,
+article p:not(.eyebrow), article li,
+.article-container p, .article-container li,
+.feature-card p, .step p, .card p, .diff-item p, .solution-card p,
+.cta-section p, .cta-inner p, .hero p, .hero-sub, .lede,
+.faq-answer-text, .post-card p, .blog-cta-inner p,
+.states .helper, .steps-list li, .compare-row .k, .headline-card p, .assumptions li {
+  font-size: max(17px, 1em) !important;
+  line-height: 1.65;
+}
+
+/* Secondary text keeps a 15px floor. */
+.article-meta, .post-meta, .related-post-excerpt, .input-help, .disclaimer,
+.footer-tagline, .footer-links a, .footer-section a, .footer-section li, .footer-bottom, .footer-bottom p,
+.footer-family, .footer-nap, .subscribe-fallback, .tagline, .note, .footer-col a, .footer-contact,
+.mobile-menu-legal a, .tcs-mobile-menu-legal a, .post-card .read-more, .post-card .post-meta,
+.comparison-table th, .comparison-table td, .column-filters label, .input-group label, .input-value {
+  font-size: max(15px, 1em) !important;
+}
+
+/* Content headings inside cards and steps. */
+.feature-card h3, .step h4, .card h3, .solution-card h3, .diff-item h3,
+.post-card h2, .article-container h3, .faq-question, .states b, .steps-list b {
+  font-size: max(21px, 1em) !important;
+  line-height: 1.25;
+}
+.step h4::before { width: 32px !important; height: 32px !important; font-size: 15px !important; }
+
+/* Navigation and buttons. */
+nav .nav-links a, nav .links a, .nav-links a { font-size: 16px !important; }
+.btn, .btn-primary, .cta-button, .nav-cta, .hero-cta, .tcs-mobile-menu-cta, .mobile-menu-cta { font-size: max(16px, 1em) !important; }

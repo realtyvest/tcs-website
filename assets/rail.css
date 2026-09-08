@@ -56,14 +56,14 @@ body.menu-open .rail {
 
 .rail-logo svg {
   display: block;
-  width: 170px;
-  height: 52px;
+  width: 210px;
+  height: 64px;
   overflow: visible;
 }
 
 .rail-logo .tcs-wordmark {
-  width: 170px;
-  height: 52px;
+  width: 210px;
+  height: 64px;
 }
 
 /* HEADER_TRANSPARENT_LOCK: with the rail carrying the logo and the section
@@ -89,8 +89,18 @@ body.menu-open .rail {
   html.has-rail nav .nav-logo {
     display: none;
   }
-  html.has-rail nav .nav-links > li:not(:has(.nav-cta)) {
-    display: none;
+  /* NAV_MODULES_LOCK: the strip carries the module links beside the CTA
+     (section links live in the rail). Text shadow keeps them legible over
+     the b-roll with no bar behind them. */
+  html.has-rail nav .nav-links {
+    gap: 26px;
+  }
+  html.has-rail nav .nav-links a:not(.nav-cta) {
+    color: rgba(255, 255, 255, 0.86);
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.7);
+  }
+  html.has-rail nav .nav-links a:not(.nav-cta):hover {
+    color: #FFFFFF;
   }
   html.has-rail .hero {
     min-height: 100vh;
@@ -138,7 +148,7 @@ body.menu-open .rail {
   gap: 0;
   padding: 0 0 0 25px;
   font-family: var(--font-body, 'Barlow', sans-serif);
-  font-size: 12.8px;
+  font-size: 14px;
   line-height: 18px;
   font-weight: 700;
   letter-spacing: 0.1em;

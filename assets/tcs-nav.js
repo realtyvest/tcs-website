@@ -5,13 +5,24 @@
 
   var BREAKPOINT = 820;
 
-  var CANONICAL = [
+  /* NAV_MODULES_LOCK (Gil, 2026-09-08): module pages in every nav. */
+  var MODULES = [
+    { href: '/job-tracking.html', label: 'Job Tracking' },
+    { href: '/billing-automation.html', label: 'Billing' },
+    { href: '/crew-management.html', label: 'Crew Management' },
+    { href: '/job-costing.html', label: 'Job Costing' },
+    { href: '/map-to-invoice.html', label: 'Map to Invoice' },
+    { href: '/dig-documentation.html', label: 'Dig Documentation' }
+  ];
+  var COMPANY = [
     { href: '/#how', label: 'How it works' },
     { href: '/#proof', label: 'Proof' },
     { href: '/about.html', label: 'About' },
     { href: '/blog.html', label: 'Blog' },
     { href: '/faq.html', label: 'FAQ' }
   ];
+  /* Desktop list on inner pages: five modules plus About and Blog. */
+  var CANONICAL = MODULES.slice(0, 5).concat([COMPANY[2], COMPANY[3]]);
 
   function pad(n) {
     return n < 10 ? '0' + n : String(n);
@@ -70,13 +81,22 @@
       menuNav.className = 'tcs-mobile-menu-nav';
       menuNav.setAttribute('aria-label', 'Mobile navigation');
 
-      for (var j = 0; j < CANONICAL.length; j++) {
-        var item = CANONICAL[j];
-        var a = document.createElement('a');
-        a.className = 'tcs-mobile-menu-link';
-        a.href = item.href;
-        a.innerHTML = '<span class="n">' + pad(j + 1) + '</span><span>' + item.label + '</span>';
-        menuNav.appendChild(a);
+      var groups = [['Modules', MODULES], ['Company', COMPANY]];
+      var n = 0;
+      for (var g = 0; g < groups.length; g++) {
+        var label = document.createElement('span');
+        label.className = 'tcs-mobile-menu-group';
+        label.textContent = groups[g][0];
+        menuNav.appendChild(label);
+        var items = groups[g][1];
+        for (var j = 0; j < items.length; j++) {
+          var item = items[j];
+          var a = document.createElement('a');
+          a.className = 'tcs-mobile-menu-link';
+          a.href = item.href;
+          a.innerHTML = '<span class="n">' + pad(++n) + '</span><span>' + item.label + '</span>';
+          menuNav.appendChild(a);
+        }
       }
 
       var cta = document.createElement('a');

@@ -1,0 +1,45 @@
+/* OUTCOMES_STACK_LOCK (Gil, 2026-09-08): the outcome cards stack as you
+   scroll, bottom row first, like building blocks, each landing with an
+   orange fill that settles to an orange tint. Transform and opacity only. */
+.outcomes-list[data-outcomes-stack] li {
+  position: relative;
+  overflow: hidden;
+}
+
+.outcomes-list .oc-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--orange, #F26419);
+  transform: scaleX(0);
+  transform-origin: left center;
+  opacity: 1;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.outcomes-list .oc-text {
+  position: relative;
+  z-index: 1;
+}
+
+.outcomes-list li::before {
+  z-index: 1;
+}
+
+.outcomes-list li.is-set {
+  border-color: rgba(242, 100, 25, 0.55);
+}
+
+.outcomes-list li.is-set .oc-fill {
+  transform: none;
+  opacity: 0.2;
+}
+
+/* No JS or reduced motion: every card set, no movement. */
+html.outcomes-stack-static .outcomes-list li .oc-fill {
+  transform: none;
+  opacity: 0.2;
+}
+html.outcomes-stack-static .outcomes-list li {
+  border-color: rgba(242, 100, 25, 0.55);
+}

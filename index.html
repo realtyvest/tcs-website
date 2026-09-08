@@ -41,7 +41,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <script>document.documentElement.classList.add("rv-js");</script>
-<link rel="stylesheet" href="/assets/tcs-nav.css?v=menu8">
+<link rel="stylesheet" href="/assets/tcs-nav.css?v=menu9">
 
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -82,8 +82,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     font-family: var(--font-body);
     background: var(--navy);
     color: var(--white);
-    font-size: 1.0625rem;
-    line-height: 1.6;
+    font-size: 1.125rem;
+    line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
@@ -166,7 +166,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
 
   .nav-links a {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     color: var(--muted);
     text-decoration: none;
@@ -219,6 +219,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
      for a11y; JS drops it a frame before .open and restores it after the fade. */
   .mobile-menu {
     display: flex;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
@@ -334,6 +336,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
 
   .mobile-menu-link {
+    padding: 12px 0 !important;
     display: flex;
     align-items: baseline;
     justify-content: flex-start;
@@ -1274,6 +1277,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
     .nav-links { display: none; }
     .nav-hamburger { display: flex; }
+  }
+  @media (min-width: 821px) and (max-width: 1024px) {
+    .nav-links { gap: 14px; }
+    .nav-links a { font-size: 15px; }
+    .nav-links > li:nth-child(5) { display: none; }
     .nav-logo { max-width: min(320px, 82vw); }
     .nav-logo img {
       height: 56px;
@@ -1411,12 +1419,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   "areaServed": "US"
 }
 </script>
-  <link rel="stylesheet" href="/assets/workflow-transformation.css?v=hdr1">
+  <link rel="stylesheet" href="/assets/workflow-transformation.css?v=fill1">
   <link rel="stylesheet" href="/assets/phase2-motion.css">
   <link rel="stylesheet" href="/assets/paths.css?v=float2">
-  <link rel="stylesheet" href="/assets/homepage-spine.css?v=spine2">
+  <link rel="stylesheet" href="/assets/software-band.css?v=band1">
+  <link rel="stylesheet" href="/assets/outcomes-stack.css?v=stack1">
+  <link rel="stylesheet" href="/assets/homepage-spine.css?v=spine3">
   <link rel="stylesheet" href="/assets/reveal.css?v=rv7">
-  <link rel="stylesheet" href="/assets/rail.css?v=rail6">
+  <link rel="stylesheet" href="/assets/rail.css?v=rail7">
+  <link rel="stylesheet" href="/assets/tcs-type.css?v=type1">
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -1432,10 +1443,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </a>
 
   <ul class="nav-links">
-    <li><a href="#how">How it works</a></li>
-    <li><a href="#proof">Proof</a></li>
-    <li><a href="/about.html">About</a></li>
-    <li><a href="/blog.html">Blog</a></li>
+    <li><a href="/job-tracking.html">Job Tracking</a></li>
+    <li><a href="/billing-automation.html">Billing</a></li>
+    <li><a href="/crew-management.html">Crew Management</a></li>
+    <li><a href="/job-costing.html">Job Costing</a></li>
+    <li><a href="/map-to-invoice.html">Map to Invoice</a></li>
     <li><a href="/fit-call" class="nav-cta">Book a Fit Call</a></li>
   </ul>
 
@@ -1449,11 +1461,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <button type="button" class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">&times;</button>
   </div>
   <nav class="mobile-menu-nav" aria-label="Mobile navigation">
-    <a class="mobile-menu-link" href="#how"><span class="n">01</span><span>How it works</span></a>
-    <a class="mobile-menu-link" href="#proof"><span class="n">02</span><span>Proof</span></a>
-    <a class="mobile-menu-link" href="/about.html"><span class="n">03</span><span>About</span></a>
-    <a class="mobile-menu-link" href="/blog.html"><span class="n">04</span><span>Blog</span></a>
-    <a class="mobile-menu-link" href="/faq.html"><span class="n">05</span><span>FAQ</span></a>
+    <span class="mobile-menu-group">Modules</span>
+    <a class="mobile-menu-link" href="/job-tracking.html"><span class="n">01</span><span>Job Tracking</span></a>
+    <a class="mobile-menu-link" href="/billing-automation.html"><span class="n">02</span><span>Billing</span></a>
+    <a class="mobile-menu-link" href="/crew-management.html"><span class="n">03</span><span>Crew Management</span></a>
+    <a class="mobile-menu-link" href="/job-costing.html"><span class="n">04</span><span>Job Costing</span></a>
+    <a class="mobile-menu-link" href="/map-to-invoice.html"><span class="n">05</span><span>Map to Invoice</span></a>
+    <a class="mobile-menu-link" href="/dig-documentation.html"><span class="n">06</span><span>Dig Documentation</span></a>
+    <span class="mobile-menu-group">Company</span>
+    <a class="mobile-menu-link" href="#how"><span class="n">07</span><span>How it works</span></a>
+    <a class="mobile-menu-link" href="#proof"><span class="n">08</span><span>Proof</span></a>
+    <a class="mobile-menu-link" href="/about.html"><span class="n">09</span><span>About</span></a>
+    <a class="mobile-menu-link" href="/blog.html"><span class="n">10</span><span>Blog</span></a>
+    <a class="mobile-menu-link" href="/faq.html"><span class="n">11</span><span>FAQ</span></a>
     <a class="mobile-menu-cta" href="/fit-call">Book a Fit Call</a>
   </nav>
   <div class="mobile-menu-legal">
@@ -1513,7 +1533,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="hero-below">
       <p class="sub prose">Capture the work once in the field. Move production, photos, closeouts, job cost, and billing through one connected workflow, so the office isn’t rebuilding Tuesday’s job on Friday.</p>
       <div class="hero-actions">
-        <a class="btn btn-ghost" href="#how">See How the System Works</a>
+        <a class="btn btn-ghost" href="#path-construction">See How the System Works</a>
       </div>
     </div>
   </div>
@@ -1523,7 +1543,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="section section--alt" id="outcomes">
   <div class="section-inner">
     <h2 data-rv>What changes when the field is trusted</h2>
-    <ul class="outcomes-list" data-rv-rise-group>
+    <ul class="outcomes-list" data-outcomes-stack>
       <li>Faster, complete closeouts</li>
       <li>Less duplicate entry between portal, sheet, and invoice</li>
       <li>Earlier job-cost visibility</li>
@@ -1637,11 +1657,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </section>
 
 <!-- 7 · SOFTWARE SOFT -->
-<section class="section" id="software">
-  <div class="section-inner prose">
-    <h2 data-rv>The system doesn’t stop at a roadmap</h2>
-    <p class="sub" data-rv-lines="soft">We can implement the workflow and provide the software that runs it: field capture through invoice-ready, without making your office reconstruct the job.</p>
+<section class="section software-band-section" id="software" data-software-band>
+  <div class="section-inner prose software-band-copy" data-software-copy>
+    <h2>The system doesn’t stop at a roadmap</h2>
+    <p class="sub">We can implement the workflow and provide the software that runs it: field capture through invoice-ready, without making your office reconstruct the job.</p>
   </div>
+  <div class="software-band" data-software-bar aria-hidden="true"></div>
 </section>
 
 <!-- 8 · FINAL CTA -->
@@ -1678,16 +1699,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </footer>
 
-<script src="/assets/tcs-nav.js?v=menu9" defer></script>
+<script src="/assets/tcs-nav.js?v=menu10" defer></script>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="/assets/workflow-transformation.js?v=hdr1" defer></script>
 <script src="/assets/phase2-motion.js" defer></script>
 <script src="/assets/paths.js?v=snap3" defer></script>
-<script src="/assets/homepage-spine.js?v=spine1" defer></script>
+<script src="/assets/homepage-spine.js?v=spine2" defer></script>
+<script src="/assets/software-band.js?v=band1" defer></script>
+<script src="/assets/outcomes-stack.js?v=stack1" defer></script>
 <script src="/assets/reveal.js?v=rv7" defer></script>
-<script src="/assets/rail.js?v=rail6" defer></script>
+<script src="/assets/rail.js?v=rail7" defer></script>
 <script src="/assets/hero-video.js?v=broll3" defer></script>
 
 

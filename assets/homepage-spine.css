@@ -91,9 +91,37 @@
   margin-top: 2px;
 }
 
-/* Final step: office issues the invoice — anchor node in orange (marker) */
-#spine .spine-step--final .spine-num {
+/* SPINE_MARKER_LOCK (Gil, 2026-09-08): the orange node starts on step 1 and
+   moves down to the step nearest the reading line as you scroll. The line
+   fills in orange behind it. Transform and colour only. */
+#spine .spine-list::after {
+  content: "";
+  position: absolute;
+  left: 17px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: var(--orange);
+  transform: scaleY(var(--spine-progress, 0));
+  transform-origin: top center;
+  transition: transform 0.35s ease-out;
+}
+#spine .spine-num {
+  transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+#spine .spine-step.is-active .spine-num {
   border-color: var(--orange);
+  background: rgba(242, 100, 25, 0.14);
+  box-shadow: 0 0 0 5px rgba(242, 100, 25, 0.16), var(--shadow-card);
+  transform: scale(1.08);
+}
+#spine .spine-step.is-done .spine-num {
+  border-color: var(--orange);
+}
+@media (prefers-reduced-motion: reduce) {
+  #spine .spine-list::after { transition: none; }
+  #spine .spine-num { transition: none; }
+  #spine .spine-step.is-active .spine-num { transform: none; }
 }
 
 /* Optional packet line, nested under step 5 */
