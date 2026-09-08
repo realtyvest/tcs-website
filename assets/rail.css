@@ -61,24 +61,9 @@ body.menu-open .rail {
   overflow: visible;
 }
 
-.rail-logo-l1,
-.rail-logo-l2,
-.rail-logo-l3 {
-  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-  font-weight: 800;
-  font-size: 26px;
-  letter-spacing: 2px;
-  fill: #FFFFFF;
-}
-
-.rail-logo-l2 {
-  fill: var(--rail-electric);
-}
-
-.rail-logo-l3 {
-  font-weight: 700;
-  font-size: 23px;
-  fill: var(--muted, #8CA3BE);
+.rail-logo .tcs-wordmark {
+  width: 170px;
+  height: 52px;
 }
 
 /* HEADER_TRANSPARENT_LOCK: with the rail carrying the logo and the section

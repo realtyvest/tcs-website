@@ -200,6 +200,20 @@
     tcsChars(document);
   }
 
+  /* WORDMARK_EVERYWHERE_LOCK: the stacked wordmark (same as the homepage
+     rail) replaces the PNG in every page's top bar. Inline SVG text renders
+     in Barlow Condensed. Exposed as window.tcsWordmarkSVG for rail.js. */
+  var WORDMARK = '<svg class="tcs-wordmark" viewBox="0 0 260 80" role="img" aria-label="Telecom Contractor Solutions" focusable="false"><line x1="18" y1="78" x2="18" y2="20" stroke="#2A8EFF" stroke-width="4" stroke-linecap="round"/><line x1="21" y1="66" x2="36" y2="66" stroke="#2A8EFF" stroke-width="1.8" stroke-linecap="round" opacity="0.30"/><line x1="21" y1="54" x2="34" y2="54" stroke="#2A8EFF" stroke-width="1.8" stroke-linecap="round" opacity="0.48"/><line x1="21" y1="43" x2="36" y2="43" stroke="#2A8EFF" stroke-width="1.8" stroke-linecap="round" opacity="0.65"/><line x1="21" y1="32" x2="33" y2="32" stroke="#2A8EFF" stroke-width="1.8" stroke-linecap="round" opacity="0.82"/><polygon points="10,20 18,4 26,20" fill="#F26419"/><text x="52" y="28" class="tcs-wm-l1">TELECOM</text><text x="52" y="54" class="tcs-wm-l2">CONTRACTOR</text><text x="52" y="78" class="tcs-wm-l3">SOLUTIONS</text></svg>';
+  window.tcsWordmarkSVG = WORDMARK;
+
+  function initLogo() {
+    var link = document.querySelector('nav .nav-logo, nav a.logo, nav .logo');
+    if (!link || link.querySelector('.tcs-wordmark')) return;
+    link.innerHTML = WORDMARK;
+    link.className += (link.className ? ' ' : '') + 'tcs-wordmark-link';
+    if (!link.getAttribute('aria-label')) link.setAttribute('aria-label', 'Telecom Contractor Solutions, home');
+  }
+
   /* Scrolled nav state (homepage runs its own; toggling twice is harmless). */
   function initScrolled() {
     var nav = document.querySelector('nav');
@@ -246,6 +260,7 @@
   }
 
   function boot() {
+    initLogo();
     init();
     initScrolled();
     initChars();
