@@ -163,6 +163,43 @@
     });
   }
 
+  /* CHAR_SLIDE_LOCK: split a link label into characters with the
+     text-shadow double so hover slides the copy up (Own the Patch hover).
+     Exposed as window.tcsChars(root) so other modules can reuse it. */
+  function wrapChars(el) {
+    if (el.getAttribute('data-chars-done')) return;
+    var text = el.textContent;
+    el.textContent = '';
+    el.className += (el.className ? ' ' : '') + 'tcs-chars';
+    for (var i = 0; i < text.length; i++) {
+      var span = document.createElement('span');
+      span.textContent = text.charAt(i);
+      span.style.transitionDelay = (i * 0.012) + 's';
+      if (text.charAt(i) === ' ') span.style.whiteSpace = 'pre';
+      el.appendChild(span);
+    }
+    el.setAttribute('data-chars-done', '1');
+  }
+
+  function tcsChars(root) {
+    var scope = root || document;
+    var nodes = scope.querySelectorAll('[data-chars]');
+    for (var i = 0; i < nodes.length; i++) wrapChars(nodes[i]);
+  }
+  window.tcsChars = tcsChars;
+
+  function initChars() {
+    // Desktop nav text links (not the CTA button) and mobile menu labels.
+    var sel = '.nav-links a:not(.nav-cta), .mobile-menu-link > span:last-child, .tcs-mobile-menu-link > span:last-child';
+    var nodes = document.querySelectorAll(sel);
+    for (var i = 0; i < nodes.length; i++) {
+      var n = nodes[i];
+      if (n.children.length) continue; // only plain-text labels
+      n.setAttribute('data-chars', '');
+    }
+    tcsChars(document);
+  }
+
   /* Scrolled nav state (homepage runs its own; toggling twice is harmless). */
   function initScrolled() {
     var nav = document.querySelector('nav');
@@ -177,6 +214,7 @@
   function boot() {
     init();
     initScrolled();
+    initChars();
   }
 
   if (document.readyState === 'loading') {

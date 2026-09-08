@@ -1,0 +1,128 @@
+/*
+ * SIDE_RAIL_SPY_LOCK: fixed left rail with numbered section links + scrollspy
+ * (homepage, desktop >= 1025px). Compact tier shows the numbers with a sliding
+ * electric marker; labels appear on hover/focus, and always at >= 1560px where
+ * the page margin has room for them. Hidden while the mobile menu is open and
+ * under prefers-reduced-motion the marker simply jumps.
+ */
+.rail {
+  --rail-electric: var(--electric, #2A8EFF);
+  --rail-muted: var(--muted, #8CA3BE);
+  --rail-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  position: fixed;
+  left: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 90;
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 2px;
+  width: auto;
+  height: auto;
+  padding: 0 0 0 14px;
+  background: none;
+  border: 0;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+
+.rail.is-ready {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+body.menu-open .rail {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (min-width: 1025px) {
+  .rail {
+    display: flex;
+  }
+}
+
+.rail-marker {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 6px;
+  height: 6px;
+  background: var(--rail-electric);
+  transition: transform 0.45s cubic-bezier(0.625, 0.05, 0, 1), opacity 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.rail.has-active .rail-marker {
+  opacity: 1;
+}
+
+.rail-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+  font-family: var(--rail-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--rail-muted);
+  text-decoration: none;
+  opacity: 0.72;
+  transition: opacity 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+}
+
+.rail-link:hover,
+.rail-link:focus-visible,
+.rail-link.is-active {
+  opacity: 1;
+  color: #fff;
+}
+
+.rail-link.is-active .rail-idx {
+  color: var(--rail-electric);
+}
+
+.rail-link:focus-visible {
+  outline: 2px solid var(--rail-electric);
+  outline-offset: 3px;
+}
+
+.rail-idx {
+  flex: 0 0 auto;
+  width: 2.6em;
+}
+
+.rail-label {
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.rail-link:hover .rail-label,
+.rail-link:focus-visible .rail-label {
+  opacity: 1;
+  transform: none;
+}
+
+@media (min-width: 1560px) {
+  .rail-label {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rail,
+  .rail-marker,
+  .rail-link,
+  .rail-label {
+    transition: none;
+  }
+}
