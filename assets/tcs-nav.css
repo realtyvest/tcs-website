@@ -628,3 +628,48 @@ nav.tcs-bar ul.nav-links.active { display: none !important; }
   z-index: -1;
   pointer-events: none;
 }
+
+/* NAV_HOVER_RAIL (Gil, 2026-09-08): menu links get the site's marker on
+   hover, from the motion skill's link rule (colour change plus underline,
+   enter fast, exit slower): the characters roll up (tcs-chars) while an
+   orange rail draws in from the left under the word and the text goes
+   white. The Fit Call button lifts a pixel with its glow. */
+nav .nav-links a:not(.nav-cta):not(.tcs-cta):not(.cta-button) {
+  position: relative;
+}
+nav .nav-links a:not(.nav-cta):not(.tcs-cta):not(.cta-button)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: #F26419;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--tcs-dur-short, 0.25s) var(--tcs-ease-out);
+  pointer-events: none;
+}
+nav .nav-links a:not(.nav-cta):not(.tcs-cta):not(.cta-button):hover::after,
+nav .nav-links a:not(.nav-cta):not(.tcs-cta):not(.cta-button):focus-visible::after,
+nav .nav-links a[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+/* leaving: the rail withdraws to the right, a touch slower */
+nav .nav-links a:not(.nav-cta):not(.tcs-cta):not(.cta-button):not(:hover):not(:focus-visible)::after {
+  transform-origin: right center;
+  transition-duration: var(--tcs-dur-mid, 0.45s);
+}
+nav .nav-links a:not(.nav-cta):not(.tcs-cta):not(.cta-button):hover {
+  color: #FFFFFF !important;
+}
+nav .nav-links a.tcs-cta, nav .nav-links a.nav-cta, nav .nav-links a.cta-button {
+  transition: transform var(--tcs-dur-quick, 0.15s) var(--tcs-ease-out), background-color var(--tcs-dur-quick, 0.15s) ease, box-shadow var(--tcs-dur-short, 0.25s) ease !important;
+}
+nav .nav-links a.tcs-cta:hover, nav .nav-links a.nav-cta:hover, nav .nav-links a.cta-button:hover {
+  transform: translateY(-1px);
+}
+@media (prefers-reduced-motion: reduce) {
+  nav .nav-links a::after { transition: none !important; }
+  nav .nav-links a.tcs-cta:hover, nav .nav-links a.nav-cta:hover { transform: none !important; }
+}
