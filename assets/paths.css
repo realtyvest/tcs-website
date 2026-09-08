@@ -62,12 +62,6 @@
   color: var(--pth-electric);
 }
 
-.pth-chrome-route {
-  margin: 0;
-  font-family: var(--pth-mono);
-  font-size: 0.6875rem;
-  color: var(--pth-muted);
-}
 
 /* ===== Progress bar (story driver) ===== */
 .pth-bar {
@@ -83,7 +77,10 @@
 /* Track + fill run behind the dots and grow left->right (scaleX from JS). */
 .pth-bar-track {
   position: absolute;
-  top: 7px; /* aligns with dot centers */
+  /* PATH_BAR_CODES: labels sit above the dots, so the track aligns to the
+     dot centres from the bottom of the row. */
+  top: auto;
+  bottom: 6px;
   left: 8%;
   right: 8%;
   height: 2px;
@@ -97,7 +94,7 @@
   display: block;
   width: 100%;
   height: 100%;
-  background: var(--pth-electric);
+  background: var(--pth-orange);
   transform: scaleX(0);
   transform-origin: left center;
 }
@@ -123,22 +120,24 @@
 }
 
 .pth-bar-label {
-  font-family: var(--font-body, 'Barlow', sans-serif);
+  font-family: var(--pth-mono);
   font-size: 0.8125rem;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.25;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--pth-muted);
   transition: color 0.2s ease;
 }
 
-/* completed steps stay lit */
+/* completed steps stay lit orange as the scroll progresses */
 .pth-bar-step.is-complete .pth-bar-dot {
-  background: var(--pth-electric);
-  border-color: var(--pth-electric);
+  background: var(--pth-orange);
+  border-color: var(--pth-orange);
 }
 
 .pth-bar-step.is-complete .pth-bar-label {
-  color: var(--pth-text);
+  color: var(--pth-orange);
 }
 
 /* active step */
@@ -149,7 +148,7 @@
 }
 
 .pth-bar-step.is-active .pth-bar-label {
-  color: var(--white, #fff);
+  color: var(--pth-orange);
 }
 
 /* ===== Stage: one panel visible at a time (all breakpoints) ===== */

@@ -139,9 +139,6 @@
       '<p class="pth-chrome-id">' +
       cfg.chromeId +
       "</p>" +
-      '<p class="pth-chrome-route">' +
-      CODES.join(" → ") +
-      "</p>" +
       "</div>" +
       /* ---- Progress bar (story driver) ---- */
       '<ol class="pth-bar" data-pth-bar aria-label="Path progress">' +
@@ -152,10 +149,14 @@
         '<li class="pth-bar-step" data-pth-step="' +
         i +
         '">' +
-        '<span class="pth-bar-dot" aria-hidden="true"></span>' +
+        /* PATH_BAR_CODES (Gil, 2026-09-08): the route codes are the node
+           labels, centred above the line; the duplicate route line and the
+           small labels under the dots are gone. */
         '<span class="pth-bar-label">' +
-        step.label +
-        "</span></li>";
+        CODES[i] +
+        "</span>" +
+        '<span class="pth-bar-dot" aria-hidden="true"></span>' +
+        "</li>";
     });
 
     html += "</ol>" + '<div class="pth-stage" data-pth-stage>' +
