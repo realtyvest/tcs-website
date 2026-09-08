@@ -97,10 +97,19 @@
     // Bottom-left legal links (OTP rail-foot).
     var foot = document.createElement("div");
     foot.className = "rail-foot";
+    // Page links first (the top bar hides its links on this page at desktop),
+    // then the legal pair, OTP rail-foot order.
     foot.innerHTML =
-      '<a href="/terms" data-chars>Terms</a>' +
+      '<div class="rail-foot__pages">' +
+      '<a href="/about.html" data-chars>About</a>' +
+      '<a href="/blog.html" data-chars>Blog</a>' +
+      '<a href="/faq.html" data-chars>FAQ</a>' +
+      "</div>" +
       '<span class="rail-foot__rule" aria-hidden="true"></span>' +
-      '<a href="/privacy" data-chars>Privacy</a>';
+      '<div class="rail-foot__legal">' +
+      '<a href="/terms" data-chars>Terms</a>' +
+      '<a href="/privacy" data-chars>Privacy</a>' +
+      "</div>";
     rail.appendChild(foot);
     document.body.appendChild(rail);
 

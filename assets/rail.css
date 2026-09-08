@@ -81,10 +81,40 @@ body.menu-open .rail {
   fill: var(--muted, #8CA3BE);
 }
 
-/* The rail owns the logo on this page at desktop widths. */
+/* HEADER_TRANSPARENT_LOCK: with the rail carrying the logo and the section
+   links, the top bar on this page at desktop widths reduces to a fixed,
+   transparent strip holding only the Fit Call button (OTP header). The
+   opening then runs from the very top of the viewport. */
 @media (min-width: 1025px) {
+  html.has-rail {
+    scroll-padding-top: var(--nav-h, 64px);
+  }
+  html.has-rail nav,
+  html.has-rail nav.is-scrolled {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-bottom: 0;
+    justify-content: flex-end;
+  }
   html.has-rail nav .nav-logo {
-    visibility: hidden;
+    display: none;
+  }
+  html.has-rail nav .nav-links > li:not(:has(.nav-cta)) {
+    display: none;
+  }
+  html.has-rail .hero {
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding-top: calc(var(--nav-h, 64px) + 2.5rem);
+  }
+  html.has-rail .opening-panel {
+    min-height: 100vh;
+    min-height: 100dvh;
   }
 }
 
@@ -158,11 +188,17 @@ body.menu-open .rail {
   transform: none;
 }
 
-.rail-foot {
+.rail-foot,
+.rail-foot__pages,
+.rail-foot__legal {
   display: flex;
   flex-direction: column;
   gap: 4px;
   padding-left: 0;
+}
+
+.rail-foot__pages a {
+  opacity: 0.8;
 }
 
 .rail-foot a {
