@@ -256,8 +256,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .calculator-results .compare-head { padding: 7px 16px; }
     .calculator-results .kpi-cards .headline-card { padding: 9px 14px 10px; }
     #cash-kpis .headline-card .big { font-size: 22px !important; }
-    #cash-chart { height: 104px; }
-    #cash-chart-card { padding: 10px 14px 9px; }
+    #cash-chart { height: 96px; }
+    #cash-chart-card { padding: 9px 14px 6px; }
   }
   @media (min-width: 1600px) and (max-height: 900px) {
     .calculator-results .compare-row { padding: 10px 20px; }
@@ -600,6 +600,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
 
       <div class="input-group">
+        <label for="bank">Bank balance today</label>
+        <div class="input-wrapper">
+          <input type="range" id="bank" min="0" max="2000000" step="10000" value="250000" aria-describedby="bank-help">
+          <div class="input-value" id="bank-value">$250,000</div>
+        </div>
+        <p class="input-help" id="bank-help">Operating cash on hand. The chart starts here.</p>
+      </div>
+
+      <div class="input-group">
+        <label for="ar">Receivable today</label>
+        <div class="input-wrapper">
+          <input type="range" id="ar" min="0" max="3000000" step="10000" value="600000" aria-describedby="ar-help">
+          <div class="input-value" id="ar-value">$600,000</div>
+        </div>
+        <p class="input-help" id="ar-help">Work done and not yet paid, invoiced or not. The chart starts here too.</p>
+      </div>
+
+      <div class="input-group">
         <label for="lag">Days from work done to invoice sent</label>
         <div class="input-wrapper">
           <input type="range" id="lag" min="1" max="45" step="1" value="14" aria-describedby="lag-help">
@@ -716,15 +734,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="kpi-row">
       <div class="cash-chart-card" id="cash-chart-card">
         <div class="cash-chart-head">
-          <h3>Cash vs receivable vs margin, <span id="chart-days">7</span> months</h3>
+          <h3>From your balances today, <span id="chart-days">7</span> months out</h3>
           <ul class="cash-chart-legend" aria-hidden="true">
-            <li><i class="sw sw-target"></i>Cash in bank</li>
-            <li><i class="sw sw-now sw-dash"></i>Receivable</li>
-            <li><i class="sw sw-white sw-dot"></i>Cumulative gross margin</li>
+            <li><i class="sw sw-now"></i>Bank, today's lag</li>
+            <li><i class="sw sw-target"></i>Bank, invoice on day one</li>
+            <li><i class="sw sw-now sw-dash"></i>Receivable, today's lag</li>
+            <li><i class="sw sw-target sw-dash"></i>Receivable, day one</li>
           </ul>
         </div>
-        <canvas id="cash-chart" width="600" height="220" role="img" aria-label="Cash in bank, receivable, and cumulative gross margin over seven months, with the office lag closing in month three"></canvas>
-        <p class="cash-chart-note" id="chart-caption">Cash bottoms while receivable peaks, then recovers once the invoice goes out on day one.</p>
+        <canvas id="cash-chart" width="600" height="220" role="img" aria-label="Bank balance and receivable over seven months from your balances today, with today's lag and with the invoice going out on day one"></canvas>
+        <p class="cash-chart-note" id="chart-caption">Starting from your balances, the two bank lines separate by the cash released. That gap is available for the bottom line.</p>
       </div>
       <div class="kpi-cards" id="cash-kpis">
       <div class="headline-card">
@@ -854,7 +873,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   "use strict";
   var $ = function (id) { return document.getElementById(id); };
   var inputs = {
-    billings: $("billings"), lag: $("lag"), terms: $("terms"), late: $("late"),
+    billings: $("billings"), bank: $("bank"), ar: $("ar"), lag: $("lag"), terms: $("terms"), late: $("late"),
     margin: $("margin"), factor: $("factor"), share: $("share"), fee: $("fee"), advance: $("advance")
   };
   var money = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
@@ -873,6 +892,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     $("share-value").textContent = pct(share * 100);
     $("billings-value").textContent = money.format(billings);
+    $("bank-value").textContent = money.format(+inputs.bank.value);
+    $("ar-value").textContent = money.format(+inputs.ar.value);
     $("lag-value").textContent = lag + (lag === 1 ? " day" : " days");
     $("terms-value").textContent = "Net " + terms;
     $("late-value").textContent = late + (late === 1 ? " day" : " days");
@@ -928,7 +949,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     $("r-release").textContent = money.format(release);
     $("r-release-days").textContent = releaseDays;
     $("r-fee-saved").textContent = money.format(Math.max(0, feeNow - feeTarget));
-    drawChart({ perDay: perDay, lag: lag, target: TARGET_LAG, cust: custDays, margin: margin, cost: 1 - margin });
+    drawChart({ perDay: perDay, lag: lag, target: TARGET_LAG, cust: custDays, margin: margin, cost: 1 - margin, bank0: +inputs.bank.value, ar0: +inputs.ar.value });
 
     $("ls-days-now").textContent = daysNow;
     $("ls-days-target").textContent = daysTarget;
@@ -953,35 +974,37 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
      months, for today's lag and for invoicing on day one. Same arithmetic as
      the table: a dollar of work is collected lag + customer clock days later. */
   var chartCanvas = $("cash-chart");
-  /* CASH_STORY_CHART (Gil, 2026-09-08): one timeline, seven months. The
-     first three months run at today's office lag; at the end of month three
-     the invoice starts going out on day one. Cash in bank dips while the
-     receivable balloons, bottoms out, then recovers as the wait shortens.
-     Cumulative gross margin climbs steadily underneath. Work is spread evenly,
-     a day of work is paid lag + customer clock days later, and the cost of
-     the work leaves the bank the day it is done. Starting cash is 1.5x the
-     cost the business must fund for today's wait, so the dip is visible
-     without the account going to zero. */
-  var MONTHS = 7, SWITCH_MONTH = 3;
-  function simulate(m) {
-    var days = MONTHS * 30, sw = SWITCH_MONTH * 30;
-    var paidOn = new Array(days + 1);
-    for (var d = 0; d <= days; d++) paidOn[d] = d + (d < sw ? m.lag : m.target) + m.cust;
-    var startCash = m.perDay * m.cost * (m.lag + m.cust) * 1.5;
-    var cash = [], ar = [], gm = [];
-    var collected = 0, owed = 0;
+  /* CASH_SCENARIO_CHART (Gil, 2026-09-08): start from the bank balance and
+     receivable the business actually has today and play the next seven months
+     two ways: with today's office lag, and with the invoice going out on day
+     one. Receivable comes down and cash goes up by the same amount; the gap
+     between the two bank lines is cash available for the bottom line.
+     Arithmetic: work is spread evenly and its cost leaves the bank the day it
+     is done. Today's receivable splits into the part already invoiced (paid
+     evenly over the customer clock) and the part still in the office (today's
+     lag: invoiced over the coming lag days, then paid on the customer clock;
+     day one: invoiced now, paid on the customer clock). New work is paid
+     lag + customer clock days after it is done. */
+  var MONTHS = 7;
+  function simulate(m, lagUsed) {
+    var days = MONTHS * 30, wait = lagUsed + m.cust;
+    var invoicedShare = m.cust / (m.lag + m.cust);
+    var arInv = m.ar0 * invoicedShare, arUnb = m.ar0 - arInv;
+    var unbStart = lagUsed === m.lag ? m.lag : 1;   // when the unbilled part starts paying
+    var cash = [], ar = [];
     for (var t = 0; t <= days; t++) {
-      collected = 0; owed = 0;
-      for (var s2 = 0; s2 <= t; s2++) { if (paidOn[s2] <= t) collected++; else owed++; }
-      cash.push(startCash + m.perDay * collected - m.perDay * m.cost * t);
-      ar.push(m.perDay * owed);
-      gm.push(m.perDay * m.margin * t);
+      var paidInv = arInv * Math.min(1, t / m.cust);
+      var paidUnb = arUnb * Math.max(0, Math.min(1, (t - unbStart) / m.cust));
+      var newPaid = m.perDay * Math.max(0, t - wait);
+      var newOwed = m.perDay * Math.min(t, wait);
+      cash.push(m.bank0 + paidInv + paidUnb + newPaid - m.perDay * m.cost * t);
+      ar.push((arInv - paidInv) + (arUnb - paidUnb) + newOwed);
     }
-    return { days: days, sw: sw, cash: cash, ar: ar, gm: gm };
+    return { days: days, cash: cash, ar: ar };
   }
   function drawChart(m) {
     if (!chartCanvas || !chartCanvas.getContext) return;
-    var sim = simulate(m), days = sim.days;
+    var now = simulate(m, m.lag), tgt = simulate(m, m.target), days = now.days;
     var cssW = chartCanvas.clientWidth || 600, cssH = chartCanvas.clientHeight || 200;
     var dpr = window.devicePixelRatio || 1;
     if (chartCanvas.width !== Math.round(cssW * dpr) || chartCanvas.height !== Math.round(cssH * dpr)) {
@@ -990,7 +1013,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     var ctx = chartCanvas.getContext("2d");
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, cssW, cssH);
-    var all = sim.cash.concat(sim.ar, sim.gm);
+    var all = now.cash.concat(now.ar, tgt.cash, tgt.ar);
     var lo = Math.min(0, Math.min.apply(null, all)), hi = Math.max.apply(null, all);
     if (hi === lo) hi = lo + 1;
     var padL = 54, padR = 10, padT = 8, padB = 22;
@@ -1006,33 +1029,38 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       ctx.textAlign = "right"; ctx.textBaseline = "middle"; ctx.fillText(fmtK(v), padL - 6, yy);
     }
     if (lo < 0) { ctx.strokeStyle = "rgba(255,255,255,0.28)"; ctx.beginPath(); ctx.moveTo(padL, y(0)); ctx.lineTo(cssW - padR, y(0)); ctx.stroke(); }
-    // switch marker: the invoice starts going out on day one
-    ctx.setLineDash([3, 3]); ctx.strokeStyle = "rgba(255,255,255,0.35)"; ctx.beginPath(); ctx.moveTo(x(sim.sw), padT); ctx.lineTo(x(sim.sw), cssH - padB); ctx.stroke(); ctx.setLineDash([]);
-    ctx.textAlign = "left"; ctx.textBaseline = "top"; ctx.fillStyle = "rgba(195,210,228,0.9)"; ctx.fillText("invoice on day one", x(sim.sw) + 5, padT + 2);
-    ctx.fillStyle = "rgba(140,163,190,0.9)"; ctx.textBaseline = "top";
+    ctx.textBaseline = "top";
     for (var mo = 0; mo <= MONTHS; mo++) {
       ctx.textAlign = mo === 0 ? "left" : mo === MONTHS ? "right" : "center";
-      var show = cssW > 420 ? true : (mo === 0 || mo % 2 === 0); // narrow: start, 2, 4, 6
-      if (show) ctx.fillText(mo === 0 ? "start" : "mo " + mo, x(mo * 30), cssH - padB + 6);
+      var show = cssW > 420 ? true : (mo === 0 || mo % 2 === 0);
+      if (show) ctx.fillText(mo === 0 ? "today" : "mo " + mo, x(mo * 30), cssH - padB + 6);
     }
     var upTo = Math.max(1, Math.round(chartProgress() * days));
+    var ORANGE = "#F26419", ELECTRIC = "#2A8EFF";
+    // the gap between the two bank lines: cash available for the bottom line
+    ctx.beginPath();
+    for (var a = 0; a <= upTo; a++) { if (a === 0) ctx.moveTo(x(a), y(tgt.cash[a])); else ctx.lineTo(x(a), y(tgt.cash[a])); }
+    for (var b2 = upTo; b2 >= 0; b2--) ctx.lineTo(x(b2), y(now.cash[b2]));
+    ctx.closePath(); ctx.fillStyle = "rgba(42,142,255,0.14)"; ctx.fill();
     function line(arr, color, dash, width) {
       ctx.beginPath(); ctx.setLineDash(dash); ctx.lineWidth = width; ctx.strokeStyle = color;
       for (var t = 0; t <= upTo; t++) { if (t === 0) ctx.moveTo(x(t), y(arr[t])); else ctx.lineTo(x(t), y(arr[t])); }
       ctx.stroke(); ctx.setLineDash([]);
       ctx.fillStyle = color;
-      for (var mm = 1; mm <= MONTHS; mm++) { var tt = mm * 30; if (tt <= upTo) { ctx.beginPath(); ctx.arc(x(tt), y(arr[tt]), 3, 0, Math.PI * 2); ctx.fill(); } }
+      for (var mm = 1; mm <= MONTHS; mm++) { var tt = mm * 30; if (tt <= upTo) { ctx.beginPath(); ctx.arc(x(tt), y(arr[tt]), 2.5, 0, Math.PI * 2); ctx.fill(); } }
     }
-    var ORANGE = "#F26419", ELECTRIC = "#2A8EFF", WHITE = "#C3D2E4";
-    line(sim.gm, WHITE, [2, 4], 2);
-    line(sim.ar, ORANGE, [5, 4], 2);
-    line(sim.cash, ELECTRIC, [], 2.5);
-    // narrative caption from the same numbers
-    var minCash = Infinity, minAt = 0, peakAr = -Infinity, peakAt = 0;
-    for (var k = 0; k <= days; k++) { if (sim.cash[k] < minCash) { minCash = sim.cash[k]; minAt = k; } if (sim.ar[k] > peakAr) { peakAr = sim.ar[k]; peakAt = k; } }
-    var monthOf = function (d2) { return Math.max(1, Math.ceil(d2 / 30)); };
+    line(now.ar, ORANGE, [5, 4], 1.75);
+    line(tgt.ar, ELECTRIC, [5, 4], 1.75);
+    line(now.cash, ORANGE, [], 2.5);
+    line(tgt.cash, ELECTRIC, [], 2.5);
+    var gap = tgt.cash[days] - now.cash[days];
+    if (upTo >= days && gap > 0) {
+      ctx.font = "700 11px Barlow, sans-serif"; ctx.fillStyle = "#FFFFFF"; ctx.textAlign = "right"; ctx.textBaseline = "bottom";
+      var gy = (y(tgt.cash[days]) + y(now.cash[days])) / 2;
+      ctx.fillText("+" + fmtK(gap) + " for the bottom line", x(days) - 2, Math.max(padT + 12, gy - 4));
+    }
     var cap = $("chart-caption");
-    if (cap) cap.textContent = "Cash bottoms at " + money.format(minCash) + " in month " + monthOf(minAt) + " and recovers to " + money.format(sim.cash[days]) + " by month " + MONTHS + " once the invoice goes out on day one. Receivable falls from a peak of " + money.format(peakAr) + " to " + money.format(sim.ar[days]) + ". Cumulative gross margin reaches " + money.format(sim.gm[days]) + ".";
+    if (cap) cap.textContent = "From " + money.format(m.bank0) + " in the bank and " + money.format(m.ar0) + " receivable: by month " + MONTHS + ", today's lag leaves " + money.format(now.cash[days]) + " in the bank and " + money.format(now.ar[days]) + " receivable. Invoicing on day one brings receivable down to " + money.format(tgt.ar[days]) + " and the bank up to " + money.format(tgt.cash[days]) + ". The " + money.format(gap) + " gap is cash for the bottom line.";
     $("chart-days").textContent = MONTHS;
   }
   var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
