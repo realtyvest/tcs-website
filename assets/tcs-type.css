@@ -3,8 +3,10 @@
    styles. Floors, not overrides: max(floor, inherited) keeps larger sizes. */
 body { font-size: 18px; line-height: 1.65; }
 
-main p:not(.eyebrow):not(.meta-label):not(.video-slot-k):not(.article-meta):not(.post-meta):not(.disclaimer):not(.input-help):not(.footer-family):not(.footer-nap):not(.note):not(.scroll-hint):not(.spine-sub),
-main li, main dd, main dt, main blockquote, main td, main th, main label, main figcaption, main summary,
+/* The workflow card (.wt) is a diagram, not body copy: its own stylesheet
+   sizes it per breakpoint, so it is exempt (WT_MOBILE_FIT, 2026-09-08). */
+main p:not(.eyebrow):not(.meta-label):not(.video-slot-k):not(.article-meta):not(.post-meta):not(.disclaimer):not(.input-help):not(.footer-family):not(.footer-nap):not(.note):not(.scroll-hint):not(.spine-sub):not(.wt-chrome):not(.wt-callout):not(.wt-closing):not(.wt-list-label):not(.wt-tagline),
+main li:not(.wt-card), main dd, main dt, main blockquote, main td, main th, main label, main figcaption, main summary,
 article p:not(.eyebrow), article li,
 .article-container p, .article-container li,
 .feature-card p, .step p, .card p, .diff-item p, .solution-card p,

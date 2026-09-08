@@ -379,7 +379,7 @@
     align-items: start;
   }
   .wt.is-story .wt-card--current {
-    font-size: 0.9375rem;
+    font-size: 1.0625rem;
     line-height: 1.35;
     padding: 14px 16px;
     min-height: 84px;
@@ -420,17 +420,17 @@
     min-height: 52px;
     max-height: 120px;
     padding: 12px 18px;
-    font-size: 1.0625rem;
+    font-size: 1.125rem;
   }
   .wt.is-story .wt-col--target .wt-callouts,
   .wt.is-story .wt-col--target .wt-closing {
     flex: 0 0 auto;
   }
   .wt.is-story .wt-list-label {
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
   }
   .wt.is-story .wt-callout {
-    font-size: 0.875rem;
+    font-size: 1rem;
   }
   .wt.is-story .wt-closing {
     font-size: 1.125rem;
@@ -533,7 +533,7 @@
     align-items: start;
   }
   .wt.is-story .wt-card--current {
-    font-size: 0.625rem;
+    font-size: 0.75rem;
     line-height: 1.25;
     padding: 7px 7px;
     gap: 6px;
@@ -568,11 +568,16 @@
     gap: 8px;
   }
   .wt.is-story .wt-card--target {
-    font-size: 0.6875rem;
+    font-size: 0.8125rem;
     line-height: 1.3;
-    padding: 8px 9px;
+    padding: 9px 10px;
     will-change: transform, opacity;
   }
+  .wt.is-story .wt-chrome { font-size: 0.75rem; }
+  .wt.is-story .wt-list-label { font-size: 0.75rem; }
+  .wt.is-story .wt-callout { font-size: 0.75rem; }
+  .wt.is-story .wt-closing { font-size: 0.9375rem; }
+  .wt.is-story .wt-tagline { font-size: 1.375rem; }
   .wt.is-story .wt-col--target .wt-callouts {
     position: absolute;
     left: 0;
