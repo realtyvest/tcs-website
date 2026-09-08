@@ -1,0 +1,67 @@
+/* TCS_STORY (Gil, 2026-09-08): every inner page tells its story on scroll.
+   Shared, zero-dependency reveals for the blocks all pages are built from:
+   headings draw an orange rail, copy and cards rise into place as they
+   arrive, long reads get a reading-progress line under the bar.
+   RENDER-SAFE: nothing is hidden until the visitor's first scroll, and only
+   elements below the fold at that moment are armed. Reduced motion shows
+   everything in its final state. Transform and opacity only. */
+
+/* Reading progress line (article pages) */
+.tcs-story-progress {
+  position: fixed;
+  left: 0;
+  top: var(--tcs-nav-h, 64px);
+  height: 3px;
+  width: 100%;
+  z-index: 999;
+  pointer-events: none;
+  background: transparent;
+}
+.tcs-story-progress > span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: #F26419;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* Heading rail: a short orange line that draws in under each section heading */
+.st-rail {
+  position: relative;
+}
+.st-rail::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 48px;
+  height: 3px;
+  background: #F26419;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) 0.12s;
+}
+.st-rail.st-in::after { transform: scaleX(1); }
+.st-rail.st-center::after { left: 50%; margin-left: -24px; transform-origin: center; }
+
+/* Rise: copy and cards */
+html.tcs-story-armed .st-rise {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.55s ease, transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition-delay: calc(var(--st-i, 0) * 80ms);
+  will-change: transform, opacity;
+}
+html.tcs-story-armed .st-rise.st-in {
+  opacity: 1;
+  transform: none;
+}
+/* Cards get a little more travel and a border glow as they land */
+html.tcs-story-armed .st-card { transform: translateY(34px); }
+.st-card.st-in { border-color: rgba(42, 142, 255, 0.35); }
+
+@media (prefers-reduced-motion: reduce) {
+  html.tcs-story-armed .st-rise { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .st-rail::after { transform: scaleX(1) !important; transition: none !important; }
+}
