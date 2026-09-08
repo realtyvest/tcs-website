@@ -89,18 +89,8 @@
     });
     top.appendChild(nav);
 
-    // Bottom-left legal links (OTP rail-foot).
-    var foot = document.createElement("div");
-    foot.className = "rail-foot";
-    // Page links only (the top bar hides its links on this page at desktop).
-    // Terms and Privacy stay in the page footer; Gil called them redundant here.
-    foot.innerHTML =
-      '<div class="rail-foot__pages">' +
-      '<a href="/about.html" data-chars>About</a>' +
-      '<a href="/blog.html" data-chars>Blog</a>' +
-      '<a href="/faq.html" data-chars>FAQ</a>' +
-      "</div>";
-    rail.appendChild(foot);
+    // RAIL_FOOT_REMOVED (Gil, 2026-09-08): About, Blog and FAQ were redundant
+    // bottom-left; the top bar menu and the page footer carry them.
     document.body.appendChild(rail);
 
     if (typeof window.tcsChars === "function") window.tcsChars(rail);

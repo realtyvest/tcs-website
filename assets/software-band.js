@@ -16,7 +16,7 @@
   }
   gsap.registerPlugin(ScrollTrigger);
 
-  gsap.set(copy, { x: 120, autoAlpha: 0 });
+  gsap.set(copy, { x: 220, autoAlpha: 0 });
   gsap.set(bar, { scaleX: 0 });
 
   var tl = gsap.timeline({
@@ -28,8 +28,8 @@
       invalidateOnRefresh: true
     }
   });
-  // The road fills left to right first, so the copy (navy on orange) only
-  // lands once there is orange under it. Both settle together at the end.
-  tl.to(bar, { scaleX: 1, duration: 0.7, ease: "none" }, 0)
-    .to(copy, { x: 0, autoAlpha: 1, duration: 0.5, ease: "power2.out" }, 0.45);
+  // The copy rides in with the road: same start, same length, so the words
+  // arrive on the orange as it fills. Both settle together at the end.
+  tl.to(bar, { scaleX: 1, duration: 0.75, ease: "power1.out" }, 0)
+    .to(copy, { x: 0, autoAlpha: 1, duration: 0.75, ease: "power1.out" }, 0);
 })();
