@@ -2,3 +2,8 @@ RewriteEngine On
 RewriteRule ^fit-call$ /fit-call/ [R=301,L]
 RewriteRule ^fit-call\.html$ /fit-call/ [R=301,L]
 RewriteRule ^book\.html$ /fit-call/ [R=301,L]
+RewriteRule ^privacy\.html$ /privacy/ [R=301,L]
+RewriteRule ^terms\.html$ /terms/ [R=301,L]
+RewriteRule ^tos/?$ /terms/ [R=301,L]
+
+ErrorDocument 404 /404.html
