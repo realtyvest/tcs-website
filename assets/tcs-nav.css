@@ -355,3 +355,17 @@ a.tcs-chars:focus-visible span,
   .tcs-sweep-fill { transition: none; }
   .tcs-sweep:active { transform: none; }
 }
+
+/* LOGO_SIZE_LOCK: OTP-sized logo (about 30px tall) in the top bar. */
+nav .nav-logo img {
+  height: 32px;
+  max-height: 32px;
+  width: auto;
+}
+
+@media (max-width: 820px) {
+  nav .nav-logo img {
+    height: 30px;
+    max-height: 30px;
+  }
+}

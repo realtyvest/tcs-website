@@ -1,27 +1,28 @@
 /*
- * SIDE_RAIL_SPY_LOCK: fixed left rail with numbered section links + scrollspy
- * (homepage, desktop >= 1025px). Compact tier shows the numbers with a sliding
- * electric marker; labels appear on hover/focus, and always at >= 1560px where
- * the page margin has room for them. Hidden while the mobile menu is open and
- * under prefers-reduced-motion the marker simply jumps.
+ * SIDE_RAIL_SPY_LOCK (OTP-matched): fixed left column on the homepage at
+ * >= 1025px. Links start 40px under the nav at x=51, 12.8px bold uppercase
+ * with 0.1em tracking on a 27px row pitch, numbers at 66%, rows at 62% until
+ * hovered or active. A 14px electric marker sits at x=26 beside the active
+ * row. Legal links sit bottom-left. The page content is offset to 264px on
+ * the homepage so the column never collides (see index.html). Hidden while
+ * the mobile menu is open; reduced motion drops the transitions.
  */
 .rail {
   --rail-electric: var(--electric, #2A8EFF);
-  --rail-muted: var(--muted, #8CA3BE);
-  --rail-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --rail-text: #FFFFFF;
+  --rail-muted: rgba(255, 255, 255, 0.66);
   position: fixed;
-  left: 22px;
-  top: 50%;
-  transform: translateY(-50%);
+  left: 26px;
+  top: calc(var(--nav-h, 64px) + 40px);
+  bottom: 24px;
   z-index: 90;
   display: none;
   flex-direction: column;
+  justify-content: space-between;
   align-items: flex-start;
-  justify-content: flex-start;
-  gap: 2px;
   width: auto;
   height: auto;
-  padding: 0 0 0 14px;
+  padding: 0;
   background: none;
   border: 0;
   opacity: 0;
@@ -45,12 +46,19 @@ body.menu-open .rail {
   }
 }
 
+.rail-nav {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
 .rail-marker {
   position: absolute;
   left: 0;
-  top: 0;
-  width: 6px;
-  height: 6px;
+  top: 2px;
+  width: 14px;
+  height: 14px;
   background: var(--rail-electric);
   transition: transform 0.45s cubic-bezier(0.625, 0.05, 0, 1), opacity 0.3s ease;
   opacity: 0;
@@ -64,17 +72,19 @@ body.menu-open .rail {
 .rail-link {
   position: relative;
   display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 5px 0;
-  font-family: var(--rail-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.12em;
+  align-items: baseline;
+  gap: 0;
+  padding: 0 0 0 25px;
+  font-family: var(--font-body, 'Barlow', sans-serif);
+  font-size: 12.8px;
+  line-height: 18px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--rail-muted);
+  color: var(--rail-text);
   text-decoration: none;
-  opacity: 0.72;
-  transition: opacity 0.2s ease, color 0.2s ease;
+  opacity: 0.62;
+  transition: opacity 0.2s ease;
   white-space: nowrap;
 }
 
@@ -82,11 +92,6 @@ body.menu-open .rail {
 .rail-link:focus-visible,
 .rail-link.is-active {
   opacity: 1;
-  color: #fff;
-}
-
-.rail-link.is-active .rail-idx {
-  color: var(--rail-electric);
 }
 
 .rail-link:focus-visible {
@@ -96,33 +101,54 @@ body.menu-open .rail {
 
 .rail-idx {
   flex: 0 0 auto;
-  width: 2.6em;
+  width: 27px;
+  color: var(--rail-muted);
+  font-weight: 700;
 }
 
 .rail-label {
-  opacity: 0;
-  transform: translateX(-6px);
-  transition: opacity 0.25s ease, transform 0.25s ease;
-}
-
-.rail-link:hover .rail-label,
-.rail-link:focus-visible .rail-label {
   opacity: 1;
   transform: none;
 }
 
-@media (min-width: 1560px) {
-  .rail-label {
-    opacity: 1;
-    transform: none;
-  }
+.rail-foot {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-left: 0;
+}
+
+.rail-foot a {
+  font-family: var(--font-body, 'Barlow', sans-serif);
+  font-size: 11.2px;
+  line-height: 16px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--rail-text);
+  text-decoration: none;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.rail-foot a:hover,
+.rail-foot a:focus-visible {
+  opacity: 1;
+}
+
+.rail-foot__rule {
+  width: 18px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.35;
+  margin: 6px 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .rail,
   .rail-marker,
   .rail-link,
-  .rail-label {
+  .rail-foot a {
     transition: none;
   }
 }

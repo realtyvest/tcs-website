@@ -45,10 +45,12 @@
     rail.setAttribute("aria-label", "Section navigation");
     rail.setAttribute("data-rail", "");
 
+    var nav = document.createElement("div");
+    nav.className = "rail-nav";
     var marker = document.createElement("span");
     marker.className = "rail-marker";
     marker.setAttribute("aria-hidden", "true");
-    rail.appendChild(marker);
+    nav.appendChild(marker);
 
     var links = [];
     var byId = {};
@@ -59,12 +61,22 @@
       a.innerHTML =
         '<span class="rail-idx" aria-hidden="true">' + pad(i + 1) + "</span>" +
         '<span class="rail-label" data-chars>' + item.label + "</span>";
-      rail.appendChild(a);
+      nav.appendChild(a);
       links.push(a);
       item.spy.forEach(function (id) {
         byId[id] = a;
       });
     });
+    rail.appendChild(nav);
+
+    // Bottom-left legal links (OTP rail-foot).
+    var foot = document.createElement("div");
+    foot.className = "rail-foot";
+    foot.innerHTML =
+      '<a href="/terms" data-chars>Terms</a>' +
+      '<span class="rail-foot__rule" aria-hidden="true"></span>' +
+      '<a href="/privacy" data-chars>Privacy</a>';
+    rail.appendChild(foot);
     document.body.appendChild(rail);
 
     if (typeof window.tcsChars === "function") window.tcsChars(rail);
@@ -80,7 +92,7 @@
       });
       rail.classList.toggle("has-active", !!a);
       if (a) {
-        var y = a.offsetTop + a.offsetHeight / 2 - marker.offsetHeight / 2;
+        var y = a.offsetTop + a.offsetHeight / 2 - marker.offsetHeight / 2 - 2;
         marker.style.transform = "translateY(" + Math.round(y) + "px)";
       }
     }
