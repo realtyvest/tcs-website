@@ -188,6 +188,14 @@
   }
   window.tcsChars = tcsChars;
 
+  /* Links styled as buttons (class hints or a painted background) must not
+     get the character slide: the shadow copy shows inside their padding. */
+  function isButtonLike(el) {
+    if (/\b(btn|button|cta)\b|-cta|-btn/i.test(el.className)) return true;
+    var bg = window.getComputedStyle(el).backgroundColor;
+    return !!bg && bg !== 'transparent' && bg !== 'rgba(0, 0, 0, 0)';
+  }
+
   function initChars() {
     // Desktop nav text links (not the CTA button) and mobile menu labels.
     var sel = '.nav-links a:not(.nav-cta), .mobile-menu-link > span:last-child, .tcs-mobile-menu-link > span:last-child';
@@ -195,6 +203,7 @@
     for (var i = 0; i < nodes.length; i++) {
       var n = nodes[i];
       if (n.children.length) continue; // only plain-text labels
+      if (isButtonLike(n)) continue;    // filled CTAs keep their label intact
       n.setAttribute('data-chars', '');
     }
     tcsChars(document);
