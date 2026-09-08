@@ -254,6 +254,12 @@
         if (el.getAttribute('data-sweep-done')) return;
         el.setAttribute('data-sweep-done', '1');
         el.className += ' tcs-sweep';
+        // overflow:hidden does nothing on an inline box, so the fill would
+        // show beside the button. Promote inline links to inline-flex.
+        if (window.getComputedStyle(el).display === 'inline') {
+          el.style.display = 'inline-flex';
+          el.style.alignItems = 'center';
+        }
         var fill = document.createElement('span');
         fill.className = 'tcs-sweep-fill';
         fill.setAttribute('aria-hidden', 'true');
@@ -268,8 +274,27 @@
     }
   }
 
+  /* NAV_LINKS_CANONICAL_LOCK: inner pages carried links to homepage anchors
+     that no longer exist (#services, #process, #about). Rebuild the desktop
+     list to the same set the homepage uses; keep the page's own CTA. */
+  function initDesktopLinks() {
+    if (document.querySelector('[data-hero]')) return; // homepage owns its nav
+    var ul = document.querySelector('nav ul.nav-links');
+    if (!ul) return;
+    var cta = ul.querySelector('a.nav-cta, a[class*="cta"]');
+    var ctaLi = cta ? cta.closest('li') : null;
+    var html = '';
+    for (var i = 0; i < CANONICAL.length; i++) {
+      html += '<li><a href="' + CANONICAL[i].href + '">' + CANONICAL[i].label + '</a></li>';
+    }
+    ul.innerHTML = html;
+    if (ctaLi) ul.appendChild(ctaLi);
+    else if (cta) { var li = document.createElement('li'); li.appendChild(cta); ul.appendChild(li); }
+  }
+
   function boot() {
     initLogo();
+    initDesktopLinks();
     init();
     initScrolled();
     initChars();
