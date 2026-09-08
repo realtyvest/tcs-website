@@ -1,32 +1,52 @@
 /* SOFTWARE_BAND_LOCK (Gil, 2026-09-08): the "system doesn't stop at a
-   roadmap" block flies in from the right as you scroll, and an orange band
-   fills left to right across the space between it and the final CTA,
-   in proportion to the scroll. Transform and opacity only. */
+   roadmap" block flies in from the right as you scroll while an orange road
+   fills left to right beneath it, in proportion to the scroll.
+   SOFTWARE_BAND_INSIDE (Gil, 2026-09-08): the copy sits inside the road, the
+   road bleeds edge to edge, and it is as tall as the paragraph needs.
+   Transform and opacity only. */
 .software-band-section {
   position: relative;
   overflow: hidden;
-  padding-bottom: 0;
+  isolation: isolate;
 }
 
-.software-band-copy {
-  will-change: transform, opacity;
+#software.section.software-band-section {
+  padding: 0;
+  margin: 28px 0 24px;
 }
 
 .software-band {
+  position: absolute;
+  inset: 0;
   display: block;
-  height: 88px;
-  margin-top: 56px;
   background: var(--orange, #F26419);
   transform: scaleX(0);
   transform-origin: left center;
   will-change: transform;
+  z-index: 0;
 }
 
-@media (max-width: 820px) {
-  .software-band {
-    height: 56px;
-    margin-top: 36px;
-  }
+.software-band-copy {
+  position: relative;
+  z-index: 1;
+  padding: 44px 5% 48px;
+  will-change: transform, opacity;
+}
+
+#software .software-band-copy h2 {
+  color: #0B1829;
+  margin-bottom: 12px;
+}
+
+#software .software-band-copy .sub {
+  color: rgba(11, 24, 41, 0.88);
+  margin: 0;
+  max-width: 720px;
+}
+
+@media (min-width: 821px) {
+  #software.section.software-band-section { margin: 36px 0 28px; }
+  .software-band-copy { padding: 56px 5% 60px; }
 }
 
 /* No JS or reduced motion: final state, no movement. */

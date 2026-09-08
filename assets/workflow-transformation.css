@@ -399,18 +399,32 @@
   .wt.is-story .wt-card--target {
     will-change: transform, opacity;
   }
+  /* WT_FIT_BOX (Gil, 2026-09-08): the Target column is a flex column, so the
+     four tiles share whatever height is left after the label, the REMOVED
+     lines and the closing line. Nothing hangs below the card. */
+  .wt.is-story .wt-col--target {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
   .wt.is-story .wt-list--target {
-    gap: 14px;
-    height: 100%;
+    flex: 1 1 auto;
+    min-height: 0;
+    height: auto;
+    gap: 12px;
     justify-content: stretch;
   }
   .wt.is-story .wt-card--target {
-    flex: 1 1 auto;
+    flex: 1 1 0;
     align-items: center;
-    min-height: 64px;
+    min-height: 52px;
     max-height: 120px;
-    padding: 16px 18px;
+    padding: 12px 18px;
     font-size: 1.0625rem;
+  }
+  .wt.is-story .wt-col--target .wt-callouts,
+  .wt.is-story .wt-col--target .wt-closing {
+    flex: 0 0 auto;
   }
   .wt.is-story .wt-list-label {
     font-size: 0.8125rem;

@@ -28,8 +28,8 @@
       invalidateOnRefresh: true
     }
   });
-  // The copy lands in the first third; the band fills across the rest,
-  // so its width tracks how far the gap has scrolled into view.
-  tl.to(copy, { x: 0, autoAlpha: 1, duration: 0.35, ease: "power2.out" }, 0)
-    .to(bar, { scaleX: 1, duration: 0.65, ease: "none" }, 0.2);
+  // The road fills left to right first, so the copy (navy on orange) only
+  // lands once there is orange under it. Both settle together at the end.
+  tl.to(bar, { scaleX: 1, duration: 0.7, ease: "none" }, 0)
+    .to(copy, { x: 0, autoAlpha: 1, duration: 0.5, ease: "power2.out" }, 0.45);
 })();

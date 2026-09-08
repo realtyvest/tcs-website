@@ -1,0 +1,86 @@
+/* TCS shared footer (FOOTER_CANONICAL_LOCK, Gil, 2026-09-08).
+   One sitemap-style footer on every page: every label goes to its own
+   destination, no duplicates, no homepage-anchor stand-ins. Page stylesheets
+   still style a bare `footer`; these rules win on purpose. */
+footer.tcs-footer {
+  background: #08111F !important;
+  color: #C3D2E4 !important;
+  padding: 56px 5% 28px !important;
+  margin: 0 !important;
+  border-top: 1px solid rgba(42, 142, 255, 0.18) !important;
+  font-family: 'Barlow', sans-serif !important;
+  font-size: 16px !important;
+  line-height: 1.6 !important;
+  text-align: left !important;
+}
+footer.tcs-footer * { box-sizing: border-box; }
+.tcsf-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 40px;
+}
+.tcsf-brand strong {
+  display: block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  margin: 0 0 8px;
+}
+.tcsf-brand p { margin: 0 0 12px; color: #C3D2E4; }
+.tcsf-brand a { color: #C3D2E4; text-decoration: none; }
+.tcsf-brand a:hover { color: #FFFFFF; }
+.tcsf-brand .tcsf-powered { font-size: 14px; color: #8CA3BE; }
+.tcsf-brand .tcsf-powered a { color: #A0B4D8; }
+.tcsf-cta {
+  display: inline-block;
+  margin-top: 6px;
+  background: #2A8EFF;
+  color: #FFFFFF !important;
+  padding: 11px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.tcsf-cta:hover { background: #1a6fd0; }
+.tcsf-col h4 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #2A8EFF;
+  margin: 0 0 14px;
+}
+.tcsf-col ul { list-style: none; margin: 0; padding: 0; }
+.tcsf-col li { margin: 0 0 9px; padding: 0; }
+.tcsf-col a {
+  color: #C3D2E4;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.2s;
+}
+.tcsf-col a:hover { color: #FFFFFF; }
+.tcsf-col a[aria-current="page"] { color: #FFFFFF; font-weight: 600; }
+.tcsf-bottom {
+  max-width: 1200px;
+  margin: 40px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: #8CA3BE;
+  font-size: 14px;
+}
+.tcsf-bottom p { margin: 0 0 6px; }
+.tcsf-bottom a { color: #A0B4D8; text-decoration: none; }
+@media (max-width: 960px) {
+  .tcsf-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .tcsf-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 520px) {
+  footer.tcs-footer { padding: 40px 5% 24px !important; }
+  .tcsf-inner { grid-template-columns: 1fr; gap: 28px; }
+}

@@ -238,6 +238,21 @@
   function initLogo() {
     var link = document.querySelector('nav .nav-logo, nav a.logo, nav .logo');
     if (!link || link.querySelector('.tcs-wordmark')) return;
+    if (link.tagName !== 'A') {
+      var inner = link.querySelector('a');
+      if (inner) {
+        link = inner;
+      } else {
+        /* LOGO_HOME_LOCK (Gil, 2026-09-08): the wordmark always links home. */
+        var wrap = document.createElement('a');
+        wrap.setAttribute('href', '/');
+        wrap.setAttribute('aria-label', 'Telecom Contractor Solutions home');
+        link.innerHTML = '';
+        link.appendChild(wrap);
+        link = wrap;
+      }
+    }
+    if (!link.getAttribute('href') || link.getAttribute('href') === '#') link.setAttribute('href', '/');
     link.innerHTML = WORDMARK;
     link.className += (link.className ? ' ' : '') + 'tcs-wordmark-link';
     if (!link.getAttribute('aria-label')) link.setAttribute('aria-label', 'Telecom Contractor Solutions, home');
@@ -308,8 +323,18 @@
       html += '<li><a href="' + CANONICAL[i].href + '">' + CANONICAL[i].label + '</a></li>';
     }
     ul.innerHTML = html;
+    if (!cta) {
+      cta = document.createElement('a');
+      cta.className = 'nav-cta';
+    }
+    /* NAV_BAR_LOCK: one CTA label and target, one bar style, on every inner page. */
+    cta.textContent = 'Book a Fit Call';
+    cta.setAttribute('href', '/fit-call');
+    cta.className += (cta.className ? ' ' : '') + 'tcs-cta';
     if (ctaLi) ul.appendChild(ctaLi);
-    else if (cta) { var li = document.createElement('li'); li.appendChild(cta); ul.appendChild(li); }
+    else { var li = document.createElement('li'); li.appendChild(cta); ul.appendChild(li); }
+    var nav = ul.closest('nav');
+    if (nav) nav.className += (nav.className ? ' ' : '') + 'tcs-bar';
   }
 
   function boot() {
