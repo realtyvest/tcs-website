@@ -6,7 +6,11 @@
  * html.rv-js is set inline in <head> so a JS-enabled page never flashes the
  * unrevealed heading; without JS the headings simply render.
  */
-html.rv-js [data-rv]:not(.rv-shown) {
+/* Load-mode headings (hero) hide from first paint; everything else only
+   once the visitor has scrolled (html.rv-armed), so a non-scrolling renderer
+   sees the page fully visible. */
+html.rv-js [data-rv="load"]:not(.rv-shown),
+html.rv-armed [data-rv]:not(.rv-shown) {
   visibility: hidden;
 }
 
@@ -34,8 +38,8 @@ html.rv-js [data-rv]:not(.rv-shown) {
 }
 
 /* Rise targets stay invisible until GSAP takes over (no flash on load). */
-html.rv-js [data-rv-rise]:not(.rv-shown),
-html.rv-js [data-rv-rise-group] > :not(.rv-shown) {
+html.rv-armed [data-rv-rise]:not(.rv-shown),
+html.rv-armed [data-rv-rise-group] > :not(.rv-shown) {
   opacity: 0;
 }
 
@@ -71,8 +75,9 @@ html.rv-js [data-rv-rise-group] > :not(.rv-shown) {
 
 @media (prefers-reduced-motion: reduce) {
   html.rv-js [data-rv],
-  html.rv-js [data-rv-rise]:not(.rv-shown),
-  html.rv-js [data-rv-rise-group] > :not(.rv-shown) {
+  html.rv-armed [data-rv],
+  html.rv-armed [data-rv-rise]:not(.rv-shown),
+  html.rv-armed [data-rv-rise-group] > :not(.rv-shown) {
     visibility: visible;
     opacity: 1;
   }

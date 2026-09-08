@@ -29,6 +29,12 @@
  *                         characters stay static. The original text is kept as
  *                         the aria-label. Reduced motion shows the final value.
  *
+ * RENDER_SAFE_REVEAL_LOCK: nothing below the fold is hidden until the
+ * visitor's first scroll. Search renderers never scroll, so they see every
+ * heading and block fully visible; a real visitor hides nothing they can see
+ * (elements already on screen at that first scroll are simply marked shown)
+ * and everything below the fold is armed to wipe or rise as it arrives.
+ *
  * On completion the original markup is restored (no leftover wrappers), so a
  * later resize needs nothing. Unrevealed headings re-split on resize.
  * prefers-reduced-motion / no GSAP: headings shown as-is, no split.
@@ -232,6 +238,14 @@
 
     /* ---- Rise once on enter ---- */
     function riseOnce(targets, trigger, stagger) {
+      // Only blocks still below the fold get hidden; anything already on
+      // screen at arm time stays as it is.
+      if (trigger.getBoundingClientRect().top < window.innerHeight) {
+        targets.forEach(function (t) {
+          t.classList.add("rv-shown");
+        });
+        return;
+      }
       gsap.set(targets, { autoAlpha: 0, y: 34 });
       targets.forEach(function (t) {
         t.classList.add("rv-shown"); // inline autoAlpha now owns visibility
@@ -340,13 +354,49 @@
       io.observe(el);
     }
 
-    function start() {
-      els.forEach(prepare);
+    var armed = false;
+    function isLoad(el) {
+      return el.getAttribute("data-rv") === "load";
+    }
+
+    // First scroll: hide + arm what is still below the fold, mark the rest shown.
+    function armBelowFold() {
+      if (armed) return;
+      armed = true;
+      document.documentElement.classList.add("rv-armed");
+      els.forEach(function (el) {
+        if (isLoad(el)) return;
+        if (el.getBoundingClientRect().top < window.innerHeight) {
+          el.classList.add("rv-shown");
+          el.__rv = { played: true, done: true };
+          return;
+        }
+        prepare(el);
+        arm(el);
+      });
       lineEls.forEach(prepareLines);
       prepareRises();
+      ScrollTrigger.refresh();
+    }
+
+    function start() {
+      els.forEach(function (el) {
+        if (isLoad(el)) {
+          prepare(el);
+          arm(el);
+        }
+      });
       odoEls.forEach(prepareOdometer);
       ScrollTrigger.refresh();
-      els.forEach(arm);
+      if (window.scrollY > 0) {
+        armBelowFold(); // reload mid-page: arm at once
+      } else {
+        var opts = { passive: true, once: true };
+        window.addEventListener("scroll", armBelowFold, opts);
+        window.addEventListener("wheel", armBelowFold, opts);
+        window.addEventListener("touchstart", armBelowFold, opts);
+        window.addEventListener("keydown", armBelowFold, opts);
+      }
     }
 
     // Split only once webfonts are in so the line breaks are final.
@@ -365,14 +415,14 @@
       timer = setTimeout(function () {
         els.forEach(function (el) {
           var r = el.__rv;
-          if (!r || r.done) return; // restored already; nothing to redo
+          if (!r || r.done) return; // restored, or not armed yet; nothing to redo
           if (r.played) {
             if (r.tl) r.tl.progress(1); // mid-wipe on resize: finish cleanly
             return;
           }
           prepare(el);
         });
-        lineEls.forEach(prepareLines); // scrub lines re-split on every resize
+        if (armed) lineEls.forEach(prepareLines); // scrub lines re-split on every resize
         ScrollTrigger.refresh();
       }, 200);
     });
