@@ -754,7 +754,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="kpi-row">
       <div class="cash-chart-card" id="cash-chart-card">
         <div class="cash-chart-head">
-          <h3>From your balances today, <span id="chart-days">7</span> months out</h3>
+          <h3>From your balances today, <span id="chart-days">3</span> months out</h3>
           <ul class="cash-chart-legend" aria-hidden="true">
             <li><i class="sw sw-now"></i>Bank, today's lag</li>
             <li><i class="sw sw-target"></i>Bank, invoice on day one</li>
@@ -767,8 +767,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="kpi-cards" id="cash-kpis">
       <div class="headline-card is-bottom-line" id="bottom-line-card">
-        <h3>Cash for the bottom line, 7 months</h3>
-        <div class="big" id="r-bottom-line">$248,128</div>
+        <h3>Cash for the bottom line, <span id="kpi-months">3</span> months</h3>
+        <div class="big" id="r-bottom-line">$205,388</div>
         <p id="r-bottom-line-note">The gap between the two bank lines on the chart.</p>
         <div class="kpi-sub">
           <div>
@@ -778,7 +778,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
           <div id="fee-card">
             <span class="k">Factoring fees not paid</span>
-            <span class="v" id="r-fee-saved-7">$74,795</span>
+            <span class="v" id="r-fee-saved-7">$32,055</span>
             <span class="s"><span id="r-fee-saved">$130,000</span> per year, only if you factor</span>
           </div>
         </div>
@@ -1011,7 +1011,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
      lag: invoiced over the coming lag days, then paid on the customer clock;
      day one: invoiced now, paid on the customer clock). New work is paid
      lag + customer clock days after it is done. */
+  /* TIMELINE_TO_WIDEST_GAP (Gil, 2026-09-08): the chart stops where the gap
+     between the two scenarios is at its widest and the story is clearest,
+     just after today's wait has fully turned over, before the bank lines
+     climb on and start catching the receivable lines. That is the wait
+     (lag + customer clock) plus a short runway, rounded up to whole months,
+     between two and seven months. */
   var MONTHS = 7;
+  function monthsFor(m) {
+    return Math.max(2, Math.min(7, Math.ceil((m.lag + m.cust + 20) / 30)));
+  }
   function simulate(m, lagUsed) {
     var days = MONTHS * 30, wait = lagUsed + m.cust;
     // FACTOR_IN_CHART (Gil, 2026-09-08): when the shop factors, the yearly
@@ -1035,6 +1044,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
   function drawChart(m) {
     if (!chartCanvas || !chartCanvas.getContext) return;
+    MONTHS = monthsFor(m);
     var now = simulate(m, m.lag), tgt = simulate(m, m.target), days = now.days;
     var cssW = chartCanvas.clientWidth || 600, cssH = chartCanvas.clientHeight || 200;
     var dpr = window.devicePixelRatio || 1;
@@ -1128,6 +1138,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     if (m.factoring && feePart > 0) gapText += ": " + money.format(releasePart) + " released from the wait plus " + money.format(feePart) + " of factoring fees not paid over " + MONTHS + " months";
     if (cap) cap.textContent = "From " + money.format(m.bank0) + " in the bank and " + money.format(m.ar0) + " receivable: by month " + MONTHS + ", today's lag leaves " + money.format(now.cash[days]) + " in the bank and " + money.format(now.ar[days]) + " receivable. Invoicing on day one brings receivable down to " + money.format(tgt.ar[days]) + " and the bank up to " + money.format(tgt.cash[days]) + ". The " + gapText + ".";
     $("chart-days").textContent = MONTHS;
+    var km = $("kpi-months"); if (km) km.textContent = MONTHS;
   }
   var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   function chartProgress() {
