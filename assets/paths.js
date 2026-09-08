@@ -96,7 +96,7 @@
   // ---- Section configs (locked strings from CONSTRUCTION-DROPS-PATH-STRINGS) ----
   var CONFIGS = {
     construction: {
-      chromeId: "PROJECT-2207 · FIBER BUILD",
+      chromeId: "PROJECT-2207 · AERIAL + UNDERGROUND",
       metas: ["SEG-07 · RT-A", "FIELD", "PROJECT ROLLUP", "PROGRESSIVE"],
       steps: [
         { label: "Mark the map", helper: "Codes and quantities as the job progresses" },
@@ -106,7 +106,7 @@
       ],
     },
     drops: {
-      chromeId: "JOB-4821 · FIBER DROP",
+      chromeId: "JOB-4821 · DROP BURY",
       metas: ["SEG-07 · RT-A", "FIELD", "TALLY · LOCKED", "INV-LINES"],
       steps: [
         { label: "Mark the map", helper: "Codes and quantities on the address" },
