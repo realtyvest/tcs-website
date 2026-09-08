@@ -211,10 +211,45 @@
     window.addEventListener('scroll', onScroll, { passive: true });
   }
 
+  /* BUTTON_SWEEP_LOCK: a fill layer sweeps in from the edge the cursor
+     entered and leaves toward the edge it exited (Own the Patch directional
+     hover, TCS tokens). Pointer devices only; CSS handles the motion. */
+  function nearestEdge(e, r) {
+    var x = e.clientX - r.left;
+    var y = e.clientY - r.top;
+    var d = [x, r.width - x, y, r.height - y];
+    var i = d.indexOf(Math.min.apply(null, d));
+    return ['left', 'right', 'top', 'bottom'][i];
+  }
+
+  function initSweep() {
+    if (!window.matchMedia || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    var sel = '.btn, .nav-cta, .mobile-menu-cta, .tcs-mobile-menu-cta, .sticky-fit-call';
+    var nodes = document.querySelectorAll(sel);
+    for (var i = 0; i < nodes.length; i++) {
+      (function (el) {
+        if (el.getAttribute('data-sweep-done')) return;
+        el.setAttribute('data-sweep-done', '1');
+        el.className += ' tcs-sweep';
+        var fill = document.createElement('span');
+        fill.className = 'tcs-sweep-fill';
+        fill.setAttribute('aria-hidden', 'true');
+        el.insertBefore(fill, el.firstChild);
+        el.addEventListener('mouseenter', function (e) {
+          el.setAttribute('data-dir', nearestEdge(e, el.getBoundingClientRect()));
+        });
+        el.addEventListener('mouseleave', function (e) {
+          el.setAttribute('data-dir', nearestEdge(e, el.getBoundingClientRect()));
+        });
+      })(nodes[i]);
+    }
+  }
+
   function boot() {
     init();
     initScrolled();
     initChars();
+    initSweep();
   }
 
   if (document.readyState === 'loading') {

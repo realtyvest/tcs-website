@@ -39,6 +39,36 @@ html.rv-js [data-rv-rise-group] > :not(.rv-shown) {
   opacity: 0;
 }
 
+/* PROOF_ODOMETER_LOCK: each digit is a 10-row roller inside a 1em mask. */
+[data-odometer] {
+  display: inline-flex;
+  align-items: baseline;
+  line-height: 1;
+}
+
+.odo-slot {
+  display: inline-block;
+  height: 1em;
+  overflow: hidden;
+  vertical-align: baseline;
+}
+
+.odo-roll {
+  display: block;
+  will-change: transform;
+}
+
+.odo-roll span {
+  display: block;
+  height: 1em;
+  line-height: 1;
+}
+
+.odo-static {
+  display: inline-block;
+  line-height: 1;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html.rv-js [data-rv],
   html.rv-js [data-rv-rise]:not(.rv-shown),

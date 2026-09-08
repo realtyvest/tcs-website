@@ -22,6 +22,13 @@
  *                         0.7s power3.out)
  *  - data-rv-rise-group   direct children rise with a 0.08s stagger
  *
+ * PROOF_ODOMETER_LOCK (Own the Patch gap 5):
+ *  - data-odometer        a figure like "40%" or "4x": every digit becomes a
+ *                         0-9 roller that spins to its value (1.1s power3.out,
+ *                         0.12s stagger per digit) once on enter; non-digit
+ *                         characters stay static. The original text is kept as
+ *                         the aria-label. Reduced motion shows the final value.
+ *
  * On completion the original markup is restored (no leftover wrappers), so a
  * later resize needs nothing. Unrevealed headings re-split on resize.
  * prefers-reduced-motion / no GSAP: headings shown as-is, no split.
@@ -109,7 +116,8 @@
     var lineEls = Array.prototype.slice.call(document.querySelectorAll("[data-rv-lines]"));
     var riseEls = Array.prototype.slice.call(document.querySelectorAll("[data-rv-rise]"));
     var groupEls = Array.prototype.slice.call(document.querySelectorAll("[data-rv-rise-group]"));
-    if (!els.length && !lineEls.length && !riseEls.length && !groupEls.length) return;
+    var odoEls = Array.prototype.slice.call(document.querySelectorAll("[data-odometer]"));
+    if (!els.length && !lineEls.length && !riseEls.length && !groupEls.length && !odoEls.length) return;
 
     var gsap = window.gsap;
     var ScrollTrigger = window.ScrollTrigger;
@@ -151,6 +159,56 @@
         }
       );
       el.__rvl = { tween: tween };
+    }
+
+    /* ---- Odometer figures ---- */
+    function prepareOdometer(el) {
+      if (el.getAttribute("data-odometer-done")) return;
+      var text = el.textContent.trim();
+      el.setAttribute("aria-label", text);
+      el.textContent = "";
+      var rollers = [];
+      var targets = [];
+      for (var i = 0; i < text.length; i++) {
+        var ch = text.charAt(i);
+        if (/[0-9]/.test(ch)) {
+          var slot = document.createElement("span");
+          slot.className = "odo-slot";
+          slot.setAttribute("aria-hidden", "true");
+          var roll = document.createElement("span");
+          roll.className = "odo-roll";
+          for (var d = 0; d <= 9; d++) {
+            var n = document.createElement("span");
+            n.textContent = String(d);
+            roll.appendChild(n);
+          }
+          slot.appendChild(roll);
+          el.appendChild(slot);
+          rollers.push(roll);
+          targets.push(parseInt(ch, 10));
+        } else {
+          var st = document.createElement("span");
+          st.className = "odo-static";
+          st.setAttribute("aria-hidden", "true");
+          st.textContent = ch;
+          el.appendChild(st);
+        }
+      }
+      el.setAttribute("data-odometer-done", "1");
+      if (!rollers.length) return;
+      gsap.set(rollers, { yPercent: 0 });
+      var tl = gsap.timeline({ paused: true });
+      rollers.forEach(function (r, i) {
+        tl.to(r, { yPercent: -targets[i] * 10, duration: 1.1, ease: "power3.out" }, i * 0.12);
+      });
+      ScrollTrigger.create({
+        trigger: el,
+        start: "top 88%",
+        once: true,
+        onEnter: function () {
+          tl.play();
+        },
+      });
     }
 
     /* ---- Rise once on enter ---- */
@@ -241,6 +299,7 @@
       els.forEach(prepare);
       lineEls.forEach(prepareLines);
       prepareRises();
+      odoEls.forEach(prepareOdometer);
       ScrollTrigger.refresh();
       els.forEach(arm);
     }

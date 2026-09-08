@@ -41,7 +41,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <script>document.documentElement.classList.add("rv-js");</script>
-<link rel="stylesheet" href="/assets/tcs-nav.css?v=menu2">
+<link rel="stylesheet" href="/assets/tcs-nav.css?v=menu3">
 
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -960,6 +960,51 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     font-size: 0.8125rem;
   }
 
+  /* PROOF_ODOMETER_LOCK: founder-company figures above the testimonial */
+  .figures {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: start;
+    column-gap: 56px;
+    row-gap: 10px;
+    margin: 0 0 32px;
+  }
+  .figures-eyebrow,
+  .figures-note {
+    grid-column: 1 / -1;
+    margin: 0;
+  }
+  .figures-eyebrow {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--electric);
+  }
+  .figure {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .fig {
+    font-family: var(--font-display);
+    font-size: clamp(2.75rem, 6vw, 4rem);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--white);
+  }
+  .figure-label {
+    font-size: 0.8125rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .figures-note {
+    font-size: 0.875rem;
+    color: var(--muted);
+    max-width: 520px;
+  }
+
   .proof-todo {
     margin-top: 1.25rem;
     font-size: 0.8125rem;
@@ -1319,7 +1364,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <link rel="stylesheet" href="/assets/phase2-motion.css">
   <link rel="stylesheet" href="/assets/paths.css?v=fly1">
   <link rel="stylesheet" href="/assets/homepage-spine.css?v=spine2">
-  <link rel="stylesheet" href="/assets/reveal.css?v=rv2">
+  <link rel="stylesheet" href="/assets/reveal.css?v=rv3">
   <link rel="stylesheet" href="/assets/rail.css?v=rail1">
 </head>
 <body>
@@ -1522,6 +1567,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- 6 · PROOF -->
 <section class="section section--alt" id="proof">
   <div class="section-inner">
+    <div class="figures" data-rv-rise-group>
+      <p class="figures-eyebrow">Run on our own company first</p>
+      <div class="figure">
+        <span class="fig" data-odometer>40%</span>
+        <span class="figure-label">Revenue up</span>
+      </div>
+      <div class="figure">
+        <span class="fig" data-odometer>4x</span>
+        <span class="figure-label">Net margin</span>
+      </div>
+      <p class="figures-note">AVCC, Gil’s own cabling company. Measured on his operation, not a client’s.</p>
+    </div>
     <h2 data-rv>What telecom contractors say</h2>
     <div class="quote" data-rv-rise>
       “We were running dispatch on spreadsheets and group texts and jobs were falling through the cracks constantly. Gil rebuilt the whole system. The structure he put in place is already changing how we operate.”
@@ -1574,15 +1631,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </footer>
 
-<script src="/assets/tcs-nav.js?v=menu2" defer></script>
+<script src="/assets/tcs-nav.js?v=menu3" defer></script>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-<script src="/assets/workflow-transformation.js?v=morph2" defer></script>
+<script src="/assets/workflow-transformation.js?v=morph3" defer></script>
 <script src="/assets/phase2-motion.js" defer></script>
 <script src="/assets/paths.js?v=snap2" defer></script>
 <script src="/assets/homepage-spine.js?v=spine1" defer></script>
-<script src="/assets/reveal.js?v=rv2" defer></script>
+<script src="/assets/reveal.js?v=rv3" defer></script>
 <script src="/assets/rail.js?v=rail1" defer></script>
 
 
