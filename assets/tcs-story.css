@@ -13,7 +13,7 @@
   top: var(--tcs-nav-h, 64px);
   height: 3px;
   width: 100%;
-  z-index: 999;
+  z-index: 150; /* under the menu overlay (200) */
   pointer-events: none;
   background: transparent;
 }
@@ -65,3 +65,4 @@ html.tcs-story-armed .st-card { transform: translateY(34px); }
   html.tcs-story-armed .st-rise { opacity: 1 !important; transform: none !important; transition: none !important; }
   .st-rail::after { transform: scaleX(1) !important; transition: none !important; }
 }
+body.tcs-menu-open .tcs-story-progress { display: none; }
