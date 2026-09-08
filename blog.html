@@ -76,7 +76,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .bead-subscribe h2 { font-family: var(--font-display); font-size: clamp(24px, 3vw, 32px); font-weight: 800; line-height: 1.15; margin: 0 0 10px; text-wrap: balance; }
   .bead-subscribe p { color: var(--text-light); margin: 0 0 12px; }
   .bead-subscribe .bead-subscribe-link { color: var(--electric); text-decoration: none; font-weight: 600; }
-  .bead-subscribe-form { background: var(--navy-mid); border: 1px solid var(--border-light); border-radius: 12px; padding: 22px 22px 14px; }
+  .bead-subscribe-form { background: var(--navy-mid); border: 1px solid var(--border-light); border-radius: 12px; padding: 18px 18px 8px; }
+  .bead-subscribe-form .subscribe-embed iframe { display: block; width: 100%; border: 0; }
   .bead-subscribe-form .form-k { font-family: var(--font-display); font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
   @media (max-width: 720px) { .bead-subscribe-inner { grid-template-columns: 1fr; gap: 20px; } .bead-subscribe { padding: 32px 5%; } }
   /* POST CARDS */
@@ -182,17 +183,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <h1>Operations insights for<br>telecom contractors.</h1>
   <p>Billing, crew adoption, dig documentation, and field crew management. Written for ISP contractors with 10 to 100 field technicians.</p>
 </div>
-<section class="bead-subscribe" id="bead-money" aria-label="Subscribe to BEAD Money">
+<section class="bead-subscribe" id="the-splice" aria-label="Subscribe to The Splice">
   <div class="bead-subscribe-inner">
     <div>
-      <p class="eyebrow">BEAD Money</p>
+      <p class="eyebrow">The Splice</p>
       <h2>Get BEAD updates before the trade press writes them up.</h2>
-      <p>Federal broadband funding intel decoded for crews and ops, not policy folks. Action items, not summaries. A five-minute read, free.</p>
-      <a class="bead-subscribe-link" href="/bead-newsletter.html">What is in each issue</a>
+      <p>The Splice decodes federal funding intel for crews and ops, not policy folks. Action items, not summaries. One five-minute read a week. Free.</p>
+      <a class="bead-subscribe-link" href="https://www.thesplice.net/subscribe">Or open the full subscribe page</a>
     </div>
     <div class="bead-subscribe-form">
       <p class="form-k">Free. Unsubscribe anytime.</p>
-      <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="6bb56500-4bf8-4d58-8760-13da46798d20"></script>
+      <div class="subscribe-embed">
+        <iframe src="https://subscribe-forms.beehiiv.com/6bb56500-4bf8-4d58-8760-13da46798d20" data-test-id="beehiiv-embed" title="Subscribe to The Splice" height="320" frameborder="0" scrolling="no" style="margin:0;background:transparent;width:100%;border:none;"></iframe>
+      </div>
     </div>
   </div>
 </section>
@@ -822,6 +825,5 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </footer>
 <script src="/assets/tcs-nav.js?v=menu16" defer></script>
-<script type="text/javascript" async src="https://subscribe-forms.beehiiv.com/attribution.js"></script>
 </body>
 </html>
