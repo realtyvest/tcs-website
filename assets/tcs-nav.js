@@ -244,6 +244,20 @@
   var WORDMARK = '<svg class="tcs-wordmark" viewBox="0 0 260 80" role="img" aria-label="Telecom Contractor Solutions" focusable="false"><line x1="18" y1="78" x2="18" y2="20" stroke="#2A8EFF" stroke-width="4" stroke-linecap="round"/><line x1="21" y1="66" x2="36" y2="66" stroke="#2A8EFF" stroke-width="1.8" stroke-linecap="round" opacity="0.30"/><line x1="21" y1="54" x2="34" y2="54" stroke="#2A8EFF" stroke-width="1.8" stroke-linecap="round" opacity="0.48"/><line x1="21" y1="43" x2="36" y2="43" stroke="#2A8EFF" stroke-width="1.8" stroke-linecap="round" opacity="0.65"/><line x1="21" y1="32" x2="33" y2="32" stroke="#2A8EFF" stroke-width="1.8" stroke-linecap="round" opacity="0.82"/><polygon points="10,20 18,4 26,20" fill="#F26419"/><text x="52" y="28" class="tcs-wm-l1">TELECOM</text><text x="52" y="54" class="tcs-wm-l2">CONTRACTOR</text><text x="52" y="78" class="tcs-wm-l3">SOLUTIONS</text></svg>';
   window.tcsWordmarkSVG = WORDMARK;
 
+  /* NAV_HEIGHT_VAR (Gil, 2026-09-08): anything that sticks under the bar
+     (the calculators' live strips) reads the bar's real height instead of
+     guessing, so it never cuts through the wordmark on a phone. */
+  function initNavHeightVar() {
+    var nav = document.querySelector('nav');
+    if (!nav) return;
+    var set = function () {
+      document.documentElement.style.setProperty('--tcs-nav-h', nav.offsetHeight + 'px');
+    };
+    set();
+    window.addEventListener('resize', set);
+    if (window.ResizeObserver) new ResizeObserver(set).observe(nav);
+  }
+
   function initLogo() {
     var link = document.querySelector('nav .nav-logo, nav a.logo, nav .logo');
     if (!link || link.querySelector('.tcs-wordmark')) return;
@@ -348,6 +362,7 @@
 
   function boot() {
     initLogo();
+    initNavHeightVar();
     initDesktopLinks();
     init();
     initScrolled();
