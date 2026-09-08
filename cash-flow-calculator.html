@@ -1063,10 +1063,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     var gap = tgt.cash[days] - now.cash[days];
     var feePart = m.factoring ? (m.feeNowYear - m.feeTargetYear) * days / 365 : 0;
     var releasePart = gap - feePart;
-    if (upTo >= days && gap > 0) {
-      ctx.font = "700 11px Barlow, sans-serif"; ctx.fillStyle = "#FFFFFF"; ctx.textAlign = "right"; ctx.textBaseline = "bottom";
-      var gy = (y(tgt.cash[days]) + y(now.cash[days])) / 2;
-      ctx.fillText("+" + fmtK(gap) + " for the bottom line", x(days) - 2, Math.max(padT + 12, gy - 4));
+    // GAP_MEASURES (Gil, 2026-09-08): dimension lines that measure the gap
+    // between the scenarios where it is widest: bank lines (cash for the
+    // bottom line) and receivable lines (receivable brought down).
+    function measure(a1, a2, tAt, label, color, side) {
+      var xx = x(tAt), y1 = y(a1[tAt]), y2 = y(a2[tAt]);
+      ctx.save();
+      ctx.strokeStyle = "#FFFFFF"; ctx.lineWidth = 1.25; ctx.setLineDash([]);
+      ctx.beginPath(); ctx.moveTo(xx, y1); ctx.lineTo(xx, y2); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(xx - 5, y1); ctx.lineTo(xx + 5, y1); ctx.moveTo(xx - 5, y2); ctx.lineTo(xx + 5, y2); ctx.stroke();
+      ctx.font = "700 11px Barlow, sans-serif"; ctx.textBaseline = "middle";
+      var tw = ctx.measureText(label).width, ph = 18, pw = tw + 12;
+      var ly = (y1 + y2) / 2, lx = side === "left" ? xx - 8 - pw : xx + 8;
+      lx = Math.max(padL, Math.min(cssW - padR - pw, lx));
+      ly = Math.max(padT + ph / 2, Math.min(cssH - padB - ph / 2, ly));
+      ctx.fillStyle = "rgba(11,24,41,0.92)"; ctx.beginPath();
+      if (ctx.roundRect) ctx.roundRect(lx, ly - ph / 2, pw, ph, 4); else ctx.rect(lx, ly - ph / 2, pw, ph);
+      ctx.fill();
+      ctx.strokeStyle = color; ctx.lineWidth = 1; ctx.stroke();
+      ctx.fillStyle = "#FFFFFF"; ctx.textAlign = "left"; ctx.fillText(label, lx + 6, ly);
+      ctx.restore();
+    }
+    if (upTo >= days) {
+      var bestB = 0, bestBAt = days, bestA = 0, bestAAt = days;
+      for (var q = 0; q <= days; q++) {
+        var gb = tgt.cash[q] - now.cash[q]; if (gb > bestB + 0.5) { bestB = gb; bestBAt = q; }
+        var ga = now.ar[q] - tgt.ar[q]; if (ga > bestA + 0.5) { bestA = ga; bestAAt = q; }
+      }
+      if (bestA > 0) measure(tgt.ar, now.ar, Math.min(days - 2, Math.max(bestAAt, Math.round(days * 0.62))), "-" + fmtK(bestA) + " receivable", ORANGE, "left");
+      if (bestB > 0) measure(now.cash, tgt.cash, Math.min(days - 2, bestBAt), "+" + fmtK(bestB) + " for the bottom line", ELECTRIC, "left");
     }
     var cap = $("chart-caption");
     var gapText = money.format(gap) + " gap is cash for the bottom line";
