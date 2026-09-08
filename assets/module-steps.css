@@ -108,12 +108,15 @@ html:not(.module-steps-armed) .how-it-works .step::before {
   border-color: rgba(42, 142, 255, 0.28);
 }
 
+/* The script sets --ms-cols inline for 4-step grids (2+2); on narrow screens
+   the stylesheet must win, hence !important (STEPS_MOBILE_ONE_COL). */
 @media (max-width: 900px) {
-  .how-it-works .steps { --ms-cols: 2; }
+  .how-it-works .steps { --ms-cols: 2 !important; }
 }
 @media (max-width: 560px) {
-  .how-it-works .steps { --ms-cols: 1; }
-  .how-it-works .step { padding: 18px 18px 20px !important; }
+  .how-it-works .steps { --ms-cols: 1 !important; }
+  .how-it-works .step { padding: 18px 18px 20px !important; grid-template-columns: 2.25rem 1fr; column-gap: 12px; }
+  .how-it-works .step::before { width: 2.25rem !important; height: 2.25rem !important; font-size: 1.05rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   .how-it-works .step,
