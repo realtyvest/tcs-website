@@ -625,6 +625,48 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     max-width: var(--content-max);
     margin: 0 auto;
     width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* HERO_BROLL_LOCK: optional b-roll under the first viewport of the hero,
+     tinted navy so the headline stays readable and fading into the page. */
+  .hero {
+    position: relative;
+  }
+  .hero-media {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: min(100vh, 100%);
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .hero-media video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+    filter: saturate(0.85);
+  }
+  .hero.is-playing .hero-media video {
+    opacity: 0.55;
+  }
+  .hero-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(11, 24, 41, 0.55) 0%, rgba(11, 24, 41, 0.72) 45%, var(--navy) 100%),
+      linear-gradient(90deg, rgba(11, 24, 41, 0.35) 0%, rgba(11, 24, 41, 0) 60%);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-media { display: none; }
   }
 
   .hero-actions {
@@ -1416,6 +1458,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- 1 · HERO (Option B math-led fold) -->
 <section class="hero" id="home" data-hero>
+  <div class="hero-media" data-hero-media aria-hidden="true"></div>
   <div class="hero-inner">
     <p class="eyebrow hero-enter">Telecom Contractor Solutions · Houston · ISP contractors nationwide</p>
     <div class="hero-rule hero-enter" aria-hidden="true"></div>
@@ -1641,6 +1684,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script src="/assets/homepage-spine.js?v=spine1" defer></script>
 <script src="/assets/reveal.js?v=rv3" defer></script>
 <script src="/assets/rail.js?v=rail1" defer></script>
+<script src="/assets/hero-video.js?v=broll1" defer></script>
 
 
 <script>
