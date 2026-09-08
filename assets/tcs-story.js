@@ -54,28 +54,48 @@
   function showAll() { all.forEach(function (e) { e.classList.add("st-in"); }); }
   if (reduce || !("IntersectionObserver" in window)) { showAll(); updateProgress(); window.addEventListener("scroll", updateProgress, { passive: true }); return; }
 
-  /* Arm on the first real scroll: only what is below the fold waits. */
-  var armed = false;
+  /* STORY_SCRUB (Gil, 2026-09-08): copy and cards rise with the scroll,
+     not on a trigger. Each element's progress runs from 96% of the viewport
+     down to 68%; the value drives opacity and translate directly, so it
+     reads as smooth and reversible until it completes. Headings keep their
+     rail wipe, which draws once the heading clears the same line. */
+  var armed = false, pending = [];
+  function paint(e, p) {
+    if (!e.classList.contains("st-rise")) { if (p >= 1) e.classList.add("st-in"); return; }
+    var q = 1 - Math.pow(1 - p, 2);
+    e.style.opacity = String(q);
+    e.style.transform = "translateY(" + ((1 - q) * 22).toFixed(1) + "px)";
+  }
+  function scrub() {
+    if (!pending.length) return;
+    var vh = window.innerHeight, keep = [];
+    pending.forEach(function (e) {
+      var top = e.getBoundingClientRect().top;
+      var p = Math.max(0, Math.min(1, (vh * 0.96 - top) / (vh * 0.28)));
+      paint(e, p);
+      if (p >= 1) { e.classList.add("st-in"); e.style.opacity = ""; e.style.transform = ""; }
+      else keep.push(e);
+    });
+    pending = keep;
+  }
   function arm() {
     if (armed) return;
     armed = true;
     var vh = window.innerHeight;
-    var below = [];
     all.forEach(function (e) {
       var r = e.getBoundingClientRect();
-      if (r.top > vh * 0.92) below.push(e); else e.classList.add("st-in");
+      if (r.top > vh * 0.92) { e.classList.add("st-scrub"); pending.push(e); } else e.classList.add("st-in");
     });
     document.documentElement.classList.add("tcs-story-armed");
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (!en.isIntersecting) return;
-        en.target.classList.add("st-in");
-        io.unobserve(en.target);
-      });
-    }, { rootMargin: "0px 0px -12% 0px", threshold: 0.08 });
-    below.forEach(function (e) { io.observe(e); });
+    scrub();
   }
-  window.addEventListener("scroll", function () { arm(); updateProgress(); }, { passive: true });
+  var raf = null;
+  window.addEventListener("scroll", function () {
+    arm(); updateProgress();
+    if (raf) return;
+    raf = requestAnimationFrame(function () { raf = null; scrub(); });
+  }, { passive: true });
+  window.addEventListener("resize", function () { if (armed) scrub(); });
   if (window.scrollY > 24) arm();
   updateProgress();
 })();

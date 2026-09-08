@@ -57,6 +57,11 @@ html.tcs-story-armed .st-rise.st-in {
   opacity: 1;
   transform: none;
 }
+/* STORY_SCRUB: while the scroll drives an element, only a short smoothing
+   transition remains so the motion tracks the wheel. */
+html.tcs-story-armed .st-rise.st-scrub:not(.st-in) {
+  transition: opacity 0.12s linear, transform 0.12s linear;
+}
 /* Cards get a little more travel and a border glow as they land */
 html.tcs-story-armed .st-card { transform: translateY(34px); }
 .st-card.st-in { border-color: rgba(42, 142, 255, 0.35); }

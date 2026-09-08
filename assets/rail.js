@@ -15,7 +15,7 @@
   var ITEMS = [
     { href: "#problem", label: "Problem", spy: ["problem", "philosophy"] },
     { href: "#outcomes", label: "Outcomes", spy: ["outcomes"] },
-    { href: "#spine", label: "The job", spy: ["spine", "path-construction", "path-drops"] },
+    { href: "#spine", label: "The system", spy: ["spine", "system"] },
     { href: "#how", label: "How we work", spy: ["how"] },
     { href: "#proof", label: "Proof", spy: ["proof"] },
     { href: "#contact", label: "Fit Call", spy: ["software", "contact"] },

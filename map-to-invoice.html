@@ -538,7 +538,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta name="theme-color" content="#0B1829">
   <!-- v38: mobile navigation -->
   <link rel="stylesheet" href="/assets/tcs-nav.css?v=menu21">
-  <script src="/assets/tcs-nav.js?v=menu16" defer></script>
+  <script src="/assets/tcs-nav.js?v=menu17" defer></script>
   <!-- Path islands (shared with the homepage) -->
   <link rel="stylesheet" href="/assets/paths.css?v=codes2t1">
   <!-- v44 Google preferred sources -->
@@ -546,7 +546,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <link rel="stylesheet" href="/assets/tcs-type.css?v=type3">
   <link rel="stylesheet" href="/assets/tcs-footer.css?v=foot2t1">
   <link rel="stylesheet" href="/assets/module-steps.css?v=steps6t1">
-  <link rel="stylesheet" href="/assets/tcs-story.css?v=story2t1">
+  <link rel="stylesheet" href="/assets/tcs-story.css?v=story3">
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -569,7 +569,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </nav>
 
     <section class="hero">
-        <p class="hero-eyebrow">TCS Module</p>
+        <p class="hero-eyebrow">TCS Solution</p>
         <h1>Map to Invoice: Mark the Map Once. Bill From the Marks.</h1>
         <p>The as-built already holds every billable quantity on the job. Map to invoice keeps those marks as the record from the field to the invoice line, so nobody retypes them.</p>
         <a href="/fit-call" class="hero-cta">Book a Fit Call</a>
@@ -603,11 +603,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </div>
 </section>    </div>
 
-<!-- Two jobs, one mechanism: the homepage islands -->
-        <section class="section paths-intro" aria-label="Two jobs, one mechanism">
+<!-- Construction island (shared assets/paths.js); drop work lives on /drop-buries.html -->
+        <section class="section paths-intro" aria-label="Construction, one mechanism">
             <div class="section-inner">
-                <h2 style="font-family:var(--font-display);font-size:1.8rem;font-weight:700;color:#FFFFFF;line-height:1.2;margin-bottom:0.8rem;">Two Kinds of Job, One Mechanism</h2>
-                <p style="margin:0;color:#C8D8EA;">Scroll through both. Construction, aerial or underground, is multi-day work billed progressively from the marks to date. A drop bury is one day at one address, invoiced the same day. The four states do not change. Only the timing of the submittal does.</p>
+                <h2 style="font-family:var(--font-display);font-size:1.8rem;font-weight:700;color:#FFFFFF;line-height:1.2;margin-bottom:0.8rem;">One Job, Four States</h2>
+                <p style="margin:0;color:#C8D8EA;">Scroll through a construction job. Aerial or underground, it is multi-day work billed progressively from the marks to date. The four states do not change from one submittal to the next. Only the tally grows. Single-day drop work runs on the same record and has its own page: <a href="/drop-buries.html" style="color:#2A8EFF;">Drop Buries</a>.</p>
             </div>
         </section>
 
@@ -618,18 +618,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="path-island" data-path-island>
                     <!-- Island markup (bar + stage): assets/paths.js -->
                 </div>
-                <p class="path-cta"><a class="btn" href="/fit-call">Book a Fit Call</a></p>
-            </div>
-        </section>
-
-        <section class="section path-section" id="path-drops" data-path data-path-key="drops" aria-label="Drop buries path">
-            <div class="section-inner">
-                <h2>Drop Buries</h2>
-                <p class="path-sub">One day, one address, one bury. Invoice the same day.</p>
-                <div class="path-island" data-path-island>
-                    <!-- Island markup (bar + stage): assets/paths.js -->
-                </div>
-                <p class="path-cta"><a class="btn" href="/fit-call">Book a Fit Call</a></p>
+                <p class="path-cta"><a class="btn" href="/fit-call">Book a Fit Call</a><a class="btn btn-ghost" href="/drop-buries.html">Drop bury work</a></p>
             </div>
         </section>
 
@@ -674,7 +663,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="internal-links">
             <h3>Related Reading</h3>
-            <p>What the ISP expects in the <a href="/fiber-closeout-package-checklist.html">closeout package</a>, <a href="/why-telecom-subs-bill-late.html">why telecom contractors bill late</a>, and the billing side in <a href="/billing-automation.html">billing automation for ISP contractors</a>. Field proof for the marks starts with <a href="/dig-documentation.html">dig documentation</a>. To put a number on the office lag, run the <a href="/cash-flow-calculator.html">cash flow and factoring calculator</a>. Upstream of the marks: the <a href="/field-approval-hub.html">field approval hub</a> and the <a href="/rfp-tracker.html">RFP tracker</a>. Downstream: <a href="/sub-invoicing.html">sub invoicing</a> and <a href="/slack-integration.html">Slack status updates</a>.</p>
+            <p>What the ISP expects in the <a href="/fiber-closeout-package-checklist.html">closeout package</a>, <a href="/why-telecom-subs-bill-late.html">why telecom contractors bill late</a>, and the billing side in <a href="/billing-automation.html">billing automation for ISP contractors</a>. Field proof for the marks starts with <a href="/dig-documentation.html">dig documentation</a>. To put a number on the office lag, run the <a href="/cash-flow-calculator.html">cash flow and factoring calculator</a>. Single-day drop work, assignment and routing, is on <a href="/drop-buries.html">drop buries</a>. Upstream of the marks: the <a href="/field-approval-hub.html">field approval hub</a> and the <a href="/rfp-tracker.html">RFP tracker</a>. Downstream: <a href="/sub-invoicing.html">sub invoicing</a> and <a href="/slack-integration.html">Slack status updates</a>.</p>
         </div>
 
         <div class="cta-section">
@@ -699,13 +688,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p class="tcsf-powered" style="margin-top:16px;">Powered by <a href="https://simplecontractorsystems.com/?utm_source=tcs&amp;utm_medium=site&amp;utm_campaign=cross-practice&amp;utm_content=footer">Simple Contractor Systems</a></p>
     </div>
     <div class="tcsf-col">
-      <h4>Modules</h4>
+      <h4>Solutions</h4>
       <ul>
         <li><a href="/job-tracking.html">Job Tracking</a></li>
         <li><a href="/billing-automation.html">Billing Automation</a></li>
         <li><a href="/crew-management.html">Crew Management</a></li>
         <li><a href="/job-costing.html">Job Costing</a></li>
         <li><a href="/map-to-invoice.html" aria-current="page">Map to Invoice</a></li>
+        <li><a href="/drop-buries.html">Drop Buries</a></li>
         <li><a href="/dig-documentation.html">Dig Documentation</a></li>
         <li><a href="/field-approval-hub.html">Field Approval Hub</a></li>
         <li><a href="/sub-invoicing.html">Sub Invoicing</a></li>
@@ -746,7 +736,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="/assets/paths.js?v=codes2t1" defer></script>
-<script src="/assets/module-steps.js?v=steps6" defer></script>
-<script src="/assets/tcs-story.js?v=story1" defer></script>
+<script src="/assets/module-steps.js?v=steps7" defer></script>
+<script src="/assets/tcs-story.js?v=story3" defer></script>
 </body>
 </html>

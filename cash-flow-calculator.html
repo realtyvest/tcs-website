@@ -575,7 +575,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="stylesheet" href="/assets/tcs-nav.css?v=menu21">
   <link rel="stylesheet" href="/assets/tcs-type.css?v=type3">
   <link rel="stylesheet" href="/assets/tcs-footer.css?v=foot2t1">
-  <link rel="stylesheet" href="/assets/tcs-story.css?v=story2t1">
+  <link rel="stylesheet" href="/assets/value-stack.css?v=vs1">
+  <script src="/assets/value-stack.js?v=vs1"></script>
+  <link rel="stylesheet" href="/assets/tcs-story.css?v=story3">
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -789,6 +791,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     </div>
   </div>
+  <section class="value-stack" id="value-stack" aria-label="Your value stack"></section>
   <div class="assumptions">
         <h3>Assumptions this arithmetic makes</h3>
         <ul>
@@ -850,13 +853,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p class="tcsf-powered" style="margin-top:16px;">Powered by <a href="https://simplecontractorsystems.com/?utm_source=tcs&amp;utm_medium=site&amp;utm_campaign=cross-practice&amp;utm_content=footer">Simple Contractor Systems</a></p>
     </div>
     <div class="tcsf-col">
-      <h4>Modules</h4>
+      <h4>Solutions</h4>
       <ul>
         <li><a href="/job-tracking.html">Job Tracking</a></li>
         <li><a href="/billing-automation.html">Billing Automation</a></li>
         <li><a href="/crew-management.html">Crew Management</a></li>
         <li><a href="/job-costing.html">Job Costing</a></li>
         <li><a href="/map-to-invoice.html">Map to Invoice</a></li>
+        <li><a href="/drop-buries.html">Drop Buries</a></li>
         <li><a href="/dig-documentation.html">Dig Documentation</a></li>
         <li><a href="/field-approval-hub.html">Field Approval Hub</a></li>
         <li><a href="/sub-invoicing.html">Sub Invoicing</a></li>
@@ -976,6 +980,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     $("r-release").textContent = money.format(release);
     $("r-release-days").textContent = releaseDays;
     $("r-fee-saved").textContent = money.format(Math.max(0, feeNow - feeTarget));
+    if (window.tcsValueStack) tcsValueStack.set("cash", { release: release, feeYear: Math.max(0, feeNow - feeTarget), factoring: !!factoring });
     drawChart({ perDay: perDay, lag: lag, target: TARGET_LAG, cust: custDays, margin: margin, cost: 1 - margin, bank0: +inputs.bank.value, ar0: +inputs.ar.value, feeNowYear: feeNow, feeTargetYear: feeTarget, factoring: factoring });
 
     $("ls-days-now").textContent = daysNow;
@@ -1164,8 +1169,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 })();
 </script>
 
-<script src="/assets/tcs-nav.js?v=menu16" defer></script>
-<script src="/assets/tcs-story.js?v=story1" defer></script>
+<script src="/assets/tcs-nav.js?v=menu17" defer></script>
+<script src="/assets/tcs-story.js?v=story3" defer></script>
 <script src="/assets/calc-pin.js?v=pin1" defer></script>
 </body>
 </html>

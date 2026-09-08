@@ -89,9 +89,18 @@
   }
 
   /* Pin on desktop; scrub without pin if too tall; phones reveal by view. */
+  // HUB_PIN_TITLE (Gil, 2026-09-08): the section title and lede pin with
+  // the grid so the reader sees what the hub is while it lights.
   var wrap = document.createElement("div");
   wrap.className = "hub-pin";
-  grid.parentNode.insertBefore(wrap, grid); wrap.appendChild(grid);
+  var block = document.createElement("div");
+  block.className = "hub-pin-block";
+  var lead = [], sib = grid.previousElementSibling;
+  while (sib && /^(H2|H3|P)$/.test(sib.tagName)) { lead.unshift(sib); sib = sib.previousElementSibling; }
+  grid.parentNode.insertBefore(wrap, lead[0] || grid);
+  wrap.appendChild(block);
+  lead.forEach(function (el) { block.appendChild(el); });
+  block.appendChild(grid);
   var mode = "io", PER_VH = 0.28;
   function navH() { var v = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--tcs-nav-h")); return v > 0 ? v : 64; }
   function layout() {
@@ -99,7 +108,7 @@
     if (reduce) { mode = "static"; grid.classList.remove("is-story"); build(); apply(1); return; }
     grid.classList.add("is-story");
     if (window.innerWidth > 1024) {
-      var h = grid.offsetHeight;
+      var h = block.offsetHeight;
       if (h <= window.innerHeight - navH() - 24) { wrap.classList.add("is-armed"); wrap.style.height = Math.round(h + 16 + window.innerHeight * PER_VH * spokes.length) + "px"; mode = "pin"; }
       else mode = "scrub";
     } else mode = "scrub";

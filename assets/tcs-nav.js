@@ -12,6 +12,7 @@
     { href: '/crew-management.html', label: 'Crew Management' },
     { href: '/job-costing.html', label: 'Job Costing' },
     { href: '/map-to-invoice.html', label: 'Map to Invoice' },
+    { href: '/drop-buries.html', label: 'Drop Buries' },
     { href: '/dig-documentation.html', label: 'Dig Documentation' }
   ];
   var COMPANY = [
@@ -96,7 +97,7 @@
       menuNav.setAttribute('aria-label', 'Site menu links');
       menuNav.setAttribute('aria-label', 'Mobile navigation');
 
-      var groups = [['Modules', MODULES], ['Company', COMPANY]];
+      var groups = [['Solutions', MODULES], ['Company', COMPANY]];
       var n = 0;
       for (var g = 0; g < groups.length; g++) {
         var label = document.createElement('span');

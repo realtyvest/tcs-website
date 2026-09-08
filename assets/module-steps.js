@@ -38,26 +38,46 @@
   grids.forEach(function (grid) {
     var steps = Array.prototype.slice.call(grid.querySelectorAll(".step"));
     if (!steps.length) return;
-    // Pin the grid itself: the heading and intro scroll away above it, so
-    // the grid fits under the bar on a laptop and holds still while it lights.
+    // STEPS_PIN_TITLE (Gil, 2026-09-08): pin the section title and intro
+    // with the grid so the reader sees what the steps belong to. The block
+    // (heading, intro, grid) is the sticky element; when the whole block is
+    // taller than the viewport, fall back to pinning the grid alone.
     var wrap = document.createElement("div");
     wrap.className = "steps-pin";
-    grid.parentNode.insertBefore(wrap, grid);
-    wrap.appendChild(grid);
-    pins.push({ wrap: wrap, section: grid, steps: steps, active: false, scrub: false });
+    var block = document.createElement("div");
+    block.className = "steps-pin-block";
+    var lead = [];
+    var sib = grid.previousElementSibling;
+    while (sib && /^(H2|H3|P)$/.test(sib.tagName)) { lead.unshift(sib); sib = sib.previousElementSibling; }
+    grid.parentNode.insertBefore(wrap, lead[0] || grid);
+    wrap.appendChild(block);
+    lead.forEach(function (el) { block.appendChild(el); });
+    block.appendChild(grid);
+    pins.push({ wrap: wrap, block: block, grid: grid, section: block, steps: steps, active: false, scrub: false });
   });
   var style = document.createElement("style");
-  style.textContent = ".steps-pin{position:relative}.steps-pin.is-armed>*{position:sticky;top:calc(var(--tcs-nav-h,64px) + 16px)}";
+  style.textContent = ".steps-pin{position:relative}.steps-pin.is-armed>.steps-pin-block{position:sticky;top:calc(var(--tcs-nav-h,64px) + 8px)}.steps-pin.is-armed.is-grid-only>.steps-pin-block{position:static}.steps-pin.is-armed.is-grid-only .steps{position:sticky;top:calc(var(--tcs-nav-h,64px) + 16px)}";
   document.head.appendChild(style);
 
   function layout() {
     pins.forEach(function (p) {
       var desktop = window.innerWidth > 1024;
-      p.wrap.classList.remove("is-armed"); p.section.classList.remove("is-pinned"); p.wrap.style.height = "";
+      p.wrap.classList.remove("is-armed"); p.block.classList.remove("is-pinned"); p.grid.classList.remove("is-pinned"); p.wrap.style.height = "";
       p.active = false; p.scrub = false;
       if (!desktop) return;
-      var h = p.section.offsetHeight;
-      if (h <= window.innerHeight - navH() - 8) {
+      // Prefer the whole block (title + intro + grid); if it does not fit,
+      // pin the grid alone as before.
+      var room = window.innerHeight - navH() - 8;
+      p.section = p.block;
+      var h = p.block.offsetHeight;
+      if (h > room && p.grid.offsetHeight <= room) {
+        p.wrap.classList.add("is-grid-only");
+        p.section = p.grid;
+        h = p.grid.offsetHeight;
+      } else {
+        p.wrap.classList.remove("is-grid-only");
+      }
+      if (h <= room) {
         p.wrap.classList.add("is-armed");
         p.section.classList.add("is-pinned");
         p.wrap.style.height = Math.round(h + 16 + window.innerHeight * PER_STEP_VH * p.steps.length) + "px";

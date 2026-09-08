@@ -14,30 +14,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <meta name="author" content="Gil Ramirez">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <link rel="alternate" type="application/rss+xml" title="Telecom Contractor Solutions Blog" href="https://telecomcontractorsolutions.com/rss.xml">
-    <title>RFP Tracker: Authorized Quantities vs Billed to Date</title>
-    <meta name="description" content="How the RFP's codes and quantities become the job's baseline, limit what the field can enter, and show variance before the invoice goes out.">
-    <meta name="keywords" content="RFP tracking telecom contractor, authorized quantities vs billed, PO remaining quantities fiber, over under billing tracking, codes and quantities">
+    <title>Drop Buries: Job Assignment and Routing for Fiber Drop Crews</title>
+    <meta name="description" content="How fiber contractors run high-volume drop bury work: one list from the portal export, routed by proximity, closed out from the field, and invoiced the same day.">
+    <meta name="keywords" content="drop buries, fiber drop bury, drop bury routing, job assignment fiber crews, telecom drop crew dispatch, fiber drop work orders">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="RFP Tracker: Authorized Quantities vs Billed to Date">
-    <meta property="og:description" content="How the RFP's codes and quantities become the job's baseline, limit what the field can enter, and show variance before the invoice goes out.">
+    <meta property="og:title" content="Drop Buries: Job Assignment and Routing for Fiber Drop Crews">
+    <meta property="og:description" content="How fiber contractors run high-volume drop bury work: one list from the portal export, routed by proximity, closed out from the field, and invoiced the same day.">
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://telecomcontractorsolutions.com/rfp-tracker.html">
-    <meta property="og:image" content="https://telecomcontractorsolutions.com/assets/covers/cover-aerial-drop.jpg">
+    <meta property="og:url" content="https://telecomcontractorsolutions.com/drop-buries.html">
+    <meta property="og:image" content="https://telecomcontractorsolutions.com/assets/covers/cover-underground-bore.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://telecomcontractorsolutions.com/assets/covers/cover-aerial-drop.jpg">
+    <meta name="twitter:image" content="https://telecomcontractorsolutions.com/assets/covers/cover-underground-bore.jpg">
     <!-- Canonical -->
-    <link rel="canonical" href="https://telecomcontractorsolutions.com/rfp-tracker.html">
+    <link rel="canonical" href="https://telecomcontractorsolutions.com/drop-buries.html">
 
     <!-- Schema Markup -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "Article",
-        "headline": "RFP Tracker: What Was Authorized, What Is Billed, What Is Left",
-        "description": "How the RFP's codes and quantities become the job's baseline, limit what the field can enter, and show authorized, to date, and remaining per code before the invoice goes out.",
+        "headline": "Drop Buries: Route the Work Before It Goes Out.",
+        "description": "How fiber contractors run high-volume drop bury work: one list from the portal export, routed by proximity, closed out from the field, and invoiced the same day.",
         "author": {
             "@type": "Person",
             "name": "Gil Ramirez",
@@ -47,16 +47,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         },
         "datePublished": "2026-09-08",
         "dateModified": "2026-09-08",
-        "mainEntityOfPage": "https://telecomcontractorsolutions.com/rfp-tracker.html",
+        "mainEntityOfPage": "https://telecomcontractorsolutions.com/drop-buries.html",
         "publisher": {
             "@type": "Organization",
             "name": "Telecom Contractor Solutions",
-            "logo": { "@type": "ImageObject", "url": "https://telecomcontractorsolutions.com/assets/logo.png" }
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://telecomcontractorsolutions.com/assets/logo.png"
+            }
         }
     }
     </script>
     <script type="application/ld+json">
-    {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What happens when the crew does more than the RFP authorized?", "acceptedAnswer": {"@type": "Answer", "text": "The entry goes in and the code shows over. The office sees it before the invoice, and either gets a change order approved or bills the authorized quantity and carries the rest. The ISP does not find out from a rejected line."}}, {"@type": "Question", "name": "Does it work without an RFP?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Jobs that arrive as a work order or ticket without itemized quantities use a standard codes list for that customer. The picker still limits the field to billable codes, and the tracker shows to date per code without an authorized ceiling."}}, {"@type": "Question", "name": "Is the RFP tracker a separate product?", "acceptedAnswer": {"@type": "Answer", "text": "It is part of the job record. The baseline comes from intake through the field approval hub, the entries come from the field, and job costing reads the totals. There is no package to buy; it is scoped in the Operations Audit with the rest of the workflow."}}]}
+    {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What does map to invoice mean in fiber construction?","acceptedAnswer":{"@type":"Answer","text":"The crew marks the job map with the codes and quantities that were actually placed, in the same codes the rate card uses. Those marks are submitted from the field against the job record, the tally is the sum of the marks by code, and the invoice lines come from that tally at the contract rate. Nothing is retyped between the as-built and the invoice."}},
+      {"@type":"Question","name":"Does map to invoice replace the ISP closeout package?","acceptedAnswer":{"@type":"Answer","text":"No. It produces it. When the marked map, photos, locate ticket numbers, and variances land on one job record as the work happens, the closeout package is that record. The office reviews it instead of assembling it after the crew has left."}},
+      {"@type":"Question","name":"Does map to invoice work for progressive billing on multi-day construction?","acceptedAnswer":{"@type":"Answer","text":"Yes. On construction work each submittal from the field rolls up to the project tally, so the progress invoice at any period cut is the marks to date, not a month-end estimate. On single-day drops the tally locks when the crew submits and the invoice can go out the same day."}},
+      {"@type":"Question","name":"Do crews have to learn new software for map to invoice?","acceptedAnswer":{"@type":"Answer","text":"It depends on what they mark today. Most crews already mark a map. The change is where the marks go and whether they use the rate card codes. Software comes into it only where the workflow needs a system to run on, and that is scoped in the Operations Audit, not sold as a package."}}
+    ]}
     </script>
 
     <!-- Google Fonts -->
@@ -522,7 +530,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             .video-slot { margin-bottom: 2rem; }
         }
     </style>
-
   <!-- v38: favicon -->
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
@@ -532,6 +539,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <!-- v38: mobile navigation -->
   <link rel="stylesheet" href="/assets/tcs-nav.css?v=menu21">
   <script src="/assets/tcs-nav.js?v=menu17" defer></script>
+  <!-- Drop Buries island (assets/paths.js) -->
+  <link rel="stylesheet" href="/assets/paths.css?v=codes2t1">
   <!-- v44 Google preferred sources -->
   <script async src="https://news.google.com/swg/js/v1/publisher.js"></script>
   <link rel="stylesheet" href="/assets/tcs-type.css?v=type3">
@@ -552,7 +561,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <li><a href="/billing-automation.html">Billing</a></li>
             <li><a href="/crew-management.html">Crew Management</a></li>
             <li><a href="/job-costing.html">Job Costing</a></li>
-            <li><a href="/map-to-invoice.html">Map to Invoice</a></li>
+            <li><a href="/drop-buries.html">Map to Invoice</a></li>
             <li><a href="/about.html">About</a></li>
             <li><a href="/blog.html">Blog</a></li>
             <li><a href="/fit-call" class="cta-button">Book a Fit Call</a></li>
@@ -561,8 +570,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <section class="hero">
         <p class="hero-eyebrow">TCS Solution</p>
-        <h1>RFP Tracker: What Was Authorized, What Is Billed, What Is Left</h1>
-        <p>The RFP says a thousand feet of one code and five hundred of another. Your crews have been entering production against it for three weeks. This module keeps the three numbers side by side: authorized, to date, and remaining.</p>
+        <h1>Drop Buries: Route the Work Before It Goes Out.</h1>
+        <p>Drop work is volume. Dozens of small jobs a week, arriving from more than one source, each one assigned, driven to, closed out, and billed. The mechanism keeps that list in one place, routes it by proximity, and takes the status off the crew's closeout instead of a phone call.</p>
         <a href="/fit-call" class="hero-cta">Book a Fit Call</a>
     </section>
 
@@ -570,66 +579,93 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="video-slot" id="explainer" aria-label="Explainer video">
             <div class="video-slot-inner">
                 <p class="video-slot-k">Explainer video</p>
-                <p class="video-slot-t">Authorized, to date, remaining: the RFP as the job's baseline</p>
+                <p class="video-slot-t">Route the work before it goes out.</p>
                 <p class="video-slot-s">Coming in the explainer series. Until then, the mechanism is written out below.</p>
             </div>
         </div>
 <section>
-<h2>Where Over and Under Billing Come From</h2>
-<p>The RFP or purchase order is the only document that says what the ISP agreed to pay for. It has a codes list and quantities. Most shops read it once, at intake, and then never look at it again until the invoice bounces because a line exceeded the authorized quantity, or until month end reveals that a code was never billed at all.</p>
-                <p>In between, the crews enter whatever they think they did, in whatever codes they remember. The office translates. The translation is where the billed number drifts from the authorized one, in both directions.</p>
+<h2>Where the Time Goes on Drop Work</h2>
+<p>Jobs come in through two paths in two formats. Tickets and work orders come out of the customer's portal export. The calendar gets scanned by hand every day to catch the ones added later. That second pass exists because the first source cannot be trusted on its own, and somebody has to reconcile the two so nothing is duplicated and nothing is missed.</p>
+                <p>Then every completed job gets updated twice: once in the portal and once on the tracking sheet. Open tickets are chased by calling subs. There is no status feed, so knowing where a job stands means calling the crew or reading line by line through what the subs turned in that week.</p>
+                <p><strong>The part that carries the most risk is not the time. It is the job that was added to the calendar, missed, and is sitting past due before anyone knows it exists.</strong></p>
 </section>
 <section>
-<h2>What the Tracker Does</h2>
-
+<h2>Four States, One List</h2>
+<p>The mechanism is the same in every market. A job lands on one list once, and everything downstream, the route, the closeout, the invoice, is derived from that record.</p>
 <div class="feature-grid">
-<div class="feature-card"><h3>The RFP is the baseline</h3><p>At intake, the RFP's codes and quantities become the job's items. Not a copy in a spreadsheet, the job's own items, with the authorized quantity on each.</p></div>
-<div class="feature-card"><h3>The field can only pick from it</h3><p>When a crew or sub enters production, the code picker shows the RFP's codes and nothing else. A code that is not on the RFP is not selectable. Unbillable work cannot be entered by accident, and the crew is not guessing.</p></div>
-<div class="feature-card"><h3>Three numbers per code</h3><p>Authorized, to date, remaining. Updated as submittals land. Over is visible before the invoice goes out. Under is visible before the job is closed.</p></div>
-<div class="feature-card"><h3>The invoice bills against the baseline</h3><p>Invoice lines come from the tally, checked against the authorized quantity. A variance is a variance, with a reason, not a surprise on the ISP's side.</p></div>
+<div class="feature-card"><h3>Import</h3><p>Raw exports go in as they come out of the customer's system. Tickets and work orders land on one list in one format, checked against the live list and the archive so nothing imports twice.</p></div>
+<div class="feature-card"><h3>Assign and route</h3><p>Jobs are clustered by proximity, not by the date they arrived, and assigned to crews in batches. Assignment and notification dates stamp themselves.</p></div>
+<div class="feature-card"><h3>Close out in the field</h3><p>The crew sees its own routed list, taps through to directions, and closes out with quantities and photos attached to the job record. Subs pass work down to their own people the same way.</p></div>
+<div class="feature-card"><h3>Invoice</h3><p>Billing codes and quantities come off the field closeout, so invoicing starts from field data instead of a second round of data entry. Completed jobs move to the archive and the working list stays clean.</p></div>
 </div>
 <div class="callout">
-                    <p><strong>The shortage case:</strong> a PO with remaining quantity is either work still to do or capacity that can be applied to another job under the same agreement. Either way, you know about it while it can still be used.</p>
+                    <p><strong>The test:</strong> pick one job that closed last week and ask three questions. Who assigned it, and when? How far did the crew drive from the job before it? Where are the photos? If any answer is "let me check with the crew," that is where the day goes.</p>
                 </div>
-</section>
+</section>    </div>
+
+        <section class="section path-section" id="path-drops" data-path data-path-key="drops" aria-label="Drop buries path">
+            <div class="section-inner">
+                <h2>Drop Buries</h2>
+                <p class="path-sub">One day, one address, one bury. Invoice the same day.</p>
+                <div class="path-island" data-path-island>
+                    <!-- Island markup (bar + stage): assets/paths.js -->
+                </div>
+                <p class="path-cta"><a class="btn" href="/fit-call">Book a Fit Call</a><a class="btn btn-ghost" href="/map-to-invoice.html">How map to invoice works</a></p>
+            </div>
+        </section>
+
+    <div class="container">
 <section>
-<h2>What It Feeds</h2>
-<p>The same three numbers are the input to job cost. Quantities to date at the contract rate is revenue on the job. The same quantities at the production rate is the cost of sales. That is a margin per job, per code, while the job is open, instead of a top line number at month end. The <a href="/job-costing.html">job costing</a> module reads straight from it.</p>
-                <p>It also removes an argument. When the sub's submitted quantity, the map marks, and the invoice line all come from the same item on the same RFP, there is nothing for the ISP to reconcile against. The package proves the line.</p>
+<h2>Routing Is the Piece That Pays for Itself</h2>
+<p>Assigning drops in the order they arrived sends crews back and forth across the same territory. In rural markets that can mean an hour or two of driving between jobs. Drive time is paid time that never reaches an invoice.</p>
+                <p>Clustering the work first, before it goes out, is how the same crews complete more jobs in the same day. No new crews, no new headcount. The board does the clustering when the jobs are assigned, so the route is set before the truck leaves the yard.</p>
 </section>
 <div class="how-it-works">
 <h2>What Has to Be True for It to Work</h2>
-
+<p>None of this is a product feature. It is six conditions on how the job list is kept. Most shops already meet one or two of them.</p>
 <div class="steps">
-<div class="step"><h4>The RFP's codes are the rate card's codes</h4><p>If your rate card uses different names, map them once at intake, not every invoice.</p></div>
-<div class="step"><h4>Quantities are captured in the RFP's units</h4><p>Feet for cable and conduit, each for drops, splices, and locates.</p></div>
-<div class="step"><h4>Change orders update the baseline</h4><p>An approved change order adds to authorized. It does not live in an email.</p></div>
-<div class="step"><h4>Generic work still has a list</h4><p>Jobs without an RFP get a standard codes list, so the picker is never blank.</p></div>
+<div class="step"><h4>Both sources land on one list</h4><p>Portal exports and calendar additions reconcile onto the same board, so the daily hand scan stops.</p></div>
+<div class="step"><h4>The duplicate check runs against the archive too</h4><p>A job that was completed last month and reappears in this week's export is caught before it is assigned again.</p></div>
+<div class="step"><h4>Assignment stamps itself</h4><p>The date a job was assigned and the date the crew was notified are written by the board, not typed by the office.</p></div>
+<div class="step"><h4>Crews work from their own routed list</h4><p>On a phone, with directions, in the order the route was built. Not from a chat thread.</p></div>
+<div class="step"><h4>Status comes off the closeout</h4><p>A job is done when the crew submits quantities and photos against it. Nobody has to call to find out.</p></div>
+<div class="step"><h4>The working list stays short</h4><p>Completed jobs move to the archive. Past due is a count off the due date, visible without scrolling through everything.</p></div>
 </div>
 
 </div>
+<section>
+<h2>What This Means for the Ramp Up</h2>
+<p>If the plan is to take on more work, the tracking method that is straining today is the constraint. More volume through a manual process means more missed assignments, not more revenue.</p>
+                <p>The cleaner path is to make the existing crews more productive first. That also makes the added volume absorbable without adding admin on the office side.</p>
+</section>
+<section>
+<h2>How We Build It With You</h2>
+<p>There is no drop bury package to buy here. The customer's export formats, the sub arrangements, and the crew habits are yours, and the build has to fit them or the crews route around it.</p>
+                <p>The <a href="/#how">Operations Audit</a> traces one week of drop work from the export to the invoice and shows where the list is being rebuilt by hand, where the duplicates come from, and what would have to change for status to come off the closeout. The usual first step after that is a single market as a pilot, one account only. Prove it there, then duplicate the setup market by market, adjusted for what each one needs to see. That keeps the initial commitment small and gives you something real to point at before anyone commits further.</p>
+</section>
 <section class="faq" id="faq">
-<h2>Questions contractors ask</h2>
+<h2>Questions Contractors Ask</h2>
 <div class="faq-grid">
-<div class="faq-item"><h3>What happens when the crew does more than the RFP authorized?</h3><p>The entry goes in and the code shows over. The office sees it before the invoice, and either gets a change order approved or bills the authorized quantity and carries the rest. The ISP does not find out from a rejected line.</p></div>
-<div class="faq-item"><h3>Does it work without an RFP?</h3><p>Yes. Jobs that arrive as a work order or ticket without itemized quantities use a standard codes list for that customer. The picker still limits the field to billable codes, and the tracker shows to date per code without an authorized ceiling.</p></div>
-<div class="faq-item"><h3>Is the RFP tracker a separate product?</h3><p>It is part of the job record. The baseline comes from intake through the field approval hub, the entries come from the field, and job costing reads the totals. There is no package to buy; it is scoped in the Operations Audit with the rest of the workflow.</p></div>
+<div class="faq-item"><h3>What is a drop bury?</h3><p>The last piece of a fiber build: the buried drop from the pedestal or hand hole to the customer's home or business. One address, usually one day, and a high volume of them across a market. The work is small. The list is what gets out of hand.</p></div>
+<div class="faq-item"><h3>Where do the jobs come from?</h3><p>Usually a ticket or work order export from the customer's portal, plus jobs added to a shared calendar after the export ran. The mechanism imports the export as it is and reconciles the calendar additions onto the same list, so nobody scans the calendar by hand.</p></div>
+<div class="faq-item"><h3>Do subs use it?</h3><p>Yes. A sub sees the jobs assigned to them, routes them the same way, and can pass work down to their own people. The closeout comes back on the job record, so you have visibility of every step without chasing anyone. If a sub lacks the back office to keep up, that shows on the board instead of in a missed job.</p></div>
+<div class="faq-item"><h3>What happens when a customer disputes an install later?</h3><p>The photos are on the job record, not in a folder on somebody's phone. The record shows who was assigned, when they were notified, when it closed, and what was placed. That is the answer to the dispute.</p></div>
 </div>
 </section>
 <div class="author-bio" style="margin:2.5rem 0;padding:22px;border:1px solid rgba(42,142,255,0.25);border-radius:10px;background:rgba(42,142,255,0.05);">
               <p style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#2A8EFF;margin:0 0 10px;">About the author</p>
               <p style="margin:0 0 12px;line-height:1.65;"><strong>Gil Ramirez</strong> founded Telecom Contractor Solutions in Houston. He works inside the back office of fiber and telecom contractors running 10 to 100 field techs, on the gap between the field and the invoice.</p>
-              <p style="margin:0;line-height:1.65;">Would it be a bad idea to walk one of your jobs through this on a call? <a href="/fit-call" style="color:#2A8EFF;">Book a fit call</a>. Background is on the <a href="/about.html" style="color:#2A8EFF;">about page</a>.</p>
+              <p style="margin:0;line-height:1.65;">Would it be a bad idea to trace one week of your drop work from the export to the invoice? <a href="/fit-call" style="color:#2A8EFF;">Book a fit call</a>. Background is on the <a href="/about.html" style="color:#2A8EFF;">about page</a>.</p>
             </div>
 
         <div class="internal-links">
-            <h3>Related modules</h3>
-            <p>The baseline arrives through the <a href="/field-approval-hub.html">field approval hub</a>. Entries against it are <a href="/map-to-invoice.html">map to invoice</a>, and the margin view is <a href="/job-costing.html">job costing</a>. For subs, see <a href="/sub-invoicing.html">sub invoicing</a>.</p>
+            <h3>Related Reading</h3>
+            <p>The job record itself is <a href="/job-tracking.html">job tracking</a>, and the routed crew list is <a href="/crew-management.html">crew management</a>. Multi-day construction runs on the same four states at <a href="/map-to-invoice.html">map to invoice</a>. The billing side is <a href="/billing-automation.html">billing automation for ISP contractors</a>. To put a number on the office lag, run the <a href="/cash-flow-calculator.html">cash flow and factoring calculator</a>, and the <a href="/roi-calculator.html">ROI calculator</a> for the admin hours. Passing work down: <a href="/sub-invoicing.html">sub invoicing</a>.</p>
         </div>
 
         <div class="cta-section">
-            <h2>Do you know what is left on your open POs right now?</h2>
-            <p>Would it be a bad idea to pull up one RFP and compare it to what you have billed, on a 30 minute fit call? No pitch. We will tell you whether an Operations Audit is a fit.</p>
+            <h2>How many jobs are on your calendar that nobody has assigned yet?</h2>
+            <p>Would it be a bad idea to spend 30 minutes tracing one week of drop work from the export to the invoice? Free fit call, no pitch. We will tell you whether an Operations Audit is a fit.</p>
             <a href="/fit-call" class="hero-cta">Book a Fit Call</a>
         </div>
 
@@ -660,7 +696,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <li><a href="/dig-documentation.html">Dig Documentation</a></li>
         <li><a href="/field-approval-hub.html">Field Approval Hub</a></li>
         <li><a href="/sub-invoicing.html">Sub Invoicing</a></li>
-        <li><a href="/rfp-tracker.html" aria-current="page">RFP Tracker</a></li>
+        <li><a href="/rfp-tracker.html">RFP Tracker</a></li>
         <li><a href="/slack-integration.html">Slack Integration</a></li>
       </ul>
     </div>
@@ -694,6 +730,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p>&copy; 2026 Telecom Contractor Solutions. All rights reserved.</p>
   </div>
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="/assets/paths.js?v=codes2t1" defer></script>
 <script src="/assets/module-steps.js?v=steps7" defer></script>
 <script src="/assets/tcs-story.js?v=story3" defer></script>
 </body>
