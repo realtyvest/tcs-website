@@ -11,6 +11,17 @@
  *  - data-rv="load"  hero h1: plays after fonts are ready + a short beat
  *  - data-rv         section h2: ScrollTrigger once, start "top 82%"
  *
+ * COPY_SCRUB_RISE_LOCK (Own the Patch gap 3), same module:
+ *  - data-rv-lines        paragraph split into lines; each line scrubs from
+ *                         40% opacity + 14px up to full as the section scrolls
+ *                         (trigger = closest section, top 78% -> center 52%,
+ *                         scrub 0.5, stagger 0.4, ease none). Reverses on the
+ *                         way back up. data-rv-lines="soft" starts from 0
+ *                         (top 55% -> center 42%).
+ *  - data-rv-rise         block rises 34px + fades once on enter (top 85%,
+ *                         0.7s power3.out)
+ *  - data-rv-rise-group   direct children rise with a 0.08s stagger
+ *
  * On completion the original markup is restored (no leftover wrappers), so a
  * later resize needs nothing. Unrevealed headings re-split on resize.
  * prefers-reduced-motion / no GSAP: headings shown as-is, no split.
@@ -46,8 +57,10 @@
     return !/<(?!br\s*\/?>)/i.test(el.innerHTML.trim());
   }
 
-  /* Split into natural lines: wrap words, group by offsetTop, rebuild. */
-  function split(el) {
+  /* Split into natural lines: wrap words, group by offsetTop, rebuild.
+     withBars=false builds plain .rv-line--scrub lines (no marker bar). */
+  function split(el, withBars) {
+    if (withBars === undefined) withBars = true;
     if (typeof el.__rvOriginal !== "string") el.__rvOriginal = el.innerHTML;
     if (!el.getAttribute("aria-label")) {
       el.setAttribute("aria-label", el.textContent.replace(/\s+/g, " ").trim());
@@ -78,12 +91,13 @@
     // words; keep centred / right-aligned headings aligned via margins.
     var align = window.getComputedStyle(el).textAlign;
     var margin = align === "center" ? "margin:0 auto;" : align === "right" || align === "end" ? "margin-left:auto;" : "";
+    var cls = withBars ? "rv-line" : "rv-line rv-line--scrub";
     el.innerHTML = lines
       .map(function (ws) {
-        return '<span class="rv-line" aria-hidden="true"' + (margin ? ' style="' + margin + '"' : "") + ">" + ws.join(" ") + '<span class="rv-bar"></span></span>';
+        return '<span class="' + cls + '" aria-hidden="true"' + (margin ? ' style="' + margin + '"' : "") + ">" + ws.join(" ") + (withBars ? '<span class="rv-bar"></span>' : "") + "</span>";
       })
       .join("");
-    return Array.prototype.slice.call(el.querySelectorAll(".rv-bar"));
+    return Array.prototype.slice.call(el.querySelectorAll(withBars ? ".rv-bar" : ".rv-line"));
   }
 
   function restore(el) {
@@ -92,7 +106,10 @@
 
   function init() {
     var els = Array.prototype.slice.call(document.querySelectorAll("[data-rv]"));
-    if (!els.length) return;
+    var lineEls = Array.prototype.slice.call(document.querySelectorAll("[data-rv-lines]"));
+    var riseEls = Array.prototype.slice.call(document.querySelectorAll("[data-rv-rise]"));
+    var groupEls = Array.prototype.slice.call(document.querySelectorAll("[data-rv-rise-group]"));
+    if (!els.length && !lineEls.length && !riseEls.length && !groupEls.length) return;
 
     var gsap = window.gsap;
     var ScrollTrigger = window.ScrollTrigger;
@@ -100,9 +117,67 @@
 
     if (!gsap || !ScrollTrigger || reduce) {
       showAll(els);
+      showAll(riseEls);
+      groupEls.forEach(function (g) {
+        showAll(Array.prototype.slice.call(g.children));
+      });
       return;
     }
     gsap.registerPlugin(ScrollTrigger);
+
+    /* ---- Scrubbed copy lines ---- */
+    function prepareLines(el) {
+      if (el.__rvl && el.__rvl.tween) {
+        if (el.__rvl.tween.scrollTrigger) el.__rvl.tween.scrollTrigger.kill();
+        el.__rvl.tween.kill();
+      }
+      var soft = el.getAttribute("data-rv-lines") === "soft";
+      var lines = splittable(el) ? split(el, false) : [el];
+      var section = el.closest("section") || el;
+      var tween = gsap.fromTo(
+        lines,
+        { autoAlpha: soft ? 0 : 0.4, y: 14 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          ease: "none",
+          stagger: 0.4,
+          scrollTrigger: {
+            trigger: section,
+            start: soft ? "top 55%" : "top 78%",
+            end: soft ? "center 42%" : "center 52%",
+            scrub: 0.5,
+          },
+        }
+      );
+      el.__rvl = { tween: tween };
+    }
+
+    /* ---- Rise once on enter ---- */
+    function riseOnce(targets, trigger, stagger) {
+      gsap.set(targets, { autoAlpha: 0, y: 34 });
+      targets.forEach(function (t) {
+        t.classList.add("rv-shown"); // inline autoAlpha now owns visibility
+      });
+      gsap.to(targets, {
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.7,
+        ease: "power3.out",
+        stagger: stagger || 0,
+        overwrite: "auto",
+        scrollTrigger: { trigger: trigger, start: "top 85%", once: true },
+      });
+    }
+
+    function prepareRises() {
+      riseEls.forEach(function (el) {
+        riseOnce([el], el, 0);
+      });
+      groupEls.forEach(function (g) {
+        riseOnce(Array.prototype.slice.call(g.children), g, 0.08);
+      });
+    }
 
     function buildTimeline(el, bars) {
       var tl = gsap.timeline({
@@ -164,6 +239,8 @@
 
     function start() {
       els.forEach(prepare);
+      lineEls.forEach(prepareLines);
+      prepareRises();
       ScrollTrigger.refresh();
       els.forEach(arm);
     }
@@ -188,6 +265,7 @@
           }
           prepare(el);
         });
+        lineEls.forEach(prepareLines); // scrub lines re-split on every resize
         ScrollTrigger.refresh();
       }, 200);
     });
