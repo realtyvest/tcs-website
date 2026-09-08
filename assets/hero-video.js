@@ -62,7 +62,7 @@
       v.setAttribute("playsinline", "");
       v.setAttribute("muted", "");
       v.setAttribute("autoplay", "");
-      v.setAttribute("preload", "auto");
+      v.setAttribute("preload", "metadata"); // poster paints first on slow links
       v.setAttribute("aria-hidden", "true");
       v.tabIndex = -1;
       exists(POSTER).then(function (ok) {
