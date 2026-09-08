@@ -712,7 +712,38 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         padding: 30px 20px;
       }
     }
-  </style>
+  
+    /* VOSS_ABOUT (Gil, 2026-09-08): story before numbers. Chapters as bordered
+       blocks (result, before, resolution), one identity line at the pivot,
+       the close ends on the reader. */
+    .hero-note { font-style: italic; color: #C3D2E4; margin-top: 12px; }
+    .gut { color: #FFFFFF; font-weight: 600; }
+    .thread { font-style: italic; color: #8CA3BE; margin-bottom: 20px; }
+    .chapter {
+      border-left: 3px solid #2A8EFF;
+      background: rgba(42, 142, 255, 0.05);
+      border-radius: 0 10px 10px 0;
+      padding: 18px 22px;
+      margin: 0 0 16px;
+    }
+    .chapter p { margin: 0 0 10px; }
+    .chapter p:last-child { margin-bottom: 0; }
+    .chapter strong { color: #FFFFFF; }
+    .identity {
+      text-align: center;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(1.5rem, 2.6vw, 2rem) !important;
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.25 !important;
+      margin: 36px auto 8px;
+      padding: 26px 0;
+      max-width: 720px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      text-wrap: balance;
+    }
+</style>
   <!-- v38: favicon -->
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
@@ -781,47 +812,70 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="hero-bg"></div>
       <div class="hero-content">
         <img class="hero-photo" src="/assets/gil-headshot.jpg" alt="Gil Ramirez, founder of Telecom Contractor Solutions" width="400" height="400" fetchpriority="high">
-        <h1>I build the back office these operations should have had before the growth hit.</h1>
-        <p>I founded Telecom Contractor Solutions in Houston after watching telecom contractors lose six figures a year to systems that worked fine at 10 techs and collapsed at 40. They outgrow their tools long before they hit the scale that justifies enterprise software. The gap in between is where the money quietly disappears.</p>
+        <h1>You grew faster than your paperwork. The crews kept up. The billing did not.</h1>
+        <p>Telecom contractors outgrow their tools long before they reach the scale that justifies enterprise software. What worked at 10 techs collapses at 40, and the gap in between is where the money quietly disappears. Before anything about how this works, here is what that gap looks like from the inside.</p>
+        <p class="hero-note">I have sat in that chair. Not as an observer with a framework. As the person the invoices waited on.</p>
       </div>
     </section>
 
     <!-- THE GAP -->
     <section>
       <h2>What that gap actually looks like</h2>
-      <p>It is not exotic. It is the same handful of failures in almost every operation I walk into.</p>
-      <p>Billing that waits on the owner. Job closeout data living in group texts and camera rolls. Crews driving to the wrong site because the schedule changed after they left the yard. Overtime nobody planned. Invoices sitting 45 days out because the paperwork to support them is scattered across three phones. And underneath all of it, no reliable answer to the one question that decides everything: did that job make money?</p>
-      <p>I have sat in that chair. Not as an observer with a framework. As the person the invoices waited on.</p>
+      <p>It is not exotic. It is the same handful of failures in almost every operation.</p>
+      <p>Billing that waits on the owner. Job closeout data living in group texts and camera rolls. Crews driving to the wrong site because the schedule changed after they left the yard. Overtime nobody planned. Invoices sitting 45 days out because the paperwork to support them is scattered across three phones.</p>
+      <p class="gut">And underneath all of it, no reliable answer to the one question that decides everything: did that job make money?</p>
     </section>
 
-    <!-- HOW I WORK -->
-    <section>
-      <h2>How I work</h2>
-      <p>Every engagement starts with an Operations Audit. Two weeks, scoped to the size of the operation. I go through how the work actually moves from assignment to cash, crew by crew, and I come back with a map of where the money is walking out and what it is costing you per month.</p>
-      <p>You get the findings whether or not you build anything with me. If we do build, the Audit fee credits into the engagement. We scope that on the Fit Call. No fee table on this site.</p>
-      <p>What comes after that is different for every operation. Sometimes it is a dispatch board. Sometimes it is closing out billing at the job instead of on Sunday night. Sometimes the systems are fine and the real problem is that one person is the single point of failure for three functions. I would rather tell you that than sell you a build you do not need.</p>
-    </section>
-
-    <!-- RESULTS -->
+    <!-- THE WORK -->
     <section>
       <h2>What the work has produced</h2>
-      <p>At one client, revenue grew 40 percent while net margin improved more than four times over. At another, we rebuilt billing from scratch, and the owner stopped spending Fridays chasing payments from the week before. One client secured SBA financing and a working capital line on the back of financials that could finally be produced on demand.</p>
-      <p>Yours will look like some of that, or none of it. The analysis is how we find out which.</p>
+      <p class="thread">Every one of these started as a Friday that belonged to the paperwork instead of the company. What follows is what happened.</p>
+
+      <div class="chapter">
+        <p><strong>Today the invoices go out the week the work is done.</strong></p>
+        <p>Before, the owner spent every Friday chasing the week before. The paperwork to support an invoice lived on three phones, and the invoice waited until somebody found it.</p>
+        <p>Billing was rebuilt from the closeout up: the crew's submittal became the invoice. Friday went back to running the company.</p>
+      </div>
+
+      <div class="chapter">
+        <p><strong>Today the financials print on demand.</strong></p>
+        <p>Before, a lender asked for statements and the answer was a week of reconstruction from bank feeds and memory.</p>
+        <p>The books were closed at the job instead of at month end. That set of financials carried an SBA loan and a working capital line.</p>
+      </div>
+
+      <div class="chapter">
+        <p><strong>Today the owner knows which jobs make money before the invoice goes out.</strong></p>
+        <p>Before, margin was a guess the accountant confirmed months later, after the crew had already moved on to the next job priced the same way.</p>
+        <p>Job costing was built into the closeout. The margin conversation moved from the year-end meeting to the crew lead's Monday.</p>
+      </div>
+
+      <p class="identity">This is what I do. I find where the money is walking out, and I stop it before the growth turns into a crisis.</p>
+    </section>
+
+    <!-- HOW -->
+    <section>
+      <h2>How this works</h2>
+      <p>Every engagement starts with an Operations Audit. Two weeks, scoped to the size of the operation.</p>
+      <p>It follows how the work actually moves from assignment to cash, crew by crew, and comes back with a map of where the money is walking out and what it is costing you per month.</p>
+      <p>You keep the findings whether or not you build anything. If we do build, the Audit fee credits into the engagement. We scope that on the Fit Call. No fee table on this site.</p>
+      <p>What comes after the Audit is different for every operation. Sometimes it is a dispatch board. Sometimes it is closing out billing at the job instead of on Sunday night. Sometimes the systems are fine and the real problem is that one person is the single point of failure for three functions.</p>
+      <p>Yours will look like some of the stories above, or none of them. The Audit is how we find out which, and I would rather tell you that than sell you a build you do not need.</p>
     </section>
 
     <!-- FIT -->
     <section>
       <h2>Who this is not for</h2>
-      <p>If you are running fewer than 10 field techs, you probably do not need me yet. If you want software you can buy, install, and forget, that is a different purchase and there are good options for it. If the plan is to hand this off and never look at it again, this will not work, because the crews have to adopt it and that takes you in the room for the first 90 days.</p>
+      <p>If you are running fewer than 10 field techs, you probably do not need this yet. If you want software you can buy, install, and forget, that is a different purchase and there are good options for it. If the plan is to hand this off and never look at it again, this will not work, because the crews have to adopt it and that takes you in the room for the first 90 days.</p>
+      <p>It is easy to look at an operation that is still growing and think it runs itself. The growth is what hides the leak. Without structure behind it, growth stops and the decline starts quietly.</p>
       <p>Based in Houston, Texas. Working with telecom contractors nationwide, aerial and underground, typically 10 to 100 field technicians.</p>
     </section>
 
-    <!-- CTA SECTION -->
+    <!-- CTA -->
     <section>
       <div class="cta-section">
         <h3>Would it be a bad idea to spend 30 minutes on this?</h3>
-        <p>The fit call is 30 minutes and costs nothing. The only thing I need to know going in is what part of the operation is currently waiting on you.</p>
-        <a href="/fit-call" class="cta-button">Book a Fit Call</a>
+        <p>The Fit Call is 30 minutes and costs nothing. What would you need to see from me to feel comfortable with an Operations Audit? Either way, you leave the call knowing which part of the operation is waiting on you.</p>
+        <a href="/fit-call" class="nav-cta">Book a Fit Call</a>
       </div>
     </section>
   </main>
