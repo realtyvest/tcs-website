@@ -220,12 +220,16 @@ nav.tcs-nav-root.is-scrolled {
   background: #1a6fd0 !important;
 }
 
+/* MENU_LEGAL_FLOW (Gil, 2026-09-08): the overlay scrolls as one column; the
+   list never shrinks, and Terms and Privacy sit after the list, not on it. */
+.tcs-mobile-menu > * { flex-shrink: 0; }
 .tcs-mobile-menu-legal {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-top: auto;
   padding-top: 28px;
+  padding-bottom: 8px;
   font-size: 0.8125rem;
   color: #8BA3C1;
 }
