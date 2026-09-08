@@ -584,7 +584,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="live-strip" id="live-strip" aria-live="polite">
     <div><span class="ls-k">Work to cash</span><span class="ls-v"><span id="ls-days-now">69</span> <span class="to">&rarr; <span id="ls-days-target">56</span></span> d</span></div>
     <div><span class="ls-k">Cash released</span><span class="ls-v is-orange" id="ls-release">$173,333</span></div>
-    <div class="ls-fee"><span class="ls-k">Fee stopped / yr</span><span class="ls-v is-orange" id="ls-fee">$61,176</span></div>
+    <div class="ls-fee"><span class="ls-k">Fee stopped / yr</span><span class="ls-v is-orange" id="ls-fee">$130,000</span></div>
   </div>
   <div class="calculator-container">
     <div class="calculator-inputs">
@@ -669,8 +669,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="input-group factor-group">
         <label for="fee">Factoring fee per 30 days outstanding</label>
         <div class="input-wrapper">
-          <input type="range" id="fee" min="0.5" max="5" step="0.25" value="2.5" aria-describedby="fee-help">
-          <div class="input-value" id="fee-value">2.5%</div>
+          <input type="range" id="fee" min="0.5" max="8" step="0.25" value="5" aria-describedby="fee-help">
+          <div class="input-value" id="fee-value">5%</div>
         </div>
         <p class="input-help" id="fee-help">On the invoice face value. Check your agreement; many factors bill in 10 or 15 day steps.</p>
       </div>
@@ -678,8 +678,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="input-group factor-group">
         <label for="advance">Advance rate</label>
         <div class="input-wrapper">
-          <input type="range" id="advance" min="70" max="95" step="1" value="85" aria-describedby="advance-help">
-          <div class="input-value" id="advance-value">85%</div>
+          <input type="range" id="advance" min="70" max="95" step="1" value="80" aria-describedby="advance-help">
+          <div class="input-value" id="advance-value">80%</div>
         </div>
         <p class="input-help" id="advance-help">The share paid up front. The rest is held in reserve until the customer pays.</p>
       </div>
@@ -712,22 +712,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="compare-row is-factor">
           <div class="k">Invoice face at the factor at any time<small>the invoices you factor, outstanding on the customer's clock</small></div>
           <div class="v" id="r-face-now">$733,333</div>
-          <div class="v is-target" id="r-face-target">$529,412</div>
+          <div class="v is-target" id="r-face-target">$516,667</div>
         </div>
         <div class="compare-row is-factor">
           <div class="k">Yearly factoring fee<small>per invoice on its face, for every 30 days the factor holds it</small></div>
-          <div class="v" id="r-fee-now">$220,000</div>
-          <div class="v is-target" id="r-fee-target">$158,824</div>
+          <div class="v" id="r-fee-now">$440,000</div>
+          <div class="v is-target" id="r-fee-target">$310,000</div>
         </div>
         <div class="compare-row is-factor">
           <div class="k">That fee as a share of gross margin<small>on a year of billings at your margin</small></div>
-          <div class="v" id="r-share-now">18.3%</div>
-          <div class="v is-target" id="r-share-target">13.2%</div>
+          <div class="v" id="r-share-now">36.7%</div>
+          <div class="v is-target" id="r-share-target">25.8%</div>
         </div>
         <div class="compare-row is-factor">
           <div class="k">Reserve the factor holds at any time<small>the share not advanced, held until the customer pays</small></div>
-          <div class="v" id="r-reserve-now">$110,000</div>
-          <div class="v is-target" id="r-reserve-target">$79,412</div>
+          <div class="v" id="r-reserve-now">$146,667</div>
+          <div class="v is-target" id="r-reserve-target">$103,333</div>
         </div>
       </div>
 
@@ -754,7 +754,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <div class="headline-card is-hidden" id="fee-card">
         <h3>Factoring fee you stop paying, per year</h3>
-        <div class="big" id="r-fee-saved">$61,176</div>
+        <div class="big" id="r-fee-saved">$130,000</div>
         <p>Only if you factor. The fee on the face you no longer need to run through the factor.</p>
       </div>
       </div>
