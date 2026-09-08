@@ -231,8 +231,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .cash-chart-legend .sw { display: inline-block; width: 16px; height: 0; border-top: 2px solid var(--orange); }
   .cash-chart-legend .sw-target { border-top-color: var(--electric); }
   .cash-chart-legend .sw-dash { border-top-style: dashed; }
+  .cash-chart-legend .sw-white { border-top-color: #C3D2E4; }
+  .cash-chart-legend .sw-dot { border-top-style: dotted; border-top-width: 3px; }
   #cash-chart { display: block; width: 100%; max-width: 100%; height: 170px; }
-  #cash-chart-card .cash-chart-note { margin: 6px 0 0; font-size: 11.5px !important; line-height: 1.35 !important; color: var(--muted); }
+  #cash-chart-card .cash-chart-note { margin: 6px 0 0; font-size: 11.5px !important; line-height: 1.35 !important; color: var(--text-light); }
   @media (min-width: 1025px) {
     .kpi-row { grid-template-columns: 1.4fr 1fr; align-items: stretch; }
     .kpi-cards { grid-template-columns: 1fr !important; align-content: stretch; }
@@ -256,7 +258,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     #cash-kpis .headline-card .big { font-size: 22px !important; }
     #cash-chart { height: 104px; }
     #cash-chart-card { padding: 10px 14px 9px; }
-    #cash-chart-card .cash-chart-note { display: none; }
   }
   @media (min-width: 1600px) and (max-height: 900px) {
     .calculator-results .compare-row { padding: 10px 20px; }
@@ -715,16 +716,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="kpi-row">
       <div class="cash-chart-card" id="cash-chart-card">
         <div class="cash-chart-head">
-          <h3>Bank balance vs receivable, first <span id="chart-days">120</span> days</h3>
+          <h3>Cash vs receivable vs margin, <span id="chart-days">7</span> months</h3>
           <ul class="cash-chart-legend" aria-hidden="true">
-            <li><i class="sw sw-now"></i>Bank today</li>
-            <li><i class="sw sw-target"></i>Bank day one</li>
-            <li><i class="sw sw-now sw-dash"></i>Owed today</li>
-            <li><i class="sw sw-target sw-dash"></i>Owed day one</li>
+            <li><i class="sw sw-target"></i>Cash in bank</li>
+            <li><i class="sw sw-now sw-dash"></i>Receivable</li>
+            <li><i class="sw sw-white sw-dot"></i>Cumulative gross margin</li>
           </ul>
         </div>
-        <canvas id="cash-chart" width="600" height="220" role="img" aria-label="Bank balance and receivable over the first months, today versus invoicing on day one"></canvas>
-        <p class="cash-chart-note">Bank: cash collected minus the cost of work done, from a standing start. Owed: work done, not yet paid.</p>
+        <canvas id="cash-chart" width="600" height="220" role="img" aria-label="Cash in bank, receivable, and cumulative gross margin over seven months, with the office lag closing in month three"></canvas>
+        <p class="cash-chart-note" id="chart-caption">Cash bottoms while receivable peaks, then recovers once the invoice goes out on day one.</p>
       </div>
       <div class="kpi-cards" id="cash-kpis">
       <div class="headline-card">
@@ -928,7 +928,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     $("r-release").textContent = money.format(release);
     $("r-release-days").textContent = releaseDays;
     $("r-fee-saved").textContent = money.format(Math.max(0, feeNow - feeTarget));
-    drawChart({ perDay: perDay, lag: lag, target: TARGET_LAG, cust: custDays, margin: margin });
+    drawChart({ perDay: perDay, lag: lag, target: TARGET_LAG, cust: custDays, margin: margin, cost: 1 - margin });
 
     $("ls-days-now").textContent = daysNow;
     $("ls-days-target").textContent = daysTarget;
@@ -953,10 +953,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
      months, for today's lag and for invoicing on day one. Same arithmetic as
      the table: a dollar of work is collected lag + customer clock days later. */
   var chartCanvas = $("cash-chart");
+  /* CASH_STORY_CHART (Gil, 2026-09-08): one timeline, seven months. The
+     first three months run at today's office lag; at the end of month three
+     the invoice starts going out on day one. Cash in bank dips while the
+     receivable balloons, bottoms out, then recovers as the wait shortens.
+     Cumulative gross margin climbs steadily underneath. Work is spread evenly,
+     a day of work is paid lag + customer clock days later, and the cost of
+     the work leaves the bank the day it is done. Starting cash is 1.5x the
+     cost the business must fund for today's wait, so the dip is visible
+     without the account going to zero. */
+  var MONTHS = 7, SWITCH_MONTH = 3;
+  function simulate(m) {
+    var days = MONTHS * 30, sw = SWITCH_MONTH * 30;
+    var paidOn = new Array(days + 1);
+    for (var d = 0; d <= days; d++) paidOn[d] = d + (d < sw ? m.lag : m.target) + m.cust;
+    var startCash = m.perDay * m.cost * (m.lag + m.cust) * 1.5;
+    var cash = [], ar = [], gm = [];
+    var collected = 0, owed = 0;
+    for (var t = 0; t <= days; t++) {
+      collected = 0; owed = 0;
+      for (var s2 = 0; s2 <= t; s2++) { if (paidOn[s2] <= t) collected++; else owed++; }
+      cash.push(startCash + m.perDay * collected - m.perDay * m.cost * t);
+      ar.push(m.perDay * owed);
+      gm.push(m.perDay * m.margin * t);
+    }
+    return { days: days, sw: sw, cash: cash, ar: ar, gm: gm };
+  }
   function drawChart(m) {
     if (!chartCanvas || !chartCanvas.getContext) return;
-    var days = Math.max(120, Math.ceil((m.lag + m.cust) * 2.2 / 10) * 10);
-    $("chart-days").textContent = days;
+    var sim = simulate(m), days = sim.days;
     var cssW = chartCanvas.clientWidth || 600, cssH = chartCanvas.clientHeight || 200;
     var dpr = window.devicePixelRatio || 1;
     if (chartCanvas.width !== Math.round(cssW * dpr) || chartCanvas.height !== Math.round(cssH * dpr)) {
@@ -965,26 +990,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     var ctx = chartCanvas.getContext("2d");
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, cssW, cssH);
-    var cost = 1 - m.margin;
-    function series(lagDays) {
-      var wait = lagDays + m.cust, bank = [], ar = [];
-      for (var t = 0; t <= days; t++) {
-        var collected = m.perDay * Math.max(0, t - wait);
-        bank.push(collected - m.perDay * cost * t);
-        ar.push(m.perDay * Math.min(t, wait));
-      }
-      return { bank: bank, ar: ar };
-    }
-    var now = series(m.lag), tgt = series(m.target);
-    var all = now.bank.concat(now.ar, tgt.bank, tgt.ar);
-    var lo = Math.min.apply(null, all), hi = Math.max.apply(null, all);
+    var all = sim.cash.concat(sim.ar, sim.gm);
+    var lo = Math.min(0, Math.min.apply(null, all)), hi = Math.max.apply(null, all);
     if (hi === lo) hi = lo + 1;
-    var padL = 54, padR = 8, padT = 8, padB = 22;
+    var padL = 54, padR = 10, padT = 8, padB = 22;
     var w = cssW - padL - padR, h = cssH - padT - padB;
     var x = function (t) { return padL + (t / days) * w; };
     var y = function (v) { return padT + (1 - (v - lo) / (hi - lo)) * h; };
-    var fmtK = function (v) { var a = Math.abs(v); var s = a >= 1e6 ? (a / 1e6).toFixed(1) + "M" : a >= 1e3 ? Math.round(a / 1e3) + "k" : Math.round(a); return (v < 0 ? "-$" : "$") + s; };
-    // grid + axis labels
+    var fmtK = function (v) { var a = Math.abs(v); var s3 = a >= 1e6 ? (a / 1e6).toFixed(1) + "M" : a >= 1e3 ? Math.round(a / 1e3) + "k" : Math.round(a); return (v < 0 ? "-$" : "$") + s3; };
     ctx.font = "10px Barlow, sans-serif"; ctx.fillStyle = "rgba(140,163,190,0.9)"; ctx.strokeStyle = "rgba(255,255,255,0.08)"; ctx.lineWidth = 1;
     var ticks = 4;
     for (var i = 0; i <= ticks; i++) {
@@ -992,32 +1005,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       ctx.beginPath(); ctx.moveTo(padL, yy); ctx.lineTo(cssW - padR, yy); ctx.stroke();
       ctx.textAlign = "right"; ctx.textBaseline = "middle"; ctx.fillText(fmtK(v), padL - 6, yy);
     }
-    if (lo < 0 && hi > 0) { ctx.strokeStyle = "rgba(255,255,255,0.28)"; ctx.beginPath(); ctx.moveTo(padL, y(0)); ctx.lineTo(cssW - padR, y(0)); ctx.stroke(); }
-    ctx.textBaseline = "top";
-    for (var d = 0; d <= days; d += days / 4) {
-      // first label hugs the left edge, last hugs the right, so none is clipped
-      ctx.textAlign = d === 0 ? "left" : d >= days ? "right" : "center";
-      ctx.fillText("day " + Math.round(d), x(d), cssH - padB + 6);
+    if (lo < 0) { ctx.strokeStyle = "rgba(255,255,255,0.28)"; ctx.beginPath(); ctx.moveTo(padL, y(0)); ctx.lineTo(cssW - padR, y(0)); ctx.stroke(); }
+    // switch marker: the invoice starts going out on day one
+    ctx.setLineDash([3, 3]); ctx.strokeStyle = "rgba(255,255,255,0.35)"; ctx.beginPath(); ctx.moveTo(x(sim.sw), padT); ctx.lineTo(x(sim.sw), cssH - padB); ctx.stroke(); ctx.setLineDash([]);
+    ctx.textAlign = "left"; ctx.textBaseline = "top"; ctx.fillStyle = "rgba(195,210,228,0.9)"; ctx.fillText("invoice on day one", x(sim.sw) + 5, padT + 2);
+    ctx.fillStyle = "rgba(140,163,190,0.9)"; ctx.textBaseline = "top";
+    for (var mo = 0; mo <= MONTHS; mo++) {
+      ctx.textAlign = mo === 0 ? "left" : mo === MONTHS ? "right" : "center";
+      var show = cssW > 420 ? true : (mo === 0 || mo % 2 === 0); // narrow: start, 2, 4, 6
+      if (show) ctx.fillText(mo === 0 ? "start" : "mo " + mo, x(mo * 30), cssH - padB + 6);
     }
+    var upTo = Math.max(1, Math.round(chartProgress() * days));
     function line(arr, color, dash, width) {
       ctx.beginPath(); ctx.setLineDash(dash); ctx.lineWidth = width; ctx.strokeStyle = color;
-      for (var t = 0; t < arr.length; t++) { if (t === 0) ctx.moveTo(x(t), y(arr[t])); else ctx.lineTo(x(t), y(arr[t])); }
+      for (var t = 0; t <= upTo; t++) { if (t === 0) ctx.moveTo(x(t), y(arr[t])); else ctx.lineTo(x(t), y(arr[t])); }
       ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillStyle = color;
+      for (var mm = 1; mm <= MONTHS; mm++) { var tt = mm * 30; if (tt <= upTo) { ctx.beginPath(); ctx.arc(x(tt), y(arr[tt]), 3, 0, Math.PI * 2); ctx.fill(); } }
     }
-    var ORANGE = "#F26419", ELECTRIC = "#2A8EFF";
-    // CHART_SCROLL_DRAW (Gil, 2026-09-08): the lines draw left to right in
-    // step with the scroll. Everything is computed; only the visible span
-    // grows, so the numbers never change with the scroll.
-    var upTo = Math.max(1, Math.round(chartProgress() * days));
-    var cut = function (arr) { return arr.slice(0, upTo + 1); };
-    line(cut(now.ar), ORANGE, [4, 4], 1.5);
-    line(cut(tgt.ar), ELECTRIC, [4, 4], 1.5);
-    line(cut(now.bank), ORANGE, [], 2.5);
-    line(cut(tgt.bank), ELECTRIC, [], 2.5);
-    if (upTo < days) {
-      ctx.fillStyle = ELECTRIC; ctx.beginPath(); ctx.arc(x(upTo), y(tgt.bank[upTo]), 3, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = ORANGE; ctx.beginPath(); ctx.arc(x(upTo), y(now.bank[upTo]), 3, 0, Math.PI * 2); ctx.fill();
-    }
+    var ORANGE = "#F26419", ELECTRIC = "#2A8EFF", WHITE = "#C3D2E4";
+    line(sim.gm, WHITE, [2, 4], 2);
+    line(sim.ar, ORANGE, [5, 4], 2);
+    line(sim.cash, ELECTRIC, [], 2.5);
+    // narrative caption from the same numbers
+    var minCash = Infinity, minAt = 0, peakAr = -Infinity, peakAt = 0;
+    for (var k = 0; k <= days; k++) { if (sim.cash[k] < minCash) { minCash = sim.cash[k]; minAt = k; } if (sim.ar[k] > peakAr) { peakAr = sim.ar[k]; peakAt = k; } }
+    var monthOf = function (d2) { return Math.max(1, Math.ceil(d2 / 30)); };
+    var cap = $("chart-caption");
+    if (cap) cap.textContent = "Cash bottoms at " + money.format(minCash) + " in month " + monthOf(minAt) + " and recovers to " + money.format(sim.cash[days]) + " by month " + MONTHS + " once the invoice goes out on day one. Receivable falls from a peak of " + money.format(peakAr) + " to " + money.format(sim.ar[days]) + ". Cumulative gross margin reaches " + money.format(sim.gm[days]) + ".";
+    $("chart-days").textContent = MONTHS;
   }
   var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   function chartProgress() {
