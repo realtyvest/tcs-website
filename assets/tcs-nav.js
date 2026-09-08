@@ -39,7 +39,13 @@
     for (var i = 0; i < navs.length; i++) {
       var nav = navs[i];
       if (nav.querySelector('.tcs-nav-toggle')) return;
-      if (nav.querySelector('.hamburger, .nav-hamburger, .menu-toggle, .nav-toggle')) return;
+      /* MENU_MATCH_HOME (Gil, 2026-09-08): pages that shipped their own
+         hamburger and dropdown get the homepage-style overlay instead. Their
+         toggle is hidden; their own script may still bind to it harmlessly. */
+      var own = nav.querySelectorAll('.hamburger, .nav-hamburger, .menu-toggle, .nav-toggle');
+      for (var o = 0; o < own.length; o++) own[o].style.display = 'none';
+      var ownMenus = document.querySelectorAll('.mobile-menu:not(.tcs-mobile-menu)');
+      for (var m = 0; m < ownMenus.length; m++) ownMenus[m].style.display = 'none';
 
       var ul = nav.querySelector('ul.links, ul.nav-links, ul');
       if (!ul || !ul.parentNode) continue;

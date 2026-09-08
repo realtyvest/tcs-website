@@ -231,7 +231,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .cash-chart-legend .sw { display: inline-block; width: 16px; height: 0; border-top: 2px solid var(--orange); }
   .cash-chart-legend .sw-target { border-top-color: var(--electric); }
   .cash-chart-legend .sw-dash { border-top-style: dashed; }
-  #cash-chart { display: block; width: 100%; height: 170px; }
+  #cash-chart { display: block; width: 100%; max-width: 100%; height: 170px; }
   #cash-chart-card .cash-chart-note { margin: 6px 0 0; font-size: 11.5px !important; line-height: 1.35 !important; color: var(--muted); }
   @media (min-width: 1025px) {
     .kpi-row { grid-template-columns: 1.4fr 1fr; align-items: stretch; }
@@ -551,7 +551,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0B1829">
-<link rel="stylesheet" href="/assets/tcs-nav.css?v=menu14">
+<link rel="stylesheet" href="/assets/tcs-nav.css?v=menu15">
   <link rel="stylesheet" href="/assets/tcs-type.css?v=type2">
   <link rel="stylesheet" href="/assets/tcs-footer.css?v=foot2">
 </head>
@@ -993,26 +993,64 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       ctx.textAlign = "right"; ctx.textBaseline = "middle"; ctx.fillText(fmtK(v), padL - 6, yy);
     }
     if (lo < 0 && hi > 0) { ctx.strokeStyle = "rgba(255,255,255,0.28)"; ctx.beginPath(); ctx.moveTo(padL, y(0)); ctx.lineTo(cssW - padR, y(0)); ctx.stroke(); }
-    ctx.textAlign = "center"; ctx.textBaseline = "top";
-    for (var d = 0; d <= days; d += days / 4) ctx.fillText("day " + Math.round(d), x(d), cssH - padB + 6);
+    ctx.textBaseline = "top";
+    for (var d = 0; d <= days; d += days / 4) {
+      // first label hugs the left edge, last hugs the right, so none is clipped
+      ctx.textAlign = d === 0 ? "left" : d >= days ? "right" : "center";
+      ctx.fillText("day " + Math.round(d), x(d), cssH - padB + 6);
+    }
     function line(arr, color, dash, width) {
       ctx.beginPath(); ctx.setLineDash(dash); ctx.lineWidth = width; ctx.strokeStyle = color;
       for (var t = 0; t < arr.length; t++) { if (t === 0) ctx.moveTo(x(t), y(arr[t])); else ctx.lineTo(x(t), y(arr[t])); }
       ctx.stroke(); ctx.setLineDash([]);
     }
     var ORANGE = "#F26419", ELECTRIC = "#2A8EFF";
-    line(now.ar, ORANGE, [4, 4], 1.5);
-    line(tgt.ar, ELECTRIC, [4, 4], 1.5);
-    line(now.bank, ORANGE, [], 2.5);
-    line(tgt.bank, ELECTRIC, [], 2.5);
+    // CHART_SCROLL_DRAW (Gil, 2026-09-08): the lines draw left to right in
+    // step with the scroll. Everything is computed; only the visible span
+    // grows, so the numbers never change with the scroll.
+    var upTo = Math.max(1, Math.round(chartProgress() * days));
+    var cut = function (arr) { return arr.slice(0, upTo + 1); };
+    line(cut(now.ar), ORANGE, [4, 4], 1.5);
+    line(cut(tgt.ar), ELECTRIC, [4, 4], 1.5);
+    line(cut(now.bank), ORANGE, [], 2.5);
+    line(cut(tgt.bank), ELECTRIC, [], 2.5);
+    if (upTo < days) {
+      ctx.fillStyle = ELECTRIC; ctx.beginPath(); ctx.arc(x(upTo), y(tgt.bank[upTo]), 3, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = ORANGE; ctx.beginPath(); ctx.arc(x(upTo), y(now.bank[upTo]), 3, 0, Math.PI * 2); ctx.fill();
+    }
   }
-  var chartTimer;
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function chartProgress() {
+    if (reduceMotion || !chartCanvas) return 1;
+    var vh = window.innerHeight || 800;
+    var results = document.querySelector(".calculator-results");
+    var sticky = results && window.getComputedStyle(results).position === "sticky" && window.innerWidth > 1024;
+    var p;
+    if (sticky) {
+      // Desktop: the panel holds still, so the draw follows the scroll through the sliders.
+      var section = document.querySelector(".calculator-section");
+      var top = section.getBoundingClientRect().top + window.scrollY;
+      p = (window.scrollY - (top - vh * 0.6)) / (vh * 0.7);
+    } else {
+      // Phone: the chart draws as it rises through the viewport.
+      var r = chartCanvas.getBoundingClientRect();
+      p = (vh * 0.9 - r.top) / (vh * 0.5);
+    }
+    return Math.max(0, Math.min(1, p));
+  }
+  var chartTimer, chartRaf = null, lastModel = null;
+  var _drawChart = drawChart;
+  drawChart = function (m) { lastModel = m; _drawChart(m); };
+  window.addEventListener("scroll", function () {
+    if (!lastModel || chartRaf) return;
+    chartRaf = window.requestAnimationFrame(function () { chartRaf = null; _drawChart(lastModel); });
+  }, { passive: true });
   window.addEventListener("resize", function () { clearTimeout(chartTimer); chartTimer = setTimeout(update, 150); });
 
   update();
 })();
 </script>
 
-<script src="/assets/tcs-nav.js?v=menu13" defer></script>
+<script src="/assets/tcs-nav.js?v=menu14" defer></script>
 </body>
 </html>
