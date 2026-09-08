@@ -530,7 +530,11 @@
       targetCards.forEach(function (el) {
         el.classList.add("is-visible");
       });
-      unlockClosing(closing);
+      if (closing) {
+        closing.classList.remove("is-settled");
+        closing.style.removeProperty("opacity");
+        closing.style.removeProperty("visibility");
+      }
       setCount(9, false);
 
       storyCtx = gsap.context(function () {
@@ -569,12 +573,22 @@
           anticipatePin: 1,
           fastScrollEnd: true,
           invalidateOnRefresh: true,
+          // Story mode locks the closing line with the CSS class only. The
+          // old settleClosing() used gsap.set(overwrite:"auto"), which killed
+          // the closing tween inside this scrubbed timeline, so after a leave
+          // the line stayed visible even at progress 0.
           onLeave: function () {
-            settleClosing(gsap, closing);
+            if (closing) closing.classList.add("is-settled");
             setCount(4, true);
           },
           onEnterBack: function () {
-            unlockClosing(closing);
+            if (closing) closing.classList.remove("is-settled");
+          },
+          // A jump from below the pin to above it (anchor link, fast flick)
+          // can skip onEnterBack; release here too.
+          onLeaveBack: function () {
+            if (closing) closing.classList.remove("is-settled");
+            setCount(9, false);
           },
         };
         // Coarse pointers: snap to beat boundaries so a rest lands cleanly
