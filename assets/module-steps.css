@@ -125,3 +125,8 @@ html:not(.module-steps-armed) .how-it-works .step::before {
   .how-it-works .step::before,
   .how-it-works .step::after { transition: none !important; }
 }
+
+/* STEPS_PIN: while the grid is pinned, unlit cards stay faintly visible so
+   the shape of the sequence reads; each lights fully on its scroll step. */
+html.module-steps-armed .how-it-works .steps.is-pinned .step { opacity: 0.18; transform: translateY(14px); }
+html.module-steps-armed .how-it-works .steps.is-pinned .step.is-in { opacity: 1; transform: none; }
