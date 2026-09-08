@@ -49,21 +49,34 @@
     for (var i = 0; i < items.length; i += cols) rows.push(items.slice(i, i + cols));
     rows.reverse();
 
+    // OUTCOMES_BUILD_PIN: one row per scroll step, foundation first. The
+    // section pins under the bar while the stack builds, so the top rows are
+    // never already standing when the section scrolls into view. Each row
+    // slides up onto the stack, the orange fill sweeps across, then settles.
     var tl = gsap.timeline({ paused: true });
     rows.forEach(function (row, r) {
-      var at = r * 0.5;
+      var at = 0.25 + r;
       var rowFills = row.map(function (li) { return li.querySelector(".oc-fill"); });
-      tl.to(row, { y: 0, autoAlpha: 1, duration: 0.45, ease: "power2.out", stagger: 0.08 }, at)
-        .to(rowFills, { scaleX: 1, duration: 0.45, ease: "power2.out", stagger: 0.08 }, at + 0.05)
-        .to(rowFills, { opacity: 0.2, duration: 0.3, ease: "none", stagger: 0.08 }, at + 0.45)
-        .add(function () { row.forEach(function (li) { li.classList.add("is-set"); }); }, at + 0.7);
+      tl.to(row, { y: 0, autoAlpha: 1, duration: 0.55, ease: "power2.out", stagger: 0.1 }, at)
+        .to(rowFills, { scaleX: 1, duration: 0.55, ease: "power2.out", stagger: 0.1 }, at + 0.08)
+        .to(rowFills, { opacity: 0.2, duration: 0.3, ease: "none", stagger: 0.1 }, at + 0.6)
+        .add(function () { row.forEach(function (li) { li.classList.add("is-set"); }); }, at + 0.85);
     });
+    tl.to({}, { duration: 0.3 }); // short hold on the finished stack before release
+
+    var section = list.closest("section") || list.parentElement;
+    var barH = 72;
+    var fits = section.getBoundingClientRect().height <= window.innerHeight - barH;
+    var perRow = window.innerWidth <= 820 ? 42 : 55; // viewport-heights of scroll per row
 
     st = ScrollTrigger.create({
-      trigger: list,
-      start: "top 82%",
-      end: "bottom 55%",
-      scrub: 0.5,
+      trigger: section,
+      start: fits ? "top " + barH + "px" : "top 75%",
+      end: fits ? "+=" + Math.round(rows.length * perRow + 30) + "%" : "bottom 60%",
+      pin: fits,
+      pinSpacing: true,
+      anticipatePin: 1,
+      scrub: 0.6,
       animation: tl,
       invalidateOnRefresh: true,
       onLeave: function () { items.forEach(function (li) { li.classList.add("is-set"); }); }
@@ -76,7 +89,8 @@
   window.addEventListener("resize", function () {
     clearTimeout(timer);
     timer = setTimeout(function () {
-      if (columns() !== lastCols) { lastCols = columns(); build(); ScrollTrigger.refresh(); }
+      // Rebuild on any real size change: the pin decision depends on height.
+      lastCols = columns(); build(); ScrollTrigger.refresh();
     }, 200);
   });
 })();

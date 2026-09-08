@@ -43,3 +43,23 @@ html.outcomes-stack-static .outcomes-list li .oc-fill {
 html.outcomes-stack-static .outcomes-list li {
   border-color: rgba(242, 100, 25, 0.55);
 }
+
+/* OUTCOMES_BUILD_PIN (Gil, 2026-09-08): the section pins while the blocks
+   build from the foundation up, one row per scroll step, so nothing is
+   already standing when it comes into view. Compact cards on phones so the
+   whole stack fits under the bar while pinned. */
+@media (max-width: 820px) {
+  .outcomes-list[data-outcomes-stack] li {
+    padding: 11px 12px 11px 2.5rem;
+    font-size: 16px !important;
+    line-height: 1.4;
+  }
+  .outcomes-list[data-outcomes-stack] li::before {
+    top: 11px;
+    left: 12px;
+  }
+  .outcomes-list[data-outcomes-stack] {
+    gap: 9px;
+    margin-top: 1rem;
+  }
+}
