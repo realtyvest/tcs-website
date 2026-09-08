@@ -13,9 +13,9 @@
   --rail-muted: rgba(255, 255, 255, 0.66);
   position: fixed;
   left: 26px;
-  top: calc(var(--nav-h, 64px) + 40px);
+  top: 22px;
   bottom: 24px;
-  z-index: 90;
+  z-index: 101; /* above the sticky top bar so the rail logo sits in its row */
   display: none;
   flex-direction: column;
   justify-content: space-between;
@@ -44,6 +44,53 @@ body.menu-open .rail {
   .rail {
     display: flex;
   }
+}
+
+.rail-logo {
+  display: block;
+  width: 170px;
+  height: 52px;
+  margin: 0 0 30px;
+  line-height: 0;
+}
+
+.rail-logo svg {
+  display: block;
+  width: 170px;
+  height: 52px;
+  overflow: visible;
+}
+
+.rail-logo-l1,
+.rail-logo-l2,
+.rail-logo-l3 {
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 800;
+  font-size: 26px;
+  letter-spacing: 2px;
+  fill: #FFFFFF;
+}
+
+.rail-logo-l2 {
+  fill: var(--rail-electric);
+}
+
+.rail-logo-l3 {
+  font-weight: 700;
+  font-size: 23px;
+  fill: var(--muted, #8CA3BE);
+}
+
+/* The rail owns the logo on this page at desktop widths. */
+@media (min-width: 1025px) {
+  html.has-rail nav .nav-logo {
+    visibility: hidden;
+  }
+}
+
+.rail-top {
+  display: flex;
+  flex-direction: column;
 }
 
 .rail-nav {

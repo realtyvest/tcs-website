@@ -45,6 +45,31 @@
     rail.setAttribute("aria-label", "Section navigation");
     rail.setAttribute("data-rail", "");
 
+    // RAIL_LOGO_LOCK: the stacked wordmark lives at the top of the rail on
+    // desktop (OTP puts its logo in the rail column); the top bar hides its
+    // own logo on this page at those widths (html.has-rail, rail.css).
+    var logo = document.createElement("a");
+    logo.className = "rail-logo";
+    logo.href = "#home";
+    logo.setAttribute("aria-label", "Telecom Contractor Solutions, home");
+    logo.innerHTML =
+      '<svg viewBox="0 0 260 80" width="170" height="52" role="img" aria-hidden="true" focusable="false">' +
+      '<line x1="18" y1="78" x2="18" y2="20" stroke="#2A8EFF" stroke-width="4" stroke-linecap="round"/>' +
+      '<line x1="21" y1="66" x2="36" y2="66" stroke="#2A8EFF" stroke-width="1.8" stroke-linecap="round" opacity="0.30"/>' +
+      '<line x1="21" y1="54" x2="34" y2="54" stroke="#2A8EFF" stroke-width="1.8" stroke-linecap="round" opacity="0.48"/>' +
+      '<line x1="21" y1="43" x2="36" y2="43" stroke="#2A8EFF" stroke-width="1.8" stroke-linecap="round" opacity="0.65"/>' +
+      '<line x1="21" y1="32" x2="33" y2="32" stroke="#2A8EFF" stroke-width="1.8" stroke-linecap="round" opacity="0.82"/>' +
+      '<polygon points="10,20 18,4 26,20" fill="#F26419"/>' +
+      '<text x="52" y="28" class="rail-logo-l1">TELECOM</text>' +
+      '<text x="52" y="54" class="rail-logo-l2">CONTRACTOR</text>' +
+      '<text x="52" y="78" class="rail-logo-l3">SOLUTIONS</text>' +
+      "</svg>";
+    var top = document.createElement("div");
+    top.className = "rail-top";
+    top.appendChild(logo);
+    rail.appendChild(top);
+    document.documentElement.classList.add("has-rail");
+
     var nav = document.createElement("div");
     nav.className = "rail-nav";
     var marker = document.createElement("span");
@@ -67,7 +92,7 @@
         byId[id] = a;
       });
     });
-    rail.appendChild(nav);
+    top.appendChild(nav);
 
     // Bottom-left legal links (OTP rail-foot).
     var foot = document.createElement("div");
