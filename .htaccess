@@ -14,3 +14,14 @@ RewriteRule ^slack-integration/?$ /slack-integration.html [R=301,L]
 RewriteRule ^rfp-tracker/?$ /rfp-tracker.html [R=301,L]
 
 ErrorDocument 404 /404.html
+
+# CACHE_POLICY (2026-09-08): pages revalidate on every visit so a push shows up
+# on the next load; versioned assets (?v=) cache for a year.
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|htm)$">
+    Header set Cache-Control "no-cache, must-revalidate, max-age=0"
+  </FilesMatch>
+  <FilesMatch "\.(css|js|png|jpg|jpeg|webp|svg|ico|woff2|mp4|pdf)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>

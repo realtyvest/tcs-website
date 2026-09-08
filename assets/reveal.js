@@ -322,18 +322,35 @@
         }, isNaN(delay) ? LOAD_DELAY : delay);
         return;
       }
-      ScrollTrigger.create({
-        trigger: el,
-        start: "top 82%",
-        once: true,
-        onEnter: function () {
-          play(el);
-        },
-      });
-      // Fallback: if ScrollTrigger positions ever drift on a phone, the
-      // heading still reveals the moment it is actually on screen.
+      // HEADLINE_WIPE_SCRUB (Gil, 2026-09-08): the bars wipe off in step
+      // with the scroll once the heading is in the section, not in a burst
+      // the moment it clears the fold. The wipe runs from the heading at 80%
+      // of the viewport to 42%, then stays done.
+      var r = el.__rv;
+      if (r && r.tl) {
+        r.played = true;
+        r.st = ScrollTrigger.create({
+          trigger: el,
+          start: "top 80%",
+          end: "top 42%",
+          scrub: 0.4,
+          animation: r.tl,
+          invalidateOnRefresh: true,
+          onLeave: function () { r.tl.progress(1); },
+        });
+      } else {
+        ScrollTrigger.create({
+          trigger: el,
+          start: "top 82%",
+          once: true,
+          onEnter: function () { play(el); },
+        });
+      }
+      // Fallback: if ScrollTrigger positions ever drift on a phone, a heading
+      // sitting well inside the viewport is finished rather than left barred.
       onScreen(el, function () {
-        play(el);
+        if (el.__rv && el.__rv.tl) el.__rv.tl.progress(1);
+        else play(el);
       });
     }
 
@@ -349,7 +366,7 @@
             }
           }
         },
-        { threshold: 0.15 }
+        { threshold: 1, rootMargin: "0px 0px -45% 0px" }
       );
       io.observe(el);
     }
