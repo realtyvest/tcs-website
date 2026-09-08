@@ -40,6 +40,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
+<script>document.documentElement.classList.add("rv-js");</script>
 <link rel="stylesheet" href="/assets/tcs-nav.css?v=menu1">
 
 <style>
@@ -583,12 +584,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   /* HERO ENTER. staggered once; reduced-motion shows final */
   .hero-enter {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(22px);
   }
   .hero.is-ready .hero-enter {
     opacity: 1;
     transform: none;
-    transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  /* The h1 is revealed line by line by reveal.js (marker wipe), not by the rise. */
+  .hero .hero-enter[data-rv],
+  .hero.is-ready .hero-enter[data-rv] {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
   .hero.is-ready .hero-enter:nth-child(1) { transition-delay: 0ms; }
   .hero.is-ready .hero-enter:nth-child(2) { transition-delay: 80ms; }
@@ -1311,6 +1319,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <link rel="stylesheet" href="/assets/phase2-motion.css">
   <link rel="stylesheet" href="/assets/paths.css?v=fly1">
   <link rel="stylesheet" href="/assets/homepage-spine.css?v=spine2">
+  <link rel="stylesheet" href="/assets/reveal.css?v=rv1">
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -1364,7 +1373,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="hero-inner">
     <p class="eyebrow hero-enter">Telecom Contractor Solutions · Houston · ISP contractors nationwide</p>
     <div class="hero-rule hero-enter" aria-hidden="true"></div>
-    <h1 class="hero-enter">From Field to Financials</h1>
+    <h1 class="hero-enter" data-rv="load">From Field to Financials</h1>
     <p class="punch hero-enter">Stop rebuilding Tuesday’s job on Friday.</p>
     <div class="hero-actions hero-enter">
       <a class="btn" href="/fit-call">Book a Fit Call</a>
@@ -1392,7 +1401,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="section section--alt" id="problem">
   <div class="section-inner">
     <p class="hero-fit-strip"><strong>10–100</strong> <span>Field technicians, our exact fit</span></p>
-    <h2>Your field knows what happened. Your office shouldn’t have to reconstruct it.</h2>
+    <h2 data-rv>Your field knows what happened. Your office shouldn’t have to reconstruct it.</h2>
     <p class="sub prose">Most ISP contractors don’t lose money because crews don’t work. They lose it in the handoffs: WhatsApp, phone photos, paper, one spreadsheet, then another, then accounting, until Friday is a rebuild of Tuesday.</p>
   </div>
 </section>
@@ -1400,7 +1409,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- 3 · PHILOSOPHY -->
 <section class="section" id="philosophy">
   <div class="section-inner prose">
-    <h2>The Field Is the Source of Truth</h2>
+    <h2 data-rv>The Field Is the Source of Truth</h2>
     <p class="sub">TCS does not start with another office dashboard. It starts where the work happens: the map, the codes, the photos, the closeout, so production and billing inherit the same truth the crew already lived.</p>
   </div>
 </section>
@@ -1408,7 +1417,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- 4 · OUTCOMES -->
 <section class="section section--alt" id="outcomes">
   <div class="section-inner">
-    <h2>What changes when the field is trusted</h2>
+    <h2 data-rv>What changes when the field is trusted</h2>
     <ul class="outcomes-list">
       <li>Faster, complete closeouts</li>
       <li>Less duplicate entry between portal, sheet, and invoice</li>
@@ -1425,7 +1434,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- 4a2 · SPINE (HOMEPAGE_SPINE_PLACEMENT_LOCK) -->
 <section class="section" id="spine" aria-label="How a job moves">
   <div class="section-inner">
-    <h2 class="spine-head">How a job moves</h2>
+    <h2 class="spine-head" data-rv>How a job moves</h2>
     <p class="spine-sub">One clean line from the field to the invoice. No Friday rebuild.</p>
     <ol class="spine-list">
       <li class="spine-step">
@@ -1470,7 +1479,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- 4b · CONSTRUCTION PATH (CONSTRUCTION_DROPS_PLACEMENT_LOCK) -->
 <section class="section path-section" id="path-construction" data-path data-path-key="construction" aria-label="Construction path">
   <div class="section-inner">
-    <h2>Construction</h2>
+    <h2 data-rv>Construction</h2>
     <p class="path-sub">Multi-day work. Progressive billing from field marks.</p>
     <div class="path-island" data-path-island>
       <!-- Island markup (bar + stage): assets/paths.js -->
@@ -1484,7 +1493,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <span id="map-to-invoice" aria-hidden="true"></span>
 <section class="section path-section" id="path-drops" data-path data-path-key="drops" aria-label="Drops path">
   <div class="section-inner">
-    <h2>Drops</h2>
+    <h2 data-rv>Drops</h2>
     <p class="path-sub">One day, one address. Invoice the same day.</p>
     <div class="path-island" data-path-island>
       <!-- Island markup (bar + stage): assets/paths.js -->
@@ -1496,7 +1505,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- 5 · HOW -->
 <section class="section" id="how">
   <div class="section-inner">
-    <h2>How we work with you</h2>
+    <h2 data-rv>How we work with you</h2>
     <ol class="steps">
       <li><strong>Fit Call</strong>. 30 minutes. Is the Operations Audit a fit?</li>
       <li><strong>Operations Audit</strong>. fixed scope discovery, roadmap + math you keep either way (scoped on the Fit Call)</li>
@@ -1512,7 +1521,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- 6 · PROOF -->
 <section class="section section--alt" id="proof">
   <div class="section-inner">
-    <h2>What telecom contractors say</h2>
+    <h2 data-rv>What telecom contractors say</h2>
     <div class="quote">
       “We were running dispatch on spreadsheets and group texts and jobs were falling through the cracks constantly. Gil rebuilt the whole system. The structure he put in place is already changing how we operate.”
       <div class="quote-attr">Owner <span>· Telecom contractor</span></div>
@@ -1525,7 +1534,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- 7 · SOFTWARE SOFT -->
 <section class="section" id="software">
   <div class="section-inner prose">
-    <h2>The system doesn’t stop at a roadmap</h2>
+    <h2 data-rv>The system doesn’t stop at a roadmap</h2>
     <p class="sub">We can implement the workflow and provide the software that runs it: field capture through invoice-ready, without making your office reconstruct the job.</p>
   </div>
 </section>
@@ -1572,6 +1581,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script src="/assets/phase2-motion.js" defer></script>
 <script src="/assets/paths.js?v=snap2" defer></script>
 <script src="/assets/homepage-spine.js?v=spine1" defer></script>
+<script src="/assets/reveal.js?v=rv1" defer></script>
 
 
 <script>

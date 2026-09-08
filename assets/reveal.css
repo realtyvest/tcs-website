@@ -1,0 +1,37 @@
+/*
+ * HEADLINE_MARKER_REVEAL_LOCK: line-by-line marker reveal for headlines.
+ * JS splits a [data-rv] heading into natural lines, lays a solid bar over each
+ * line, and wipes the bars off right-to-left (scaleX 1 -> 0, power3.inOut,
+ * 0.12s line stagger). Hero h1 plays on load; section h2s play once on enter.
+ * html.rv-js is set inline in <head> so a JS-enabled page never flashes the
+ * unrevealed heading; without JS the headings simply render.
+ */
+html.rv-js [data-rv]:not(.rv-shown) {
+  visibility: hidden;
+}
+
+.rv-line {
+  position: relative;
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.rv-bar {
+  position: absolute;
+  inset: -0.06em 0;
+  background: var(--rv-bar, var(--electric, #2A8EFF));
+  transform-origin: right center;
+  pointer-events: none;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.rv-js [data-rv] {
+    visibility: visible;
+  }
+  .rv-bar {
+    display: none;
+  }
+}
