@@ -283,12 +283,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
        calculator. The results stay fixed on the right as a KPI panel that
        fits the viewport and uses the full screen width; only the sliders
        scroll. */
-    .calculator-section { max-width: 1720px; padding: 28px 3% 48px; }
+    .calculator-section { max-width: 1720px; padding: 10px 3% 48px; }
     .calculator-container { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 56px; }
     .calculator-results {
       position: sticky;
-      top: 76px;
-      max-height: calc(100vh - 92px);
+      top: calc(var(--tcs-nav-h, 64px) + 10px);
+      max-height: calc(100vh - var(--tcs-nav-h, 64px) - 20px);
       overflow: auto;
       display: grid;
       grid-template-columns: repeat(6, 1fr);
