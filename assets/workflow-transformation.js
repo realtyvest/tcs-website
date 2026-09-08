@@ -82,13 +82,15 @@
     var html =
       '<div class="wt-inner">' +
       '<header class="wt-chrome">' +
+      // WT_CARD_HEADER_LOCK: the tagline is the card header, section-h2 size,
+      // with the same marker wipe as the other headings (data-rv).
+      '<h2 class="wt-tagline" data-rv>Capture the work once. Move the job forward.</h2>' +
       '<p class="wt-chrome-row">' +
       '<span data-wt-chrome-current>CURRENT · 9 STEPS</span>' +
       '<span class="wt-chrome-arrow" aria-hidden="true">→</span>' +
       '<span data-wt-chrome-target>TARGET · 4 STEPS</span>' +
       '<span class="wt-chrome-count" data-wt-count aria-hidden="true">STEPS <b data-wt-count-n>9</b></span>' +
       "</p>" +
-      '<p class="wt-tagline">Capture the work once. Move the job forward.</p>' +
       "</header>" +
       '<div class="wt-stage" data-wt-stage>' +
       '<div class="wt-lists" data-wt-lists>' +
