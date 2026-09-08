@@ -224,7 +224,7 @@
       gsap.set(rollers, { yPercent: 0 });
       var tl = gsap.timeline({ paused: true });
       rollers.forEach(function (r, i) {
-        tl.to(r, { yPercent: -targets[i] * 10, duration: 1.1, ease: "power3.out" }, i * 0.12);
+        tl.to(r, { yPercent: -targets[i] * 10, duration: 1.1, ease: "power2.out" }, i * 0.12);
       });
       ScrollTrigger.create({
         trigger: el,
@@ -254,7 +254,7 @@
         autoAlpha: 1,
         y: 0,
         duration: 0.7,
-        ease: "power3.out",
+        ease: "power2.out",
         stagger: stagger || 0,
         overwrite: "auto",
         scrollTrigger: { trigger: trigger, start: "top 85%", once: true },
@@ -286,7 +286,7 @@
       });
       gsap.set(bars, { scaleX: 1, transformOrigin: "right center" });
       bars.forEach(function (b, i) {
-        tl.to(b, { scaleX: 0, duration: DURATION, ease: "power3.inOut" }, i * STAGGER);
+        tl.to(b, { scaleX: 0, duration: DURATION, ease: "power2.inOut" }, i * STAGGER);
         tl.set(b, { autoAlpha: 0 }, i * STAGGER + DURATION);
       });
       return tl;

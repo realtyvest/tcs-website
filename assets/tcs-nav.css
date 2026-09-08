@@ -1,3 +1,19 @@
+/* MOTION_TOKENS (2026-09-08): one motion vocabulary for the site.
+   Four easings, five durations. Modules reference these; do not add new
+   literal curves or timings. GSAP side: power2.out (enter), power2.in (exit),
+   power2.inOut (on-screen), none (scrub). */
+:root {
+  --tcs-ease-out: var(--tcs-ease-out);   /* entrances, rises, settles */
+  --tcs-ease-inout: var(--tcs-ease-inout);   /* sweeps, menu, rail */
+  --tcs-ease-pop: var(--tcs-ease-pop);    /* badges, checks, one overshoot */
+  --tcs-ease-linear: linear;                            /* progress, scrub */
+  --tcs-dur-quick: 0.15s;   /* hover, press, colour */
+  --tcs-dur-short: 0.25s;   /* icons, small state */
+  --tcs-dur-mid: 0.45s;     /* cards, rises */
+  --tcs-dur-long: 0.6s;     /* rails, reveals */
+  --tcs-dur-slow: 0.9s;     /* dramatic */
+}
+
 /* TCS mobile navigation — full-viewport overlay (matches homepage OTP hamburger). */
 
 .tcs-nav-toggle {
@@ -22,7 +38,7 @@
   height: 2px;
   border-radius: 2px;
   background-color: #fff;
-  transition: transform .2s ease, opacity .2s ease;
+  transition: transform var(--tcs-dur-short) ease, opacity var(--tcs-dur-short) ease;
 }
 
 .tcs-nav-toggle:hover span {
@@ -40,7 +56,7 @@
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+  transition: opacity var(--tcs-dur-short) ease, visibility 0s linear var(--tcs-dur-short);
   position: fixed;
   inset: 0;
   z-index: 200;
@@ -65,20 +81,20 @@
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transition: opacity 0.3s ease, visibility 0s;
+  transition: opacity var(--tcs-dur-short) ease, visibility 0s;
 }
 
 .tcs-mobile-menu-link,
 .tcs-mobile-menu-cta {
   opacity: 0;
   transform: translateY(18px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity var(--tcs-dur-short) ease, transform var(--tcs-dur-short) ease;
 }
 
 /* Legal line fades in place with the CTA (no drift). */
 .tcs-mobile-menu-legal {
   opacity: 0;
-  transition: opacity 0.2s ease;
+  transition: opacity var(--tcs-dur-short) ease;
 }
 
 .tcs-mobile-menu.open .tcs-mobile-menu-link,
@@ -86,7 +102,7 @@
 .tcs-mobile-menu.open .tcs-mobile-menu-legal {
   opacity: 1;
   transform: none;
-  transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1), transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity var(--tcs-dur-mid) var(--tcs-ease-out), transform var(--tcs-dur-mid) var(--tcs-ease-out);
 }
 
 .tcs-mobile-menu.open .tcs-mobile-menu-link:nth-child(1) { transition-delay: 80ms; }
@@ -99,7 +115,7 @@
 
 /* Scrolled nav state for inner pages (homepage has its own copy). */
 nav.tcs-nav-root {
-  transition: background 0.25s ease, backdrop-filter 0.25s ease;
+  transition: background var(--tcs-dur-short) ease, backdrop-filter var(--tcs-dur-short) ease;
 }
 
 nav.tcs-nav-root.is-scrolled {
@@ -318,7 +334,7 @@ nav a.tcs-chars, nav .nav-links a.tcs-chars {
   position: relative;
   text-shadow: 0 1.15em currentColor;
   transform: translateY(0) rotate(0.001deg);
-  transition: transform 0.6s cubic-bezier(0.625, 0.05, 0, 1);
+  transition: transform var(--tcs-dur-long) var(--tcs-ease-inout);
 }
 
 a:hover .tcs-chars span,
@@ -342,7 +358,7 @@ a.tcs-chars:focus-visible span,
   overflow: hidden !important;
   contain: paint;
   isolation: isolate;
-  transition: transform 0.15s ease, background 0.2s, border-color 0.2s, opacity 0.25s ease;
+  transition: transform var(--tcs-dur-quick) ease, background var(--tcs-dur-short), border-color var(--tcs-dur-short), opacity var(--tcs-dur-short) ease;
 }
 
 .tcs-sweep-fill {
@@ -353,7 +369,7 @@ a.tcs-chars:focus-visible span,
   background: var(--tcs-sweep, rgba(255, 255, 255, 0.16));
   transform: translateX(-102%);
   opacity: 0; /* never visible at rest, even if a page's own rules defeat the clip */
-  transition: transform 0.5s cubic-bezier(0.625, 0.05, 0, 1), opacity 0.15s ease;
+  transition: transform var(--tcs-dur-mid) var(--tcs-ease-inout), opacity var(--tcs-dur-quick) ease;
   pointer-events: none;
 }
 
@@ -520,7 +536,7 @@ nav.tcs-bar ul.nav-links a {
   border: 0 !important;
   border-radius: 0 !important;
   opacity: 1 !important;
-  transition: color 0.2s !important;
+  transition: color var(--tcs-dur-short) !important;
 }
 nav.tcs-bar ul.nav-links a:hover {
   color: #FFFFFF !important;

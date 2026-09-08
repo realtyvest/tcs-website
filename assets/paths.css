@@ -115,8 +115,8 @@
   border-radius: 50%;
   border: 2px solid var(--pth-muted);
   background: var(--pth-navy);
-  transition: background-color 0.2s ease, border-color 0.2s ease,
-    transform 0.2s ease;
+  transition: background-color var(--tcs-dur-short) ease, border-color var(--tcs-dur-short) ease,
+    transform var(--tcs-dur-short) ease;
 }
 
 .pth-bar-label {
@@ -127,7 +127,7 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--pth-muted);
-  transition: color 0.2s ease;
+  transition: color var(--tcs-dur-short) ease;
 }
 
 /* completed steps stay lit orange as the scroll progresses */

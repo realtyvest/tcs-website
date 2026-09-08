@@ -80,6 +80,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .bead-subscribe-form .subscribe-embed iframe { display: block; width: 100%; border: 0; }
   .bead-subscribe-form .form-k { font-family: var(--font-display); font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
   @media (max-width: 720px) { .bead-subscribe-inner { grid-template-columns: 1fr; gap: 20px; } .bead-subscribe { padding: 32px 5%; } }
+  /* BLOG_LATEST_FEATURE (2026-09-08): the newest post leads the hub as a
+     feature card with a Latest tag and a larger cover; the story rail under
+     its title is drawn by tcs-story. */
+  .posts .post-card:first-of-type { position: relative; padding: 0 0 32px; overflow: hidden; border-color: var(--border-light); }
+  .posts .post-card:first-of-type .post-card-thumb { height: 300px !important; border-radius: 12px 12px 0 0 !important; margin-bottom: 22px !important; }
+  .posts .post-card:first-of-type .post-tag,
+  .posts .post-card:first-of-type h2,
+  .posts .post-card:first-of-type p,
+  .posts .post-card:first-of-type .post-meta,
+  .posts .post-card:first-of-type .read-more { margin-left: 32px; margin-right: 32px; }
+  .posts .post-card:first-of-type h2 { font-size: clamp(26px, 3.2vw, 34px); }
+  .posts .post-card:first-of-type::before {
+    content: "Latest"; position: absolute; top: 16px; left: 16px; z-index: 1;
+    font-family: var(--font-display); font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: #fff; background: var(--orange); padding: 6px 10px; border-radius: 999px;
+  }
+  @media (max-width: 720px) {
+    .posts .post-card:first-of-type .post-card-thumb { height: 200px !important; }
+    .posts .post-card:first-of-type .post-tag, .posts .post-card:first-of-type h2, .posts .post-card:first-of-type p,
+    .posts .post-card:first-of-type .post-meta, .posts .post-card:first-of-type .read-more { margin-left: 20px; margin-right: 20px; }
+  }
   /* POST CARDS */
   .posts { max-width: 820px; margin: 0 auto; padding: 48px 24px 80px; }
   .post-card {
@@ -157,10 +178,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta name="theme-color" content="#0B1829">
   <!-- v44 Google preferred sources -->
   <script async src="https://news.google.com/swg/js/v1/publisher.js"></script>
-<link rel="stylesheet" href="/assets/tcs-nav.css?v=menu20">
+<link rel="stylesheet" href="/assets/tcs-nav.css?v=menu20t1">
   <link rel="stylesheet" href="/assets/tcs-type.css?v=type3">
-  <link rel="stylesheet" href="/assets/tcs-footer.css?v=foot2">
-  <link rel="stylesheet" href="/assets/tcs-story.css?v=story2">
+  <link rel="stylesheet" href="/assets/tcs-footer.css?v=foot2t1">
+  <link rel="stylesheet" href="/assets/tcs-story.css?v=story2t1">
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->

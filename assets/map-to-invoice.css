@@ -94,8 +94,8 @@
   border-radius: 50%;
   border: 2px solid var(--m2i-muted);
   background: var(--m2i-navy);
-  transition: background-color 0.2s ease, border-color 0.2s ease,
-    transform 0.2s ease;
+  transition: background-color var(--tcs-dur-short) ease, border-color var(--tcs-dur-short) ease,
+    transform var(--tcs-dur-short) ease;
 }
 
 .m2i-bar-label {
@@ -104,7 +104,7 @@
   font-weight: 600;
   line-height: 1.25;
   color: var(--m2i-muted);
-  transition: color 0.2s ease;
+  transition: color var(--tcs-dur-short) ease;
 }
 
 /* completed steps stay lit */

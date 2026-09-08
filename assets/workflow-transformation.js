@@ -495,8 +495,8 @@
         // The stage lights as its handoffs arrive, with a small arrival pulse.
         tl.to(t, { autoAlpha: 1, duration: len * 0.4 }, at + len * 0.4);
         tl.to(glows[g.target], { autoAlpha: 1, duration: len * 0.3 }, at + len * 0.5);
-        tl.to(t, { scale: 1.03, duration: len * 0.12, ease: "power1.out" }, at + len * 0.62);
-        tl.to(t, { scale: 1, duration: len * 0.18, ease: "power1.in" }, at + len * 0.74);
+        tl.to(t, { scale: 1.03, duration: len * 0.12, ease: "power2.out" }, at + len * 0.62);
+        tl.to(t, { scale: 1, duration: len * 0.18, ease: "power2.in" }, at + len * 0.74);
 
         if (!geo.compact) {
           g.callouts.forEach(function (pair) {
@@ -600,7 +600,7 @@
             snapTo: [0, TANGLE_END / TOTAL, 0.29, 0.4, 0.66, 0.81, 1],
             duration: { min: 0.15, max: 0.4 },
             delay: 0.1,
-            ease: "power1.inOut",
+            ease: "power2.inOut",
             directional: false,
             inertia: false,
           };

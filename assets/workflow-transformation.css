@@ -87,7 +87,7 @@
   .wt-stage {
     overflow-y: visible;
     min-height: 420px;
-    transition: min-height 0.45s ease;
+    transition: min-height var(--tcs-dur-mid) ease;
   }
 }
 

@@ -430,7 +430,7 @@
           cfg2.snap = {
             snapTo: [0.125, 0.375, 0.625, 0.875],
             duration: { min: 0.15, max: 0.3 },
-            ease: "power1.inOut",
+            ease: "power2.inOut",
             directional: false,
             inertia: false,
             delay: 0.1,

@@ -30,7 +30,7 @@
   border: 1px solid rgba(255, 255, 255, 0.10);
   border-radius: 6px;
   overflow: hidden;
-  transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.6s ease, border-color 0.4s ease;
+  transition: transform var(--tcs-dur-long) var(--tcs-ease-out), opacity var(--tcs-dur-long) ease, border-color var(--tcs-dur-mid) ease;
 }
 /* The rail: draws across the top of each card in order. */
 .how-it-works .step::after {
@@ -43,7 +43,7 @@
   background: #F26419;
   transform: scaleX(0);
   transform-origin: left center;
-  transition: transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: transform var(--tcs-dur-long) var(--tcs-ease-out);
 }
 .how-it-works .step::before {
   position: static !important;
@@ -63,7 +63,7 @@
   font-size: 1.2rem;
   font-weight: 700;
   transform: scale(0.85);
-  transition: transform 0.45s cubic-bezier(0.34, 1.4, 0.64, 1), background-color 0.35s ease, border-color 0.35s ease;
+  transition: transform var(--tcs-dur-mid) var(--tcs-ease-pop), background-color var(--tcs-dur-mid) ease, border-color var(--tcs-dur-mid) ease;
 }
 .how-it-works .step h4 {
   grid-column: 2;

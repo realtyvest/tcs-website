@@ -162,20 +162,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             color: #FFFFFF;
         }
 
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background-color: #C8D8EA;
-            margin: 5px 0;
-            transition: 0.3s;
-        }
-
         /* Hero Section */
         .hero {
             padding: 6rem 2rem;
@@ -393,9 +379,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
         /* Mobile */
         @media (max-width: 768px) {
-            .hamburger {
-                display: flex;
-            }
 
             .nav-links {
                 display: none;
@@ -407,10 +390,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 width: 100%;
                 gap: 0;
                 padding: 1rem 0;
-            }
-
-            .nav-links.active {
-                display: flex;
             }
 
             .nav-links li {
@@ -551,14 +530,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0B1829">
   <!-- v38: mobile navigation -->
-  <link rel="stylesheet" href="/assets/tcs-nav.css?v=menu20">
+  <link rel="stylesheet" href="/assets/tcs-nav.css?v=menu20t1">
   <script src="/assets/tcs-nav.js?v=menu16" defer></script>
   <!-- v44 Google preferred sources -->
   <script async src="https://news.google.com/swg/js/v1/publisher.js"></script>
   <link rel="stylesheet" href="/assets/tcs-type.css?v=type3">
-  <link rel="stylesheet" href="/assets/tcs-footer.css?v=foot2">
-  <link rel="stylesheet" href="/assets/module-steps.css?v=steps3">
-  <link rel="stylesheet" href="/assets/tcs-story.css?v=story2">
+  <link rel="stylesheet" href="/assets/tcs-footer.css?v=foot2t1">
+  <link rel="stylesheet" href="/assets/module-steps.css?v=steps3t1">
+  <link rel="stylesheet" href="/assets/tcs-story.css?v=story2t1">
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -578,11 +557,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <li><a href="/blog.html">Blog</a></li>
             <li><a href="/fit-call" class="cta-button">Book a Fit Call</a></li>
         </ul>
-        <div class="hamburger" id="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
     </nav>
 
     <section class="hero">
@@ -713,21 +687,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p>&copy; 2026 Telecom Contractor Solutions. All rights reserved.</p>
   </div>
 </footer>
-
-    <script>
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('navLinks');
-
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-            });
-        });
-    </script>
 <script src="/assets/module-steps.js?v=steps3" defer></script>
 <script src="/assets/tcs-story.js?v=story1" defer></script>
 </body>

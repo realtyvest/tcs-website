@@ -104,10 +104,10 @@
   background: var(--orange);
   transform: scaleY(var(--spine-progress, 0));
   transform-origin: top center;
-  transition: transform 0.35s ease-out;
+  transition: transform var(--tcs-dur-mid) ease-out;
 }
 #spine .spine-num {
-  transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  transition: border-color var(--tcs-dur-short) ease, background-color var(--tcs-dur-short) ease, box-shadow var(--tcs-dur-short) ease, transform var(--tcs-dur-short) ease;
 }
 #spine .spine-step.is-active .spine-num {
   border-color: var(--orange);
@@ -145,7 +145,7 @@
 #spine .spine-list.spine-anim.in .spine-step {
   opacity: 1;
   transform: none;
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition: opacity var(--tcs-dur-mid) ease, transform var(--tcs-dur-mid) ease;
 }
 
 #spine .spine-list.spine-anim.in .spine-step:nth-child(1) { transition-delay: 0ms; }

@@ -306,6 +306,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .calculator-results .result-card:last-child .result-value { font-size: clamp(34px, 3vw, 48px) !important; }
     .calculator-results .result-period { font-size: 13px; }
   }
+  /* ROI_STORY_CHART (2026-09-08): the same before-and-after story the cash
+     flow page tells: bank balance over twelve months, as-is versus with
+     seventy percent of the gaps closed. The gap is the potential ROI. */
+  .roi-chart-card { display: flex; flex-direction: column; min-width: 0; }
+  .roi-chart-card:hover { transform: none; }
+  .roi-legend { list-style: none; margin: 0 0 6px; padding: 0; display: flex; gap: 14px; flex-wrap: wrap; }
+  #roi-chart-card .roi-legend li { display: inline-flex; align-items: center; gap: 6px; font-size: 11px !important; color: var(--muted); }
+  .roi-legend .sw { display: inline-block; width: 16px; border-top: 2px solid var(--orange); }
+  .roi-legend .sw-target { border-top-color: var(--electric); }
+  #roi-chart { display: block; width: 100%; max-width: 100%; height: 150px; }
+  #roi-chart-card .roi-chart-note { margin: 6px 0 0; font-size: 11.5px !important; line-height: 1.35 !important; color: var(--text-light); }
+  @media (min-width: 1025px) {
+    .calculator-results .roi-chart-card { grid-column: span 3; grid-row: span 2; }
+  }
+  @media (min-width: 1025px) and (max-height: 780px) {
+    #roi-chart { height: 116px; }
+    .calculator-results .roi-chart-card { padding: 12px 16px; }
+    .calculator-results { gap: 10px; }
+  }
   @media (min-width: 1600px) {
     .calculator-results .result-card { padding: 20px 24px; }
     .calculator-results .result-card h3 { font-size: 13px; }
@@ -715,10 +734,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0B1829">
-<link rel="stylesheet" href="/assets/tcs-nav.css?v=menu20">
+<link rel="stylesheet" href="/assets/tcs-nav.css?v=menu20t1">
   <link rel="stylesheet" href="/assets/tcs-type.css?v=type3">
-  <link rel="stylesheet" href="/assets/tcs-footer.css?v=foot2">
-  <link rel="stylesheet" href="/assets/tcs-story.css?v=story2">
+  <link rel="stylesheet" href="/assets/tcs-footer.css?v=foot2t1">
+  <link rel="stylesheet" href="/assets/tcs-story.css?v=story2t1">
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -819,6 +838,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="input-value">$<span id="admin-hourly-value">25</span></div>
         </div>
       </div>
+
+      <div class="input-group">
+        <label for="bank">Bank Balance Today</label>
+        <div class="input-wrapper">
+          <input type="range" id="bank" min="0" max="2000000" step="10000" value="250000" aria-label="Bank balance today">
+          <div class="input-value">$<span id="bank-value">250,000</span></div>
+        </div>
+      </div>
     </div>
 
     <div class="calculator-results">
@@ -842,6 +869,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="result-period">per year</div>
       </div>
 
+      <div class="result-card roi-chart-card" id="roi-chart-card">
+        <h3>Bank balance, 12 months: as-is vs gaps closed</h3>
+        <ul class="roi-legend" aria-hidden="true">
+          <li><i class="sw sw-now"></i>As-is</li>
+          <li><i class="sw sw-target"></i>70% of gaps closed</li>
+        </ul>
+        <canvas id="roi-chart" width="600" height="180" role="img" aria-label="Bank balance over twelve months, as-is versus with seventy percent of the ops gaps closed"></canvas>
+        <p class="roi-chart-note" id="roi-chart-caption">The gap between the lines is the potential ROI.</p>
+      </div>
       <div class="result-card roi-highlight">
         <h3>TOTAL Annual Cost of Ops Gaps</h3>
         <div class="result-value">$<span id="result-total">51,348</span></div>
@@ -960,7 +996,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   const adminHours = document.getElementById('admin-hours');
   const adminHourly = document.getElementById('admin-hourly');
 
-  const allInputs = [crews, jobsPerWeek, revenuePerJob, billingLatePct, billingDelayDays, unbilledPct, adminHours, adminHourly];
+  const allInputs = [crews, jobsPerWeek, revenuePerJob, billingLatePct, billingDelayDays, unbilledPct, adminHours, adminHourly, document.getElementById('bank')];
 
   function updateDisplay() {
     document.getElementById('crews-value').textContent = crews.value;
@@ -1006,7 +1042,59 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     document.getElementById('ls-total').textContent = formatCurrency(totalCost);
     document.getElementById('ls-monthly').textContent = formatCurrency(monthlyCost);
     document.getElementById('ls-roi').textContent = formatCurrency(potentialROI);
+    document.getElementById('bank-value').textContent = formatNumber(document.getElementById('bank').value);
+    drawRoiChart({ bank0: parseInt(document.getElementById('bank').value), monthly: monthlyCost, roi: potentialROI, total: totalCost });
   }
+
+  // ROI_STORY_CHART
+  var roiCanvas = document.getElementById('roi-chart');
+  var roiModel = null, roiRaf = null;
+  var roiReduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function roiProgress() {
+    if (roiReduce || !roiCanvas) return 1;
+    var vh = window.innerHeight || 800;
+    var results = document.querySelector('.calculator-results');
+    var sticky = results && getComputedStyle(results).position === 'sticky' && window.innerWidth > 1024;
+    var p;
+    if (sticky) { var top = document.querySelector('.calculator-section').getBoundingClientRect().top + window.scrollY; p = (window.scrollY - (top - vh * 0.6)) / (vh * 0.7); }
+    else { var r = roiCanvas.getBoundingClientRect(); p = (vh * 0.9 - r.top) / (vh * 0.5); }
+    return Math.max(0, Math.min(1, p));
+  }
+  function drawRoiChart(m) {
+    roiModel = m;
+    if (!roiCanvas || !roiCanvas.getContext) return;
+    var months = 12, cssW = roiCanvas.clientWidth || 600, cssH = roiCanvas.clientHeight || 150, dpr = window.devicePixelRatio || 1;
+    if (roiCanvas.width !== Math.round(cssW * dpr) || roiCanvas.height !== Math.round(cssH * dpr)) { roiCanvas.width = Math.round(cssW * dpr); roiCanvas.height = Math.round(cssH * dpr); }
+    var ctx = roiCanvas.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, cssW, cssH);
+    var asIs = [], closed = [];
+    for (var t = 0; t <= months; t++) { asIs.push(m.bank0 - m.monthly * t); closed.push(m.bank0 - m.monthly * 0.3 * t); }
+    var lo = Math.min(0, Math.min.apply(null, asIs)), hi = Math.max(m.bank0, closed[months]); if (hi === lo) hi = lo + 1;
+    var padL = 54, padR = 10, padT = 8, padB = 22, w = cssW - padL - padR, h = cssH - padT - padB;
+    var x = function (t2) { return padL + (t2 / months) * w; }, y = function (v) { return padT + (1 - (v - lo) / (hi - lo)) * h; };
+    var fmtK = function (v) { var a = Math.abs(v); var s3 = a >= 1e6 ? (a / 1e6).toFixed(1) + 'M' : a >= 1e3 ? Math.round(a / 1e3) + 'k' : Math.round(a); return (v < 0 ? '-$' : '$') + s3; };
+    ctx.font = '10px Barlow, sans-serif'; ctx.fillStyle = 'rgba(140,163,190,0.9)'; ctx.strokeStyle = 'rgba(255,255,255,0.08)'; ctx.lineWidth = 1;
+    for (var i = 0; i <= 4; i++) { var v = lo + (hi - lo) * i / 4, yy = y(v); ctx.beginPath(); ctx.moveTo(padL, yy); ctx.lineTo(cssW - padR, yy); ctx.stroke(); ctx.textAlign = 'right'; ctx.textBaseline = 'middle'; ctx.fillText(fmtK(v), padL - 6, yy); }
+    if (lo < 0) { ctx.strokeStyle = 'rgba(255,255,255,0.28)'; ctx.beginPath(); ctx.moveTo(padL, y(0)); ctx.lineTo(cssW - padR, y(0)); ctx.stroke(); }
+    ctx.textBaseline = 'top';
+    for (var mo = 0; mo <= months; mo += 3) { ctx.textAlign = mo === 0 ? 'left' : mo === months ? 'right' : 'center'; ctx.fillText(mo === 0 ? 'today' : 'mo ' + mo, x(mo), cssH - padB + 6); }
+    var upTo = Math.max(0.5, Math.round(roiProgress() * months * 2) / 2);
+    var ORANGE = '#F26419', ELECTRIC = '#2A8EFF';
+    var at = function (arr, t2) { var a = Math.floor(t2), b = Math.min(months, a + 1), f = t2 - a; return arr[a] + (arr[b] - arr[a]) * f; };
+    ctx.beginPath(); ctx.moveTo(x(0), y(closed[0])); for (var q = 0.5; q <= upTo; q += 0.5) ctx.lineTo(x(q), y(at(closed, q))); for (var q2 = upTo; q2 >= 0; q2 -= 0.5) ctx.lineTo(x(q2), y(at(asIs, q2))); ctx.closePath(); ctx.fillStyle = 'rgba(42,142,255,0.14)'; ctx.fill();
+    function line(arr, color) { ctx.beginPath(); ctx.strokeStyle = color; ctx.lineWidth = 2.5; ctx.setLineDash([]); ctx.moveTo(x(0), y(arr[0])); for (var q3 = 0.5; q3 <= upTo; q3 += 0.5) ctx.lineTo(x(q3), y(at(arr, q3))); ctx.stroke(); ctx.fillStyle = color; for (var mm = 3; mm <= months; mm += 3) { if (mm <= upTo) { ctx.beginPath(); ctx.arc(x(mm), y(arr[mm]), 2.5, 0, Math.PI * 2); ctx.fill(); } } }
+    line(asIs, ORANGE); line(closed, ELECTRIC);
+    if (upTo >= months) {
+      var xx = Math.min(x(months), cssW - padR - 4), y1 = y(closed[months]), y2 = y(asIs[months]);
+      ctx.save(); ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 1.25; ctx.beginPath(); ctx.moveTo(xx, y1); ctx.lineTo(xx, y2); ctx.moveTo(xx - 5, y1); ctx.lineTo(xx + 5, y1); ctx.moveTo(xx - 5, y2); ctx.lineTo(xx + 5, y2); ctx.stroke();
+      var label = '+' + fmtK(m.roi) + ' potential ROI'; ctx.font = '700 11px Barlow, sans-serif'; var tw = ctx.measureText(label).width, pw = tw + 12, ph = 18; var lx = Math.max(padL, xx - 10 - pw), ly = Math.max(padT + ph / 2, Math.min(cssH - padB - ph / 2, (y1 + y2) / 2));
+      ctx.fillStyle = 'rgba(11,24,41,0.92)'; ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(lx, ly - ph / 2, pw, ph, 4); else ctx.rect(lx, ly - ph / 2, pw, ph); ctx.fill(); ctx.strokeStyle = ELECTRIC; ctx.lineWidth = 1; ctx.stroke(); ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.fillText(label, lx + 6, ly); ctx.restore();
+    }
+    var money2 = function (v) { return (v < 0 ? '-$' : '$') + formatCurrency(Math.abs(v)); };
+    var cap = document.getElementById('roi-chart-caption');
+    if (cap) cap.textContent = 'From ' + money2(m.bank0) + ' in the bank: as-is, the ops gaps take ' + money2(m.total) + ' out over twelve months, leaving ' + money2(asIs[months]) + '. With 70% of the gaps closed, ' + money2(closed[months]) + ' is left. The ' + money2(m.roi) + ' difference is the potential ROI.';
+  }
+  window.addEventListener('scroll', function () { if (!roiModel || roiRaf) return; roiRaf = requestAnimationFrame(function () { roiRaf = null; drawRoiChart(roiModel); }); }, { passive: true });
+  window.addEventListener('resize', function () { if (roiModel) drawRoiChart(roiModel); });
 
   function formatCurrency(value) {
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(value).replace('$', '');

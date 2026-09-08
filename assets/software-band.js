@@ -30,6 +30,6 @@
   });
   // The copy rides in with the road: same start, same length, so the words
   // arrive on the orange as it fills. Both settle together at the end.
-  tl.to(bar, { scaleX: 1, duration: 0.75, ease: "power1.out" }, 0)
-    .to(copy, { x: 0, autoAlpha: 1, duration: 0.75, ease: "power1.out" }, 0);
+  tl.to(bar, { scaleX: 1, duration: 0.75, ease: "power2.out" }, 0)
+    .to(copy, { x: 0, autoAlpha: 1, duration: 0.75, ease: "power2.out" }, 0);
 })();
