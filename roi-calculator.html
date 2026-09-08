@@ -279,8 +279,40 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     gap: 10px;
   }
   @media (min-width: 1025px) {
-    /* Keep the results beside the sliders while the page scrolls. */
-    .calculator-results { position: sticky; top: 84px; }
+    /* ROI_DASHBOARD (Gil, 2026-09-08): same treatment as the cash flow
+       calculator. The results stay fixed on the right as a KPI panel that
+       fits the viewport and uses the full screen width; only the sliders
+       scroll. */
+    .calculator-section { max-width: 1720px; padding: 28px 3% 48px; }
+    .calculator-container { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 56px; }
+    .calculator-results {
+      position: sticky;
+      top: 76px;
+      max-height: calc(100vh - 92px);
+      overflow: auto;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+      align-content: start;
+      scrollbar-width: thin;
+    }
+    .calculator-results > h2 { grid-column: 1 / -1; margin-bottom: 0 !important; }
+    .calculator-results .result-card { grid-column: span 2; padding: 16px 20px; }
+    .calculator-results .result-card.roi-highlight,
+    .calculator-results .result-card:last-child { grid-column: span 3; padding: 22px 24px; }
+    .calculator-results .result-card h3 { font-size: 12px; margin-bottom: 8px; }
+    .calculator-results .result-value { font-size: clamp(26px, 2.2vw, 36px); }
+    .calculator-results .roi-highlight .result-value,
+    .calculator-results .result-card:last-child .result-value { font-size: clamp(34px, 3vw, 48px) !important; }
+    .calculator-results .result-period { font-size: 13px; }
+  }
+  @media (min-width: 1600px) {
+    .calculator-results .result-card { padding: 20px 24px; }
+    .calculator-results .result-card h3 { font-size: 13px; }
+    .calculator-results .result-value { font-size: 40px; }
+    .calculator-results .roi-highlight .result-value,
+    .calculator-results .result-card:last-child .result-value { font-size: 56px !important; }
+    .calculator-results .result-period { font-size: 14px; }
   }
 
   /* Live strip: keeps the headline results on screen while a slider is dragged on
