@@ -33,7 +33,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": "Fiber Contractor Cash Flow and Factoring Cost Calculator",
-  "description": "Arithmetic on your own inputs: days from work complete to cash, the cash tied up in that wait, how much of it is office invoicing lag, and the yearly factoring fee on the slice you bridge.",
+  "description": "Arithmetic on your own inputs: days from work complete to cash, the cash tied up in that wait, how much of it is office invoicing lag, and what your factored book costs per year.",
   "url": "https://telecomcontractorsolutions.com/cash-flow-calculator.html",
   "applicationCategory": "BusinessApplication",
   "operatingSystem": "Any",
@@ -43,7 +43,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-  {"@type":"Question","name":"Does invoicing faster lower the factoring fee on an invoice?","acceptedAnswer":{"@type":"Answer","text":"No. The factor's fee runs from the day it buys the invoice until the customer pays, and that clock is set by the customer's terms. Invoicing faster shrinks the amount of cash you are waiting on at any one time, which shrinks how much you need to factor at all. The calculator prices that slice only."}},
+  {"@type":"Question","name":"Does invoicing faster lower the factoring fee on an invoice?","acceptedAnswer":{"@type":"Answer","text":"No. The factor's fee runs per invoice, on its face, from the day it buys the invoice until the customer pays, and that clock is set by the customer's terms. Invoicing faster releases the cash your office lag was tying up, and that cash replaces part of the invoice face you were running through the factor. The calculator prices the whole factored book and the part that stops."}},
   {"@type":"Question","name":"Why is the office lag the number to focus on?","acceptedAnswer":{"@type":"Answer","text":"Payment terms belong to the ISP or prime and rarely move. The days between the crew finishing and the invoice going out belong to you. On net 45 terms, two weeks of office lag adds about a third to the wait, and it is the only part of the cycle you can shorten without a negotiation."}},
   {"@type":"Question","name":"Is this financial advice or a factoring offer?","acceptedAnswer":{"@type":"Answer","text":"Neither. It is arithmetic on the numbers you enter, with the assumptions listed on the page. Factoring contracts vary in how fees accrue, in minimums, and in reserves. Your factor's agreement governs. Use the result to decide what to look at, not as a projection of savings."}}
 ]}
@@ -579,6 +579,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
 
       <div class="input-group factor-group">
+        <label for="share">Share of billings you factor</label>
+        <div class="input-wrapper">
+          <input type="range" id="share" min="10" max="100" step="5" value="100" aria-describedby="share-help">
+          <div class="input-value" id="share-value">100%</div>
+        </div>
+        <p class="input-help" id="share-help">Most shops that factor run every ISP invoice through the factor. Lower it if only some customers are factored.</p>
+      </div>
+
+      <div class="input-group factor-group">
         <label for="fee">Factoring fee per 30 days outstanding</label>
         <div class="input-wrapper">
           <input type="range" id="fee" min="0.5" max="5" step="0.25" value="2.5" aria-describedby="fee-help">
@@ -622,19 +631,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="v is-target" id="r-office-target">$13,333</div>
         </div>
         <div class="compare-row is-factor">
-          <div class="k">Yearly factoring fee on the cash your office lag makes you bridge<small>on the invoice face you factor to raise that cash</small></div>
-          <div class="v" id="r-fee-now">$65,882</div>
-          <div class="v is-target" id="r-fee-target">$4,706</div>
+          <div class="k">Invoice face at the factor at any time<small>the invoices you factor, outstanding on the customer's clock</small></div>
+          <div class="v" id="r-face-now">$733,333</div>
+          <div class="v is-target" id="r-face-target">$529,412</div>
+        </div>
+        <div class="compare-row is-factor">
+          <div class="k">Yearly factoring fee<small>per invoice on its face, for every 30 days the factor holds it</small></div>
+          <div class="v" id="r-fee-now">$220,000</div>
+          <div class="v is-target" id="r-fee-target">$158,824</div>
         </div>
         <div class="compare-row is-factor">
           <div class="k">That fee as a share of gross margin<small>on a year of billings at your margin</small></div>
-          <div class="v" id="r-share-now">5.5%</div>
-          <div class="v is-target" id="r-share-target">0.4%</div>
+          <div class="v" id="r-share-now">18.3%</div>
+          <div class="v is-target" id="r-share-target">13.2%</div>
         </div>
         <div class="compare-row is-factor">
-          <div class="k">Reserve the factor holds on those invoices<small>the share not advanced, held until the customer pays</small></div>
-          <div class="v" id="r-reserve-now">$32,941</div>
-          <div class="v is-target" id="r-reserve-target">$2,353</div>
+          <div class="k">Reserve the factor holds at any time<small>the share not advanced, held until the customer pays</small></div>
+          <div class="v" id="r-reserve-now">$110,000</div>
+          <div class="v is-target" id="r-reserve-target">$79,412</div>
         </div>
       </div>
 
@@ -648,7 +662,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="headline-card is-hidden" id="fee-card">
         <h3>Factoring fee you stop paying, per year</h3>
         <div class="big" id="r-fee-saved">$61,176</div>
-        <p>Only if you currently factor to bridge the office lag. The fee on the invoices you still factor does not change; the customer's clock is the customer's.</p>
+        <p>The factor's clock on each invoice does not change. What changes is how much invoice face still has to run through the factor once the office lag stops tying up your cash.</p>
       </div>
       </div>
 
@@ -658,9 +672,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <h3>Assumptions this arithmetic makes</h3>
         <ul>
           <li>Billings are spread evenly across the month, so cash waiting equals monthly billings times days waiting divided by 30.</li>
-          <li>The factoring fee accrues on invoice face value per 30 days outstanding and is prorated. Real agreements use tiers, minimums, and 10 or 15 day steps, so treat the fee lines as an order of magnitude.</li>
+          <li>The factoring fee is charged per invoice, on its face value, for every 30 days the factor holds it, prorated. Real agreements use tiers, minimums, and 10 or 15 day steps, so treat the fee lines as an order of magnitude.</li>
           <li>The "Invoice on day one" column changes one thing: the invoice goes out one day after the work is complete. Payment terms, late days, and the factor's rate are unchanged.</li>
-          <li>The factoring lines price only the slice of cash the office lag makes you bridge. To raise that cash the factor advances only the advance rate, so the invoice face you factor is the cash divided by the advance rate. The fee accrues on that face, and the reserve is the rest of it. All three lines are zero if you do not factor.</li>
+          <li>The factoring lines price your whole factored book: billings times the share you factor, outstanding for the customer's clock. Invoicing on day one releases the office-lag cash once, and that cash replaces factored face worth the release divided by the advance rate. The fee and reserve on that face stop. All factoring lines are zero if you do not factor.</li>
         </ul>
       </div>
   <p class="disclaimer">Not financial advice and not a factoring offer. This is arithmetic on the inputs above. Your factor's agreement and your customer's contract govern the real numbers.</p>
@@ -670,7 +684,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <h2>How to read this</h2>
   <p>Two clocks run on every job. The customer's clock starts when the invoice is accepted and runs for the payment terms plus however late they pay. Your clock runs before that, from the day the crew finishes to the day the invoice goes out. The customer's clock is in the contract. Yours is in the office.</p>
   <p>The first row adds the two. The second turns that wait into money: if you bill a fixed amount every month and each dollar waits a given number of days, that much cash is always outstanding. The third row is the part of it that is waiting on you, not on the customer. The release figure is that slice, minus the one day the target column still allows.</p>
-  <p><strong>Factoring does not shorten either clock.</strong> It rents you the money while the clocks run. The fee is set by the customer's clock, so invoicing faster does not make a factored invoice cheaper. What it does is shrink the pile of cash you need rented. The calculator prices only that shrink, and only if you actually factor to cover it. If you do not, leave the box unchecked and the fee lines disappear.</p>
+  <p><strong>Factoring does not shorten either clock.</strong> It rents you the money while the clocks run, and the rent is charged per invoice, on its face, for every 30 days the factor holds it. That is why the yearly fee on a whole book is a large number even at a small rate. Invoicing faster does not make any one factored invoice cheaper. What it does is release the cash the office lag was tying up, and that cash replaces part of what you were renting. The calculator prices the whole book and the part that stops. If you do not factor, leave the box unchecked and the fee lines disappear.</p>
 
   <h2>The lever you control</h2>
   <p>Terms are the ISP's. Late payment is the ISP's. The office lag is the one number in the row that a contractor can move without a negotiation, and it is usually the one nobody has measured. Ask what date the crew finished the last five jobs, and what date each invoice went out.</p>
@@ -688,7 +702,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <h2>Questions contractors ask</h2>
   <dl class="faq">
     <dt>Does invoicing faster lower the factoring fee on an invoice?</dt>
-    <dd>No. The factor's fee runs from the day it buys the invoice until the customer pays, and that clock is set by the customer's terms. Invoicing faster shrinks the amount of cash you are waiting on at any one time, which shrinks how much you need to factor at all. The calculator prices that slice only.</dd>
+    <dd>No. The factor's fee runs per invoice, on its face, from the day it buys the invoice until the customer pays, and that clock is set by the customer's terms. Invoicing faster releases the cash your office lag was tying up, and that cash replaces part of the invoice face you were running through the factor. The calculator prices the whole factored book and the part that stops.</dd>
     <dt>Why is the office lag the number to focus on?</dt>
     <dd>Payment terms belong to the ISP or prime and rarely move. The days between the crew finishing and the invoice going out belong to you. On net 45 terms, two weeks of office lag adds about a third to the wait, and it is the only part of the cycle you can shorten without a negotiation.</dd>
     <dt>Is this financial advice or a factoring offer?</dt>
@@ -766,7 +780,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   var $ = function (id) { return document.getElementById(id); };
   var inputs = {
     billings: $("billings"), lag: $("lag"), terms: $("terms"), late: $("late"),
-    margin: $("margin"), factor: $("factor"), fee: $("fee"), advance: $("advance")
+    margin: $("margin"), factor: $("factor"), share: $("share"), fee: $("fee"), advance: $("advance")
   };
   var money = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
   var pct = function (v) { return (Math.round(v * 10) / 10).toFixed(v % 1 === 0 ? 0 : 1) + "%"; };
@@ -780,7 +794,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     var factoring = inputs.factor.checked;
     var fee = +inputs.fee.value / 100;
     var advance = +inputs.advance.value / 100;
+    var share = +inputs.share.value / 100;
 
+    $("share-value").textContent = pct(share * 100);
     $("billings-value").textContent = money.format(billings);
     $("lag-value").textContent = lag + (lag === 1 ? " day" : " days");
     $("terms-value").textContent = "Net " + terms;
@@ -800,14 +816,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     var releaseDays = Math.max(0, lag - TARGET_LAG);
     var release = perDay * releaseDays;
 
-    // CASH_FLOW_RESERVE_FIX (Gil, 2026-09-08): every factoring line is priced
-    // on the same slice. To raise the cash the office lag ties up, the factor
-    // advances only the advance rate, so the invoice face you must factor is
-    // the cash divided by the advance rate. The fee accrues on that face for
-    // twelve 30-day periods a year, and the reserve is the part of that face
-    // the factor holds until the customer pays. Both shrink with the lag.
-    var faceNow = factoring && advance > 0 ? officeNow / advance : 0;
-    var faceTarget = factoring && advance > 0 ? officeTarget / advance : 0;
+    // CASH_FLOW_FEE_REALITY (Gil, 2026-09-08): factors charge per invoice on
+    // its face for every 30 days they hold it, and a shop that factors runs
+    // its whole book through the factor. So the fee is priced on the invoice
+    // face outstanding at the factor at any time (billings x share x the
+    // customer's clock), not on the office-lag slice alone. Invoicing on day
+    // one releases the office-lag cash once; that cash replaces factored
+    // face worth release / advance rate, and the fee and reserve on that
+    // face stop. The customer's clock itself does not change.
+    var custDays = terms + late;
+    var faceNow = factoring ? billings * share * custDays / 30 : 0;
+    var faceReplaced = factoring && advance > 0 ? Math.min(faceNow, release / advance) : 0;
+    var faceTarget = faceNow - faceReplaced;
     var feeNow = faceNow * fee * 12;
     var feeTarget = faceTarget * fee * 12;
     var grossMarginYear = billings * 12 * margin;
@@ -822,6 +842,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     $("r-float-target").textContent = money.format(floatTarget);
     $("r-office-now").textContent = money.format(officeNow);
     $("r-office-target").textContent = money.format(officeTarget);
+    $("r-face-now").textContent = money.format(faceNow);
+    $("r-face-target").textContent = money.format(faceTarget);
     $("r-fee-now").textContent = money.format(feeNow);
     $("r-fee-target").textContent = money.format(feeTarget);
     $("r-share-now").textContent = pct(shareNow);
