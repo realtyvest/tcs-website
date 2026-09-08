@@ -22,7 +22,10 @@
     { href: '/faq.html', label: 'FAQ' }
   ];
   /* Desktop list on inner pages: five modules plus About and Blog. */
-  var CANONICAL = MODULES.slice(0, 5).concat([COMPANY[2], COMPANY[3]]);
+  /* NAV_MATCH_HOME (Gil, 2026-09-08): the inner bar carries exactly what the
+     homepage strip carries: five module links and the CTA. About, Blog and
+     the rest stay in the menu overlay. */
+  var CANONICAL = MODULES.slice(0, 5);
 
   function pad(n) {
     return n < 10 ? '0' + n : String(n);
