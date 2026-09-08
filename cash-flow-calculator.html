@@ -160,7 +160,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .calculator-inputs { display: flex; flex-direction: column; gap: 20px; }
   @media (min-width: 1025px) {
     /* CASH_FLOW_DASHBOARD (Gil, 2026-09-08): the answers stay fixed on the
-       right as a KPI panel that fits the viewport; only the sliders scroll. */
+       right as a KPI panel that fits the viewport; only the sliders scroll.
+       Full-screen: the calculator uses the width it is given, so the panel's
+       rows sit on one line on a wide monitor. */
+    .calculator-section { max-width: 1720px; padding: 40px 3% 56px; }
+    .calculator-container { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 56px; }
+    .calculator-results .compare-head,
+    .calculator-results .compare-row { grid-template-columns: 2.2fr 1fr 1fr; }
     .calculator-results {
       position: sticky;
       top: 76px;
@@ -186,6 +192,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     #cash-kpis .headline-card p { font-size: 12.5px !important; line-height: 1.4 !important; margin-top: 6px; }
     .kpi-cards .headline-card.is-hidden { display: none; }
     .kpi-cards:has(.headline-card.is-hidden) { grid-template-columns: 1fr; }
+  }
+  @media (min-width: 1600px) {
+    /* Big monitor: the dashboard scales up instead of leaving empty space. */
+    .calculator-results .compare-head { padding: 10px 20px; font-size: 12px; }
+    .calculator-results .compare-row { padding: 12px 20px; }
+    .calculator-results .compare-row .k { font-size: 15px !important; }
+    .calculator-results .compare-row .k small { font-size: 12px !important; }
+    .calculator-results .compare-row .v { font-size: 26px !important; }
+    .calculator-results .kpi-cards .headline-card { padding: 18px 22px 20px; }
+    #cash-kpis .headline-card h3 { font-size: 12px !important; }
+    #cash-kpis .headline-card .big { font-size: 40px !important; }
+    #cash-kpis .headline-card p { font-size: 14px !important; }
   }
   @media (max-width: 1024px) {
     .kpi-cards { display: grid; gap: 16px; }
