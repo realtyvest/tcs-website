@@ -205,8 +205,68 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     #cash-kpis .headline-card .big { font-size: 40px !important; }
     #cash-kpis .headline-card p { font-size: 14px !important; }
   }
+  /* CASH_CHART (Gil, 2026-09-08): bank balance vs receivable, both scenarios. */
+  .kpi-row { display: grid; gap: 12px; }
+  .cash-chart-card {
+    background: var(--surface-float);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    box-shadow: var(--shadow-float);
+    padding: 14px 16px 12px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .cash-chart-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 14px; margin-bottom: 6px; }
+  .cash-chart-card h3 {
+    font-family: var(--font-display);
+    font-size: 12px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+    color: var(--muted); margin: 0;
+  }
+  .cash-chart-legend { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 12px; color: var(--muted); }
+  /* id selectors on purpose: the site type floor targets main li and main p */
+  #cash-chart-card .cash-chart-legend li { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; font-size: 11px !important; line-height: 1.3 !important; }
+  #cash-chart-card h3 { font-size: 11px !important; }
+  .calculator-results > * { flex: 0 0 auto; }
+  .cash-chart-legend .sw { display: inline-block; width: 16px; height: 0; border-top: 2px solid var(--orange); }
+  .cash-chart-legend .sw-target { border-top-color: var(--electric); }
+  .cash-chart-legend .sw-dash { border-top-style: dashed; }
+  #cash-chart { display: block; width: 100%; height: 170px; }
+  #cash-chart-card .cash-chart-note { margin: 6px 0 0; font-size: 11.5px !important; line-height: 1.35 !important; color: var(--muted); }
+  @media (min-width: 1025px) {
+    .kpi-row { grid-template-columns: 1.4fr 1fr; align-items: stretch; }
+    .kpi-cards { grid-template-columns: 1fr !important; align-content: stretch; }
+    #cash-chart { height: 120px; }
+  }
+  @media (min-width: 1025px) and (max-width: 1440px) {
+    .calculator-results .compare-row { padding: 7px 16px; }
+    .calculator-results .kpi-cards .headline-card { padding: 10px 14px 11px; }
+    #cash-kpis .headline-card .big { font-size: 24px !important; }
+  }
+  @media (min-width: 1600px) {
+    #cash-chart { height: 170px; }
+  }
+  /* Short viewports: shave the dashboard so it still fits without scrolling. */
+  @media (min-width: 1025px) and (max-height: 780px) {
+    .calculator-results { gap: 10px; }
+    .calculator-results .panel-title { margin-bottom: 6px; }
+    .calculator-results .compare-row { padding: 6px 16px; }
+    .calculator-results .compare-head { padding: 7px 16px; }
+    .calculator-results .kpi-cards .headline-card { padding: 9px 14px 10px; }
+    #cash-kpis .headline-card .big { font-size: 22px !important; }
+    #cash-chart { height: 104px; }
+    #cash-chart-card { padding: 10px 14px 9px; }
+    #cash-chart-card .cash-chart-note { display: none; }
+  }
+  @media (min-width: 1600px) and (max-height: 900px) {
+    .calculator-results .compare-row { padding: 10px 20px; }
+    .calculator-results .kpi-cards .headline-card { padding: 14px 20px 16px; }
+    #cash-kpis .headline-card .big { font-size: 32px !important; }
+    #cash-chart { height: 150px; }
+  }
   @media (max-width: 1024px) {
     .kpi-cards { display: grid; gap: 16px; }
+    #cash-chart { height: 200px; }
   }
 
   /* Live strip: keeps the headline results on screen while a slider is dragged on
@@ -652,17 +712,32 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
 
+      <div class="kpi-row">
+      <div class="cash-chart-card" id="cash-chart-card">
+        <div class="cash-chart-head">
+          <h3>Bank balance vs receivable, first <span id="chart-days">120</span> days</h3>
+          <ul class="cash-chart-legend" aria-hidden="true">
+            <li><i class="sw sw-now"></i>Bank today</li>
+            <li><i class="sw sw-target"></i>Bank day one</li>
+            <li><i class="sw sw-now sw-dash"></i>Owed today</li>
+            <li><i class="sw sw-target sw-dash"></i>Owed day one</li>
+          </ul>
+        </div>
+        <canvas id="cash-chart" width="600" height="220" role="img" aria-label="Bank balance and receivable over the first months, today versus invoicing on day one"></canvas>
+        <p class="cash-chart-note">Bank: cash collected minus the cost of work done, from a standing start. Owed: work done, not yet paid.</p>
+      </div>
       <div class="kpi-cards" id="cash-kpis">
       <div class="headline-card">
         <h3>Cash released once, by invoicing the day the work is done</h3>
         <div class="big" id="r-release">$173,333</div>
-        <p>That is <b id="r-release-days">13</b> days of billings that stop sitting in the office. It comes back one time, when the lag closes, and stays out of the wait as long as it stays closed.</p>
+        <p><b id="r-release-days">13</b> days of billings out of the office wait. It comes back once, when the lag closes.</p>
       </div>
 
       <div class="headline-card is-hidden" id="fee-card">
         <h3>Factoring fee you stop paying, per year</h3>
         <div class="big" id="r-fee-saved">$61,176</div>
-        <p>The factor's clock on each invoice does not change. What changes is how much invoice face still has to run through the factor once the office lag stops tying up your cash.</p>
+        <p>Only if you factor. The fee on the face you no longer need to run through the factor.</p>
+      </div>
       </div>
       </div>
 
@@ -853,6 +928,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     $("r-release").textContent = money.format(release);
     $("r-release-days").textContent = releaseDays;
     $("r-fee-saved").textContent = money.format(Math.max(0, feeNow - feeTarget));
+    drawChart({ perDay: perDay, lag: lag, target: TARGET_LAG, cust: custDays, margin: margin });
 
     $("ls-days-now").textContent = daysNow;
     $("ls-days-target").textContent = daysTarget;
@@ -872,6 +948,67 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     inputs[k].addEventListener("input", update);
     inputs[k].addEventListener("change", update);
   });
+  /* CASH_CHART: bank balance (cash collected minus cost of work done, from a
+     standing start) and receivable (work done, not yet paid) over the first
+     months, for today's lag and for invoicing on day one. Same arithmetic as
+     the table: a dollar of work is collected lag + customer clock days later. */
+  var chartCanvas = $("cash-chart");
+  function drawChart(m) {
+    if (!chartCanvas || !chartCanvas.getContext) return;
+    var days = Math.max(120, Math.ceil((m.lag + m.cust) * 2.2 / 10) * 10);
+    $("chart-days").textContent = days;
+    var cssW = chartCanvas.clientWidth || 600, cssH = chartCanvas.clientHeight || 200;
+    var dpr = window.devicePixelRatio || 1;
+    if (chartCanvas.width !== Math.round(cssW * dpr) || chartCanvas.height !== Math.round(cssH * dpr)) {
+      chartCanvas.width = Math.round(cssW * dpr); chartCanvas.height = Math.round(cssH * dpr);
+    }
+    var ctx = chartCanvas.getContext("2d");
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, cssW, cssH);
+    var cost = 1 - m.margin;
+    function series(lagDays) {
+      var wait = lagDays + m.cust, bank = [], ar = [];
+      for (var t = 0; t <= days; t++) {
+        var collected = m.perDay * Math.max(0, t - wait);
+        bank.push(collected - m.perDay * cost * t);
+        ar.push(m.perDay * Math.min(t, wait));
+      }
+      return { bank: bank, ar: ar };
+    }
+    var now = series(m.lag), tgt = series(m.target);
+    var all = now.bank.concat(now.ar, tgt.bank, tgt.ar);
+    var lo = Math.min.apply(null, all), hi = Math.max.apply(null, all);
+    if (hi === lo) hi = lo + 1;
+    var padL = 54, padR = 8, padT = 8, padB = 22;
+    var w = cssW - padL - padR, h = cssH - padT - padB;
+    var x = function (t) { return padL + (t / days) * w; };
+    var y = function (v) { return padT + (1 - (v - lo) / (hi - lo)) * h; };
+    var fmtK = function (v) { var a = Math.abs(v); var s = a >= 1e6 ? (a / 1e6).toFixed(1) + "M" : a >= 1e3 ? Math.round(a / 1e3) + "k" : Math.round(a); return (v < 0 ? "-$" : "$") + s; };
+    // grid + axis labels
+    ctx.font = "10px Barlow, sans-serif"; ctx.fillStyle = "rgba(140,163,190,0.9)"; ctx.strokeStyle = "rgba(255,255,255,0.08)"; ctx.lineWidth = 1;
+    var ticks = 4;
+    for (var i = 0; i <= ticks; i++) {
+      var v = lo + (hi - lo) * i / ticks, yy = y(v);
+      ctx.beginPath(); ctx.moveTo(padL, yy); ctx.lineTo(cssW - padR, yy); ctx.stroke();
+      ctx.textAlign = "right"; ctx.textBaseline = "middle"; ctx.fillText(fmtK(v), padL - 6, yy);
+    }
+    if (lo < 0 && hi > 0) { ctx.strokeStyle = "rgba(255,255,255,0.28)"; ctx.beginPath(); ctx.moveTo(padL, y(0)); ctx.lineTo(cssW - padR, y(0)); ctx.stroke(); }
+    ctx.textAlign = "center"; ctx.textBaseline = "top";
+    for (var d = 0; d <= days; d += days / 4) ctx.fillText("day " + Math.round(d), x(d), cssH - padB + 6);
+    function line(arr, color, dash, width) {
+      ctx.beginPath(); ctx.setLineDash(dash); ctx.lineWidth = width; ctx.strokeStyle = color;
+      for (var t = 0; t < arr.length; t++) { if (t === 0) ctx.moveTo(x(t), y(arr[t])); else ctx.lineTo(x(t), y(arr[t])); }
+      ctx.stroke(); ctx.setLineDash([]);
+    }
+    var ORANGE = "#F26419", ELECTRIC = "#2A8EFF";
+    line(now.ar, ORANGE, [4, 4], 1.5);
+    line(tgt.ar, ELECTRIC, [4, 4], 1.5);
+    line(now.bank, ORANGE, [], 2.5);
+    line(tgt.bank, ELECTRIC, [], 2.5);
+  }
+  var chartTimer;
+  window.addEventListener("resize", function () { clearTimeout(chartTimer); chartTimer = setTimeout(update, 150); });
+
   update();
 })();
 </script>
