@@ -159,8 +159,36 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   .calculator-inputs { display: flex; flex-direction: column; gap: 20px; }
   @media (min-width: 1025px) {
-    /* Keep the sliders beside the results while the page scrolls. */
-    .calculator-inputs { position: sticky; top: 84px; }
+    /* CASH_FLOW_DASHBOARD (Gil, 2026-09-08): the answers stay fixed on the
+       right as a KPI panel that fits the viewport; only the sliders scroll. */
+    .calculator-results {
+      position: sticky;
+      top: 76px;
+      max-height: calc(100vh - 92px);
+      overflow: auto;
+      gap: 12px;
+      scrollbar-width: thin;
+    }
+    /* The site type floor (tcs-type.css) is overridden here on purpose: a
+       dashboard panel has to fit the viewport, so these are dashboard sizes. */
+    .calculator-results .panel-title { margin-bottom: 10px; }
+    .calculator-results .compare-head { padding: 8px 16px; font-size: 11px; letter-spacing: 1px; }
+    .calculator-results .compare-row { padding: 8px 16px; gap: 10px; }
+    .calculator-results .compare-row .k { font-size: 13px !important; line-height: 1.3; }
+    .calculator-results .compare-row .k small { font-size: 11px !important; margin-top: 1px; }
+    .calculator-results .compare-row .v { font-size: clamp(17px, 1.6vw, 21px) !important; }
+    .calculator-results .compare-row .v .unit { font-size: 11px !important; margin-left: 3px; }
+    .kpi-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .calculator-results .kpi-cards .headline-card { padding: 12px 16px 13px; }
+    #cash-kpis .headline-card h3 { font-size: 11px !important; margin-bottom: 6px; letter-spacing: 0.4px; line-height: 1.3; }
+    #cash-kpis .headline-card .big { font-size: clamp(24px, 2.2vw, 30px) !important; }
+    /* id selector on purpose: the site type floor uses a long :not() chain on main p */
+    #cash-kpis .headline-card p { font-size: 12.5px !important; line-height: 1.4 !important; margin-top: 6px; }
+    .kpi-cards .headline-card.is-hidden { display: none; }
+    .kpi-cards:has(.headline-card.is-hidden) { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 1024px) {
+    .kpi-cards { display: grid; gap: 16px; }
   }
 
   /* Live strip: keeps the headline results on screen while a slider is dragged on
@@ -592,6 +620,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
 
+      <div class="kpi-cards" id="cash-kpis">
       <div class="headline-card">
         <h3>Cash released once, by invoicing the day the work is done</h3>
         <div class="big" id="r-release">$173,333</div>
@@ -602,6 +631,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <h3>Factoring fee you stop paying, per year</h3>
         <div class="big" id="r-fee-saved">$52,000</div>
         <p>Only if you currently factor to bridge the office lag. The fee on the invoices you still factor does not change; the customer's clock is the customer's.</p>
+      </div>
       </div>
 
     </div>
