@@ -23,9 +23,13 @@
  * Every rebuild (resize / media change) reverts the gsap.context first so the
  * geometry is measured from the rest pose.
  *
- * Mobile (< 821px): unchanged fire path. Scroll-armed once-enter, then a solid
- * dual stack. No pin, no scrub. prefers-reduced-motion: static CLEAR_STATE
- * (desktop condensed, mobile dual stack).
+ * Mobile (< 821px, WT_STORY_MOBILE): the SAME story on a compact layout. The
+ * nine handoffs sit as a tight 3x3 field, the four stages as a 2x2 tile grid
+ * beneath it, merge wires drop top-to-bottom, and the REMOVED lines stamp onto
+ * the emptied field at the end. Snap to beat boundaries on coarse pointers.
+ * The once-enter dual-stack fire path remains only as the no-ScrollTrigger
+ * fallback. prefers-reduced-motion: static CLEAR_STATE (desktop condensed,
+ * mobile dual stack).
  *
  * Cites: gsap-core · gsap-timeline · gsap-scrolltrigger
  * https://gsap.com/docs/v3/GSAP/Timeline · https://gsap.com/docs/v3/Plugins/ScrollTrigger/
@@ -243,6 +247,7 @@
 
     var reduceMq = window.matchMedia("(prefers-reduced-motion: reduce)");
     var deskMq = window.matchMedia("(min-width: 821px)");
+    var coarseMq = window.matchMedia("(pointer: coarse)");
 
     var mode = null; // "story" | "mobile" | "reduced"
     var storyCtx = null;
@@ -396,29 +401,35 @@
         var t = tRects[g.target];
         g.sources.forEach(function (s) {
           var c = cRects[s];
-          var x1 = c.right;
-          var y1 = c.cy;
-          var x2 = t.left;
-          var y2 = t.cy;
-          var mx = (x1 + x2) / 2;
-          merge[s] = addPath(
-            "M" + x1.toFixed(1) + " " + y1.toFixed(1) +
+          var d;
+          if (isDesktop()) {
+            var x1 = c.right, y1 = c.cy, x2 = t.left, y2 = t.cy;
+            var mx = (x1 + x2) / 2;
+            d = "M" + x1.toFixed(1) + " " + y1.toFixed(1) +
               " C " + mx.toFixed(1) + " " + y1.toFixed(1) +
               ", " + mx.toFixed(1) + " " + y2.toFixed(1) +
-              ", " + x2.toFixed(1) + " " + y2.toFixed(1),
-            "wt-wire--merge"
-          );
+              ", " + x2.toFixed(1) + " " + y2.toFixed(1);
+          } else {
+            var ax = c.cx, ay = c.bottom, bx = t.cx, by = t.top;
+            var my = (ay + by) / 2;
+            d = "M" + ax.toFixed(1) + " " + ay.toFixed(1) +
+              " C " + ax.toFixed(1) + " " + my.toFixed(1) +
+              ", " + bx.toFixed(1) + " " + my.toFixed(1) +
+              ", " + bx.toFixed(1) + " " + by.toFixed(1);
+          }
+          merge[s] = addPath(d, "wt-wire--merge");
           fits[s] = fitVars(currentCards[s], targetCards[g.target]);
         });
       });
 
+      var compact = !isDesktop();
       var slideX = 0;
-      if (tCol) {
+      if (tCol && !compact) {
         var tc = rel(tCol);
         slideX = lb.width / 2 - (tc.left + (tc.right - tc.left) / 2);
       }
 
-      return { tangle: tangle, merge: merge, fits: fits, slideX: slideX };
+      return { tangle: tangle, merge: merge, fits: fits, slideX: slideX, compact: compact };
     }
 
     function buildStoryTimeline(geo) {
@@ -485,15 +496,25 @@
         tl.to(t, { scale: 1.03, duration: len * 0.12, ease: "power1.out" }, at + len * 0.62);
         tl.to(t, { scale: 1, duration: len * 0.18, ease: "power1.in" }, at + len * 0.74);
 
-        g.callouts.forEach(function (pair) {
-          tl.to(callouts[pair[0]], { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out" }, at + len * pair[1]);
-        });
+        if (!geo.compact) {
+          g.callouts.forEach(function (pair) {
+            tl.to(callouts[pair[0]], { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out" }, at + len * pair[1]);
+          });
+        }
       });
+
+      // Compact (mobile) layout: the REMOVED lines overlay the Current field, so
+      // they stamp in only once the field has emptied.
+      if (geo.compact) {
+        callouts.forEach(function (el, i) {
+          tl.to(el, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out" }, SLIDE_AT + i * 0.18);
+        });
+      }
 
       // Beat 5: Current is gone. Dim its chrome and glide Target to centre.
       if (currentLabel) tl.to(currentLabel, { autoAlpha: 0, duration: 0.4 }, SLIDE_AT);
       if (chromeCurrent) tl.to(chromeCurrent, { autoAlpha: 0.35, duration: 0.4 }, SLIDE_AT);
-      if (tCol) tl.to(tCol, { x: geo.slideX, duration: 0.9, ease: "power2.inOut" }, SLIDE_AT);
+      if (tCol && !geo.compact) tl.to(tCol, { x: geo.slideX, duration: 0.9, ease: "power2.inOut" }, SLIDE_AT);
 
       if (closing) tl.to(closing, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" }, CLOSING_AT);
 
@@ -523,7 +544,13 @@
         gsap.set(callouts, { autoAlpha: 0, y: 8 });
         gsap.set(listLabels, { autoAlpha: 1, y: 0 });
         if (closing) gsap.set(closing, { autoAlpha: 0, y: 6 });
-        if (tCol) gsap.set(tCol, { x: 0 });
+        // Compact layout: never transform the Target column. A transform would
+        // make it the containing block for the absolutely positioned REMOVED
+        // overlay (which must position against .wt-lists).
+        if (tCol) {
+          if (isDesktop()) gsap.set(tCol, { x: 0 });
+          else gsap.set(tCol, { clearProps: "transform,x" });
+        }
         if (chromeCurrent) gsap.set(chromeCurrent, { autoAlpha: 1 });
         if (chromeTarget) gsap.set(chromeTarget, { autoAlpha: 1 });
 
@@ -531,7 +558,7 @@
         var tl = buildStoryTimeline(geo);
         var navH = getStickyNavHeight();
 
-        storySt = ScrollTrigger.create({
+        var stCfg = {
           animation: tl,
           trigger: root,
           start: "top top+=" + (navH + 8),
@@ -549,7 +576,20 @@
           onEnterBack: function () {
             unlockClosing(closing);
           },
-        });
+        };
+        // Coarse pointers: snap to beat boundaries so a rest lands cleanly
+        // between groups instead of mid-flight (paths.js does the same).
+        if (coarseMq.matches) {
+          stCfg.snap = {
+            snapTo: [0, TANGLE_END / TOTAL, 0.29, 0.4, 0.66, 0.81, 1],
+            duration: { min: 0.15, max: 0.4 },
+            delay: 0.1,
+            ease: "power1.inOut",
+            directional: false,
+            inertia: false,
+          };
+        }
+        storySt = ScrollTrigger.create(stCfg);
       }, root);
     }
 
@@ -680,7 +720,10 @@
     /* ------------------------------------------------------------------ */
 
     function route() {
-      var next = reduceMq.matches ? "reduced" : deskMq.matches && ScrollTrigger ? "story" : "mobile";
+      // WT_STORY_MOBILE: the story runs on every width now (Pattern A precedent:
+      // paths.js pins on all breakpoints). The once-enter fire path is only the
+      // no-ScrollTrigger fallback.
+      var next = reduceMq.matches ? "reduced" : ScrollTrigger ? "story" : "mobile";
       if (next === mode) {
         if (mode === "story") buildStory(); // resize: re-measure geometry
         return;
