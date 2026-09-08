@@ -536,3 +536,22 @@ nav.tcs-bar ul.nav-links a.tcs-cta:hover {
 @media (max-width: 820px) {
   nav.tcs-bar ul.nav-links:not(.active) { display: none !important; }
 }
+
+/* CTA_SHADOW (Gil, 2026-09-08): every Fit Call button carries a shadow so it
+   sits above the page. Blue buttons throw a blue-tinted shadow, the orange
+   hero button an orange one. Ghost buttons stay flat. */
+.btn, .nav-cta, .tcs-cta, .cta-button, .tcsf-cta, .footer-cta, .sticky-fit-call,
+.tcs-mobile-menu-cta, .mobile-menu-cta, .btn-primary {
+  box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.7), 0 6px 16px rgba(42, 142, 255, 0.28) !important;
+}
+.hero-cta {
+  box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.7), 0 6px 16px rgba(242, 100, 25, 0.32) !important;
+}
+.btn:hover, .nav-cta:hover, .tcs-cta:hover, .cta-button:hover, .tcsf-cta:hover, .footer-cta:hover,
+.sticky-fit-call:hover, .tcs-mobile-menu-cta:hover, .mobile-menu-cta:hover, .btn-primary:hover {
+  box-shadow: 0 16px 32px -10px rgba(0, 0, 0, 0.75), 0 8px 20px rgba(42, 142, 255, 0.38) !important;
+}
+.hero-cta:hover {
+  box-shadow: 0 16px 32px -10px rgba(0, 0, 0, 0.75), 0 8px 20px rgba(242, 100, 25, 0.42) !important;
+}
+.btn-ghost, .btn-ghost:hover { box-shadow: none !important; }
