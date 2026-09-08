@@ -27,23 +27,27 @@
     complete();
     return;
   }
-  var count = 0;
+  // Steps are always checked in order, one after another, with a short beat
+  // between them. Reaching step N queues every earlier unchecked step first,
+  // so the sequence never runs backwards (HOW_STEPS_ORDER, Gil 2026-09-08).
+  var nextIndex = 0, reached = -1, ticking = false;
+  function tick() {
+    if (nextIndex > reached) { ticking = false; return; }
+    ticking = true;
+    var li = items[nextIndex];
+    li.classList.add("is-done");
+    io.unobserve(li);
+    nextIndex++;
+    if (nextIndex === items.length) { setTimeout(complete, 350); ticking = false; return; }
+    setTimeout(tick, 140);
+  }
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
       if (!e.isIntersecting) return;
-      io.unobserve(e.target);
-      // Check off in list order with a short beat between neighbours that
-      // arrive together, so the sequence reads as progress.
       var idx = items.indexOf(e.target);
-      setTimeout(function () {
-        // Progress semantics: reaching step N means every earlier step is
-        // done too, so a fast scroll never leaves an earlier step unchecked.
-        for (var i = 0; i <= idx; i++) {
-          if (!items[i].classList.contains("is-done")) { items[i].classList.add("is-done"); count++; io.unobserve(items[i]); }
-        }
-        if (count >= items.length) setTimeout(complete, 350);
-      }, (idx % 2) * 160);
+      if (idx > reached) reached = idx;
     });
+    if (!ticking) tick();
   }, { rootMargin: "0px 0px -28% 0px", threshold: 0.5 });
   items.forEach(function (li) { io.observe(li); });
 })();
