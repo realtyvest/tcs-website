@@ -302,9 +302,10 @@
 
     function arm(el) {
       if (el.getAttribute("data-rv") === "load") {
+        var delay = parseInt(el.getAttribute("data-rv-delay"), 10);
         setTimeout(function () {
           play(el);
-        }, LOAD_DELAY);
+        }, isNaN(delay) ? LOAD_DELAY : delay);
         return;
       }
       ScrollTrigger.create({

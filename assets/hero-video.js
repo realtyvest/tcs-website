@@ -31,9 +31,12 @@
   }
 
   ready(function () {
-    var hero = document.querySelector("[data-hero]");
-    var host = hero && hero.querySelector("[data-hero-media]");
-    if (!hero || !host) return;
+    var host = document.querySelector("[data-hero-media]");
+    if (!host) return;
+    // Classes go on the opening container (fold + statement panel share the
+    // sticky media layer); fall back to the hero itself.
+    var hero = host.closest("[data-opening]") || document.querySelector("[data-hero]");
+    if (!hero) return;
 
     var mq = window.matchMedia || null;
     if (mq && mq("(prefers-reduced-motion: reduce)").matches) return;
