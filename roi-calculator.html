@@ -631,6 +631,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0B1829">
+<link rel="stylesheet" href="/assets/tcs-nav.css?v=menu1">
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -649,20 +650,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <li><a href="/blog.html">Blog</a></li>
     <li><a href="/#contact" class="nav-cta">Book your fit call</a></li>
   </ul>
-  <button class="nav-hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
 </nav>
 
-<div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
-  <a href="/#services">Services</a>
-  <a href="/#process">How It Works</a>
-  <a href="/#about">About</a>
-  <a href="/blog.html">Blog</a>
-  <a href="/#contact" class="nav-cta">Book your fit call</a>
-</div>
 
 <main id="main-content">
 <section class="roi-hero">
@@ -913,19 +902,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   updateDisplay();
 
-  const hamburger = document.querySelector('.nav-hamburger');
-  const mobileMenu = document.querySelector('.mobile-menu');
-
-  hamburger.addEventListener('click', () => {
-    mobileMenu.classList.toggle('open');
-  });
-
-  document.querySelectorAll('.mobile-menu a').forEach(link => {
-    link.addEventListener('click', () => {
-      mobileMenu.classList.remove('open');
-    });
-  });
 </script>
 
+<script src="/assets/tcs-nav.js?v=menu1" defer></script>
 </body>
 </html>

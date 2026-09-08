@@ -729,6 +729,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
   }
   </script>
+<link rel="stylesheet" href="/assets/tcs-nav.css?v=menu1">
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -749,18 +750,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <li><a href="/blog.html">Blog</a></li>
       <li><a href="/fit-call" class="nav-cta">Book a Fit Call</a></li>
     </ul>
-    <button class="nav-hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
-      <span></span><span></span><span></span>
-    </button>
   </nav>
 
-  <div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
-    <a href="/#services">Services</a>
-    <a href="/#process">How It Works</a>
-    <a href="/#about">About</a>
-    <a href="/blog.html">Blog</a>
-    <a href="/fit-call" class="nav-cta">Book a Fit Call</a>
-  </div>
 
   <main id="main-content">
     <!-- HERO -->
@@ -856,24 +847,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </footer>
 
   <script>
-    // Mobile hamburger menu toggle
-    const hamburger = document.querySelector('.nav-hamburger');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    hamburger.addEventListener('click', () => {
-      const isOpen = mobileMenu.classList.contains('open');
-      mobileMenu.classList.toggle('open');
-      hamburger.setAttribute('aria-expanded', !isOpen);
-    });
-
-    // Close mobile menu when clicking a link
-    const mobileLinks = mobileMenu.querySelectorAll('a');
-    mobileLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.remove('open');
-        hamburger.setAttribute('aria-expanded', 'false');
-      });
-    });
 
     // Column toggle functionality
     const columnToggles = document.querySelectorAll('.col-toggle');
@@ -917,5 +890,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       });
     });
   </script>
+<script src="/assets/tcs-nav.js?v=menu1" defer></script>
 </body>
 </html>
