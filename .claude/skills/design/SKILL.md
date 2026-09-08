@@ -42,7 +42,7 @@ Load the skills below with the Skill tool. Load the row that matches, not everyt
 **Motion**
 - Animate transform and opacity only. No layout properties.
 - Respect `prefers-reduced-motion: reduce`: render the final state statically, no pin, no scrub.
-- Coarse pointers (mobile): no pin or scrub unless the existing Pattern A already does it; prefer once-enter reveals armed by a real scroll event so they fire where Gil can see them.
+- Coarse pointers (mobile): pins and scrubs are fine when the pinned block fits the viewport under the nav (Pattern A and the WT story both do it). If you snap, set `directional: false` and `inertia: false` so a thumb flick snaps to the nearest state instead of the far end. Verify with the headless probe, never assume.
 - One `gsap.timeline()` per section owns every coordinated element so nothing desyncs. Settle to a clean final state on leave.
 - Section enter animation should be obvious: from `y: 40, autoAlpha: 0`, duration at least 0.55s, stagger at least 0.08, `power2.out`.
 
