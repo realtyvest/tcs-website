@@ -1073,7 +1073,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     ctx.textBaseline = "top";
     for (var mo = 0; mo <= MONTHS; mo++) {
       ctx.textAlign = mo === 0 ? "left" : mo === MONTHS ? "right" : "center";
-      var show = cssW > 420 ? true : (mo === 0 || mo % 2 === 0);
+      var show = (cssW > 420 || MONTHS <= 4) ? true : (mo === 0 || mo % 2 === 0);
       if (show) ctx.fillText(mo === 0 ? "today" : "mo " + mo, x(mo * 30), cssH - padB + 6);
     }
     var upTo = Math.max(1, Math.round(chartProgress() * days));
