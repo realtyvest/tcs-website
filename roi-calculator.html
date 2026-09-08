@@ -274,6 +274,54 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     flex-direction: column;
     gap: 24px;
   }
+  @media (min-width: 1025px) {
+    /* Keep the results beside the sliders while the page scrolls. */
+    .calculator-results { position: sticky; top: 84px; }
+  }
+
+  /* Live strip: keeps the headline results on screen while a slider is dragged on
+     narrow screens, where the results sit below the inputs. */
+  .live-strip {
+    display: none;
+    position: sticky;
+    top: 68px;
+    z-index: 20;
+    margin: 0 0 22px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: rgba(21, 34, 54, 0.96);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(42,142,255,0.35);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.4);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .live-strip div { min-width: 0; }
+  .live-strip .ls-k {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .live-strip .ls-v {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--orange);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  @media (max-width: 1024px) {
+    .live-strip { display: grid; }
+  }
 
   .result-title {
     font-family: var(--font-display);
@@ -656,10 +704,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <main id="main-content">
 <section class="roi-hero">
   <h1>What Are Ops Gaps Costing You?</h1>
-  <p>Billing delays, unbilled work, and crew downtime add up fast. Use this interactive calculator to see the real dollar impact on your telecom business.</p>
+  <p>Billing delays, unbilled work, and crew downtime add up fast. Use this interactive calculator to see the real dollar impact on your telecom business. For the cash side, the <a href="/cash-flow-calculator.html" style="color:var(--electric);">cash flow and factoring calculator</a> shows how long your money waits and what bridging it costs.</p>
 </section>
 
 <section class="calculator-section">
+  <div class="live-strip" aria-live="polite">
+    <div><span class="ls-k">Cost per year</span><span class="ls-v">$<span id="ls-total">51,348</span></span></div>
+    <div><span class="ls-k">Per month</span><span class="ls-v">$<span id="ls-monthly">4,279</span></span></div>
+    <div><span class="ls-k">Recovery / yr</span><span class="ls-v">$<span id="ls-roi">35,944</span></span></div>
+  </div>
   <div class="calculator-container">
     <div class="calculator-inputs">
       <h2 style="font-family: var(--font-display); font-size: 20px; font-weight: 800; margin-bottom: 16px;">Your Business</h2>
@@ -816,6 +869,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <li><a href="/#how">Services</a></li>
         <li><a href="/#how">How It Works</a></li>
         <li><a href="/roi-calculator.html">ROI Calculator</a></li>
+        <li><a href="/cash-flow-calculator.html">Cash Flow and Factoring Calculator</a></li>
       </ul>
     </div>
     <div>
@@ -886,6 +940,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     document.getElementById('result-total').textContent = formatCurrency(totalCost);
     document.getElementById('result-monthly').textContent = formatCurrency(monthlyCost);
     document.getElementById('result-roi').textContent = formatCurrency(potentialROI);
+    document.getElementById('ls-total').textContent = formatCurrency(totalCost);
+    document.getElementById('ls-monthly').textContent = formatCurrency(monthlyCost);
+    document.getElementById('ls-roi').textContent = formatCurrency(potentialROI);
   }
 
   function formatCurrency(value) {

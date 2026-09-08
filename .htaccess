@@ -7,5 +7,6 @@ RewriteRule ^terms\.html$ /terms/ [R=301,L]
 RewriteRule ^tos/?$ /terms/ [R=301,L]
 RewriteRule ^faq/?$ /faq.html [R=301,L]
 RewriteRule ^map-to-invoice/?$ /map-to-invoice.html [R=301,L]
+RewriteRule ^cash-flow-calculator/?$ /cash-flow-calculator.html [R=301,L]
 
 ErrorDocument 404 /404.html

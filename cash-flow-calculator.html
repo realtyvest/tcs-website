@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://sgtm.telecomcontractorsolutions.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MJPFLRBR');</script>
+<!-- End Google Tag Manager -->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Gil Ramirez">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<title>Fiber Contractor Cash Flow and Factoring Cost Calculator</title>
+<meta name="description" content="See how many days your cash waits after the work is done, how much of that is your own office lag, and what factoring to cover the gap costs per year.">
+<link rel="canonical" href="https://telecomcontractorsolutions.com/cash-flow-calculator.html">
+
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://telecomcontractorsolutions.com/assets/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://telecomcontractorsolutions.com/assets/og-default.png">
+<meta property="og:url" content="https://telecomcontractorsolutions.com/cash-flow-calculator.html">
+<meta property="og:title" content="Fiber Contractor Cash Flow and Factoring Cost Calculator">
+<meta property="og:description" content="See how many days your cash waits after the work is done, how much of that is your own office lag, and what factoring to cover the gap costs per year.">
+<meta property="og:site_name" content="Telecom Contractor Solutions">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Fiber Contractor Cash Flow and Factoring Cost Calculator",
+  "description": "Arithmetic on your own inputs: days from work complete to cash, the cash tied up in that wait, how much of it is office invoicing lag, and the yearly factoring fee on the slice you bridge.",
+  "url": "https://telecomcontractorsolutions.com/cash-flow-calculator.html",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any",
+  "author": {"@type": "Person", "name": "Gil Ramirez"},
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"Does invoicing faster lower the factoring fee on an invoice?","acceptedAnswer":{"@type":"Answer","text":"No. The factor's fee runs from the day it buys the invoice until the customer pays, and that clock is set by the customer's terms. Invoicing faster shrinks the amount of cash you are waiting on at any one time, which shrinks how much you need to factor at all. The calculator prices that slice only."}},
+  {"@type":"Question","name":"Why is the office lag the number to focus on?","acceptedAnswer":{"@type":"Answer","text":"Payment terms belong to the ISP or prime and rarely move. The days between the crew finishing and the invoice going out belong to you. On net 45 terms, two weeks of office lag adds about a third to the wait, and it is the only part of the cycle you can shorten without a negotiation."}},
+  {"@type":"Question","name":"Is this financial advice or a factoring offer?","acceptedAnswer":{"@type":"Answer","text":"Neither. It is arithmetic on the numbers you enter, with the assumptions listed on the page. Factoring contracts vary in how fees accrue, in minimums, and in reserves. Your factor's agreement governs. Use the result to decide what to look at, not as a projection of savings."}}
+]}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0B1829;
+    --navy-mid: #152236;
+    --navy-light: #1E3350;
+    --electric: #2A8EFF;
+    --electric-dim: #1a6fd0;
+    --orange: #F26419;
+    --white: #FFFFFF;
+    --text-light: #C8D8EA;
+    --muted: #9BB3CC;
+    --border: rgba(255,255,255,0.08);
+    --border-light: rgba(42,142,255,0.2);
+    --surface-float: #22344F;
+    --shadow-float: 0 32px 64px -20px rgba(0,0,0,0.65), 0 12px 28px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.06);
+    --font-display: 'Barlow Condensed', sans-serif;
+    --font-body: 'Barlow', sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--navy);
+    color: var(--white);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(11, 24, 41, 0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+  }
+  .nav-logo { text-decoration: none; display: flex; align-items: center; flex-shrink: 0; }
+  .nav-logo img { height: 44px; width: auto; display: block; }
+  .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+  .nav-links a { color: var(--text-light); text-decoration: none; font-size: 14px; font-weight: 500; letter-spacing: 0.2px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links .nav-cta { background: var(--electric); color: var(--white); padding: 10px 20px; border-radius: 8px; font-weight: 600; }
+  .nav-links .nav-cta:hover { background: var(--electric-dim); }
+
+  /* HERO */
+  .calc-hero {
+    padding: 72px 5% 40px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .calc-hero .eyebrow {
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--electric);
+    margin-bottom: 14px;
+  }
+  .calc-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 5vw, 54px);
+    font-weight: 800;
+    line-height: 1.08;
+    margin: 0 auto 16px;
+    max-width: 18ch;
+    text-wrap: balance;
+  }
+  .calc-hero p {
+    color: var(--text-light);
+    font-size: 17px;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  /* CALCULATOR */
+  .calculator-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 56px 5%;
+  }
+  .calculator-container {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 48px;
+    align-items: start;
+  }
+  .panel-title {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 18px;
+  }
+  .calculator-inputs { display: flex; flex-direction: column; gap: 20px; }
+  @media (min-width: 1025px) {
+    /* Keep the sliders beside the results while the page scrolls. */
+    .calculator-inputs { position: sticky; top: 84px; }
+  }
+
+  /* Live strip: keeps the headline results on screen while a slider is dragged on
+     narrow screens, where the results panel sits below the inputs. */
+  .live-strip {
+    display: none;
+    position: sticky;
+    top: 68px;
+    z-index: 20;
+    margin: 0 0 22px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: rgba(21, 34, 54, 0.96);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(42,142,255,0.35);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.4);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .live-strip div { min-width: 0; }
+  .live-strip .ls-k {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .live-strip .ls-v {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--white);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .live-strip .ls-v .to { color: var(--electric); }
+  .live-strip .ls-v.is-orange { color: var(--orange); }
+  .live-strip.no-factor .ls-fee { display: none; }
+  .live-strip.no-factor { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 1024px) {
+    .live-strip { display: grid; }
+  }
+  .input-group { display: flex; flex-direction: column; gap: 10px; }
+  .input-group label {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+  .input-help { font-size: 13px; color: var(--muted); margin-top: -6px; }
+  .input-wrapper { display: flex; gap: 12px; align-items: center; }
+  .input-group input[type="range"] {
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: linear-gradient(to right, var(--electric), var(--orange));
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .input-group input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--white); cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  .input-group input[type="range"]::-moz-range-thumb {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--white); cursor: pointer; border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  .input-group input[type="range"]:focus-visible::-webkit-slider-thumb { outline: 3px solid var(--electric); outline-offset: 2px; }
+  .input-value {
+    min-width: 108px;
+    background: var(--navy-light);
+    border: 1px solid var(--border);
+    padding: 8px 12px;
+    border-radius: 6px;
+    color: var(--orange);
+    font-weight: 700;
+    font-size: 14px;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+  }
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    background: rgba(42,142,255,0.06);
+  }
+  .toggle-row input { width: 20px; height: 20px; accent-color: var(--electric); cursor: pointer; }
+  .toggle-row label { font-family: var(--font-body); font-size: 15px; font-weight: 600; text-transform: none; letter-spacing: 0; cursor: pointer; }
+  .factor-group.is-off { opacity: 0.4; }
+  .factor-group.is-off input { pointer-events: none; }
+
+  /* RESULTS */
+  .calculator-results { display: flex; flex-direction: column; gap: 20px; }
+  .compare {
+    background: var(--surface-float);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    box-shadow: var(--shadow-float);
+    overflow: hidden;
+  }
+  .compare-head {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 8px;
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .compare-head .is-target { color: var(--electric); }
+  .compare-row {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 8px;
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    align-items: center;
+  }
+  .compare-row:last-child { border-bottom: none; }
+  .compare-row .k { font-size: 15px; color: var(--text-light); line-height: 1.35; }
+  .compare-row .k small { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .compare-row .v {
+    font-family: var(--font-display);
+    font-size: clamp(20px, 2.4vw, 28px);
+    font-weight: 800;
+    line-height: 1;
+    color: var(--white);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+  .compare-row .v.is-target { color: var(--electric); }
+  .compare-row .v .unit { font-family: var(--font-body); font-size: 12px; font-weight: 500; color: var(--muted); margin-left: 4px; }
+  .compare-row.is-factor { background: rgba(242,100,25,0.05); }
+  .compare-row.is-factor .v { color: var(--orange); }
+  .compare-row.is-factor .v.is-target { color: var(--electric); }
+  .compare.no-factor .is-factor { display: none; }
+
+  .headline-card {
+    background: rgba(242, 100, 25, 0.1);
+    border: 1px solid var(--orange);
+    border-radius: 12px;
+    padding: 22px 24px;
+  }
+  .headline-card h3 {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .headline-card .big {
+    font-family: var(--font-display);
+    font-size: clamp(34px, 5vw, 54px);
+    font-weight: 800;
+    color: var(--orange);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .headline-card p { color: var(--text-light); font-size: 14px; margin-top: 8px; }
+  .headline-card p b { color: var(--white); }
+  .headline-card.is-hidden { display: none; }
+
+  .assumptions {
+    margin-top: 40px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    background: var(--navy-mid);
+  }
+  .assumptions h3 {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--electric);
+    margin-bottom: 10px;
+  }
+  .assumptions ul { list-style: none; display: grid; gap: 8px; }
+  .assumptions li { font-size: 14px; color: var(--text-light); padding-left: 16px; position: relative; }
+  .assumptions li::before { content: ""; position: absolute; left: 0; top: 9px; width: 6px; height: 6px; border-radius: 50%; background: var(--electric); }
+  .disclaimer { font-size: 13px; color: var(--muted); margin-top: 14px; }
+
+  /* PROSE */
+  .prose-section {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 24px 5% 0;
+  }
+  .prose-section h2 {
+    font-family: var(--font-display);
+    font-size: clamp(26px, 3.6vw, 34px);
+    font-weight: 800;
+    line-height: 1.15;
+    margin: 40px 0 14px;
+  }
+  .prose-section p { color: var(--text-light); margin-bottom: 14px; }
+  .prose-section p strong { color: var(--white); }
+  .prose-section ol { margin: 0 0 14px 22px; color: var(--text-light); }
+  .prose-section li { margin-bottom: 8px; }
+  .prose-section a { color: var(--electric); text-decoration: none; }
+  .prose-section a:hover { color: var(--orange); }
+  .faq dt { color: var(--white); font-family: var(--font-display); font-size: 20px; margin-top: 18px; }
+  .faq dd { color: var(--text-light); margin: 6px 0 0; }
+
+  /* CTA */
+  .cta-section { max-width: 1200px; margin: 48px auto 0; padding: 0 5%; }
+  .cta-inner {
+    background: linear-gradient(135deg, rgba(42, 142, 255, 0.1), var(--navy-mid));
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 48px;
+    text-align: center;
+  }
+  .cta-inner h2 { font-family: var(--font-display); font-size: clamp(24px, 4vw, 36px); font-weight: 800; margin-bottom: 14px; }
+  .cta-inner p { color: var(--text-light); font-size: 16px; margin: 0 auto 28px; max-width: 600px; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--electric); color: var(--white);
+    padding: 14px 32px; border-radius: 8px;
+    font-weight: 700; font-size: 15px; text-decoration: none;
+    transition: background 0.2s; border: none; cursor: pointer; font-family: var(--font-body);
+  }
+  .btn-primary:hover { background: var(--electric-dim); }
+
+  /* FOOTER */
+  footer { background: var(--navy-mid); border-top: 1px solid var(--border); padding: 48px 5% 0; margin-top: 60px; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; padding-bottom: 40px; }
+  .footer-tagline { color: var(--muted); font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
+  .footer-col-title { font-family: var(--font-display); font-size: 14px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--white); margin-bottom: 16px; }
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 10px; }
+  .footer-links a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--electric); }
+  .footer-bottom { border-top: 1px solid var(--border); padding: 20px 0; text-align: center; }
+  .footer-bottom p { font-size: 13px; color: var(--muted); }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .calculator-container { grid-template-columns: 1fr; gap: 40px; }
+  }
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .calc-hero { padding: 44px 5% 32px; }
+    .calculator-section { padding: 36px 5%; }
+    .compare-head, .compare-row { grid-template-columns: 1.3fr 1fr 1fr; padding: 12px 14px; gap: 6px; }
+    .compare-row .k { font-size: 13px; }
+    .compare-row .v { font-size: 18px; }
+    .cta-inner { padding: 32px 22px; }
+    .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+  }
+</style>
+  <!-- v38: favicon -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0B1829">
+<link rel="stylesheet" href="/assets/tcs-nav.css?v=menu8">
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://sgtm.telecomcontractorsolutions.com/ns.html?id=GTM-MJPFLRBR"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<nav>
+  <a href="/" class="nav-logo"><img src="/assets/tcs-logo-horizontal-dark.png" alt="Telecom Contractor Solutions" height="44" style="display:block;"></a>
+  <ul class="nav-links">
+    <li><a href="/#how">Services</a></li>
+    <li><a href="/#how">How It Works</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/blog.html">Blog</a></li>
+    <li><a href="/#contact" class="nav-cta">Book your fit call</a></li>
+  </ul>
+</nav>
+
+<main id="main-content">
+<section class="calc-hero">
+  <p class="eyebrow">Cash flow calculator</p>
+  <h1>How long does your cash wait, and what does bridging it cost?</h1>
+  <p>You are already waiting 30 to 60 days for the ISP to pay. This tool shows what the days before the invoice goes out add on top, and what it costs if you factor to cover them. Your numbers, stated assumptions, no advice.</p>
+</section>
+
+<section class="calculator-section">
+  <div class="live-strip" id="live-strip" aria-live="polite">
+    <div><span class="ls-k">Work to cash</span><span class="ls-v"><span id="ls-days-now">69</span> <span class="to">&rarr; <span id="ls-days-target">56</span></span> d</span></div>
+    <div><span class="ls-k">Cash released</span><span class="ls-v is-orange" id="ls-release">$173,333</span></div>
+    <div class="ls-fee"><span class="ls-k">Fee stopped / yr</span><span class="ls-v is-orange" id="ls-fee">$52,000</span></div>
+  </div>
+  <div class="calculator-container">
+    <div class="calculator-inputs">
+      <h2 class="panel-title">Your numbers</h2>
+
+      <div class="input-group">
+        <label for="billings">Invoiced per month</label>
+        <div class="input-wrapper">
+          <input type="range" id="billings" min="50000" max="3000000" step="10000" value="400000" aria-describedby="billings-help">
+          <div class="input-value" id="billings-value">$400,000</div>
+        </div>
+        <p class="input-help" id="billings-help">Total billed to ISPs and primes in a typical month.</p>
+      </div>
+
+      <div class="input-group">
+        <label for="lag">Days from work done to invoice sent</label>
+        <div class="input-wrapper">
+          <input type="range" id="lag" min="1" max="45" step="1" value="14" aria-describedby="lag-help">
+          <div class="input-value" id="lag-value">14 days</div>
+        </div>
+        <p class="input-help" id="lag-help">Your office lag: closeout assembly, as-built tally, invoice build, submission.</p>
+      </div>
+
+      <div class="input-group">
+        <label for="terms">Customer payment terms</label>
+        <div class="input-wrapper">
+          <input type="range" id="terms" min="15" max="90" step="5" value="45" aria-describedby="terms-help">
+          <div class="input-value" id="terms-value">Net 45</div>
+        </div>
+        <p class="input-help" id="terms-help">Days the ISP or prime has to pay after the invoice is accepted.</p>
+      </div>
+
+      <div class="input-group">
+        <label for="late">Days paid past terms, on average</label>
+        <div class="input-wrapper">
+          <input type="range" id="late" min="0" max="45" step="1" value="10">
+          <div class="input-value" id="late-value">10 days</div>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="margin">Gross margin</label>
+        <div class="input-wrapper">
+          <input type="range" id="margin" min="10" max="50" step="1" value="25" aria-describedby="margin-help">
+          <div class="input-value" id="margin-value">25%</div>
+        </div>
+        <p class="input-help" id="margin-help">Used only to show the factoring fee as a share of what you keep.</p>
+      </div>
+
+      <div class="toggle-row">
+        <input type="checkbox" id="factor" checked>
+        <label for="factor">I factor invoices to cover the gap</label>
+      </div>
+
+      <div class="input-group factor-group">
+        <label for="fee">Factoring fee per 30 days outstanding</label>
+        <div class="input-wrapper">
+          <input type="range" id="fee" min="0.5" max="5" step="0.25" value="2.5" aria-describedby="fee-help">
+          <div class="input-value" id="fee-value">2.5%</div>
+        </div>
+        <p class="input-help" id="fee-help">On the invoice face value. Check your agreement; many factors bill in 10 or 15 day steps.</p>
+      </div>
+
+      <div class="input-group factor-group">
+        <label for="advance">Advance rate</label>
+        <div class="input-wrapper">
+          <input type="range" id="advance" min="70" max="95" step="1" value="85" aria-describedby="advance-help">
+          <div class="input-value" id="advance-value">85%</div>
+        </div>
+        <p class="input-help" id="advance-help">The share paid up front. The rest is held in reserve until the customer pays.</p>
+      </div>
+    </div>
+
+    <div class="calculator-results">
+      <h2 class="panel-title">What the wait costs</h2>
+
+      <div class="compare" id="compare">
+        <div class="compare-head">
+          <span>Line</span>
+          <span style="text-align:right;">Today</span>
+          <span class="is-target" style="text-align:right;">Invoice on day one</span>
+        </div>
+        <div class="compare-row">
+          <div class="k">Days from work done to cash<small>office lag + terms + late days</small></div>
+          <div class="v"><span id="r-days-now">69</span><span class="unit">days</span></div>
+          <div class="v is-target"><span id="r-days-target">56</span><span class="unit">days</span></div>
+        </div>
+        <div class="compare-row">
+          <div class="k">Cash waiting on customers at any time<small>monthly billings spread over that wait</small></div>
+          <div class="v" id="r-float-now">$920,000</div>
+          <div class="v is-target" id="r-float-target">$746,667</div>
+        </div>
+        <div class="compare-row">
+          <div class="k">Of which is waiting on your own office<small>the days before the invoice goes out</small></div>
+          <div class="v" id="r-office-now">$186,667</div>
+          <div class="v is-target" id="r-office-target">$13,333</div>
+        </div>
+        <div class="compare-row is-factor">
+          <div class="k">Yearly factoring fee on the cash your office lag makes you bridge<small>if you factor to cover that gap</small></div>
+          <div class="v" id="r-fee-now">$52,000</div>
+          <div class="v is-target" id="r-fee-target">$0</div>
+        </div>
+        <div class="compare-row is-factor">
+          <div class="k">That fee as a share of gross margin<small>on a year of billings at your margin</small></div>
+          <div class="v" id="r-share-now">4.3%</div>
+          <div class="v is-target" id="r-share-target">0%</div>
+        </div>
+        <div class="compare-row is-factor">
+          <div class="k">Reserve the factor holds at any time<small>unchanged by invoicing speed; set by terms and advance rate</small></div>
+          <div class="v" id="r-reserve-now">$110,000</div>
+          <div class="v is-target" id="r-reserve-target">$110,000</div>
+        </div>
+      </div>
+
+      <div class="headline-card">
+        <h3>Cash released once, by invoicing the day the work is done</h3>
+        <div class="big" id="r-release">$173,333</div>
+        <p>That is <b id="r-release-days">13</b> days of billings that stop sitting in the office. It comes back one time, when the lag closes, and stays out of the wait as long as it stays closed.</p>
+      </div>
+
+      <div class="headline-card is-hidden" id="fee-card">
+        <h3>Factoring fee you stop paying, per year</h3>
+        <div class="big" id="r-fee-saved">$52,000</div>
+        <p>Only if you currently factor to bridge the office lag. The fee on the invoices you still factor does not change; the customer's clock is the customer's.</p>
+      </div>
+
+    </div>
+  </div>
+  <div class="assumptions">
+        <h3>Assumptions this arithmetic makes</h3>
+        <ul>
+          <li>Billings are spread evenly across the month, so cash waiting equals monthly billings times days waiting divided by 30.</li>
+          <li>The factoring fee accrues on invoice face value per 30 days outstanding and is prorated. Real agreements use tiers, minimums, and 10 or 15 day steps, so treat the fee lines as an order of magnitude.</li>
+          <li>The "Invoice on day one" column changes one thing: the invoice goes out one day after the work is complete. Payment terms, late days, and the factor's rate are unchanged.</li>
+          <li>The factoring lines price only the slice of cash the office lag makes you bridge. They are zero if you do not factor.</li>
+        </ul>
+      </div>
+  <p class="disclaimer">Not financial advice and not a factoring offer. This is arithmetic on the inputs above. Your factor's agreement and your customer's contract govern the real numbers.</p>
+</section>
+
+<section class="prose-section">
+  <h2>How to read this</h2>
+  <p>Two clocks run on every job. The customer's clock starts when the invoice is accepted and runs for the payment terms plus however late they pay. Your clock runs before that, from the day the crew finishes to the day the invoice goes out. The customer's clock is in the contract. Yours is in the office.</p>
+  <p>The first row adds the two. The second turns that wait into money: if you bill a fixed amount every month and each dollar waits a given number of days, that much cash is always outstanding. The third row is the part of it that is waiting on you, not on the customer. The release figure is that slice, minus the one day the target column still allows.</p>
+  <p><strong>Factoring does not shorten either clock.</strong> It rents you the money while the clocks run. The fee is set by the customer's clock, so invoicing faster does not make a factored invoice cheaper. What it does is shrink the pile of cash you need rented. The calculator prices only that shrink, and only if you actually factor to cover it. If you do not, leave the box unchecked and the fee lines disappear.</p>
+
+  <h2>The lever you control</h2>
+  <p>Terms are the ISP's. Late payment is the ISP's. The office lag is the one number in the row that a contractor can move without a negotiation, and it is usually the one nobody has measured. Ask what date the crew finished the last five jobs, and what date each invoice went out.</p>
+  <p>The lag is rarely one delay. It is a closeout package being assembled from phones and text threads, a printed as-built being tallied by hand, quantities being re-keyed into the invoice, and a review that finds a mismatch and sends it back. The <a href="/fiber-closeout-package-checklist.html">closeout package checklist</a> covers the first, and <a href="/map-to-invoice.html">map to invoice</a> covers the rest: when the marks the crew made are the tally, the invoice is ready the day the marks are complete.</p>
+
+  <h2>What we would look at on a fit call</h2>
+  <ol>
+    <li>Your measured lag, job by job, not the number that feels right.</li>
+    <li>Where the days go: closeout assembly, as-built tally, invoice build, portal submission, rejections.</li>
+    <li>Whether progressive billing on construction work is possible under your contracts and not being used.</li>
+    <li>How much of your factoring volume exists to cover the office lag rather than the customer's terms.</li>
+  </ol>
+  <p>None of that is a package. The <a href="/#how">Operations Audit</a> maps the lag on your real jobs and hands you the roadmap, and you keep it either way.</p>
+
+  <h2>Questions contractors ask</h2>
+  <dl class="faq">
+    <dt>Does invoicing faster lower the factoring fee on an invoice?</dt>
+    <dd>No. The factor's fee runs from the day it buys the invoice until the customer pays, and that clock is set by the customer's terms. Invoicing faster shrinks the amount of cash you are waiting on at any one time, which shrinks how much you need to factor at all. The calculator prices that slice only.</dd>
+    <dt>Why is the office lag the number to focus on?</dt>
+    <dd>Payment terms belong to the ISP or prime and rarely move. The days between the crew finishing and the invoice going out belong to you. On net 45 terms, two weeks of office lag adds about a third to the wait, and it is the only part of the cycle you can shorten without a negotiation.</dd>
+    <dt>Is this financial advice or a factoring offer?</dt>
+    <dd>Neither. It is arithmetic on the numbers you enter, with the assumptions listed above. Factoring contracts vary in how fees accrue, in minimums, and in reserves. Your factor's agreement governs. Use the result to decide what to look at, not as a projection of savings.</dd>
+  </dl>
+</section>
+
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2>Where do the days go between the crew and the invoice?</h2>
+    <p>Would it be a bad idea to bring these numbers to a 30 minute fit call? No pitch. We will tell you whether an Operations Audit is a fit, and you keep the roadmap either way.</p>
+    <a href="/fit-call" class="btn-primary">Book a Fit Call</a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <h3 style="font-family: var(--font-display); font-size: 16px; font-weight: 800; margin-bottom: 12px;">Telecom Contractor Solutions</h3>
+      <p class="footer-tagline">Operations consulting and custom workflow software for ISP and telecom contractors. One record from the work order to the invoice.</p>
+      <p class="footer-tagline" style="margin-top:10px;"><a href="tel:+18329170091" style="color:#A0B4D8;text-decoration:none;">(832) 917-0091</a><br>Arena Tower, 7324 Southwest Freeway, Suite 264<br>Houston, TX 77074</p>
+    </div>
+    <div>
+      <h4 class="footer-col-title">Resources</h4>
+      <ul class="footer-links">
+        <li><a href="/roi-calculator.html">ROI Calculator</a></li>
+        <li><a href="/map-to-invoice.html">Map to Invoice</a></li>
+        <li><a href="/fiber-closeout-package-checklist.html">Closeout Package Checklist</a></li>
+        <li><a href="/faq.html">FAQ</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="footer-col-title">Company</h4>
+      <ul class="footer-links">
+        <li><a href="/blog.html">Blog</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/fit-call">Book a Fit Call</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-family" style="margin-top:6px; font-size: 0.85rem; opacity: 0.85;">Telecom Contractor Solutions serves ISP and telecom contractors nationwide (aerial and underground), typically 10 to 100 field technicians. Powered by <a href="https://simplecontractorsystems.com/?utm_source=tcs&amp;utm_medium=site&amp;utm_campaign=cross-practice&amp;utm_content=footer" style="color:#A0B4D8;">Simple Contractor Systems</a>.</p>
+    <p>&copy; 2026 Telecom Contractor Solutions. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+  var inputs = {
+    billings: $("billings"), lag: $("lag"), terms: $("terms"), late: $("late"),
+    margin: $("margin"), factor: $("factor"), fee: $("fee"), advance: $("advance")
+  };
+  var money = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+  var pct = function (v) { return (Math.round(v * 10) / 10).toFixed(v % 1 === 0 ? 0 : 1) + "%"; };
+
+  function update() {
+    var billings = +inputs.billings.value;
+    var lag = +inputs.lag.value;
+    var terms = +inputs.terms.value;
+    var late = +inputs.late.value;
+    var margin = +inputs.margin.value / 100;
+    var factoring = inputs.factor.checked;
+    var fee = +inputs.fee.value / 100;
+    var advance = +inputs.advance.value / 100;
+
+    $("billings-value").textContent = money.format(billings);
+    $("lag-value").textContent = lag + (lag === 1 ? " day" : " days");
+    $("terms-value").textContent = "Net " + terms;
+    $("late-value").textContent = late + (late === 1 ? " day" : " days");
+    $("margin-value").textContent = pct(margin * 100);
+    $("fee-value").textContent = pct(fee * 100);
+    $("advance-value").textContent = pct(advance * 100);
+
+    var perDay = billings / 30;
+    var TARGET_LAG = 1;
+    var daysNow = lag + terms + late;
+    var daysTarget = TARGET_LAG + terms + late;
+    var floatNow = perDay * daysNow;
+    var floatTarget = perDay * daysTarget;
+    var officeNow = perDay * lag;
+    var officeTarget = perDay * TARGET_LAG;
+    var releaseDays = Math.max(0, lag - TARGET_LAG);
+    var release = perDay * releaseDays;
+
+    // Fee on the bridged slice: that slice is outstanding all year, so it is
+    // rented for twelve 30-day periods at the per-30-day rate.
+    var feeNow = factoring ? officeNow * fee * 12 : 0;
+    var feeTarget = factoring ? officeTarget * fee * 12 : 0;
+    var grossMarginYear = billings * 12 * margin;
+    var shareNow = grossMarginYear > 0 ? (feeNow / grossMarginYear) * 100 : 0;
+    var shareTarget = grossMarginYear > 0 ? (feeTarget / grossMarginYear) * 100 : 0;
+    var reserve = factoring ? perDay * (terms + late) * (1 - advance) : 0;
+
+    $("r-days-now").textContent = daysNow;
+    $("r-days-target").textContent = daysTarget;
+    $("r-float-now").textContent = money.format(floatNow);
+    $("r-float-target").textContent = money.format(floatTarget);
+    $("r-office-now").textContent = money.format(officeNow);
+    $("r-office-target").textContent = money.format(officeTarget);
+    $("r-fee-now").textContent = money.format(feeNow);
+    $("r-fee-target").textContent = money.format(feeTarget);
+    $("r-share-now").textContent = pct(shareNow);
+    $("r-share-target").textContent = pct(shareTarget);
+    $("r-reserve-now").textContent = money.format(reserve);
+    $("r-reserve-target").textContent = money.format(reserve);
+    $("r-release").textContent = money.format(release);
+    $("r-release-days").textContent = releaseDays;
+    $("r-fee-saved").textContent = money.format(Math.max(0, feeNow - feeTarget));
+
+    $("ls-days-now").textContent = daysNow;
+    $("ls-days-target").textContent = daysTarget;
+    $("ls-release").textContent = money.format(release);
+    $("ls-fee").textContent = money.format(Math.max(0, feeNow - feeTarget));
+    $("live-strip").classList.toggle("no-factor", !factoring);
+
+    $("compare").classList.toggle("no-factor", !factoring);
+    $("fee-card").classList.toggle("is-hidden", !factoring || feeNow - feeTarget <= 0);
+    Array.prototype.forEach.call(document.querySelectorAll(".factor-group"), function (g) {
+      g.classList.toggle("is-off", !factoring);
+      Array.prototype.forEach.call(g.querySelectorAll("input"), function (i) { i.disabled = !factoring; });
+    });
+  }
+
+  Object.keys(inputs).forEach(function (k) {
+    inputs[k].addEventListener("input", update);
+    inputs[k].addEventListener("change", update);
+  });
+  update();
+})();
+</script>
+
+<script src="/assets/tcs-nav.js?v=menu9" defer></script>
+</body>
+</html>
