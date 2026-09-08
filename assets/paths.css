@@ -150,11 +150,13 @@
 }
 
 /* ===== Stage: one panel visible at a time (all breakpoints) ===== */
+/* FLOAT_SURFACE_LOCK: same lifted tone + floating shadow as the workflow card. */
 .pth-stage {
   position: relative;
-  border: 1px solid var(--pth-border);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius, 8px);
-  background: var(--pth-navy);
+  background: var(--surface-float, #22344F);
+  box-shadow: var(--shadow-float, 0 32px 64px -20px rgba(0,0,0,0.65), 0 12px 28px rgba(0,0,0,0.35));
   overflow: hidden;
   min-height: 288px;
 }

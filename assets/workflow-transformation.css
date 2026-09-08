@@ -9,11 +9,13 @@
   width: 100%;
   max-width: var(--content-max, 1120px);
   margin-top: 1rem;
-  background: var(--wt-navy);
-  border: 1px solid var(--wt-border);
+  /* FLOAT_SURFACE_LOCK: lifted tone + floating shadow so the card pops off
+     the page navy. Inner cards stay page-navy so they read as insets. */
+  background: var(--surface-float, #22344F);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius, 8px);
   padding: 1.15rem 1.2rem 1.25rem;
-  box-shadow: var(--shadow-card, 0 8px 24px rgba(0,0,0,0.2));
+  box-shadow: var(--shadow-float, 0 32px 64px -20px rgba(0,0,0,0.65), 0 12px 28px rgba(0,0,0,0.35));
   overflow-x: clip;
   overflow-y: visible;
   touch-action: pan-y;
@@ -143,7 +145,7 @@
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  background: var(--wt-navy);
+  background: rgba(11, 24, 41, 0.72);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 6px;
   padding: 10px 12px;
