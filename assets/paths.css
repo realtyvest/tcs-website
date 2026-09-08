@@ -227,9 +227,14 @@
 .pth-panel-helper {
   margin: 0.7rem 0 0;
   font-family: var(--font-body, 'Barlow', sans-serif);
-  font-size: 0.8125rem;
+  font-size: 0.9375rem;
   line-height: 1.35;
   color: var(--pth-text);
+}
+/* ISLAND_STAGE_FIT (Gil, 2026-09-08): the stage is as tall as its tallest
+   panel on phones, so the helper line under the visual is never clipped. */
+@media (max-width: 820px) {
+  .pth-stage, .pth-panels { min-height: 334px; }
 }
 
 /* --- Annotated map --- */
