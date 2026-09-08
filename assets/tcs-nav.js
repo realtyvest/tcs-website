@@ -86,8 +86,14 @@
       top.appendChild(closeBtn);
       overlay.appendChild(top);
 
-      var menuNav = document.createElement('nav');
+      /* MENU_NAV_ELEMENT (2026-09-08): a div, not a <nav>, so page rules
+         written against the nav element (sticky, fixed height, padding)
+         cannot reach the overlay's list. That is what floated Terms and
+         Privacy over the entries on pages like About. */
+      var menuNav = document.createElement('div');
       menuNav.className = 'tcs-mobile-menu-nav';
+      menuNav.setAttribute('role', 'navigation');
+      menuNav.setAttribute('aria-label', 'Site menu links');
       menuNav.setAttribute('aria-label', 'Mobile navigation');
 
       var groups = [['Modules', MODULES], ['Company', COMPANY]];
