@@ -422,11 +422,17 @@
 
         // Optional per-step snap on mobile: quarter midpoints keep a rest
         // clearly inside one state (progress = timeline time / TOTAL).
+        // PATH_SNAP_NEAREST_FIX: directional + inertia snapping (the 3.12
+        // default) let a thumb flick snap straight to the far end, skipping the
+        // fly-ins. Snap to the NEAREST state only, with no inertia projection.
         if (coarseMq.matches) {
           cfg2.snap = {
             snapTo: [0.125, 0.375, 0.625, 0.875],
             duration: { min: 0.15, max: 0.3 },
             ease: "power1.inOut",
+            directional: false,
+            inertia: false,
+            delay: 0.1,
           };
         }
 
