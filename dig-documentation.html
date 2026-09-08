@@ -283,31 +283,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             border-radius: 2px;
         }
 
-        .step h4 {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 16px;
-            font-weight: 700;
+        /* DIG_STEPS_STORY (Gil, 2026-09-08): same badge, rail and scroll
+           reveal as the module pages (assets/module-steps.css). */
+        .steps { counter-reset: step; }
+        .step { counter-increment: step; }
+        .step::before {
+            content: counter(step);
+            background-color: #F26419;
             color: #FFFFFF;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            letter-spacing: 0.2px;
+            font-weight: 700;
         }
 
-        .step h4::before {
-            content: attr(data-number);
-            width: 28px;
-            height: 28px;
-            background: #2A8EFF;
-            color: #0B1829;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .step h4 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.25rem;
             font-weight: 700;
-            font-size: 14px;
-            flex-shrink: 0;
+            color: #2A8EFF;
+            margin-bottom: 0;
+            letter-spacing: 0.2px;
         }
 
         .step p {
@@ -455,6 +448,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <link rel="stylesheet" href="/assets/tcs-type.css?v=type3">
   <link rel="stylesheet" href="/assets/tcs-footer.css?v=foot2">
   <link rel="stylesheet" href="/assets/tcs-story.css?v=story1">
+  <link rel="stylesheet" href="/assets/module-steps.css?v=steps3">
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -539,27 +533,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <h2 class="section-title">How Dig Documentation Works</h2>
             <div class="steps">
                 <div class="step">
-                    <h4 data-number="1">Pre-Bore Setup</h4>
+                    <h4>Pre-Bore Setup</h4>
                     <p>Before bore operations begin, crews photograph the site from multiple angles, document utility locate marks, record equipment positioning, and note 811 ticket status. Every pre-bore image carries GPS coordinates and precise timestamps.</p>
                 </div>
                 <div class="step">
-                    <h4 data-number="2">Locate Mark Verification</h4>
+                    <h4>Locate Mark Verification</h4>
                     <p>Crews verify and photograph utility locate marks on site. Marks are recorded by utility type, mark color, crew who placed the mark, and verification status. GPS location of each mark is captured automatically.</p>
                 </div>
                 <div class="step">
-                    <h4 data-number="3">Bore Path Documentation</h4>
+                    <h4>Bore Path Documentation</h4>
                     <p>As boring begins, crews document bore machine location, bore angles, equipment setup, and bore start point with GPS accuracy. Photos during boring show equipment positioning and bore path progression.</p>
                 </div>
                 <div class="step">
-                    <h4 data-number="4">Real-Time Incident Capture</h4>
+                    <h4>Real-Time Incident Capture</h4>
                     <p>If damage occurs, crews immediately photograph the damage scene, record utility contact information, capture crew statements, and document incident circumstances. All photos are timestamped and GPS-tagged in real-time.</p>
                 </div>
                 <div class="step">
-                    <h4 data-number="5">Claim Documentation</h4>
+                    <h4>Claim Documentation</h4>
                     <p>The platform compiles pre-bore photos, locate marks, bore documentation, and damage photos into a complete damage claim package. Claim numbers are tracked, insurance correspondence is logged, and utility notifications are documented.</p>
                 </div>
                 <div class="step">
-                    <h4 data-number="6">Automated Evidence Export</h4>
+                    <h4>Automated Evidence Export</h4>
                     <p>Generate comprehensive claim reports with all evidence organized chronologically. GPS data, timestamps, crew information, and incident details are formatted for claims adjusters and legal review. Complete claim packages are ready in minutes.</p>
                 </div>
             </div>
@@ -571,7 +565,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="cta-container">
             <h2>Stop Losing Damage Claims</h2>
             <p>No other field service platform offers this level of dig documentation. Complete pre-bore setup, 811 tracking, bore path documentation, and damage incident recording in a single system. Protect your crew, protect your revenue.</p>
-            <a href="https://telecomcontractorsolutions.com/#contact" class="cta-button">Request a Demo</a>
+            <a href="/fit-call" class="cta-button">Book a Fit Call</a>
         </div>
     </section>
 
@@ -651,5 +645,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </script>
 <script src="/assets/tcs-nav.js?v=menu16" defer></script>
 <script src="/assets/tcs-story.js?v=story1" defer></script>
+<script src="/assets/module-steps.js?v=steps3" defer></script>
 </body>
 </html>
