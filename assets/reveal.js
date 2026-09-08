@@ -133,6 +133,25 @@
     }
     gsap.registerPlugin(ScrollTrigger);
 
+    /* ST_REFRESH_ORDER_LOCK: ScrollTrigger refreshes triggers in creation
+       order, and the workflow / path pins rebuild on resize, which moves them
+       to the end of the queue. Everything below them then measures without
+       their pin spacers (found 2,378px off on iOS). Sort by DOM order on every
+       refresh so pins above always land first. Also ignore the mobile
+       address-bar resize, which is what fires those rebuilds on a phone. */
+    function domOrder(a, b) {
+      var ta = a.trigger, tb = b.trigger;
+      if (!ta || !tb || ta === tb) return 0;
+      return ta.compareDocumentPosition(tb) & 4 ? -1 : 1;
+    }
+    ScrollTrigger.config({ ignoreMobileResize: true });
+    ScrollTrigger.addEventListener("refreshInit", function () {
+      ScrollTrigger.sort(domOrder);
+    });
+    window.addEventListener("load", function () {
+      ScrollTrigger.refresh();
+    });
+
     /* ---- Scrubbed copy lines ---- */
     function prepareLines(el) {
       if (el.__rvl && el.__rvl.tween) {
@@ -217,7 +236,7 @@
       targets.forEach(function (t) {
         t.classList.add("rv-shown"); // inline autoAlpha now owns visibility
       });
-      gsap.to(targets, {
+      var tw = gsap.to(targets, {
         autoAlpha: 1,
         y: 0,
         duration: 0.7,
@@ -225,6 +244,9 @@
         stagger: stagger || 0,
         overwrite: "auto",
         scrollTrigger: { trigger: trigger, start: "top 85%", once: true },
+      });
+      onScreen(trigger, function () {
+        if (tw.progress() === 0 && !tw.isActive()) tw.play();
       });
     }
 
@@ -293,6 +315,28 @@
           play(el);
         },
       });
+      // Fallback: if ScrollTrigger positions ever drift on a phone, the
+      // heading still reveals the moment it is actually on screen.
+      onScreen(el, function () {
+        play(el);
+      });
+    }
+
+    function onScreen(el, fn) {
+      if (typeof IntersectionObserver === "undefined") return;
+      var io = new IntersectionObserver(
+        function (entries) {
+          for (var i = 0; i < entries.length; i++) {
+            if (entries[i].isIntersecting) {
+              io.disconnect();
+              fn();
+              return;
+            }
+          }
+        },
+        { threshold: 0.15 }
+      );
+      io.observe(el);
     }
 
     function start() {
@@ -312,7 +356,10 @@
     }
 
     var timer;
+    var lastW = window.innerWidth;
     window.addEventListener("resize", function () {
+      if (window.innerWidth === lastW) return; // height-only (mobile toolbar): ignore
+      lastW = window.innerWidth;
       clearTimeout(timer);
       timer = setTimeout(function () {
         els.forEach(function (el) {

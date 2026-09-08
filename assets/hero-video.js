@@ -64,7 +64,7 @@
       v.tabIndex = -1;
       exists(POSTER).then(function (ok) {
         if (ok) v.poster = POSTER;
-      });
+      }); // only reached when the video itself exists
       v.src = src;
       host.appendChild(v);
       hero.classList.add("has-media");

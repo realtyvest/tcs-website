@@ -464,7 +464,11 @@
     }
 
     var resizeTimer;
+    var lastW = window.innerWidth;
     function onResize() {
+      // Width changes only; the mobile address bar fires height-only resizes.
+      if (window.innerWidth === lastW) return;
+      lastW = window.innerWidth;
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(function () {
         build();

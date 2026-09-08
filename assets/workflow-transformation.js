@@ -779,7 +779,12 @@
     }
 
     var resizeTimer;
+    var lastW = window.innerWidth;
     function onResize() {
+      // Mobile address-bar show/hide only changes height; a rebuild there
+      // re-creates the pin mid-scroll and breaks refresh order. Width only.
+      if (window.innerWidth === lastW) return;
+      lastW = window.innerWidth;
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(onChange, 150);
     }
