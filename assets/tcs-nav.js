@@ -99,16 +99,25 @@
   }
 
   function bind(nav, btn, overlay, closeBtn) {
+    var hideTimer = null;
     function setOpen(open) {
       if (open) {
         if (nav.className.indexOf('tcs-nav-open') === -1) nav.className += ' tcs-nav-open';
-        overlay.classList.add('open');
+        if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
         overlay.hidden = false;
+        /* MENU_MOTION_LOCK: two frames so display lands before the fade. */
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () { overlay.classList.add('open'); });
+        });
         document.body.classList.add('tcs-menu-open');
       } else {
         nav.className = nav.className.replace(/\s*tcs-nav-open\b/g, '');
         overlay.classList.remove('open');
-        overlay.hidden = true;
+        if (hideTimer) clearTimeout(hideTimer);
+        hideTimer = setTimeout(function () {
+          hideTimer = null;
+          if (!overlay.classList.contains('open')) overlay.hidden = true;
+        }, 340);
         document.body.classList.remove('tcs-menu-open');
       }
       btn.setAttribute('aria-expanded', open ? 'true' : 'false');
@@ -116,7 +125,7 @@
     }
 
     function isOpen() {
-      return overlay.classList.contains('open');
+      return overlay.classList.contains('open') || !overlay.hidden && hideTimer === null && overlay.classList.contains('open');
     }
 
     btn.addEventListener('click', function (e) {
@@ -154,9 +163,25 @@
     });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
+  /* Scrolled nav state (homepage runs its own; toggling twice is harmless). */
+  function initScrolled() {
+    var nav = document.querySelector('nav');
+    if (!nav) return;
+    function onScroll() {
+      nav.classList.toggle('is-scrolled', window.scrollY > 32);
+    }
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  function boot() {
     init();
+    initScrolled();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
   }
 })();
