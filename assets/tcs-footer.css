@@ -47,13 +47,16 @@ footer.tcs-footer * { box-sizing: border-box; }
   text-decoration: none;
 }
 .tcsf-cta:hover { background: #1a6fd0; }
+/* FOOTER_HEADINGS (Gil, 2026-09-08): column names bigger and bolder than the
+   links under them. */
 .tcsf-col h4 {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 2px;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
   color: #2A8EFF;
+  line-height: 1.1;
   margin: 0 0 14px;
 }
 .tcsf-col ul { list-style: none; margin: 0; padding: 0; }
