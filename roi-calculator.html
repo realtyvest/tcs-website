@@ -840,6 +840,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
 
       <div class="input-group">
+        <label for="margin">Net Margin on Jobs</label>
+        <div class="input-wrapper">
+          <input type="range" id="margin" min="5" max="40" step="1" value="20" aria-label="Net margin on jobs">
+          <div class="input-value"><span id="margin-value">20</span>%</div>
+        </div>
+      </div>
+
+      <div class="input-group">
         <label for="bank">Bank Balance Today</label>
         <div class="input-wrapper">
           <input type="range" id="bank" min="0" max="2000000" step="10000" value="250000" aria-label="Bank balance today">
@@ -996,7 +1004,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   const adminHours = document.getElementById('admin-hours');
   const adminHourly = document.getElementById('admin-hourly');
 
-  const allInputs = [crews, jobsPerWeek, revenuePerJob, billingLatePct, billingDelayDays, unbilledPct, adminHours, adminHourly, document.getElementById('bank')];
+  const allInputs = [crews, jobsPerWeek, revenuePerJob, billingLatePct, billingDelayDays, unbilledPct, adminHours, adminHourly, document.getElementById('bank'), document.getElementById('margin')];
 
   function updateDisplay() {
     document.getElementById('crews-value').textContent = crews.value;
@@ -1043,7 +1051,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     document.getElementById('ls-monthly').textContent = formatCurrency(monthlyCost);
     document.getElementById('ls-roi').textContent = formatCurrency(potentialROI);
     document.getElementById('bank-value').textContent = formatNumber(document.getElementById('bank').value);
-    drawRoiChart({ bank0: parseInt(document.getElementById('bank').value), monthly: monthlyCost, roi: potentialROI, total: totalCost });
+    document.getElementById('margin-value').textContent = document.getElementById('margin').value;
+    var monthlyRevenue = weeklyRevenue * 52 / 12;
+    var monthlyProfit = monthlyRevenue * (parseInt(document.getElementById('margin').value) / 100);
+    drawRoiChart({ bank0: parseInt(document.getElementById('bank').value), monthly: monthlyCost, roi: potentialROI, total: totalCost, profit: monthlyProfit, revenue: monthlyRevenue, marginPct: parseInt(document.getElementById('margin').value) });
   }
 
   // ROI_STORY_CHART
@@ -1053,11 +1064,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   function roiProgress() {
     if (roiReduce || !roiCanvas) return 1;
     var vh = window.innerHeight || 800;
-    var results = document.querySelector('.calculator-results');
-    var sticky = results && getComputedStyle(results).position === 'sticky' && window.innerWidth > 1024;
-    var p;
-    if (sticky) { var top = document.querySelector('.calculator-section').getBoundingClientRect().top + window.scrollY; p = (window.scrollY - (top - vh * 0.6)) / (vh * 0.7); }
-    else { var r = roiCanvas.getBoundingClientRect(); p = (vh * 0.9 - r.top) / (vh * 0.5); }
+    var pinned = window.tcsCalcPinProgress ? window.tcsCalcPinProgress() : null;
+    if (pinned !== null) return pinned; // desktop: the section holds still while the scroll draws the chart
+    var r = roiCanvas.getBoundingClientRect(); var p = (vh * 0.9 - r.top) / (vh * 0.5);
     return Math.max(0, Math.min(1, p));
   }
   function drawRoiChart(m) {
@@ -1067,8 +1076,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     if (roiCanvas.width !== Math.round(cssW * dpr) || roiCanvas.height !== Math.round(cssH * dpr)) { roiCanvas.width = Math.round(cssW * dpr); roiCanvas.height = Math.round(cssH * dpr); }
     var ctx = roiCanvas.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, cssW, cssH);
     var asIs = [], closed = [];
-    for (var t = 0; t <= months; t++) { asIs.push(m.bank0 - m.monthly * t); closed.push(m.bank0 - m.monthly * 0.3 * t); }
-    var lo = Math.min(0, Math.min.apply(null, asIs)), hi = Math.max(m.bank0, closed[months]); if (hi === lo) hi = lo + 1;
+    // ROI_BANK_GROWS (Gil, 2026-09-08): the business earns its margin every
+    // month; the ops gaps leak from that. Both lines rise, one faster.
+    for (var t = 0; t <= months; t++) { asIs.push(m.bank0 + (m.profit - m.monthly) * t); closed.push(m.bank0 + (m.profit - m.monthly * 0.3) * t); }
+    var lo = Math.min(0, Math.min.apply(null, asIs.concat(closed))), hi = Math.max.apply(null, asIs.concat(closed)); if (hi === lo) hi = lo + 1;
     var padL = 54, padR = 10, padT = 8, padB = 22, w = cssW - padL - padR, h = cssH - padT - padB;
     var x = function (t2) { return padL + (t2 / months) * w; }, y = function (v) { return padT + (1 - (v - lo) / (hi - lo)) * h; };
     var fmtK = function (v) { var a = Math.abs(v); var s3 = a >= 1e6 ? (a / 1e6).toFixed(1) + 'M' : a >= 1e3 ? Math.round(a / 1e3) + 'k' : Math.round(a); return (v < 0 ? '-$' : '$') + s3; };
@@ -1091,7 +1102,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     }
     var money2 = function (v) { return (v < 0 ? '-$' : '$') + formatCurrency(Math.abs(v)); };
     var cap = document.getElementById('roi-chart-caption');
-    if (cap) cap.textContent = 'From ' + money2(m.bank0) + ' in the bank: as-is, the ops gaps take ' + money2(m.total) + ' out over twelve months, leaving ' + money2(asIs[months]) + '. With 70% of the gaps closed, ' + money2(closed[months]) + ' is left. The ' + money2(m.roi) + ' difference is the potential ROI.';
+    if (cap) cap.textContent = 'From ' + money2(m.bank0) + ' in the bank, earning ' + m.marginPct + '% on ' + money2(m.revenue) + ' a month: as-is, the ops gaps leak ' + money2(m.total) + ' over twelve months and the bank reaches ' + money2(asIs[months]) + '. With 70% of the gaps closed it reaches ' + money2(closed[months]) + '. The ' + money2(m.roi) + ' difference is the potential ROI.';
   }
   window.addEventListener('scroll', function () { if (!roiModel || roiRaf) return; roiRaf = requestAnimationFrame(function () { roiRaf = null; drawRoiChart(roiModel); }); }, { passive: true });
   window.addEventListener('resize', function () { if (roiModel) drawRoiChart(roiModel); });
@@ -1114,5 +1125,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <script src="/assets/tcs-nav.js?v=menu16" defer></script>
 <script src="/assets/tcs-story.js?v=story1" defer></script>
+<script src="/assets/calc-pin.js?v=pin1" defer></script>
 </body>
 </html>

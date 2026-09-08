@@ -1145,19 +1145,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   function chartProgress() {
     if (reduceMotion || !chartCanvas) return 1;
     var vh = window.innerHeight || 800;
-    var results = document.querySelector(".calculator-results");
-    var sticky = results && window.getComputedStyle(results).position === "sticky" && window.innerWidth > 1024;
-    var p;
-    if (sticky) {
-      // Desktop: the panel holds still, so the draw follows the scroll through the sliders.
-      var section = document.querySelector(".calculator-section");
-      var top = section.getBoundingClientRect().top + window.scrollY;
-      p = (window.scrollY - (top - vh * 0.6)) / (vh * 0.7);
-    } else {
-      // Phone: the chart draws as it rises through the viewport.
-      var r = chartCanvas.getBoundingClientRect();
-      p = (vh * 0.9 - r.top) / (vh * 0.5);
-    }
+    var pinned = window.tcsCalcPinProgress ? window.tcsCalcPinProgress() : null;
+    if (pinned !== null) return pinned; // desktop: the section holds still while the scroll draws the chart
+    var r = chartCanvas.getBoundingClientRect();
+    var p = (vh * 0.9 - r.top) / (vh * 0.5); // phone: the chart draws as it rises
     return Math.max(0, Math.min(1, p));
   }
   var chartTimer, chartRaf = null, lastModel = null;
@@ -1175,5 +1166,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <script src="/assets/tcs-nav.js?v=menu16" defer></script>
 <script src="/assets/tcs-story.js?v=story1" defer></script>
+<script src="/assets/calc-pin.js?v=pin1" defer></script>
 </body>
 </html>
