@@ -80,31 +80,33 @@
   margin: 0 !important;
 }
 
-/* Story state: before the card is reached it waits low and dim. */
+/* STEPS_LIGHT_ON_SCROLL (Gil, 2026-09-08): each card lights as it scrolls
+   into view, on its own, not the whole grid at once. Cards that arrive in the
+   same row stagger slightly by column. */
 html.module-steps-armed .how-it-works .step {
   opacity: 0;
   transform: translateY(28px);
-  transition-delay: calc(var(--ms-i, 0) * 140ms);
+  transition-delay: calc(var(--ms-col, 0) * 90ms);
 }
 html.module-steps-armed .how-it-works .step::after,
 html.module-steps-armed .how-it-works .step::before {
-  transition-delay: calc(var(--ms-i, 0) * 140ms + 180ms);
+  transition-delay: calc(var(--ms-col, 0) * 90ms + 160ms);
 }
-html.module-steps-armed .how-it-works .steps.is-in .step {
+html.module-steps-armed .how-it-works .step.is-in {
   opacity: 1;
   transform: none;
 }
-.how-it-works .steps.is-in .step::after,
+.how-it-works .step.is-in::after,
 html:not(.module-steps-armed) .how-it-works .step::after {
   transform: scaleX(1);
 }
-.how-it-works .steps.is-in .step::before,
+.how-it-works .step.is-in::before,
 html:not(.module-steps-armed) .how-it-works .step::before {
   transform: scale(1);
   background: #F26419 !important;
   border-color: #F26419;
 }
-.how-it-works .steps.is-in .step {
+.how-it-works .step.is-in {
   border-color: rgba(42, 142, 255, 0.28);
 }
 

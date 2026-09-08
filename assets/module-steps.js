@@ -7,26 +7,44 @@
   if (!grids.length) return;
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  function cols(grid) {
+    var v = parseInt(getComputedStyle(grid).getPropertyValue("--ms-cols"), 10);
+    return v > 0 ? v : 3;
+  }
   grids.forEach(function (grid) {
     var steps = grid.querySelectorAll(".step");
     var n = steps.length;
     if (n === 4) grid.style.setProperty("--ms-cols", "2");
     else if (n < 3) grid.style.setProperty("--ms-cols", String(n));
-    steps.forEach(function (s, i) { s.style.setProperty("--ms-i", String(i)); });
+    var c = cols(grid);
+    steps.forEach(function (s, i) { s.style.setProperty("--ms-col", String(i % c)); });
   });
 
+  var all = document.querySelectorAll(".how-it-works .step");
   if (reduce || !("IntersectionObserver" in window)) {
-    grids.forEach(function (g) { g.classList.add("is-in"); });
+    all.forEach(function (s) { s.classList.add("is-in"); });
     return;
   }
   document.documentElement.classList.add("module-steps-armed");
 
+  // Each card lights on its own as it reaches the lower part of the viewport.
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
       if (!e.isIntersecting) return;
       e.target.classList.add("is-in");
       io.unobserve(e.target);
     });
-  }, { rootMargin: "0px 0px -18% 0px", threshold: 0.15 });
-  grids.forEach(function (g) { io.observe(g); });
+  }, { rootMargin: "0px 0px -22% 0px", threshold: 0.2 });
+  all.forEach(function (s) { io.observe(s); });
+
+  var timer;
+  window.addEventListener("resize", function () {
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      grids.forEach(function (grid) {
+        var c = cols(grid);
+        grid.querySelectorAll(".step").forEach(function (s, i) { s.style.setProperty("--ms-col", String(i % c)); });
+      });
+    }, 200);
+  });
 })();
