@@ -55,7 +55,7 @@ Load the skills below with the Skill tool. Load the row that matches, not everyt
 - Bump the `?v=` cache-bust on every CSS or JS file you change, in every HTML file that includes it.
 - Run `node --check` on every JS file touched.
 - Commit format: `type(scope): short summary (TAG_NAME)`, for example `feat(paths): step fly-in (PATH_STEP_FLY_IN_REVISE)`. Scopes in use: home, paths, m2i, wt, spine, nav, site, cache.
-- Do not commit `.claude/`, `skills-lock.json`, or `claude-anim-fire.md`.
+- `.claude/skills` and `skills-lock.json` are versioned with the site (commit them). Do not commit `claude-anim-fire.md` or `.DS_Store`.
 - Do not touch the hamburger nav unless asked.
 
 ## 4. Workflow
