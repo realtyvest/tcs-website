@@ -1,0 +1,31 @@
+/* EXPLAINER_CLIPS (Gil, 2026-09-08): the Higgsfield explainer on the site.
+   Full 80-second cut on the homepage platform section; ten-second segments
+   as before/with-TCS pairs on the solution pages. Clips are muted, loop,
+   play only while on screen, and never crop: every frame shows at 16:9. */
+.xc { margin: 0; position: relative; }
+.xc-media { position: relative; }
+.xc video { display: block; width: 100%; aspect-ratio: 16 / 9; height: auto; object-fit: contain; background: #0B1829; border-radius: 12px; }
+.xc-feature { max-width: 1080px; margin: 0 auto 44px; }
+.xc-feature video { border: 1px solid rgba(255,255,255,0.10); box-shadow: 0 30px 80px -30px rgba(0,0,0,0.7), 0 0 0 1px rgba(42,142,255,0.12); }
+.xc-feature .xc-logo { position: absolute; top: 14px; left: 16px; width: 150px; height: auto; opacity: 0.92; pointer-events: none; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6)); }
+.xc-feature figcaption { text-align: center; color: var(--text-light, #C3D2E4); margin: 14px 0 0; font-size: 16px; }
+.xc-sound { position: absolute; right: 14px; bottom: 14px; z-index: 2; display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.25); background: rgba(11,24,41,0.72); color: #FFFFFF; font: 600 14px/1 var(--font-body, 'Barlow', sans-serif); cursor: pointer; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); transition: background var(--tcs-dur-short, .25s) var(--tcs-ease-out), transform var(--tcs-dur-short, .25s) var(--tcs-ease-out); }
+.xc-sound:hover { background: rgba(42,142,255,0.85); transform: translateY(-1px); }
+.xc-sound[aria-pressed="true"] { background: var(--electric, #2A8EFF); border-color: transparent; }
+.xc-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 0 0 2.5rem; }
+.xc-pair .xc { border-radius: 14px; padding: 10px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); }
+.xc-pair .xc.is-bright { border-color: rgba(42,142,255,0.35); background: linear-gradient(180deg, rgba(42,142,255,0.10), rgba(255,255,255,0.02)); }
+.xc-pair .xc.is-dark { filter: saturate(0.9); }
+.xc-pair figcaption { display: flex; align-items: baseline; gap: 10px; padding: 12px 6px 4px; color: var(--text-light, #C3D2E4); font-size: 15px; line-height: 1.4; }
+.xc-pair .xc-tag { flex: none; font-family: var(--font-display, 'Barlow Condensed', sans-serif); font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 8px; border-radius: 4px; }
+.xc.is-dark .xc-tag { color: #FFFFFF; background: rgba(255,255,255,0.12); }
+.xc.is-bright .xc-tag { color: #FFFFFF; background: var(--orange, #F26419); }
+.xc-single { max-width: 720px; margin: 28px auto 0; }
+.xc-single figcaption { text-align: center; color: var(--text-light, #C3D2E4); font-size: 15px; margin-top: 12px; }
+.xc-head { font-family: var(--font-display, 'Barlow Condensed', sans-serif); font-size: 1.35rem; font-weight: 800; color: #FFFFFF; margin: 0 0 14px; }
+@media (max-width: 760px) {
+  .xc-pair { grid-template-columns: 1fr; gap: 14px; }
+  .xc-feature .xc-logo { width: 110px; top: 10px; left: 10px; }
+  .xc-feature figcaption { font-size: 15px; }
+}
+@media (prefers-reduced-motion: reduce) { .xc-sound { display: none; } }
