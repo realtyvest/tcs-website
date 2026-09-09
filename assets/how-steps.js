@@ -66,7 +66,7 @@
     if (lit > checked) {
       for (var i = checked; i < lit; i++) items[i].classList.add("is-done");
       checked = lit;
-      if (checked === items.length) setTimeout(complete, 250);
+      if (checked === items.length) setTimeout(complete, 500);
     }
   }
   var raf = null;

@@ -50,7 +50,10 @@
   color: #F26419;
   opacity: 0;
   transform: translateY(10px);
-  transition: opacity var(--tcs-dur-mid) ease, transform var(--tcs-dur-mid) var(--tcs-ease-out);
+  /* HW_DONE_SLOW (Gil, 2026-09-09): the closing line reveals slowly after the
+     sixth check, then the rule draws out behind it. Deliberately longer than
+     the motion tokens: this is the section's last word. */
+  transition: opacity 1.6s var(--tcs-ease-out) 0.3s, transform 1.6s var(--tcs-ease-out) 0.3s;
 }
 #how .hw-done .hw-done-bar {
   flex: 1 1 auto;
@@ -58,7 +61,7 @@
   background: rgba(242, 100, 25, 0.5);
   transform: scaleX(0);
   transform-origin: left center;
-  transition: transform var(--tcs-dur-long) var(--tcs-ease-out) var(--tcs-dur-short);
+  transition: transform 2.2s var(--tcs-ease-out) 1.2s;
 }
 #how.is-complete .hw-done { opacity: 1; transform: none; }
 #how.is-complete .hw-done .hw-done-bar { transform: scaleX(1); }
@@ -67,7 +70,7 @@
   40% { transform: scale(1.05); }
   100% { transform: scale(1); }
 }
-#how.is-complete .btn { animation: hwPulse var(--tcs-dur-long) var(--tcs-ease-pop) var(--tcs-dur-mid) 1; }
+#how.is-complete .btn { animation: hwPulse var(--tcs-dur-long) var(--tcs-ease-pop) 2.4s 1; }
 
 @media (prefers-reduced-motion: reduce) {
   #how .steps li .hw-check, #how .steps li .hw-check path, #how .hw-done, #how .hw-done .hw-done-bar { transition: none !important; }
