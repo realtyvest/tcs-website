@@ -11,9 +11,9 @@
 (function () {
   "use strict";
 
-  var DESKTOP = "/assets/video/hero.mp4";
-  var MOBILE = "/assets/video/hero-mobile.mp4";
-  var POSTER = "/assets/video/hero-poster.jpg";
+  var DESKTOP = "/assets/video/hero.mp4?v=loop8"; // versioned: the CDN caches assets for a year
+  var MOBILE = "/assets/video/hero-mobile.mp4?v=loop8";
+  var POSTER = "/assets/video/hero-poster.jpg?v=loop8";
 
   function ready(fn) {
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);
