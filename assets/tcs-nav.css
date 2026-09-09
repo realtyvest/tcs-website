@@ -142,8 +142,8 @@ nav.tcs-nav-root.is-scrolled {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  min-height: 48px;
-  margin-bottom: 12px;
+  min-height: 40px;
+  margin-bottom: 0;
 }
 
 .tcs-mobile-menu-close {
@@ -176,7 +176,7 @@ nav.tcs-nav-root.is-scrolled {
   gap: 0;
   flex: 0 0 auto; /* never shrinks; the overlay scrolls instead (MENU_LEGAL_FLOW) */
   min-height: auto;
-  padding: 8px 0 24px;
+  padding: 0; /* MENU_FIT_SCREEN (Gil, 2026-09-09): fits one phone screen, Fit Call included */
 }
 
 .tcs-mobile-menu-link {
@@ -186,9 +186,9 @@ nav.tcs-nav-root.is-scrolled {
   text-align: left;
   width: 100%;
   gap: 14px;
-  padding: 18px 0;
+  padding: clamp(5px, 0.9dvh, 11px) 0;
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(1.75rem, 7vw, 2.25rem);
+  font-size: clamp(1.15rem, 3.1dvh, 2rem);
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -247,10 +247,10 @@ nav.tcs-nav-root.is-scrolled {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 16px;
-  padding-top: 20px;
-  padding-bottom: 8px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 6px;
+  padding-top: 4px;
+  padding-bottom: 0;
+  border-top: 0;
   font-size: 0.8125rem;
   color: #8BA3C1;
 }
@@ -258,7 +258,7 @@ nav.tcs-nav-root.is-scrolled {
 .tcs-mobile-menu-legal a {
   color: #8BA3C1;
   text-decoration: none;
-  min-height: 44px;
+  min-height: 36px;
   display: inline-flex;
   align-items: center;
 }
@@ -448,7 +448,7 @@ a.tcs-chars:focus-visible span,
 .tcs-mobile-menu-group,
 .mobile-menu-group {
   display: block;
-  margin: 18px 0 4px;
+  margin: clamp(8px, 1.4dvh, 16px) 0 2px;
   font-family: 'Barlow', sans-serif;
   font-size: 12px;
   font-weight: 700;
