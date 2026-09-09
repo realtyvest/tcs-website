@@ -34,7 +34,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap"></noscript>
 
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
@@ -1637,7 +1639,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="section-inner">
     <figure class="xc xc-feature" id="explainer">
       <div class="xc-media">
-      <video muted playsinline loop autoplay preload="metadata" poster="/assets/video/tcs-explainer.jpg" aria-label="TCS explainer: the old way, then one connected job record"><source src="/assets/video/tcs-explainer.mp4" type="video/mp4"></video>
+      <video muted playsinline loop preload="none" poster="/assets/video/tcs-explainer.jpg" aria-label="TCS explainer: the old way, then one connected job record"><source src="/assets/video/tcs-explainer.mp4" type="video/mp4"></video>
       <img class="xc-logo" src="/assets/tcs-logo-horizontal-dark.png" alt="" aria-hidden="true">
       </div>
       <figcaption>Eighty seconds: the Friday rebuild, then one job record that powers everything below.</figcaption>
@@ -1781,8 +1783,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <script src="/assets/tcs-nav.js?v=menu17" defer></script>
 
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
 <script src="/assets/workflow-transformation.js?v=hdr1t1" defer></script>
 <script src="/assets/phase2-motion.js" defer></script>
 <script src="/assets/hub-links.js?v=hub4" defer></script>
