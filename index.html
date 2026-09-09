@@ -41,7 +41,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <script>document.documentElement.classList.add("rv-js");</script>
-<link rel="stylesheet" href="/assets/tcs-nav.css?v=menu22">
+<link rel="stylesheet" href="/assets/tcs-nav.css?v=menu23">
 
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -343,14 +343,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     flex-direction: column;
     align-items: stretch;
     gap: 0;
-    flex: 0 0 auto;
+    /* MENU_BREATHE (Gil, 2026-09-09): the list grows to fill the overlay and
+       the rows share the height evenly, so the menu uses the whole screen
+       above the Fit Call button instead of bunching at the top. */
+    flex: 1 0 auto;
+    justify-content: space-between;
     padding: 0;
   }
 
   .mobile-menu-link {
-    padding: clamp(5px, 0.9dvh, 11px) 0 !important;
+    padding: 4px 0 !important;
+    flex: 1 1 0;
+    min-height: 34px;
     display: flex;
-    align-items: baseline;
+    align-items: center;
     justify-content: flex-start;
     text-align: left;
     width: 100%;

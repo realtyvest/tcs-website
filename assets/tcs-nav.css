@@ -174,19 +174,22 @@ nav.tcs-nav-root.is-scrolled {
   flex-direction: column;
   align-items: stretch;
   gap: 0;
-  flex: 0 0 auto; /* never shrinks; the overlay scrolls instead (MENU_LEGAL_FLOW) */
+  flex: 1 0 auto; /* grows to fill the overlay, never shrinks; taller lists scroll (MENU_LEGAL_FLOW) */
+  justify-content: space-between; /* MENU_BREATHE (Gil, 2026-09-09): rows share the full height */
   min-height: auto;
   padding: 0; /* MENU_FIT_SCREEN (Gil, 2026-09-09): fits one phone screen, Fit Call included */
 }
 
 .tcs-mobile-menu-link {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: flex-start;
   text-align: left;
   width: 100%;
   gap: 14px;
-  padding: clamp(5px, 0.9dvh, 11px) 0;
+  flex: 1 1 0;
+  min-height: 34px;
+  padding: 4px 0;
   font-family: 'Barlow Condensed', sans-serif;
   font-size: clamp(1.15rem, 3.1dvh, 2rem);
   font-weight: 700;
