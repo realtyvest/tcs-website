@@ -17,7 +17,7 @@
   ];
   var COMPANY = [
     { href: '/#how', label: 'How it works' },
-    { href: '/#proof', label: 'Proof' },
+    { href: '/#resources', label: 'Resources' },
     { href: '/about.html', label: 'About' },
     { href: '/blog.html', label: 'Blog' },
     { href: '/faq.html', label: 'FAQ' }
@@ -26,7 +26,8 @@
   /* NAV_MATCH_HOME (Gil, 2026-09-08): the inner bar carries exactly what the
      homepage strip carries: five module links and the CTA. About, Blog and
      the rest stay in the menu overlay. */
-  var CANONICAL = MODULES.slice(0, 5);
+  var CANONICAL = MODULES.slice(0, 5); /* kept for reference; the bar now shows the Solutions dropdown */
+  var CHEVRON = '<svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
   function pad(n) {
     return n < 10 ? '0' + n : String(n);
@@ -110,7 +111,7 @@
           var a = document.createElement('a');
           a.className = 'tcs-mobile-menu-link';
           a.href = item.href;
-          a.innerHTML = '<span class="n">' + pad(++n) + '</span><span>' + item.label + '</span>';
+          a.innerHTML = '<span>' + item.label + '</span>'; /* HIG_AUDIT_V39: no sequence numbers */
           menuNav.appendChild(a);
         }
       }
@@ -348,10 +349,15 @@
     if (!ul) return;
     var cta = ul.querySelector('a.nav-cta, a[class*="cta"]');
     var ctaLi = cta ? cta.closest('li') : null;
-    var html = '';
-    for (var i = 0; i < CANONICAL.length; i++) {
-      html += '<li><a href="' + CANONICAL[i].href + '">' + CANONICAL[i].label + '</a></li>';
+    /* NAV_SOLUTIONS_DROPDOWN (HIG audit v39): one Solutions menu with all seven
+       module pages, same set as the overlay, same markup as the homepage. */
+    var html = '<li class="nav-dropdown">' +
+      '<button type="button" class="nav-dropdown-btn" aria-expanded="false" aria-controls="nav-solutions-menu">Solutions ' + CHEVRON + '</button>' +
+      '<ul class="nav-dropdown-menu" id="nav-solutions-menu">';
+    for (var i = 0; i < MODULES.length; i++) {
+      html += '<li><a href="' + MODULES[i].href + '">' + MODULES[i].label + '</a></li>';
     }
+    html += '</ul></li>';
     ul.innerHTML = html;
     if (!cta) {
       cta = document.createElement('a');
@@ -367,10 +373,42 @@
     if (nav) nav.className += (nav.className ? ' ' : '') + 'tcs-bar';
   }
 
+  /* NAV_SOLUTIONS_DROPDOWN: click or tap toggles, Escape closes and returns focus,
+     a click anywhere else closes. Pointer hover is handled in CSS. */
+  function initDropdowns() {
+    var drops = document.querySelectorAll('.nav-dropdown');
+    if (!drops.length) return;
+    function close(d) {
+      d.classList.remove('open');
+      var b = d.querySelector('.nav-dropdown-btn');
+      if (b) b.setAttribute('aria-expanded', 'false');
+    }
+    for (var i = 0; i < drops.length; i++) {
+      (function (d) {
+        var btn = d.querySelector('.nav-dropdown-btn');
+        if (!btn) return;
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+          var open = d.classList.toggle('open');
+          btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+        d.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && d.classList.contains('open')) { close(d); btn.focus(); }
+        });
+      })(drops[i]);
+    }
+    document.addEventListener('click', function (e) {
+      for (var i = 0; i < drops.length; i++) {
+        if (!drops[i].contains(e.target)) close(drops[i]);
+      }
+    });
+  }
+
   function boot() {
     initLogo();
     initNavHeightVar();
     initDesktopLinks();
+    initDropdowns();
     init();
     initScrolled();
     initChars();

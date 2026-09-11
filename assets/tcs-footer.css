@@ -87,3 +87,6 @@ footer.tcs-footer * { box-sizing: border-box; }
   footer.tcs-footer { padding: 40px 5% 24px !important; }
   .tcsf-inner { grid-template-columns: 1fr; gap: 28px; }
 }
+
+/* HIG_AUDIT_V39: the menu's Resources link lands here under the sticky bar */
+#resources { scroll-margin-top: calc(var(--nav-h, 64px) + 16px); }
