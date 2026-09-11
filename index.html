@@ -45,8 +45,8 @@ if(document.readyState==='complete')later();else window.addEventListener('load',
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/fonts/BarlowCondensed-800.woff2?v=f1">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/fonts/BarlowCondensed-700.woff2?v=f1">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/fonts/Barlow-400.woff2?v=f1">
-<link rel="stylesheet" href="/assets/tcs-nav.css?v=menu24">
-<link rel="stylesheet" href="/assets/home.css?v=home2">
+<link rel="stylesheet" href="/assets/tcs-nav.css?v=menu25">
+<link rel="stylesheet" href="/assets/home.css?v=home3">
 
 <!-- Base styles live in assets/home-base.css and ship inside /assets/home.css (tools/build-home-css.sh). -->
 
@@ -58,7 +58,7 @@ if(document.readyState==='complete')later();else window.addEventListener('load',
   "url": "https://telecomcontractorsolutions.com/",
   "logo": "https://telecomcontractorsolutions.com/assets/logo.png",
   "image": "https://telecomcontractorsolutions.com/assets/og-home.png",
-  "description": "From Field to Financials. connected field capture through invoice-ready workflows for ISP and telecom contractors with 10–100 field technicians.",
+  "description": "From Field to Financials. Connected field capture through invoice-ready workflows for ISP and telecom contractors with 10 to 100 field technicians.",
   "telephone": "+1-832-917-0091",
   "address": {
     "@type": "PostalAddress",
@@ -145,13 +145,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="hero-rule hero-enter" aria-hidden="true"></div>
       <h1 class="hero-enter" data-rv="load">From Field to Financials</h1>
       <p class="punch hero-enter">Stop rebuilding Tuesday’s job on Friday.</p>
-      <div class="hero-problem hero-enter" id="problem">
-        <p class="hero-fit-strip"><strong>10–100</strong> <span>Field technicians, our exact fit</span></p>
-        <h2 class="hero-statement" data-rv="load" data-rv-delay="900">Your field knows what happened. Your office shouldn’t have to reconstruct it.</h2>
-        <p class="sub prose">Most ISP contractors don’t lose money because crews don’t work. They lose it in the handoffs: WhatsApp, phone photos, paper, one spreadsheet, then another, then accounting, until Friday is a rebuild of Tuesday.</p>
-      </div>
       <div class="hero-actions hero-enter">
         <a class="btn" href="/fit-call">Book a Fit Call</a>
+      </div>
+      <!-- HIG_AUDIT_V39: statement and problem paragraph moved to #philosophy so the button sits above the fold on phones. #problem stays here for the rail spy. -->
+      <div class="hero-problem hero-enter" id="problem">
+        <p class="hero-fit-strip"><strong>10 to 100</strong> <span>field technicians, our exact fit</span></p>
       </div>
     </div>
   </section>
@@ -173,7 +172,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <section class="opening-panel" id="philosophy">
     <div class="section-inner prose">
       <h2 data-rv>The Field Is the Source of Truth</h2>
-      <p class="sub" data-rv-lines>TCS does not start with another office dashboard. It starts where the work happens: the map, the codes, the photos, the closeout, so production and billing inherit the same truth the crew already lived.</p>
+      <p class="sub" data-rv-lines>Your field knows what happened. Your office shouldn’t have to reconstruct it. Most ISP contractors don’t lose money because crews don’t work. They lose it in the handoffs: WhatsApp, phone photos, paper, one spreadsheet, then another, then accounting, until Friday is a rebuild of Tuesday.</p>
+      <p class="sub">TCS does not start with another office dashboard. It starts where the work happens: the map, the codes, the photos, the closeout, so production and billing inherit the same truth the crew already lived.</p>
     </div>
   </section>
 
@@ -272,7 +272,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <figure class="xc xc-feature" id="explainer">
       <div class="xc-media">
       <video muted playsinline loop preload="none" poster="/assets/video/tcs-explainer.jpg" aria-label="TCS explainer: the old way, then one connected job record"><source src="/assets/video/tcs-explainer.mp4" type="video/mp4"></video>
-      <img class="xc-logo" src="/assets/tcs-logo-horizontal-dark.png" alt="" aria-hidden="true">
       </div>
       <figcaption>Eighty seconds: the Friday rebuild, then one job record that powers everything below.</figcaption>
     </figure>
@@ -282,27 +281,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <a href="/job-tracking.html" class="solution-card">
         <h3>Job Tracking</h3>
         <p>One record per job from assignment to closeout. Status comes off the crew's submittal, not a phone call.</p>
-        <span class="solution-link">Learn more +</span>
+        <span class="solution-link">See Job Tracking</span>
       </a>
       <a href="/billing-automation.html" class="solution-card">
         <h3>Billing Automation</h3>
         <p>Invoice lines come from the closeout quantities the day the work is done, so the customer's clock starts this week.</p>
-        <span class="solution-link">Learn more +</span>
+        <span class="solution-link">See Billing Automation</span>
       </a>
       <a href="/crew-management.html" class="solution-card">
         <h3>Crew Management</h3>
         <p>Crews see their own routed list, tap through to directions, and close out with photos on the record.</p>
-        <span class="solution-link">Learn more +</span>
+        <span class="solution-link">See Crew Management</span>
       </a>
       <a href="/job-costing.html" class="solution-card">
         <h3>Job Costing</h3>
         <p>Labor, materials, and production land on the job as it happens, so margin is known before the invoice goes out.</p>
-        <span class="solution-link">Learn more +</span>
+        <span class="solution-link">See Job Costing</span>
       </a>
       <a href="/map-to-invoice.html" class="solution-card">
         <h3>Map Annotator</h3>
         <p>The crew marks codes and quantities on the job map once. The tally and the invoice lines come from those marks.</p>
-        <span class="solution-link">Learn more +</span>
+        <span class="solution-link">See the Map Annotator</span>
       </a>
     </div>
     <p class="hub-jobs">Two kinds of job run through it. Multi-day work: <a href="/map-to-invoice.html">Construction: Aerial and Underground</a>. High-volume single-day work: <a href="/drop-buries.html">Drop Buries</a>.</p>
@@ -314,14 +313,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="section-inner">
     <h2 data-rv>How we work with you</h2>
     <ol class="steps">
-      <li><strong>Fit Call</strong>. 30 minutes. Is the Operations Audit a fit?</li>
-      <li><strong>Operations Audit</strong>. fixed scope discovery, roadmap + math you keep either way (scoped on the Fit Call)</li>
-      <li><strong>Roadmap</strong>. what to build first, what to skip</li>
-      <li><strong>Implementation</strong>. build around how your crews actually work</li>
-      <li><strong>Software rollout</strong>. only when the workflow needs a system to run on (no package menu here)</li>
-      <li><strong>Measure and improve</strong>. adoption support after go-live</li>
+      <li><strong>Fit Call:</strong> 30 minutes. Is the Operations Audit a fit for you?</li>
+      <li><strong>Operations Audit:</strong> fixed-scope discovery, scoped on the Fit Call. You keep the roadmap and the math either way.</li>
+      <li><strong>Roadmap:</strong> what to build first and what to skip.</li>
+      <li><strong>Implementation:</strong> built around how your crews actually work.</li>
+      <li><strong>Software rollout:</strong> only when the workflow needs a system to run on. No package menu.</li>
+      <li><strong>Measure and improve:</strong> adoption support after go-live.</li>
     </ol>
-    <a class="btn" href="/fit-call">Book a Fit Call</a>
   </div>
 </section>
 
@@ -333,8 +331,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       “We were running dispatch on spreadsheets and group texts and jobs were falling through the cracks constantly. Gil rebuilt the whole system. The structure he put in place is already changing how we operate.”
       <div class="quote-attr">Owner <span>· Telecom contractor</span></div>
     </div>
-    <!-- TODO(Marketing): add additional telecom-only quotes/reviews; do not invent; LV/low-voltage attributions stay off this page -->
-    <p class="proof-todo" data-rv-rise>More telecom contractor proof coming soon.</p>
+    <!-- TODO(Marketing): add additional telecom-only quotes/reviews; do not invent; LV/low-voltage attributions stay off this page. HIG_AUDIT_V39: the visible "coming soon" line was removed. -->
   </div>
 </section>
 
@@ -557,7 +554,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     var doc = document.documentElement;
     var scrollable = Math.max(doc.scrollHeight - window.innerHeight, 1);
     var pct = window.scrollY / scrollable;
-    var past = pct >= 0.28 || (hero && window.scrollY > Math.max(hero.offsetHeight * 0.55, 220));
+    /* HIG_AUDIT_V39: appear only after the reader has passed the hub (#system), not at 28% scroll */
+    var hub = document.getElementById('system');
+    var past = hub ? hub.getBoundingClientRect().bottom < 0 : pct >= 0.5;
     var hide = fullyInView(finalCta) || fullyInView(navFit) || isMenuOpen();
     var show = past && !hide;
     sticky.classList.toggle('is-visible', show);

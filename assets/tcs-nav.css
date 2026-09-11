@@ -14,9 +14,12 @@
    literal curves or timings. GSAP side: power2.out (enter), power2.in (exit),
    power2.inOut (on-screen), none (scrub). */
 :root {
-  --tcs-ease-out: var(--tcs-ease-out);   /* entrances, rises, settles */
-  --tcs-ease-inout: var(--tcs-ease-inout);   /* sweeps, menu, rail */
-  --tcs-ease-pop: var(--tcs-ease-pop);    /* badges, checks, one overshoot */
+  /* HIG_AUDIT_V39 (2026-09-11): the three curves used to reference themselves, which
+     makes the property invalid and resets every transition that used it. Real values
+     now, matching the GSAP note above (power2.out, power2.inOut, one overshoot). */
+  --tcs-ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);   /* entrances, rises, settles */
+  --tcs-ease-inout: cubic-bezier(0.455, 0.03, 0.515, 0.955);   /* sweeps, menu, rail */
+  --tcs-ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1);    /* badges, checks, one overshoot */
   --tcs-ease-linear: linear;                            /* progress, scrub */
   --tcs-dur-quick: 0.15s;   /* hover, press, colour */
   --tcs-dur-short: 0.25s;   /* icons, small state */
@@ -199,7 +202,7 @@ nav.tcs-nav-root.is-scrolled {
   width: 100%;
   gap: 14px;
   flex: 1 1 0;
-  min-height: 34px;
+  min-height: 44px; /* HIG_AUDIT_V39: 44pt touch floor */
   padding: 4px 0;
   font-family: 'Barlow Condensed', sans-serif;
   font-size: clamp(1.15rem, 3.1dvh, 2rem);
