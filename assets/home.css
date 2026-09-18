@@ -1376,6 +1376,12 @@
     }
   }
 
+  /* PROOF_SCOTT_RONE (Gil, 2026-09-18): customer story in the Proof section.
+     16:9, full width of the content column, no frame or padding, click to play. */
+  .proof-video { margin: 0 0 28px; }
+  .proof-video video { display: block; width: 100%; aspect-ratio: 16 / 9; height: auto; background: #152235; }
+  .proof-video figcaption { margin-top: 10px; color: var(--muted); font-size: 0.95rem; }
+
 /* ==== assets/workflow-transformation.css ==== */
 /* WorkflowTransformation — uses site tokens from index.html :root */
 .wt {

@@ -46,7 +46,7 @@ if(document.readyState==='complete')later();else window.addEventListener('load',
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/fonts/BarlowCondensed-700.woff2?v=f1">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/fonts/Barlow-400.woff2?v=f1">
 <link rel="stylesheet" href="/assets/tcs-nav.css?v=menu25">
-<link rel="stylesheet" href="/assets/home.css?v=home3">
+<link rel="stylesheet" href="/assets/home.css?v=home4">
 
 <!-- Base styles live in assets/home-base.css and ship inside /assets/home.css (tools/build-home-css.sh). -->
 
@@ -75,6 +75,9 @@ if(document.readyState==='complete')later();else window.addEventListener('load',
 {"@context":"https://schema.org","@type":"VideoObject","name":"Telecom Contractor Solutions explainer","description":"The old way: a Friday rebuild from phones and paper. The TCS way: the crew captures once in the field and one connected job record powers job tracking, billing, crew management, job costing, and the map annotator.","thumbnailUrl":"https://telecomcontractorsolutions.com/assets/video/tcs-explainer.jpg","contentUrl":"https://telecomcontractorsolutions.com/assets/video/tcs-explainer.mp4","uploadDate":"2026-09-08","duration":"PT1M20S","publisher":{"@type":"Organization","name":"Telecom Contractor Solutions","logo":{"@type":"ImageObject","url":"https://telecomcontractorsolutions.com/assets/logo.png"}}}
 </script>
   <!-- Section stylesheets are bundled into /assets/home.css (tools/build-home-css.sh) and linked at the top of head. -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"VideoObject","name":"Scott Rone on as builts for invoicing jobs","description":"Scott Rone, telecom construction, describes marking as builts for invoicing jobs, making corrections, and following job progress through the splicing handoff.","thumbnailUrl":"https://telecomcontractorsolutions.com/assets/video/scott-rone-proof.jpg","contentUrl":"https://telecomcontractorsolutions.com/assets/video/scott-rone-proof.mp4","uploadDate":"2026-09-18","duration":"PT1M3S","publisher":{"@type":"Organization","name":"Telecom Contractor Solutions","logo":{"@type":"ImageObject","url":"https://telecomcontractorsolutions.com/assets/logo.png"}}}
+</script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -335,6 +338,34 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="section section--alt" id="proof">
   <div class="section-inner">
     <h2 data-rv>What telecom contractors say</h2>
+    <!-- PROOF_SCOTT_RONE (Gil, 2026-09-18): customer story, click to play, never autoplays. The figure on the poster is Scott's own, about his as builts for invoicing jobs. -->
+    <figure class="proof-video" id="proof-scott-rone">
+      <video controls playsinline preload="metadata" poster="/assets/video/scott-rone-proof.jpg?v=1" aria-label="Scott Rone, telecom construction, on as builts for invoicing jobs. One minute three seconds."><source src="/assets/video/scott-rone-proof.mp4?v=1" type="video/mp4"></video>
+      <figcaption>Scott Rone, telecom construction, on as builts for invoicing jobs.</figcaption>
+    </figure>
+    <script>
+    /* The poster carries its own play button, so the native controls stay off it
+       until the first click. Without JS the controls attribute remains. */
+    (function () {
+      var v = document.querySelector('#proof-scott-rone video');
+      if (!v) return;
+      v.removeAttribute('controls');
+      v.style.cursor = 'pointer';
+      v.setAttribute('tabindex', '0');
+      v.setAttribute('role', 'button');
+      function start() {
+        v.removeEventListener('click', start);
+        v.removeEventListener('keydown', key);
+        v.setAttribute('controls', '');
+        v.removeAttribute('role');
+        v.style.cursor = '';
+        var p = v.play(); if (p && p.catch) p.catch(function () {});
+      }
+      function key(e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); start(); } }
+      v.addEventListener('click', start);
+      v.addEventListener('keydown', key);
+    })();
+    </script>
     <div class="quote" data-rv-rise>
       “We were running dispatch on spreadsheets and group texts and jobs were falling through the cracks constantly. Gil rebuilt the whole system. The structure he put in place is already changing how we operate.”
       <div class="quote-attr">Owner <span>· Telecom contractor</span></div>
