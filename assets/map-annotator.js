@@ -18,6 +18,58 @@
     var trigger = null;
     var context = null;
     var resizeTimer = null;
+    var audioContext = null;
+    var dingPlayed = false;
+
+    function disarmAudioUnlock() {
+      document.removeEventListener("pointerdown", unlockAudio, true);
+      document.removeEventListener("keydown", unlockAudio, true);
+      document.removeEventListener("touchstart", unlockAudio, true);
+    }
+
+    function unlockAudio() {
+      var AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContext) return;
+      if (!audioContext) audioContext = new AudioContext();
+      if (audioContext.state === "running") {
+        disarmAudioUnlock();
+        return;
+      }
+      audioContext.resume().then(disarmAudioUnlock).catch(function () {});
+    }
+
+    function playReadyDing() {
+      if (dingPlayed || !audioContext || audioContext.state !== "running") return;
+      dingPlayed = true;
+
+      var now = audioContext.currentTime;
+      var gain = audioContext.createGain();
+      var tone = audioContext.createOscillator();
+      var overtone = audioContext.createOscillator();
+      var overtoneGain = audioContext.createGain();
+
+      tone.type = "sine";
+      tone.frequency.setValueAtTime(1046.5, now);
+      overtone.type = "sine";
+      overtone.frequency.setValueAtTime(2093, now);
+      overtoneGain.gain.setValueAtTime(0.22, now);
+      gain.gain.setValueAtTime(0.0001, now);
+      gain.gain.exponentialRampToValueAtTime(0.16, now + 0.012);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.62);
+
+      tone.connect(gain);
+      overtone.connect(overtoneGain);
+      overtoneGain.connect(gain);
+      gain.connect(audioContext.destination);
+      tone.start(now);
+      overtone.start(now);
+      tone.stop(now + 0.64);
+      overtone.stop(now + 0.64);
+    }
+
+    document.addEventListener("pointerdown", unlockAudio, true);
+    document.addEventListener("keydown", unlockAudio, true);
+    document.addEventListener("touchstart", unlockAudio, true);
 
     function setCounter(counter, value) {
       counter.textContent = String(Math.round(value));
@@ -115,6 +167,8 @@
         timeline.to(invoice, { autoAlpha: 1, y: 0, duration: 0.4 }, 6.18);
         timeline.to({}, { duration: 0.5 });
 
+        var dingThreshold = 6.18 / timeline.duration();
+
         trigger = window.ScrollTrigger.create({
           animation: timeline,
           trigger: product,
@@ -126,6 +180,9 @@
           anticipatePin: 1,
           fastScrollEnd: true,
           invalidateOnRefresh: true,
+          onUpdate: function (self) {
+            if (self.direction > 0 && timeline.progress() >= dingThreshold) playReadyDing();
+          },
           onLeave: function () { timeline.progress(1); }
         });
       }, section);
