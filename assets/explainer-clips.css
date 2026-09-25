@@ -23,6 +23,11 @@
 .xc-single { max-width: 720px; margin: 28px auto 0; }
 .xc-single figcaption { text-align: center; color: var(--text-light, #C3D2E4); font-size: 15px; margin-top: 12px; }
 .xc-head { font-family: var(--font-display, 'Barlow Condensed', sans-serif); font-size: 1.35rem; font-weight: 800; color: #FFFFFF; margin: 0 0 14px; }
+.video-transcript { max-width: 900px; margin: 12px auto 0; color: var(--text-light, #C3D2E4); font-size: 15px; text-align: left; }
+.video-transcript summary { width: fit-content; margin: 0 auto; color: #AFC8E6; font-weight: 600; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.video-transcript[open] summary { margin-bottom: 12px; }
+.video-transcript p { margin: 0 0 10px; color: var(--text-light, #C3D2E4); font-size: 15px; line-height: 1.6; }
+.video-transcript summary:focus-visible { outline: 3px solid var(--electric, #2A8EFF); outline-offset: 4px; border-radius: 2px; }
 @media (max-width: 760px) {
   .xc-pair { grid-template-columns: 1fr; gap: 14px; }
   .xc-feature .xc-logo { width: 110px; top: 10px; left: 10px; }
