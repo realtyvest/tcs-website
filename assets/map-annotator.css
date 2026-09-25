@@ -209,8 +209,8 @@ body.ma-final-state .ma-submitted-label { opacity: 1; }
   .ma-btn { width: 100%; }
   .ma-card-grid { grid-template-columns: 1fr; }
   .ma-code-text, .ma-code-qty, .ma-event-text { font-size: 24px; }
-  .ma-start .ma-event-box { x: 706px; width: 96px; }
-  .ma-end .ma-event-box { x: 708px; width: 68px; }
+  .ma-start .ma-event-box { x: 700px; width: 108px; }
+  .ma-end .ma-event-box { x: 704px; width: 76px; }
   .ma-group-title { font-size: 16px; }
   .ma-invoice { flex-direction: column; gap: 3px; padding: 13px 18px; }
   .ma-invoice strong { padding-left: 0; border-left: 0; font-size: 17px; }
