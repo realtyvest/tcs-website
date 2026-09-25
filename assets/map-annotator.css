@@ -131,7 +131,7 @@ img { max-width: 100%; }
 .ma-code-qty { font-weight: 800; text-anchor: end; }
 .ma-group-title { fill: #8FB3FF; font-size: 13px; font-weight: 800; letter-spacing: .08em; }
 .ma-event-box { fill: #0D1B2A; stroke: var(--ma-orange); stroke-width: 3; }
-.ma-event-text { fill: var(--ma-white); font-size: 14px; font-weight: 800; letter-spacing: .06em; dominant-baseline: middle; }
+.ma-event-text { fill: var(--ma-white); font-size: 14px; font-weight: 800; letter-spacing: .06em; text-anchor: middle; dominant-baseline: middle; }
 .ma-point { transform-box: fill-box; transform-origin: center; }
 .ma-tally { position: absolute; z-index: 3; top: 14px; right: 14px; width: 172px; padding: 13px 12px; border: 1px solid #4A6079; border-radius: 8px; background: rgba(27,40,56,.95); box-shadow: 0 16px 32px rgba(13,27,42,.28); backdrop-filter: blur(8px); }
 .ma-tally h3 { margin: 0 0 10px; color: #89A0BA; font: 800 10px/1 'Barlow', sans-serif; letter-spacing: .12em; text-transform: uppercase; }
@@ -209,6 +209,8 @@ body.ma-final-state .ma-submitted-label { opacity: 1; }
   .ma-btn { width: 100%; }
   .ma-card-grid { grid-template-columns: 1fr; }
   .ma-code-text, .ma-code-qty, .ma-event-text { font-size: 24px; }
+  .ma-start .ma-event-box { x: 706px; width: 96px; }
+  .ma-end .ma-event-box { x: 708px; width: 68px; }
   .ma-group-title { font-size: 16px; }
   .ma-invoice { flex-direction: column; gap: 3px; padding: 13px 18px; }
   .ma-invoice strong { padding-left: 0; border-left: 0; font-size: 17px; }
