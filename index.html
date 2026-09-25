@@ -54,12 +54,18 @@ if(document.readyState==='complete')later();else window.addEventListener('load',
 {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
+  "@id": "https://telecomcontractorsolutions.com/#business",
   "name": "Telecom Contractor Solutions",
   "url": "https://telecomcontractorsolutions.com/",
   "logo": "https://telecomcontractorsolutions.com/assets/logo.png",
   "image": "https://telecomcontractorsolutions.com/assets/og-home.png",
   "description": "From Field to Financials. Connected field capture through invoice-ready workflows for ISP and telecom contractors with 10 to 100 field technicians.",
   "telephone": "+1-832-917-0091",
+  "founder": {
+    "@type": "Person",
+    "name": "Gil Ramirez",
+    "sameAs": "https://www.linkedin.com/in/gilbertoramirezjr/"
+  },
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Arena Tower, 7324 Southwest Freeway, Suite 264",
@@ -68,15 +74,36 @@ if(document.readyState==='complete')later();else window.addEventListener('load',
     "postalCode": "77074",
     "addressCountry": "US"
   },
-  "areaServed": "US"
+  "areaServed": {
+    "@type": "Country",
+    "name": "United States"
+  },
+  "knowsAbout": [
+    "Telecom contractor operations",
+    "Fiber construction closeouts",
+    "Field-to-invoice workflows",
+    "Telecom crew management",
+    "Telecom contractor job costing"
+  ]
 }
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"VideoObject","name":"Telecom Contractor Solutions explainer","description":"The old way: a Friday rebuild from phones and paper. The TCS way: the crew captures once in the field and one connected job record powers job tracking, billing, crew management, job costing, and the map annotator.","thumbnailUrl":"https://telecomcontractorsolutions.com/assets/video/tcs-explainer.jpg","contentUrl":"https://telecomcontractorsolutions.com/assets/video/tcs-explainer.mp4","uploadDate":"2026-09-08","duration":"PT1M20S","publisher":{"@type":"Organization","name":"Telecom Contractor Solutions","logo":{"@type":"ImageObject","url":"https://telecomcontractorsolutions.com/assets/logo.png"}}}
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://telecomcontractorsolutions.com/#website",
+  "url": "https://telecomcontractorsolutions.com/",
+  "name": "Telecom Contractor Solutions",
+  "publisher": {"@id": "https://telecomcontractorsolutions.com/#business"},
+  "inLanguage": "en-US"
+}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"VideoObject","name":"Telecom Contractor Solutions explainer","description":"The old way: a Friday rebuild from phones and paper. The TCS way: the crew captures once in the field and one connected job record powers job tracking, billing, crew management, job costing, and the map annotator.","thumbnailUrl":"https://telecomcontractorsolutions.com/assets/video/tcs-explainer.jpg","contentUrl":"https://telecomcontractorsolutions.com/assets/video/tcs-explainer.mp4","uploadDate":"2026-09-08T00:00:00-05:00","duration":"PT1M20S","publisher":{"@type":"Organization","name":"Telecom Contractor Solutions","logo":{"@type":"ImageObject","url":"https://telecomcontractorsolutions.com/assets/logo.png"}}}
 </script>
   <!-- Section stylesheets are bundled into /assets/home.css (tools/build-home-css.sh) and linked at the top of head. -->
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"VideoObject","name":"Scott Rone on as builts for invoicing jobs","description":"Scott Rone, telecom construction, describes marking as builts for invoicing jobs, making corrections, and following job progress through the splicing handoff.","thumbnailUrl":"https://telecomcontractorsolutions.com/assets/video/scott-rone-proof.jpg","contentUrl":"https://telecomcontractorsolutions.com/assets/video/scott-rone-proof.mp4","uploadDate":"2026-09-18","duration":"PT1M3S","publisher":{"@type":"Organization","name":"Telecom Contractor Solutions","logo":{"@type":"ImageObject","url":"https://telecomcontractorsolutions.com/assets/logo.png"}}}
+{"@context":"https://schema.org","@type":"VideoObject","name":"Scott Rone on as builts for invoicing jobs","description":"Scott Rone, telecom construction, describes marking as builts for invoicing jobs, making corrections, and following job progress through the splicing handoff.","thumbnailUrl":"https://telecomcontractorsolutions.com/assets/video/scott-rone-proof.jpg","contentUrl":"https://telecomcontractorsolutions.com/assets/video/scott-rone-proof.mp4","uploadDate":"2026-09-18T00:00:00-05:00","duration":"PT1M3S","publisher":{"@type":"Organization","name":"Telecom Contractor Solutions","logo":{"@type":"ImageObject","url":"https://telecomcontractorsolutions.com/assets/logo.png"}}}
 </script>
 </head>
 <body>
@@ -309,7 +336,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p>Labor, materials, and production land on the job as it happens, so margin is known before the invoice goes out.</p>
         <span class="solution-link">See Job Costing</span>
       </a>
-      <a href="/map-to-invoice.html" class="solution-card">
+      <a href="/map-annotator.html" class="solution-card">
         <h3>Map Annotator</h3>
         <p>The crew marks codes and quantities on the job map once. The tally and the invoice lines come from those marks.</p>
         <span class="solution-link">See the Map Annotator</span>
