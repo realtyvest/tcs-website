@@ -59,7 +59,7 @@
   <link rel="stylesheet" href="/assets/tcs-nav.css?v=menu25">
   <link rel="stylesheet" href="/assets/tcs-type.css?v=type3">
   <link rel="stylesheet" href="/assets/tcs-footer.css?v=foot2t2">
-  <link rel="stylesheet" href="/assets/map-annotator.css?v=ma3">
+  <link rel="stylesheet" href="/assets/map-annotator.css?v=ma4">
   <script src="/assets/tcs-nav.js?v=menu18" defer></script>
 </head>
 <body>
@@ -139,10 +139,10 @@
                   <path class="ma-route-cap ma-callout ma-end" d="M732 278 L756 302"/>
                 </g>
                 <g class="ma-callout ma-start">
-                  <path class="ma-leader-dark" d="M328 721 L260 702"/>
+                  <path class="ma-leader-dark" marker-end="url(#ma-arrow-orange)" d="M680 671 L260 702"/>
                   <circle class="ma-point" cx="260" cy="702" r="11" fill="#F4F7FB" stroke="#F26419" stroke-width="4"/>
-                  <rect class="ma-event-box" x="180" y="700" width="148" height="42" rx="6"/>
-                  <text class="ma-event-text" x="192" y="721">START HERE</text>
+                  <rect class="ma-event-box" x="680" y="650" width="148" height="42" rx="6"/>
+                  <text class="ma-event-text" x="692" y="671">START HERE</text>
                 </g>
                 <text class="ma-group-title" x="250" y="104">BILLABLE CODES</text>
                 <g class="ma-callout ma-code-callout">
@@ -171,10 +171,10 @@
                   <circle cx="266" cy="331" r="5" fill="#FCD12A"/><text class="ma-code-text" x="279" y="331">C66</text><text class="ma-code-qty" x="388" y="331">255</text>
                 </g>
                 <g class="ma-callout ma-end">
-                  <path class="ma-leader-dark" marker-end="url(#ma-arrow-orange)" d="M842 311 L744 290"/>
+                  <path class="ma-leader-dark" marker-end="url(#ma-arrow-orange)" d="M742 232 L744 290"/>
                   <circle class="ma-point" cx="744" cy="290" r="11" fill="#F4F7FB" stroke="#F26419" stroke-width="4"/>
-                  <rect class="ma-event-box" x="842" y="290" width="124" height="42" rx="6"/>
-                  <text class="ma-event-text" x="854" y="311">EOL HERE</text>
+                  <rect class="ma-event-box" x="680" y="190" width="124" height="42" rx="6"/>
+                  <text class="ma-event-text" x="692" y="211">EOL HERE</text>
                 </g>
               </svg>
             </div>
@@ -188,7 +188,7 @@
               <button class="ma-submit" type="button" tabindex="-1" aria-hidden="true"><span class="ma-submit-label">Submit annotations</span><span class="ma-submitted-label">Submitted ✓</span></button>
             </aside>
           </div>
-          <div class="ma-invoice"><small>Invoice status</small><strong>READY TO REVIEW</strong></div>
+          <div class="ma-invoice" role="status" aria-live="polite"><small>Invoice status</small><strong>READY TO REVIEW</strong></div>
         </div>
       </div>
     </section>
@@ -276,6 +276,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <script src="/assets/map-annotator.js?v=ma3" defer></script>
+  <script src="/assets/map-annotator.js?v=ma4" defer></script>
 </body>
 </html>
