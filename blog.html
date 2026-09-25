@@ -17,13 +17,13 @@ if(document.readyState==='complete')later();else window.addEventListener('load',
 <meta name="author" content="Gil Ramirez">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="alternate" type="application/rss+xml" title="Telecom Contractor Solutions Blog" href="https://telecomcontractorsolutions.com/rss.xml">
-<title>Blog | Telecom Contractor Solutions</title>
-<meta name="description" content="Operations insights for ISP and telecom contractors. Billing, crew adoption, dig documentation, and field crew management.">
+<title>Telecom Contractor News &amp; Operations | TCS</title>
+<meta name="description" content="Telecom contractor news and field operations guidance on BEAD, project pipeline, billing, closeouts, crews, and job documentation.">
 <link rel="canonical" href="https://telecomcontractorsolutions.com/blog.html">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://telecomcontractorsolutions.com/blog.html">
-<meta property="og:title" content="Blog | Telecom Contractor Solutions">
-<meta property="og:description" content="Operations insights for ISP and telecom contractors. Billing, crew adoption, dig documentation, and field crew management.">
+<meta property="og:title" content="Telecom Contractor News &amp; Operations | TCS">
+<meta property="og:description" content="BEAD and project pipeline news, plus field operations guidance for telecom contractors.">
 <meta property="og:site_name" content="Telecom Contractor Solutions">
 <meta property="og:image" content="https://telecomcontractorsolutions.com/assets/og-default.png">
 <meta property="og:image:width" content="1200">
@@ -70,6 +70,15 @@ if(document.readyState==='complete')later();else window.addEventListener('load',
     line-height: 1.1; margin-bottom: 16px;
   }
   .blog-hero p { color: var(--text-light); font-size: 17px; max-width: 600px; margin: 0 auto; }
+  .topic-index { padding: 34px 5%; border-bottom: 1px solid var(--border); }
+  .topic-index-inner { max-width: 1100px; margin: 0 auto; }
+  .topic-index h2 { font-family: var(--font-display); font-size: 28px; margin: 0 0 18px; }
+  .topic-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .topic-card { display: block; padding: 18px; border: 1px solid var(--border); border-radius: 10px; background: var(--navy-mid); color: var(--white); text-decoration: none; }
+  .topic-card:hover { border-color: var(--electric); }
+  .topic-card strong { display: block; margin-bottom: 5px; font-family: var(--font-display); font-size: 20px; }
+  .topic-card span { color: var(--text-light); font-size: 14px; }
+  @media (max-width: 720px) { .topic-grid { grid-template-columns: 1fr; } }
   /* BEAD_SUBSCRIBE_BAND (Gil, 2026-09-08): The Splice signup lives on the blog hub. */
   .bead-subscribe { padding: 40px 5%; border-bottom: 1px solid var(--border); background: linear-gradient(135deg, rgba(42,142,255,0.08), rgba(11,24,41,0)); }
   .bead-subscribe-inner { max-width: 820px; margin: 0 auto; display: grid; grid-template-columns: 1.1fr 1fr; gap: 32px; align-items: center; }
@@ -206,6 +215,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <h1>Operations insights for<br>telecom contractors.</h1>
   <p>Billing, crew adoption, dig documentation, and field crew management. Written for ISP contractors with 10 to 100 field technicians.</p>
 </div>
+<section class="topic-index" aria-labelledby="browse-topics">
+  <div class="topic-index-inner">
+    <h2 id="browse-topics">Browse by topic</h2>
+    <div class="topic-grid">
+      <a class="topic-card" href="/bead-by-state.html"><strong>BEAD and funding</strong><span>State movement, federal decisions, and where funded work is opening.</span></a>
+      <a class="topic-card" href="/rfp-tracker.html"><strong>Project pipeline</strong><span>Build announcements, RFP tracking, and the jobs crews can position for.</span></a>
+      <a class="topic-card" href="/fiber-closeout-package-checklist.html"><strong>Contractor operations</strong><span>Closeouts, billing, documentation, crew adoption, and job records.</span></a>
+    </div>
+  </div>
+</section>
 <section class="bead-subscribe" id="the-splice" aria-label="Subscribe to The Splice">
   <div class="bead-subscribe-inner">
     <div>
