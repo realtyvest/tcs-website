@@ -48,7 +48,6 @@
 
       if (
         reduceMq.matches ||
-        window.innerWidth < 821 ||
         typeof window.gsap === "undefined" ||
         typeof window.ScrollTrigger === "undefined"
       ) {
@@ -57,6 +56,8 @@
       }
 
       window.gsap.registerPlugin(window.ScrollTrigger);
+
+      var shouldPin = product.getBoundingClientRect().height <= window.innerHeight - 72;
 
       context = window.gsap.context(function () {
         var routes = window.gsap.utils.toArray(".ma-route", product);
@@ -117,10 +118,10 @@
         trigger = window.ScrollTrigger.create({
           animation: timeline,
           trigger: product,
-          start: "top top+=88",
-          end: "+=260%",
+          start: shouldPin ? "top top+=88" : "top 82%",
+          end: shouldPin ? "+=260%" : "+=180%",
           scrub: 0.45,
-          pin: true,
+          pin: shouldPin,
           pinSpacing: true,
           anticipatePin: 1,
           fastScrollEnd: true,
