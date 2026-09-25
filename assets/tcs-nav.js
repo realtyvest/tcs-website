@@ -7,6 +7,7 @@
 
   /* NAV_MODULES_LOCK (Gil, 2026-09-08): module pages in every nav. */
   var MODULES = [
+    { href: '/map-annotator.html', label: 'Map Annotator' },
     { href: '/job-tracking.html', label: 'Job Tracking' },
     { href: '/billing-automation.html', label: 'Billing' },
     { href: '/crew-management.html', label: 'Crew Management' },
@@ -22,12 +23,130 @@
     { href: '/blog.html', label: 'Blog' },
     { href: '/faq.html', label: 'FAQ' }
   ];
-  /* Desktop list on inner pages: five modules plus About and Blog. */
+  /* Desktop list on inner pages: the shared Solutions menu plus the CTA. */
   /* NAV_MATCH_HOME (Gil, 2026-09-08): the inner bar carries exactly what the
      homepage strip carries: five module links and the CTA. About, Blog and
      the rest stay in the menu overlay. */
   var CANONICAL = MODULES.slice(0, 5); /* kept for reference; the bar now shows the Solutions dropdown */
   var CHEVRON = '<svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  /* ATTRIBUTION_V1: retain campaign and source context through the on-site
+     journey, expose it to the Fit Call form, and send intent events to GTM.
+     This records campaign metadata only. It never stores form field values. */
+  var ATTRIBUTION_KEY = 'tcs_attribution_v1';
+  var CAMPAIGN_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'msclkid'];
+
+  function readAttribution() {
+    try {
+      return JSON.parse(window.sessionStorage.getItem(ATTRIBUTION_KEY) || '{}') || {};
+    } catch (err) {
+      return {};
+    }
+  }
+
+  function writeAttribution(value) {
+    try {
+      window.sessionStorage.setItem(ATTRIBUTION_KEY, JSON.stringify(value));
+    } catch (err) {
+      /* Storage can be unavailable in private browsing. GTM events still work. */
+    }
+  }
+
+  function cleanPath(value) {
+    try {
+      var url = new URL(value, window.location.origin);
+      return url.origin === window.location.origin ? url.pathname : url.hostname;
+    } catch (err) {
+      return '';
+    }
+  }
+
+  function pageSource() {
+    var path = window.location.pathname.replace(/^\/+|\.(html?)$|\/$/g, '');
+    return path ? path.replace(/\//g, '-') : 'homepage';
+  }
+
+  function pushEvent(name, values) {
+    window.dataLayer = window.dataLayer || [];
+    var eventData = { event: name };
+    values = values || {};
+    for (var key in values) {
+      if (Object.prototype.hasOwnProperty.call(values, key) && values[key] !== '') eventData[key] = values[key];
+    }
+    window.dataLayer.push(eventData);
+  }
+
+  function captureAttribution() {
+    var stored = readAttribution();
+    var params = new URLSearchParams(window.location.search);
+    if (!stored.landing_page) stored.landing_page = window.location.pathname;
+    if (!stored.referrer && document.referrer) stored.referrer = cleanPath(document.referrer);
+    for (var i = 0; i < CAMPAIGN_KEYS.length; i++) {
+      var value = params.get(CAMPAIGN_KEYS[i]);
+      if (value) stored[CAMPAIGN_KEYS[i]] = value.slice(0, 160);
+    }
+    if (params.get('source')) stored.lead_source = params.get('source').slice(0, 100);
+    writeAttribution(stored);
+    return stored;
+  }
+
+  function attributionEventData(extra) {
+    var stored = readAttribution();
+    var data = {
+      lead_source: stored.lead_source || '',
+      source_page: stored.source_page || '',
+      landing_page: stored.landing_page || '',
+      referrer: stored.referrer || '',
+      utm_source: stored.utm_source || '',
+      utm_medium: stored.utm_medium || '',
+      utm_campaign: stored.utm_campaign || '',
+      utm_content: stored.utm_content || '',
+      utm_term: stored.utm_term || ''
+    };
+    extra = extra || {};
+    for (var key in extra) {
+      if (Object.prototype.hasOwnProperty.call(extra, key)) data[key] = extra[key];
+    }
+    return data;
+  }
+
+  function initAttribution() {
+    captureAttribution();
+    document.addEventListener('click', function (event) {
+      var link = event.target.closest ? event.target.closest('a') : null;
+      if (!link) return;
+      var target;
+      try { target = new URL(link.href, window.location.origin); } catch (err) { return; }
+      if (target.origin !== window.location.origin || !/^\/fit-call\/?$/.test(target.pathname)) return;
+
+      var stored = readAttribution();
+      var source = target.searchParams.get('source') || link.getAttribute('data-lead-source') || pageSource();
+      stored.lead_source = source.slice(0, 100);
+      stored.source_page = window.location.pathname;
+      stored.cta_text = (link.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 100);
+      writeAttribution(stored);
+
+      if (!target.searchParams.get('source')) {
+        target.searchParams.set('source', source);
+        link.href = target.pathname + target.search + target.hash;
+      }
+      pushEvent('fit_call_click', attributionEventData({
+        cta_text: stored.cta_text,
+        page_path: window.location.pathname
+      }));
+    }, true);
+
+    if (/^\/fit-call\/?$/.test(window.location.pathname)) {
+      pushEvent('fit_call_view', attributionEventData({ page_path: window.location.pathname }));
+    }
+  }
+
+  window.TCSAttribution = {
+    get: readAttribution,
+    capture: captureAttribution,
+    eventData: attributionEventData,
+    track: pushEvent
+  };
 
   function pad(n) {
     return n < 10 ? '0' + n : String(n);
@@ -349,8 +468,8 @@
     if (!ul) return;
     var cta = ul.querySelector('a.nav-cta, a[class*="cta"]');
     var ctaLi = cta ? cta.closest('li') : null;
-    /* NAV_SOLUTIONS_DROPDOWN (HIG audit v39): one Solutions menu with all seven
-       module pages, same set as the overlay, same markup as the homepage. */
+    /* NAV_SOLUTIONS_DROPDOWN (HIG audit v39): one Solutions menu with every
+       module page, same set as the overlay, same markup as the homepage. */
     var html = '<li class="nav-dropdown">' +
       '<button type="button" class="nav-dropdown-btn" aria-expanded="false" aria-controls="nav-solutions-menu">Solutions ' + CHEVRON + '</button>' +
       '<ul class="nav-dropdown-menu" id="nav-solutions-menu">';
@@ -405,6 +524,7 @@
   }
 
   function boot() {
+    initAttribution();
     initLogo();
     initNavHeightVar();
     initDesktopLinks();

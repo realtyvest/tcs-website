@@ -463,9 +463,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <main id="main-content">
   <div class="page">
     <p class="eyebrow">Telecom Contractor Solutions</p>
-    <h1>Book a Fit Call</h1>
-    <p class="sub">Free 30 minutes. Tell us what’s breaking between field and financials. We’ll tell you whether an Operations Audit is a fit. and scope it on the call.</p>
-    <p class="helper">ISP contractors, 10–100 field techs. Aerial and underground. No package to pick on this page.</p>
+    <h1 id="fit-call-title">Book a Fit Call</h1>
+    <p class="sub" id="fit-call-subtitle">Free 30 minutes. Tell us what’s breaking between field and financials. We’ll tell you whether an Operations Audit is a fit and scope it on the call.</p>
+    <p class="helper" id="fit-call-helper">ISP contractors, 10–100 field techs. Aerial and underground. No package to pick on this page.</p>
 
     <div class="calendar-wrap" id="fit-call-calendar">
       <!-- GUI lock 2026-09-04: reuse SCS Google Appointment Schedule embed -->
@@ -481,7 +481,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p class="agree-line" style="margin:16px 0 0;font-size:13px;color:#8BA3C1;line-height:1.5;">By continuing you agree to our <a href="/terms" style="color:#2A8EFF;">Terms</a> and <a href="/privacy" style="color:#2A8EFF;">Privacy Policy</a>.</p>
 
         </div>
-        <iframe title="Book a Fit Call with Telecom Contractor Solutions" src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0G1G6qwSzO7BDh60L_wITstx8SF_qEfTYoZOi6tYhFiopmBqNIzJEUEDHywGgOBImzx07eZiWG?gv=true" style="border:0;display:block;background:#fff" width="100%" height="700" frameborder="0"></iframe>
+        <iframe id="fit-call-scheduler" title="Book a Fit Call with Telecom Contractor Solutions" src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0G1G6qwSzO7BDh60L_wITstx8SF_qEfTYoZOi6tYhFiopmBqNIzJEUEDHywGgOBImzx07eZiWG?gv=true" style="border:0;display:block;background:#fff" width="100%" height="700" frameborder="0"></iframe>
       </div>
     </div>
 
@@ -542,6 +542,38 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
 <script>
+function getLeadContext() {
+  var params = new URLSearchParams(window.location.search);
+  var stored = window.TCSAttribution ? window.TCSAttribution.get() : {};
+  return {
+    lead_source: params.get('source') || stored.lead_source || 'fit-call-direct',
+    source_page: stored.source_page || '',
+    landing_page: stored.landing_page || window.location.pathname,
+    referrer: stored.referrer || '',
+    utm_source: stored.utm_source || params.get('utm_source') || '',
+    utm_medium: stored.utm_medium || params.get('utm_medium') || '',
+    utm_campaign: stored.utm_campaign || params.get('utm_campaign') || '',
+    utm_content: stored.utm_content || params.get('utm_content') || '',
+    utm_term: stored.utm_term || params.get('utm_term') || '',
+    gclid: stored.gclid || params.get('gclid') || '',
+    msclkid: stored.msclkid || params.get('msclkid') || ''
+  };
+}
+
+function trackFitCallEvent(name, extra) {
+  var context = getLeadContext();
+  extra = extra || {};
+  for (var key in extra) {
+    if (Object.prototype.hasOwnProperty.call(extra, key)) context[key] = extra[key];
+  }
+  if (window.TCSAttribution) window.TCSAttribution.track(name, context);
+  else {
+    window.dataLayer = window.dataLayer || [];
+    context.event = name;
+    window.dataLayer.push(context);
+  }
+}
+
 async function submitForm() {
   var agree = document.getElementById('f-agree');
   if (agree && !agree.checked) {
@@ -584,13 +616,14 @@ async function submitForm() {
   btn.textContent = 'Sending...';
   btn.disabled = true;
   msg.className = 'cta-form-msg';
+  trackFitCallEvent('fit_call_form_submit', { form_id: 'fit-call-fallback' });
 
   var WEBHOOK_URL = 'https://hook.us2.make.com/ufy2psw2mv3377lfvmxnu60999bg7e8d';
   var submitted_at = new Date().toISOString();
-  var source = 'telecomcontractorsolutions.com/fit-call';
+  var attribution = getLeadContext();
 
   try {
-    await fetch(WEBHOOK_URL, {
+    var response = await fetch(WEBHOOK_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams({
@@ -601,11 +634,24 @@ async function submitForm() {
         field_techs: techs,
         whats_hurting: hurt,
         submitted_at: submitted_at,
-        source: source
+        source: attribution.lead_source,
+        source_page: attribution.source_page,
+        landing_page: attribution.landing_page,
+        referrer: attribution.referrer,
+        utm_source: attribution.utm_source,
+        utm_medium: attribution.utm_medium,
+        utm_campaign: attribution.utm_campaign,
+        utm_content: attribution.utm_content,
+        utm_term: attribution.utm_term,
+        gclid: attribution.gclid,
+        msclkid: attribution.msclkid
       }).toString()
     });
+    if (!response.ok) throw new Error('Lead webhook returned HTTP ' + response.status);
     msg.className = 'cta-form-msg success';
     msg.textContent = 'Got it. Gil will reach out within one business day to schedule your Fit Call.';
+    trackFitCallEvent('generate_lead', { form_id: 'fit-call-fallback', lead_type: attribution.lead_source === 'map-annotator' ? 'map_annotator_demo' : 'fit_call' });
+    trackFitCallEvent('fit_call_form_success', { form_id: 'fit-call-fallback' });
     document.getElementById('f-name').value = '';
     document.getElementById('f-company').value = '';
     document.getElementById('f-email').value = '';
@@ -615,15 +661,48 @@ async function submitForm() {
     btn.textContent = 'Send my request';
     btn.disabled = false;
   } catch (err) {
+    trackFitCallEvent('fit_call_form_error', { form_id: 'fit-call-fallback' });
     msg.className = 'cta-form-msg error';
     msg.textContent = 'Something went wrong. Please try again, or call (832) 917-0091.';
     btn.textContent = 'Send my request';
     btn.disabled = false;
   }
 }
+
+function initFitCallPage() {
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('source') === 'map-annotator') {
+    document.getElementById('fit-call-title').textContent = 'Request a Map Annotator Demo';
+    document.getElementById('fit-call-subtitle').textContent = 'Bring one as-built and your billing codes. We will show how the marks become an office-ready tally.';
+    document.getElementById('fit-call-helper').textContent = 'Map Annotator is available as a standalone product. Job Tracker can be added later.';
+    document.querySelector('.fb-kicker').textContent = 'Prefer we reach out about the demo?';
+    document.querySelector('.fallback h2').textContent = 'Send one request and we will set it up.';
+  }
+
+  var form = document.getElementById('contact-form');
+  var formStarted = false;
+  form.addEventListener('focusin', function () {
+    if (formStarted) return;
+    formStarted = true;
+    trackFitCallEvent('fit_call_form_start', { form_id: 'fit-call-fallback' });
+  });
+
+  var scheduler = document.getElementById('fit-call-scheduler');
+  var schedulerEngaged = false;
+  window.addEventListener('blur', function () {
+    setTimeout(function () {
+      if (!schedulerEngaged && document.activeElement === scheduler) {
+        schedulerEngaged = true;
+        trackFitCallEvent('fit_call_scheduler_engaged', { scheduler: 'google_appointment_schedule' });
+      }
+    }, 0);
+  });
+}
+
+initFitCallPage();
 </script>
 
-<script src="/assets/tcs-nav.js?v=menu18" defer></script>
+<script src="/assets/tcs-nav.js?v=menu19" defer></script>
 <script src="/assets/tcs-story.js?v=story3" defer></script>
 </body>
 </html>
