@@ -99,8 +99,31 @@
       if (value) stored[CAMPAIGN_KEYS[i]] = value.slice(0, 160);
     }
     if (sourceParam) stored.lead_source = sourceParam.slice(0, 100);
+    if (params.get('landing_page')) stored.landing_page = params.get('landing_page').slice(0, 200);
+    if (params.get('source_page')) stored.source_page = params.get('source_page').slice(0, 200);
     writeAttribution(stored);
     return stored;
+  }
+
+  function decorateFitCallLink(link, stored) {
+    var target;
+    try { target = new URL(link.href, window.location.origin); } catch (err) { return null; }
+    if (target.origin !== window.location.origin || !/^\/fit-call\/?$/.test(target.pathname)) return null;
+
+    var source = target.searchParams.get('source') || link.getAttribute('data-lead-source') || pageSource();
+    if (!target.searchParams.get('source')) target.searchParams.set('source', source);
+    if (!target.searchParams.get('landing_page') && stored.landing_page) {
+      target.searchParams.set('landing_page', stored.landing_page);
+    }
+    if (!target.searchParams.get('source_page')) {
+      target.searchParams.set('source_page', window.location.pathname);
+    }
+    for (var i = 0; i < CAMPAIGN_KEYS.length; i++) {
+      var key = CAMPAIGN_KEYS[i];
+      if (!target.searchParams.get(key) && stored[key]) target.searchParams.set(key, stored[key]);
+    }
+    link.href = target.pathname + target.search + target.hash;
+    return { target: target, source: source };
   }
 
   function attributionEventData(extra) {
@@ -124,25 +147,21 @@
   }
 
   function initAttribution() {
-    captureAttribution();
+    var captured = captureAttribution();
+    var fitCallLinks = document.querySelectorAll('a[href]');
+    for (var i = 0; i < fitCallLinks.length; i++) decorateFitCallLink(fitCallLinks[i], captured);
+
     document.addEventListener('click', function (event) {
       var link = event.target.closest ? event.target.closest('a') : null;
       if (!link) return;
-      var target;
-      try { target = new URL(link.href, window.location.origin); } catch (err) { return; }
-      if (target.origin !== window.location.origin || !/^\/fit-call\/?$/.test(target.pathname)) return;
-
       var stored = readAttribution();
-      var source = target.searchParams.get('source') || link.getAttribute('data-lead-source') || pageSource();
+      var decorated = decorateFitCallLink(link, stored);
+      if (!decorated) return;
+      var source = decorated.source;
       stored.lead_source = source.slice(0, 100);
       stored.source_page = window.location.pathname;
       stored.cta_text = (link.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 100);
       writeAttribution(stored);
-
-      if (!target.searchParams.get('source')) {
-        target.searchParams.set('source', source);
-        link.href = target.pathname + target.search + target.hash;
-      }
       pushEvent('fit_call_click', attributionEventData({
         cta_text: stored.cta_text,
         page_path: window.location.pathname
@@ -537,12 +556,12 @@
   }
 
   function boot() {
-    initAttribution();
     initLogo();
     initNavHeightVar();
     initDesktopLinks();
     initDropdowns();
     init();
+    initAttribution();
     initScrolled();
     initChars();
     initSweep();
