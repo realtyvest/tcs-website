@@ -672,6 +672,7 @@ async function submitForm() {
 }
 
 function initFitCallPage() {
+  if (window.TCSAttribution) window.TCSAttribution.capture();
   if (getLeadContext().lead_source === 'map-annotator') {
     document.getElementById('fit-call-title').textContent = 'Request a Map Annotator Demo';
     document.getElementById('fit-call-subtitle').textContent = 'Bring one as-built and your billing codes. We will show how the marks become an office-ready tally.';
