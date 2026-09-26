@@ -34,6 +34,8 @@
      journey, expose it to the Fit Call form, and send intent events to GTM.
      This records campaign metadata only. It never stores form field values. */
   var ATTRIBUTION_KEY = 'tcs_attribution_v1';
+  var ATTRIBUTION_HANDOFF_KEY = 'tcs_attribution_handoff_v1';
+  var ATTRIBUTION_HANDOFF_TTL = 10 * 60 * 1000;
   var CAMPAIGN_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'msclkid'];
 
   function readAttribution() {
@@ -49,6 +51,52 @@
       window.sessionStorage.setItem(ATTRIBUTION_KEY, JSON.stringify(value));
     } catch (err) {
       /* Storage can be unavailable in private browsing. GTM events still work. */
+    }
+  }
+
+  function attributionToken() {
+    try {
+      var bytes = new Uint8Array(12);
+      window.crypto.getRandomValues(bytes);
+      var token = '';
+      for (var i = 0; i < bytes.length; i++) token += ('0' + bytes[i].toString(16)).slice(-2);
+      return token;
+    } catch (err) {
+      return Date.now().toString(36) + Math.random().toString(36).slice(2, 12);
+    }
+  }
+
+  function createAttributionHandoff(stored) {
+    try {
+      var id = attributionToken();
+      var data = {
+        landing_page: stored.landing_page || window.location.pathname,
+        source_page: window.location.pathname,
+        referrer: stored.referrer || ''
+      };
+      for (var i = 0; i < CAMPAIGN_KEYS.length; i++) {
+        var key = CAMPAIGN_KEYS[i];
+        if (stored[key]) data[key] = stored[key];
+      }
+      window.localStorage.setItem(ATTRIBUTION_HANDOFF_KEY, JSON.stringify({
+        id: id,
+        expires_at: Date.now() + ATTRIBUTION_HANDOFF_TTL,
+        data: data
+      }));
+      return id;
+    } catch (err) {
+      return '';
+    }
+  }
+
+  function readAttributionHandoff(id) {
+    if (!id) return null;
+    try {
+      var handoff = JSON.parse(window.localStorage.getItem(ATTRIBUTION_HANDOFF_KEY) || 'null');
+      if (!handoff || handoff.id !== id || handoff.expires_at < Date.now()) return null;
+      return handoff.data || null;
+    } catch (err) {
+      return null;
     }
   }
 
@@ -81,15 +129,15 @@
     var params = new URLSearchParams(window.location.search);
     var isFitCall = /^\/fit-call\/?$/.test(window.location.pathname);
     var sourceParam = params.get('source');
+    var handoff = isFitCall ? readAttributionHandoff(params.get('attribution_id')) : null;
 
-    /* A bare Fit Call URL is a new direct visit. Do not let a previous CTA in
-       the same tab relabel this request. Tagged visits keep their campaign
-       parameters below, but still use the honest direct source by default. */
-    if (isFitCall && !sourceParam) {
-      stored = {
-        landing_page: window.location.pathname,
-        lead_source: 'fit-call-direct'
-      };
+    /* Fit Call pages start a fresh attribution context unless a same-browser,
+       short-lived handoff matches the opaque ID in the link. Shared links do
+       not carry the underlying campaign values and cannot import a handoff on
+       another device or browser. */
+    if (isFitCall) {
+      stored = handoff || { landing_page: window.location.pathname };
+      if (!sourceParam) stored.lead_source = 'fit-call-direct';
       if (document.referrer) stored.referrer = cleanPath(document.referrer);
     }
     if (!stored.landing_page) stored.landing_page = window.location.pathname;
@@ -99,29 +147,18 @@
       if (value) stored[CAMPAIGN_KEYS[i]] = value.slice(0, 160);
     }
     if (sourceParam) stored.lead_source = sourceParam.slice(0, 100);
-    if (params.get('landing_page')) stored.landing_page = params.get('landing_page').slice(0, 200);
-    if (params.get('source_page')) stored.source_page = params.get('source_page').slice(0, 200);
     writeAttribution(stored);
     return stored;
   }
 
-  function decorateFitCallLink(link, stored) {
+  function decorateFitCallLink(link, handoffId) {
     var target;
     try { target = new URL(link.href, window.location.origin); } catch (err) { return null; }
     if (target.origin !== window.location.origin || !/^\/fit-call\/?$/.test(target.pathname)) return null;
 
     var source = target.searchParams.get('source') || link.getAttribute('data-lead-source') || pageSource();
     if (!target.searchParams.get('source')) target.searchParams.set('source', source);
-    if (!target.searchParams.get('landing_page') && stored.landing_page) {
-      target.searchParams.set('landing_page', stored.landing_page);
-    }
-    if (!target.searchParams.get('source_page')) {
-      target.searchParams.set('source_page', window.location.pathname);
-    }
-    for (var i = 0; i < CAMPAIGN_KEYS.length; i++) {
-      var key = CAMPAIGN_KEYS[i];
-      if (!target.searchParams.get(key) && stored[key]) target.searchParams.set(key, stored[key]);
-    }
+    if (handoffId && !target.searchParams.get('attribution_id')) target.searchParams.set('attribution_id', handoffId);
     link.href = target.pathname + target.search + target.hash;
     return { target: target, source: source };
   }
@@ -148,14 +185,15 @@
 
   function initAttribution() {
     var captured = captureAttribution();
+    var handoffId = createAttributionHandoff(captured);
     var fitCallLinks = document.querySelectorAll('a[href]');
-    for (var i = 0; i < fitCallLinks.length; i++) decorateFitCallLink(fitCallLinks[i], captured);
+    for (var i = 0; i < fitCallLinks.length; i++) decorateFitCallLink(fitCallLinks[i], handoffId);
 
     document.addEventListener('click', function (event) {
       var link = event.target.closest ? event.target.closest('a') : null;
       if (!link) return;
       var stored = readAttribution();
-      var decorated = decorateFitCallLink(link, stored);
+      var decorated = decorateFitCallLink(link, handoffId);
       if (!decorated) return;
       var source = decorated.source;
       stored.lead_source = source.slice(0, 100);
