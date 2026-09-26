@@ -79,13 +79,26 @@
   function captureAttribution() {
     var stored = readAttribution();
     var params = new URLSearchParams(window.location.search);
+    var isFitCall = /^\/fit-call\/?$/.test(window.location.pathname);
+    var sourceParam = params.get('source');
+
+    /* A bare Fit Call URL is a new direct visit. Do not let a previous CTA in
+       the same tab relabel this request. Tagged visits keep their campaign
+       parameters below, but still use the honest direct source by default. */
+    if (isFitCall && !sourceParam) {
+      stored = {
+        landing_page: window.location.pathname,
+        lead_source: 'fit-call-direct'
+      };
+      if (document.referrer) stored.referrer = cleanPath(document.referrer);
+    }
     if (!stored.landing_page) stored.landing_page = window.location.pathname;
     if (!stored.referrer && document.referrer) stored.referrer = cleanPath(document.referrer);
     for (var i = 0; i < CAMPAIGN_KEYS.length; i++) {
       var value = params.get(CAMPAIGN_KEYS[i]);
       if (value) stored[CAMPAIGN_KEYS[i]] = value.slice(0, 160);
     }
-    if (params.get('source')) stored.lead_source = params.get('source').slice(0, 100);
+    if (sourceParam) stored.lead_source = sourceParam.slice(0, 100);
     writeAttribution(stored);
     return stored;
   }
