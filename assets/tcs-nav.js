@@ -211,24 +211,34 @@
   }
 
   function initAttribution() {
-    var captured = captureAttribution();
-    if (!/^\/fit-call\/?$/.test(window.location.pathname)) captured.lead_source = 'fit-call';
-    var handoffId = createAttributionHandoff(captured);
+    captureAttribution();
+
+    function initializeLink(link) {
+      var decorated = decorateFitCallLink(link, '');
+      if (!decorated) return null;
+      var stored = readAttribution();
+      stored.lead_source = decorated.source.slice(0, 100);
+      stored.source_page = window.location.pathname;
+      var existingId = decorated.target.searchParams.get('attribution_id');
+      var handoffId = createAttributionHandoff(stored, existingId);
+      return decorateFitCallLink(link, handoffId);
+    }
+
     var fitCallLinks = document.querySelectorAll('a[href]');
-    for (var i = 0; i < fitCallLinks.length; i++) decorateFitCallLink(fitCallLinks[i], handoffId);
+    for (var i = 0; i < fitCallLinks.length; i++) initializeLink(fitCallLinks[i]);
 
     function prepareLink(event) {
       var link = event.target.closest ? event.target.closest('a') : null;
       if (!link) return null;
-      var target;
-      try { target = new URL(link.href, window.location.origin); } catch (err) { return null; }
-      if (target.origin !== window.location.origin || !/^\/fit-call\/?$/.test(target.pathname)) return null;
+      var decorated = decorateFitCallLink(link, '');
+      if (!decorated) return null;
 
       var stored = readAttribution();
-      stored.lead_source = (target.searchParams.get('source') || link.getAttribute('data-lead-source') || 'fit-call').slice(0, 100);
+      stored.lead_source = decorated.source.slice(0, 100);
       stored.source_page = window.location.pathname;
       writeAttribution(stored);
-      handoffId = createAttributionHandoff(stored, handoffId) || handoffId;
+      var existingId = decorated.target.searchParams.get('attribution_id');
+      var handoffId = createAttributionHandoff(stored, existingId) || existingId;
       return decorateFitCallLink(link, handoffId);
     }
 
@@ -247,10 +257,10 @@
           for (var n = 0; n < mutations[m].addedNodes.length; n++) {
             var node = mutations[m].addedNodes[n];
             if (!node || node.nodeType !== 1) continue;
-            if (node.matches && node.matches('a[href]')) decorateFitCallLink(node, handoffId);
+            if (node.matches && node.matches('a[href]')) initializeLink(node);
             if (node.querySelectorAll) {
               var addedLinks = node.querySelectorAll('a[href]');
-              for (var a = 0; a < addedLinks.length; a++) decorateFitCallLink(addedLinks[a], handoffId);
+              for (var a = 0; a < addedLinks.length; a++) initializeLink(addedLinks[a]);
             }
           }
         }
