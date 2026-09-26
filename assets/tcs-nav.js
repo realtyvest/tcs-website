@@ -164,6 +164,8 @@
       stored = handoff || (sameTabFallback ? stored : { landing_page: window.location.pathname });
       if (!sourceParam && !handoff && !sameTabFallback) stored.lead_source = 'fit-call-direct';
       if (!stored.referrer && document.referrer) stored.referrer = cleanPath(document.referrer);
+    } else {
+      stored.source_page = window.location.pathname;
     }
     if (!stored.landing_page) stored.landing_page = window.location.pathname;
     if (!stored.referrer && document.referrer) stored.referrer = cleanPath(document.referrer);
@@ -236,7 +238,6 @@
       var stored = readAttribution();
       stored.lead_source = decorated.source.slice(0, 100);
       stored.source_page = window.location.pathname;
-      writeAttribution(stored);
       var existingId = decorated.target.searchParams.get('attribution_id');
       var handoffId = createAttributionHandoff(stored, existingId) || existingId;
       return decorateFitCallLink(link, handoffId);
@@ -272,14 +273,12 @@
       if (!link) return;
       var decorated = prepareLink(event);
       if (!decorated) return;
-      var stored = readAttribution();
       var source = decorated.source;
-      stored.lead_source = source.slice(0, 100);
-      stored.source_page = window.location.pathname;
-      stored.cta_text = (link.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 100);
-      writeAttribution(stored);
+      var ctaText = (link.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 100);
       pushEvent('fit_call_click', attributionEventData({
-        cta_text: stored.cta_text,
+        lead_source: source.slice(0, 100),
+        source_page: window.location.pathname,
+        cta_text: ctaText,
         page_path: window.location.pathname
       }));
     }, true);
