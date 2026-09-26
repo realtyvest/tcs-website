@@ -157,7 +157,7 @@
     var sourceParam = params.get('source');
     var sameOriginReferrer = isFitCall && hasSameOriginReferrer();
     var handoff = sameOriginReferrer ? readAttributionHandoff(params.get('attribution_id')) : null;
-    var sameTabFallback = isFitCall && sourceParam && sameOriginReferrer &&
+    var sameTabFallback = isFitCall && sameOriginReferrer &&
       stored.source_page === cleanPath(document.referrer);
 
     /* Fit Call pages start a fresh attribution context unless they arrive from
@@ -186,7 +186,8 @@
     if (target.origin !== window.location.origin || !/^\/fit-call\/?$/.test(target.pathname)) return null;
 
     var source = target.searchParams.get('source') || link.getAttribute('data-lead-source') || pageSource();
-    if (!target.searchParams.get('source')) target.searchParams.set('source', source);
+    if (!link.getAttribute('data-lead-source')) link.setAttribute('data-lead-source', source);
+    target.searchParams.delete('source');
     if (handoffId && !target.searchParams.get('attribution_id')) target.searchParams.set('attribution_id', handoffId);
     link.href = target.pathname + target.search + target.hash;
     return { target: target, source: source };
@@ -236,7 +237,7 @@
     /* Refresh before normal clicks, middle clicks, keyboard activation, or a
        context menu. These events occur before the browser reads the href for
        a new tab, so a long-open page cannot hand off an expired record. */
-    ['pointerdown', 'contextmenu', 'focusin', 'touchstart'].forEach(function (eventName) {
+    ['pointerdown', 'contextmenu', 'touchstart'].forEach(function (eventName) {
       document.addEventListener(eventName, prepareLink, true);
     });
 
