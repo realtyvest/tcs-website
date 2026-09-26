@@ -87,6 +87,7 @@
         landing_page: stored.landing_page || window.location.pathname,
         source_page: window.location.pathname,
         lead_source: stored.lead_source || '',
+        lead_intent: stored.lead_intent || 'fit-call',
         referrer: stored.referrer || ''
       };
       for (var i = 0; i < CAMPAIGN_KEYS.length; i++) {
@@ -136,6 +137,11 @@
     }
   }
 
+  function pageSource() {
+    var path = window.location.pathname.replace(/^\/+|\.(html?)$|\/$/g, '');
+    return path ? path.replace(/\//g, '-') : 'homepage';
+  }
+
   function pushEvent(name, values) {
     window.dataLayer = window.dataLayer || [];
     var eventData = { event: name };
@@ -162,10 +168,15 @@
        a handoff without the same-origin navigation that created it. */
     if (isFitCall) {
       stored = handoff || (sameTabFallback ? stored : { landing_page: window.location.pathname });
-      if (!sourceParam && !handoff && !sameTabFallback) stored.lead_source = 'fit-call-direct';
+      if (!sourceParam && !handoff && !sameTabFallback) {
+        stored.lead_source = 'fit-call-direct';
+        stored.lead_intent = 'fit-call';
+      }
       if (!stored.referrer && document.referrer) stored.referrer = cleanPath(document.referrer);
     } else {
       stored.source_page = window.location.pathname;
+      stored.lead_source = pageSource();
+      stored.lead_intent = 'fit-call';
     }
     if (!stored.landing_page) stored.landing_page = window.location.pathname;
     if (!stored.referrer && document.referrer) stored.referrer = cleanPath(document.referrer);
@@ -173,29 +184,37 @@
       var value = params.get(CAMPAIGN_KEYS[i]);
       if (value) stored[CAMPAIGN_KEYS[i]] = value.slice(0, 160);
     }
-    if (sourceParam) stored.lead_source = sourceParam.slice(0, 100);
+    if (sourceParam) {
+      stored.lead_source = sourceParam.slice(0, 100);
+      stored.lead_intent = sourceParam.slice(0, 100);
+    }
+    if (!stored.lead_intent) stored.lead_intent = 'fit-call';
     writeAttribution(stored);
     return stored;
   }
 
   function decorateFitCallLink(link, handoffId) {
+    var rawHref = link.getAttribute('href');
+    if (!rawHref || rawHref.charAt(0) === '#') return null;
     var target;
     try { target = new URL(link.href, window.location.origin); } catch (err) { return null; }
     if (target.origin !== window.location.origin || !/^\/fit-call\/?$/.test(target.pathname)) return null;
 
     var explicitSource = target.searchParams.get('source') || link.getAttribute('data-lead-source');
-    var source = explicitSource || 'fit-call';
+    var source = explicitSource || pageSource();
+    var intent = explicitSource || 'fit-call';
     if (explicitSource) target.searchParams.set('source', source);
     else target.searchParams.delete('source');
     if (handoffId && !target.searchParams.get('attribution_id')) target.searchParams.set('attribution_id', handoffId);
     link.href = target.pathname + target.search + target.hash;
-    return { target: target, source: source };
+    return { target: target, source: source, intent: intent };
   }
 
   function attributionEventData(extra) {
     var stored = readAttribution();
     var data = {
       lead_source: stored.lead_source || '',
+      lead_intent: stored.lead_intent || 'fit-call',
       source_page: stored.source_page || '',
       landing_page: stored.landing_page || '',
       referrer: stored.referrer || '',
@@ -220,6 +239,7 @@
       if (!decorated) return null;
       var stored = readAttribution();
       stored.lead_source = decorated.source.slice(0, 100);
+      stored.lead_intent = decorated.intent.slice(0, 100);
       stored.source_page = window.location.pathname;
       var existingId = decorated.target.searchParams.get('attribution_id');
       var handoffId = createAttributionHandoff(stored, existingId);
@@ -237,6 +257,7 @@
 
       var stored = readAttribution();
       stored.lead_source = decorated.source.slice(0, 100);
+      stored.lead_intent = decorated.intent.slice(0, 100);
       stored.source_page = window.location.pathname;
       var existingId = decorated.target.searchParams.get('attribution_id');
       var handoffId = createAttributionHandoff(stored, existingId) || existingId;
@@ -277,6 +298,7 @@
       var ctaText = (link.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 100);
       pushEvent('fit_call_click', attributionEventData({
         lead_source: source.slice(0, 100),
+        lead_intent: decorated.intent.slice(0, 100),
         source_page: window.location.pathname,
         cta_text: ctaText,
         page_path: window.location.pathname

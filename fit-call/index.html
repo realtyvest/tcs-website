@@ -547,6 +547,7 @@ function getLeadContext() {
   var stored = window.TCSAttribution ? window.TCSAttribution.get() : {};
   return {
     lead_source: stored.lead_source || params.get('source') || 'fit-call-direct',
+    lead_intent: stored.lead_intent || params.get('source') || 'fit-call',
     source_page: stored.source_page || '',
     landing_page: stored.landing_page || window.location.pathname,
     referrer: stored.referrer || '',
@@ -635,6 +636,7 @@ async function submitForm() {
         whats_hurting: hurt,
         submitted_at: submitted_at,
         source: attribution.lead_source,
+        intent: attribution.lead_intent,
         source_page: attribution.source_page,
         landing_page: attribution.landing_page,
         referrer: attribution.referrer,
@@ -649,10 +651,10 @@ async function submitForm() {
     });
     if (!response.ok) throw new Error('Lead webhook returned HTTP ' + response.status);
     msg.className = 'cta-form-msg success';
-    msg.textContent = attribution.lead_source === 'map-annotator'
+    msg.textContent = attribution.lead_intent === 'map-annotator'
       ? 'Got it. Gil will reach out within one business day to schedule your Map Annotator demo.'
       : 'Got it. Gil will reach out within one business day to schedule your Fit Call.';
-    trackFitCallEvent('generate_lead', { form_id: 'fit-call-fallback', lead_type: attribution.lead_source === 'map-annotator' ? 'map_annotator_demo' : 'fit_call' });
+    trackFitCallEvent('generate_lead', { form_id: 'fit-call-fallback', lead_type: attribution.lead_intent === 'map-annotator' ? 'map_annotator_demo' : 'fit_call' });
     trackFitCallEvent('fit_call_form_success', { form_id: 'fit-call-fallback' });
     document.getElementById('f-name').value = '';
     document.getElementById('f-company').value = '';
@@ -660,20 +662,20 @@ async function submitForm() {
     document.getElementById('f-phone').value = '';
     document.getElementById('f-techs').value = '';
     document.getElementById('f-hurt').value = '';
-    btn.textContent = attribution.lead_source === 'map-annotator' ? 'Request my demo' : 'Send my request';
+    btn.textContent = attribution.lead_intent === 'map-annotator' ? 'Request my demo' : 'Send my request';
     btn.disabled = false;
   } catch (err) {
     trackFitCallEvent('fit_call_form_error', { form_id: 'fit-call-fallback' });
     msg.className = 'cta-form-msg error';
     msg.textContent = 'Something went wrong. Please try again, or call (832) 917-0091.';
-    btn.textContent = attribution.lead_source === 'map-annotator' ? 'Request my demo' : 'Send my request';
+    btn.textContent = attribution.lead_intent === 'map-annotator' ? 'Request my demo' : 'Send my request';
     btn.disabled = false;
   }
 }
 
 function initFitCallPage() {
   if (window.TCSAttribution) window.TCSAttribution.capture();
-  if (getLeadContext().lead_source === 'map-annotator') {
+  if (getLeadContext().lead_intent === 'map-annotator') {
     document.getElementById('fit-call-title').textContent = 'Request a Map Annotator Demo';
     document.getElementById('fit-call-subtitle').textContent = 'Bring one as-built and your billing codes. We will show how the marks become an office-ready tally.';
     document.getElementById('fit-call-helper').textContent = 'Send the form below so the request reaches us as a Map Annotator demo. Job Tracker can be added later.';
