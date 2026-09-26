@@ -126,6 +126,15 @@
     }
   }
 
+  function hasSameOriginReferrer() {
+    if (!document.referrer) return false;
+    try {
+      return new URL(document.referrer).origin === window.location.origin;
+    } catch (err) {
+      return false;
+    }
+  }
+
   function pageSource() {
     var path = window.location.pathname.replace(/^\/+|\.(html?)$|\/$/g, '');
     return path ? path.replace(/\//g, '-') : 'homepage';
@@ -146,14 +155,17 @@
     var params = new URLSearchParams(window.location.search);
     var isFitCall = /^\/fit-call\/?$/.test(window.location.pathname);
     var sourceParam = params.get('source');
-    var handoff = isFitCall ? readAttributionHandoff(params.get('attribution_id')) : null;
+    var sameOriginReferrer = isFitCall && hasSameOriginReferrer();
+    var handoff = sameOriginReferrer ? readAttributionHandoff(params.get('attribution_id')) : null;
+    var sameTabFallback = isFitCall && sourceParam && sameOriginReferrer &&
+      stored.source_page === cleanPath(document.referrer);
 
-    /* Fit Call pages start a fresh attribution context unless a same-browser,
-       short-lived handoff matches the opaque ID in the link. Shared links do
-       not carry the underlying campaign values and cannot import a handoff on
-       another device or browser. */
+    /* Fit Call pages start a fresh attribution context unless they arrive from
+       this site and a short-lived handoff matches the opaque ID in the link.
+       Pasted or shared links do not carry the campaign values and cannot import
+       a handoff without the same-origin navigation that created it. */
     if (isFitCall) {
-      stored = handoff || { landing_page: window.location.pathname };
+      stored = handoff || (sameTabFallback ? stored : { landing_page: window.location.pathname });
       if (!sourceParam) stored.lead_source = 'fit-call-direct';
       if (!stored.referrer && document.referrer) stored.referrer = cleanPath(document.referrer);
     }
@@ -209,7 +221,15 @@
     function prepareLink(event) {
       var link = event.target.closest ? event.target.closest('a') : null;
       if (!link) return null;
-      handoffId = createAttributionHandoff(readAttribution(), handoffId) || handoffId;
+      var target;
+      try { target = new URL(link.href, window.location.origin); } catch (err) { return null; }
+      if (target.origin !== window.location.origin || !/^\/fit-call\/?$/.test(target.pathname)) return null;
+
+      var stored = readAttribution();
+      stored.lead_source = (target.searchParams.get('source') || link.getAttribute('data-lead-source') || pageSource()).slice(0, 100);
+      stored.source_page = window.location.pathname;
+      writeAttribution(stored);
+      handoffId = createAttributionHandoff(stored, handoffId) || handoffId;
       return decorateFitCallLink(link, handoffId);
     }
 
@@ -241,9 +261,9 @@
     document.addEventListener('click', function (event) {
       var link = event.target.closest ? event.target.closest('a') : null;
       if (!link) return;
-      var stored = readAttribution();
       var decorated = prepareLink(event);
       if (!decorated) return;
+      var stored = readAttribution();
       var source = decorated.source;
       stored.lead_source = source.slice(0, 100);
       stored.source_page = window.location.pathname;
