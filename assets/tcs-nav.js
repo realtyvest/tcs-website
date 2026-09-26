@@ -136,11 +136,6 @@
     }
   }
 
-  function pageSource() {
-    var path = window.location.pathname.replace(/^\/+|\.(html?)$|\/$/g, '');
-    return path ? path.replace(/\//g, '-') : 'homepage';
-  }
-
   function pushEvent(name, values) {
     window.dataLayer = window.dataLayer || [];
     var eventData = { event: name };
@@ -157,7 +152,6 @@
     var isFitCall = /^\/fit-call\/?$/.test(window.location.pathname);
     var sourceParam = params.get('source');
     var sameOriginReferrer = isFitCall && hasSameOriginReferrer();
-    var trustedSourceParam = sourceParam && (!isFitCall || !params.get('attribution_id') || sameOriginReferrer);
     var handoff = sameOriginReferrer ? readAttributionHandoff(params.get('attribution_id')) : null;
     var sameTabFallback = isFitCall && sameOriginReferrer &&
       stored.source_page === cleanPath(document.referrer);
@@ -168,7 +162,7 @@
        a handoff without the same-origin navigation that created it. */
     if (isFitCall) {
       stored = handoff || (sameTabFallback ? stored : { landing_page: window.location.pathname });
-      if (!trustedSourceParam && !handoff && !sameTabFallback) stored.lead_source = 'fit-call-direct';
+      if (!sourceParam && !handoff && !sameTabFallback) stored.lead_source = 'fit-call-direct';
       if (!stored.referrer && document.referrer) stored.referrer = cleanPath(document.referrer);
     }
     if (!stored.landing_page) stored.landing_page = window.location.pathname;
@@ -177,7 +171,7 @@
       var value = params.get(CAMPAIGN_KEYS[i]);
       if (value) stored[CAMPAIGN_KEYS[i]] = value.slice(0, 160);
     }
-    if (trustedSourceParam) stored.lead_source = sourceParam.slice(0, 100);
+    if (sourceParam) stored.lead_source = sourceParam.slice(0, 100);
     writeAttribution(stored);
     return stored;
   }
@@ -187,9 +181,10 @@
     try { target = new URL(link.href, window.location.origin); } catch (err) { return null; }
     if (target.origin !== window.location.origin || !/^\/fit-call\/?$/.test(target.pathname)) return null;
 
-    var source = target.searchParams.get('source') || link.getAttribute('data-lead-source') || pageSource();
-    if (!link.getAttribute('data-lead-source')) link.setAttribute('data-lead-source', source);
-    target.searchParams.set('source', source);
+    var explicitSource = target.searchParams.get('source') || link.getAttribute('data-lead-source');
+    var source = explicitSource || 'fit-call';
+    if (explicitSource) target.searchParams.set('source', source);
+    else target.searchParams.delete('source');
     if (handoffId && !target.searchParams.get('attribution_id')) target.searchParams.set('attribution_id', handoffId);
     link.href = target.pathname + target.search + target.hash;
     return { target: target, source: source };
@@ -217,7 +212,7 @@
 
   function initAttribution() {
     var captured = captureAttribution();
-    if (!/^\/fit-call\/?$/.test(window.location.pathname)) captured.lead_source = pageSource();
+    if (!/^\/fit-call\/?$/.test(window.location.pathname)) captured.lead_source = 'fit-call';
     var handoffId = createAttributionHandoff(captured);
     var fitCallLinks = document.querySelectorAll('a[href]');
     for (var i = 0; i < fitCallLinks.length; i++) decorateFitCallLink(fitCallLinks[i], handoffId);
@@ -230,7 +225,7 @@
       if (target.origin !== window.location.origin || !/^\/fit-call\/?$/.test(target.pathname)) return null;
 
       var stored = readAttribution();
-      stored.lead_source = (target.searchParams.get('source') || link.getAttribute('data-lead-source') || pageSource()).slice(0, 100);
+      stored.lead_source = (target.searchParams.get('source') || link.getAttribute('data-lead-source') || 'fit-call').slice(0, 100);
       stored.source_page = window.location.pathname;
       writeAttribution(stored);
       handoffId = createAttributionHandoff(stored, handoffId) || handoffId;
