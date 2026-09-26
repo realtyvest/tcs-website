@@ -649,7 +649,9 @@ async function submitForm() {
     });
     if (!response.ok) throw new Error('Lead webhook returned HTTP ' + response.status);
     msg.className = 'cta-form-msg success';
-    msg.textContent = 'Got it. Gil will reach out within one business day to schedule your Fit Call.';
+    msg.textContent = attribution.lead_source === 'map-annotator'
+      ? 'Got it. Gil will reach out within one business day to schedule your Map Annotator demo.'
+      : 'Got it. Gil will reach out within one business day to schedule your Fit Call.';
     trackFitCallEvent('generate_lead', { form_id: 'fit-call-fallback', lead_type: attribution.lead_source === 'map-annotator' ? 'map_annotator_demo' : 'fit_call' });
     trackFitCallEvent('fit_call_form_success', { form_id: 'fit-call-fallback' });
     document.getElementById('f-name').value = '';
@@ -658,13 +660,13 @@ async function submitForm() {
     document.getElementById('f-phone').value = '';
     document.getElementById('f-techs').value = '';
     document.getElementById('f-hurt').value = '';
-    btn.textContent = 'Send my request';
+    btn.textContent = attribution.lead_source === 'map-annotator' ? 'Request my demo' : 'Send my request';
     btn.disabled = false;
   } catch (err) {
     trackFitCallEvent('fit_call_form_error', { form_id: 'fit-call-fallback' });
     msg.className = 'cta-form-msg error';
     msg.textContent = 'Something went wrong. Please try again, or call (832) 917-0091.';
-    btn.textContent = 'Send my request';
+    btn.textContent = attribution.lead_source === 'map-annotator' ? 'Request my demo' : 'Send my request';
     btn.disabled = false;
   }
 }
@@ -674,9 +676,12 @@ function initFitCallPage() {
   if (params.get('source') === 'map-annotator') {
     document.getElementById('fit-call-title').textContent = 'Request a Map Annotator Demo';
     document.getElementById('fit-call-subtitle').textContent = 'Bring one as-built and your billing codes. We will show how the marks become an office-ready tally.';
-    document.getElementById('fit-call-helper').textContent = 'Map Annotator is available as a standalone product. Job Tracker can be added later.';
-    document.querySelector('.fb-kicker').textContent = 'Prefer we reach out about the demo?';
-    document.querySelector('.fallback h2').textContent = 'Send one request and we will set it up.';
+    document.getElementById('fit-call-helper').textContent = 'Send the form below so the request reaches us as a Map Annotator demo. Job Tracker can be added later.';
+    document.getElementById('fit-call-calendar').hidden = true;
+    document.querySelector('.fb-kicker').textContent = 'Map Annotator demo';
+    document.querySelector('.fallback h2').textContent = 'Send one request and we will set up the demo.';
+    document.querySelector('.fb-sub').textContent = 'Tell us who you are and bring one representative map. We will reach out to schedule the demo.';
+    document.getElementById('submit-btn').textContent = 'Request my demo';
   }
 
   var form = document.getElementById('contact-form');
