@@ -157,6 +157,7 @@
     var isFitCall = /^\/fit-call\/?$/.test(window.location.pathname);
     var sourceParam = params.get('source');
     var sameOriginReferrer = isFitCall && hasSameOriginReferrer();
+    var trustedSourceParam = sourceParam && (!isFitCall || !params.get('attribution_id') || sameOriginReferrer);
     var handoff = sameOriginReferrer ? readAttributionHandoff(params.get('attribution_id')) : null;
     var sameTabFallback = isFitCall && sameOriginReferrer &&
       stored.source_page === cleanPath(document.referrer);
@@ -167,7 +168,7 @@
        a handoff without the same-origin navigation that created it. */
     if (isFitCall) {
       stored = handoff || (sameTabFallback ? stored : { landing_page: window.location.pathname });
-      if (!sourceParam && !handoff && !sameTabFallback) stored.lead_source = 'fit-call-direct';
+      if (!trustedSourceParam && !handoff && !sameTabFallback) stored.lead_source = 'fit-call-direct';
       if (!stored.referrer && document.referrer) stored.referrer = cleanPath(document.referrer);
     }
     if (!stored.landing_page) stored.landing_page = window.location.pathname;
@@ -176,7 +177,7 @@
       var value = params.get(CAMPAIGN_KEYS[i]);
       if (value) stored[CAMPAIGN_KEYS[i]] = value.slice(0, 160);
     }
-    if (sourceParam) stored.lead_source = sourceParam.slice(0, 100);
+    if (trustedSourceParam) stored.lead_source = sourceParam.slice(0, 100);
     writeAttribution(stored);
     return stored;
   }
@@ -188,7 +189,7 @@
 
     var source = target.searchParams.get('source') || link.getAttribute('data-lead-source') || pageSource();
     if (!link.getAttribute('data-lead-source')) link.setAttribute('data-lead-source', source);
-    target.searchParams.delete('source');
+    target.searchParams.set('source', source);
     if (handoffId && !target.searchParams.get('attribution_id')) target.searchParams.set('attribution_id', handoffId);
     link.href = target.pathname + target.search + target.hash;
     return { target: target, source: source };
