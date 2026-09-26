@@ -672,8 +672,7 @@ async function submitForm() {
 }
 
 function initFitCallPage() {
-  var params = new URLSearchParams(window.location.search);
-  if (params.get('source') === 'map-annotator') {
+  if (getLeadContext().lead_source === 'map-annotator') {
     document.getElementById('fit-call-title').textContent = 'Request a Map Annotator Demo';
     document.getElementById('fit-call-subtitle').textContent = 'Bring one as-built and your billing codes. We will show how the marks become an office-ready tally.';
     document.getElementById('fit-call-helper').textContent = 'Send the form below so the request reaches us as a Map Annotator demo. Job Tracker can be added later.';
@@ -704,7 +703,8 @@ function initFitCallPage() {
   });
 }
 
-initFitCallPage();
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initFitCallPage);
+else initFitCallPage();
 </script>
 
 <script src="/assets/tcs-nav.js?v=menu20" defer></script>

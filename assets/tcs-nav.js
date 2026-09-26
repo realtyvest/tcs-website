@@ -86,6 +86,7 @@
       var data = {
         landing_page: stored.landing_page || window.location.pathname,
         source_page: window.location.pathname,
+        lead_source: stored.lead_source || '',
         referrer: stored.referrer || ''
       };
       for (var i = 0; i < CAMPAIGN_KEYS.length; i++) {
@@ -166,7 +167,7 @@
        a handoff without the same-origin navigation that created it. */
     if (isFitCall) {
       stored = handoff || (sameTabFallback ? stored : { landing_page: window.location.pathname });
-      if (!sourceParam) stored.lead_source = 'fit-call-direct';
+      if (!sourceParam && !handoff && !sameTabFallback) stored.lead_source = 'fit-call-direct';
       if (!stored.referrer && document.referrer) stored.referrer = cleanPath(document.referrer);
     }
     if (!stored.landing_page) stored.landing_page = window.location.pathname;
@@ -215,6 +216,7 @@
 
   function initAttribution() {
     var captured = captureAttribution();
+    if (!/^\/fit-call\/?$/.test(window.location.pathname)) captured.lead_source = pageSource();
     var handoffId = createAttributionHandoff(captured);
     var fitCallLinks = document.querySelectorAll('a[href]');
     for (var i = 0; i < fitCallLinks.length; i++) decorateFitCallLink(fitCallLinks[i], handoffId);
