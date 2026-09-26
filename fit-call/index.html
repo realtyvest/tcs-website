@@ -546,7 +546,7 @@ function getLeadContext() {
   var params = new URLSearchParams(window.location.search);
   var stored = window.TCSAttribution ? window.TCSAttribution.get() : {};
   return {
-    lead_source: stored.lead_source || 'fit-call-direct',
+    lead_source: stored.lead_source || params.get('source') || 'fit-call-direct',
     source_page: stored.source_page || '',
     landing_page: stored.landing_page || window.location.pathname,
     referrer: stored.referrer || '',
