@@ -34,7 +34,7 @@
      journey, expose it to the Fit Call form, and send intent events to GTM.
      This records campaign metadata only. It never stores form field values. */
   var ATTRIBUTION_KEY = 'tcs_attribution_v1';
-  var ATTRIBUTION_HANDOFF_KEY = 'tcs_attribution_handoff_v1';
+  var ATTRIBUTION_HANDOFF_PREFIX = 'tcs_attribution_handoff_v1:';
   var ATTRIBUTION_HANDOFF_TTL = 10 * 60 * 1000;
   var CAMPAIGN_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'msclkid'];
 
@@ -66,9 +66,23 @@
     }
   }
 
-  function createAttributionHandoff(stored) {
+  function cleanupAttributionHandoffs() {
     try {
-      var id = attributionToken();
+      for (var i = window.localStorage.length - 1; i >= 0; i--) {
+        var key = window.localStorage.key(i);
+        if (!key || key.indexOf(ATTRIBUTION_HANDOFF_PREFIX) !== 0) continue;
+        var handoff = JSON.parse(window.localStorage.getItem(key) || 'null');
+        if (!handoff || handoff.expires_at < Date.now()) window.localStorage.removeItem(key);
+      }
+    } catch (err) {
+      /* Storage cleanup is best effort. */
+    }
+  }
+
+  function createAttributionHandoff(stored, existingId) {
+    try {
+      cleanupAttributionHandoffs();
+      var id = existingId || attributionToken();
       var data = {
         landing_page: stored.landing_page || window.location.pathname,
         source_page: window.location.pathname,
@@ -78,8 +92,7 @@
         var key = CAMPAIGN_KEYS[i];
         if (stored[key]) data[key] = stored[key];
       }
-      window.localStorage.setItem(ATTRIBUTION_HANDOFF_KEY, JSON.stringify({
-        id: id,
+      window.localStorage.setItem(ATTRIBUTION_HANDOFF_PREFIX + id, JSON.stringify({
         expires_at: Date.now() + ATTRIBUTION_HANDOFF_TTL,
         data: data
       }));
@@ -92,8 +105,12 @@
   function readAttributionHandoff(id) {
     if (!id) return null;
     try {
-      var handoff = JSON.parse(window.localStorage.getItem(ATTRIBUTION_HANDOFF_KEY) || 'null');
-      if (!handoff || handoff.id !== id || handoff.expires_at < Date.now()) return null;
+      var key = ATTRIBUTION_HANDOFF_PREFIX + id;
+      var handoff = JSON.parse(window.localStorage.getItem(key) || 'null');
+      if (!handoff || handoff.expires_at < Date.now()) {
+        window.localStorage.removeItem(key);
+        return null;
+      }
       return handoff.data || null;
     } catch (err) {
       return null;
@@ -138,7 +155,7 @@
     if (isFitCall) {
       stored = handoff || { landing_page: window.location.pathname };
       if (!sourceParam) stored.lead_source = 'fit-call-direct';
-      if (document.referrer) stored.referrer = cleanPath(document.referrer);
+      if (!stored.referrer && document.referrer) stored.referrer = cleanPath(document.referrer);
     }
     if (!stored.landing_page) stored.landing_page = window.location.pathname;
     if (!stored.referrer && document.referrer) stored.referrer = cleanPath(document.referrer);
@@ -189,11 +206,43 @@
     var fitCallLinks = document.querySelectorAll('a[href]');
     for (var i = 0; i < fitCallLinks.length; i++) decorateFitCallLink(fitCallLinks[i], handoffId);
 
+    function prepareLink(event) {
+      var link = event.target.closest ? event.target.closest('a') : null;
+      if (!link) return null;
+      handoffId = createAttributionHandoff(readAttribution(), handoffId) || handoffId;
+      return decorateFitCallLink(link, handoffId);
+    }
+
+    /* Refresh before normal clicks, middle clicks, keyboard activation, or a
+       context menu. These events occur before the browser reads the href for
+       a new tab, so a long-open page cannot hand off an expired record. */
+    ['pointerdown', 'contextmenu', 'focusin', 'touchstart'].forEach(function (eventName) {
+      document.addEventListener(eventName, prepareLink, true);
+    });
+
+    /* Calculators and other modules can add their CTA after boot. Decorate new
+       links as soon as they enter the DOM so context-menu navigation works. */
+    if (window.MutationObserver) {
+      new MutationObserver(function (mutations) {
+        for (var m = 0; m < mutations.length; m++) {
+          for (var n = 0; n < mutations[m].addedNodes.length; n++) {
+            var node = mutations[m].addedNodes[n];
+            if (!node || node.nodeType !== 1) continue;
+            if (node.matches && node.matches('a[href]')) decorateFitCallLink(node, handoffId);
+            if (node.querySelectorAll) {
+              var addedLinks = node.querySelectorAll('a[href]');
+              for (var a = 0; a < addedLinks.length; a++) decorateFitCallLink(addedLinks[a], handoffId);
+            }
+          }
+        }
+      }).observe(document.body, { childList: true, subtree: true });
+    }
+
     document.addEventListener('click', function (event) {
       var link = event.target.closest ? event.target.closest('a') : null;
       if (!link) return;
       var stored = readAttribution();
-      var decorated = decorateFitCallLink(link, handoffId);
+      var decorated = prepareLink(event);
       if (!decorated) return;
       var source = decorated.source;
       stored.lead_source = source.slice(0, 100);
