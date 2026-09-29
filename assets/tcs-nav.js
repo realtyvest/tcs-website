@@ -10,7 +10,6 @@
     { href: '/map-annotator.html', label: 'Map Annotator' },
     { href: '/job-tracking.html', label: 'Job Tracking' },
     { href: '/billing-automation.html', label: 'Billing' },
-    { href: '/crew-management.html', label: 'Crew Management' },
     { href: '/job-costing.html', label: 'Job Costing' },
     { href: '/map-to-invoice.html', label: 'Map to Invoice' },
     { href: '/drop-buries.html', label: 'Drop Buries' },
