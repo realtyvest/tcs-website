@@ -232,7 +232,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <!-- Mapping + markup: assets/workflow-transformation.js / components/WorkflowTransformation.tsx -->
     </div>
     <div class="hero-below">
-      <p class="sub prose">Capture the work once in the field. Move production, photos, closeouts, job cost, and billing through one connected workflow, so the office isn’t rebuilding Tuesday’s job on Friday.</p>
+      <p class="sub prose">Capture the work once in the field. The crew marks the map and submits, the tally comes from the marks, and the invoice comes from the tally, so the office isn’t rebuilding Tuesday’s job on Friday.</p>
       <div class="hero-actions">
         <a class="btn btn-ghost" href="#system">See How the System Works</a>
       </div>
@@ -247,7 +247,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <ul class="outcomes-list" data-outcomes-stack>
       <li>Faster, complete closeouts</li>
       <li>Less duplicate entry between portal, sheet, and invoice</li>
-      <li>Earlier job-cost visibility</li>
+      <li>Production by rate code on every job</li>
       <li>Fewer billing corrections and kicked codes</li>
       <li>Visibility into completed-but-unbilled work</li>
       <li>Clearer subcontractor accountability</li>
@@ -322,7 +322,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </details>
     </figure>
     <h2 class="solutions-title" data-rv>How TCS Closes These Gaps</h2>
-    <p class="hub-lede">Every solution feeds one job record. Job Tracking is the hub. What the crew captures once moves through billing, crew management, and job costing without being retyped.</p>
+    <p class="hub-lede">Every solution feeds one job record. What the crew marks once moves into the tally and the invoice without being retyped.</p>
     <div class="solutions-grid">
       <a href="/job-tracking.html" class="solution-card">
         <h3>Job Tracking</h3>
@@ -336,12 +336,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </a>
       <a href="/crew-management.html" class="solution-card">
         <h3>Crew Management</h3>
-        <p>Crews see their own routed list, tap through to directions, and close out with photos on the record.</p>
+        <p>Crew leads sign in on a phone with the company's org code, open the job's map, and submit from the site.</p>
         <span class="solution-link">See Crew Management</span>
       </a>
       <a href="/job-costing.html" class="solution-card">
         <h3>Job Costing</h3>
-        <p>Labor, materials, and production land on the job as it happens, so margin is known before the invoice goes out.</p>
+        <p>Job costing starts with clean production data: footage and units tallied by rate code from the crew's marks, on the record the invoice comes from.</p>
         <span class="solution-link">See Job Costing</span>
       </a>
       <a href="/map-annotator.html" class="solution-card">
@@ -617,7 +617,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     });
   }
 
-  /* Sticky Book a Fit Call after ~24–40% scroll; hide vs final CTA / nav Fit Call */
+  /* Sticky Book a Fit Call after ~24 to 40% scroll; hide vs final CTA / nav Fit Call */
   var sticky = document.getElementById('sticky-fit-call');
   var finalCta = document.getElementById('contact');
   var navFit = nav ? nav.querySelector('.nav-cta[href="/fit-call"], a.nav-cta[href="/fit-call"]') : null;

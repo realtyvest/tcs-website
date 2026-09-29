@@ -506,7 +506,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <!-- Article Content -->
     <div class="article-container">
-        <p>It is easy to finish a job, invoice it, and move on without ever seeing the actual margin. You invoice $45K and assume you made money. Then payroll hits and the math stops working.</p>
+        <p>It is easy to finish a job, invoice it, and move on without ever seeing the actual margin. You invoice the job and assume you made money. Then payroll hits and the math stops working.</p>
 
         <p>The difference between guessing and knowing is a real job cost system. Not theoretical. Not budgeted. Actual.</p>
 
@@ -520,7 +520,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <thead>
                 <tr>
                     <th>Cost Category</th>
-                    <th>Amount</th>
+                    <th>Share of Invoice</th>
                     <th>Notes</th>
                 </tr>
             </thead>
@@ -532,22 +532,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </tr>
                 <tr>
                     <td>Direct Tech Hours</td>
-                    <td class="number-cell">$18,400</td>
-                    <td>380 hours at blended $48.42/hr</td>
+                    <td class="number-cell">40.9%</td>
+                    <td>380 hours at a blended hourly cost</td>
                 </tr>
                 <tr>
                     <td>Crew Lead (overhead allocation)</td>
-                    <td class="number-cell">$2,100</td>
+                    <td class="number-cell">4.7%</td>
                     <td>18% markup on tech labor</td>
                 </tr>
                 <tr>
                     <td>Foreman & QA time</td>
-                    <td class="number-cell">$1,800</td>
+                    <td class="number-cell">4.0%</td>
                     <td>Supervision, testing, documentation</td>
                 </tr>
                 <tr>
                     <td><strong>Labor Subtotal</strong></td>
-                    <td class="number-cell"><strong>$22,300</strong></td>
+                    <td class="number-cell"><strong>49.6%</strong></td>
                     <td></td>
                 </tr>
                 <tr>
@@ -557,48 +557,48 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </tr>
                 <tr>
                     <td>Materials (splitters, termination kits)</td>
-                    <td class="number-cell">$4,200</td>
+                    <td class="number-cell">9.3%</td>
                     <td>Materials passed to customer</td>
                 </tr>
                 <tr>
                     <td>Equipment rental (fusion splicer daily)</td>
-                    <td class="number-cell">$1,400</td>
-                    <td>14 days at $100/day</td>
+                    <td class="number-cell">3.1%</td>
+                    <td>14 days at a daily rate</td>
                 </tr>
                 <tr>
                     <td>Truck & fuel</td>
-                    <td class="number-cell">$800</td>
+                    <td class="number-cell">1.8%</td>
                     <td>2 trucks, 14 days</td>
                 </tr>
                 <tr>
                     <td>Testing & documentation</td>
-                    <td class="number-cell">$600</td>
+                    <td class="number-cell">1.3%</td>
                     <td>Lab time, reports, OTDR readings</td>
                 </tr>
                 <tr>
                     <td><strong>Production Subtotal</strong></td>
-                    <td class="number-cell"><strong>$7,000</strong></td>
+                    <td class="number-cell"><strong>15.6%</strong></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td><strong>Total Job Cost</strong></td>
-                    <td class="number-cell"><strong>$29,300</strong></td>
+                    <td class="number-cell"><strong>65.1%</strong></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td><strong>Invoice Amount</strong></td>
-                    <td class="number-cell"><strong>$45,000</strong></td>
+                    <td class="number-cell"><strong>100%</strong></td>
                     <td>Fixed price contract</td>
                 </tr>
                 <tr>
                     <td><strong>Gross Margin</strong></td>
-                    <td class="number-cell"><strong>$15,700</strong></td>
-                    <td>34.9% margin</td>
+                    <td class="number-cell"><strong>34.9%</strong></td>
+                    <td>What the job keeps</td>
                 </tr>
             </tbody>
         </table>
 
-        <p>This job looks healthy. You invoice $45K, you spend $29.3K, you make $15.7K. But this number hides everything.</p>
+        <p>This job looks healthy. Cost comes to about 65% of the invoice, and you keep about 35% (shares above are rounded). But this number hides everything.</p>
 
         <h2>Where the Margin Disappears: Crew-Level Breakdown</h2>
 
@@ -609,9 +609,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p>Same job. Same invoice. Three crews.</p>
 
         <ul>
-            <li><strong>Crew A (12 techs):</strong> 140 hours, $51.20/avg hour. Margin: $4,880 (38% of their portion)</li>
-            <li><strong>Crew B (10 techs):</strong> 130 hours, $48.00/avg hour. Margin: $3,920 (36% of their portion)</li>
-            <li><strong>Crew C (8 techs):</strong> 110 hours, $44.10/avg hour. Margin: $3,200 (30% of their portion)</li>
+            <li><strong>Crew A (12 techs):</strong> 140 hours. Margin: 38% of their portion</li>
+            <li><strong>Crew B (10 techs):</strong> 130 hours. Margin: 36% of their portion</li>
+            <li><strong>Crew C (8 techs):</strong> 110 hours. Margin: 30% of their portion</li>
         </ul>
 
         <p>Now you see it. Crew C isn't running at the same rate as Crews A and B. They're burning five percentage points of margin per job. Over a year of contracts, that's the difference between keeping the crew and shutting them down.</p>
@@ -625,7 +625,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="highlight-box">
             <p><strong>Day 5 of 14:</strong> The job is 40% complete by splices (480 of 1,200 done). Labor hours logged so far: 210 hours. At this pace, you will finish in 368 total hours instead of the budgeted 350. You are tracking 5% over budget.</p>
             <p><strong>What you do:</strong> You call the crew lead. You ask three questions: Are there underground routing delays? Are techs being held up waiting for clearance? Is the fusion splicer down more than expected? One answer tells you whether to add resources, reschedule, or renegotiate with the customer for a change order.</p>
-            <p><strong>What happens without job costing:</strong> You finish the job on day 14. You bill $45K. You expense all 368 hours. You realize three weeks later that margin dropped from $15.7K to $14.2K. By then the crew has moved to the next job and the customer has signed off.</p>
+            <p><strong>What happens without job costing:</strong> You finish the job on day 14. You bill the job. You expense all 368 hours. You realize three weeks later that margin dropped from about 35% to about 32%. By then the crew has moved to the next job and the customer has signed off.</p>
         </div>
 
         <h2>The Real Cost of "Finishing a Job"</h2>
@@ -644,7 +644,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <h3>2. Track Materials and Equipment as Job Costs</h3>
 
-        <p>Don't put all materials under overhead. A $4,200 material cost on a $45K invoice is real. If a splitter kit runs over, it shows up in job cost, not in a month-end variance report.</p>
+        <p>Don't put all materials under overhead. Materials at 9% of the invoice are real. If a splitter kit runs over, it shows up in job cost, not in a month-end variance report.</p>
 
         <h3>3. Run Cost Reports at 50% and 75% Job Completion</h3>
 
@@ -654,7 +654,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <p>Implementing real job costing requires discipline. Techs have to log hours against specific jobs. Foremen have to submit reports mid-project, not just at invoice. Managers have to act on over-budget signals instead of waiting.</p>
 
-        <p>It feels like overhead. It isn't. It's the difference between knowing you made $15K on a job and knowing you made $11K because you caught scope creep on day five instead of day fourteen.</p>
+        <p>It feels like overhead. It isn't. It's the difference between thinking you kept a third of the invoice and knowing you kept a quarter because you caught scope creep on day five instead of day fourteen.</p>
 
         <h2>The Bottom Line</h2>
 

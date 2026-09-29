@@ -465,7 +465,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p class="eyebrow">Telecom Contractor Solutions</p>
     <h1 id="fit-call-title">Book a Fit Call</h1>
     <p class="sub" id="fit-call-subtitle">Free 30 minutes. Tell us what’s breaking between field and financials. We’ll tell you whether an Operations Audit is a fit and scope it on the call.</p>
-    <p class="helper" id="fit-call-helper">ISP contractors, 10–100 field techs. Aerial and underground. No package to pick on this page.</p>
+    <p class="helper" id="fit-call-helper">ISP contractors, 10 to 100 field techs. Aerial and underground. No package to pick on this page.</p>
 
     <div class="calendar-wrap" id="fit-call-calendar">
       <!-- GUI lock 2026-09-04: reuse SCS Google Appointment Schedule embed -->
@@ -497,10 +497,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <input type="tel"   id="f-phone"   placeholder="Your phone number"  name="phone"   aria-label="Your phone number">
         <select id="f-techs" name="field_techs" aria-label="Number of field techs" class="form-full">
           <option value="" disabled selected>How many field techs?</option>
-          <option value="10-20">10 – 20 techs</option>
-          <option value="21-50">21 – 50 techs</option>
-          <option value="51-75">51 – 75 techs</option>
-          <option value="76-100">76 – 100 techs</option>
+          <option value="10-20">10 to 20 techs</option>
+          <option value="21-50">21 to 50 techs</option>
+          <option value="51-75">51 to 75 techs</option>
+          <option value="76-100">76 to 100 techs</option>
           <option value="100+">100+ techs</option>
         </select>
         <textarea id="f-hurt" name="whats_hurting" class="form-full" placeholder="What’s hurting most right now? (optional)" aria-label="What’s hurting most right now"></textarea>
@@ -678,7 +678,7 @@ function initFitCallPage() {
   if (getLeadContext().lead_intent === 'map-annotator') {
     document.getElementById('fit-call-title').textContent = 'Request a Map Annotator Demo';
     document.getElementById('fit-call-subtitle').textContent = 'Bring one as-built and your billing codes. We will show how the marks become an office-ready tally.';
-    document.getElementById('fit-call-helper').textContent = 'Send the form below so the request reaches us as a Map Annotator demo. Job Tracker can be added later.';
+    document.getElementById('fit-call-helper').textContent = 'Send the form below so the request reaches us as a Map Annotator demo. You don\'t need job tracking to start.';
     document.getElementById('fit-call-calendar').hidden = true;
     document.querySelector('.fb-kicker').textContent = 'Map Annotator demo';
     document.querySelector('.fallback h2').textContent = 'Send one request and we will set up the demo.';
