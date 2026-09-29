@@ -65,7 +65,7 @@ if(document.readyState==='complete')later();else window.addEventListener('load',
     <script type="application/ld+json">
     {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
       {"@type":"Question","name":"What does map to invoice mean in fiber construction?","acceptedAnswer":{"@type":"Answer","text":"The crew marks the job map with the codes and quantities that were actually placed, in the same codes the rate card uses. Those marks are submitted from the field against the job record, the tally is the sum of the marks by code, and the invoice lines come from that tally at the contract rate. Nothing is retyped between the as-built and the invoice."}},
-      {"@type":"Question","name":"Does map to invoice replace the ISP closeout package?","acceptedAnswer":{"@type":"Answer","text":"No. It produces it. When the marked map, photos, locate ticket numbers, and variances land on one job record as the work happens, the closeout package is that record. The office reviews it instead of assembling it after the crew has left."}},
+      {"@type":"Question","name":"Does map to invoice replace the ISP closeout package?","acceptedAnswer":{"@type":"Answer","text":"No. The package still holds what the contract asks for. What changes is the map: the crew marks it and submits once, the tally comes from the marks, and the marked-up map exports as a PDF to go with the package. The office reviews it instead of rebuilding it after the crew has left."}},
       {"@type":"Question","name":"Does map to invoice work for progressive billing on multi-day construction?","acceptedAnswer":{"@type":"Answer","text":"Yes. On construction work each submittal from the field rolls up to the project tally, so the progress invoice at any period cut is the marks to date, not a month-end estimate. On single-day drops the tally locks when the crew submits and the invoice can go out the same day."}},
       {"@type":"Question","name":"Do crews have to learn new software for map to invoice?","acceptedAnswer":{"@type":"Answer","text":"It depends on what they mark today. Most crews already mark a map. The change is where the marks go and whether they use the rate card codes. Software comes into it only where the workflow needs a system to run on, and that is scoped in the Operations Audit, not sold as a package."}}
     ]}
@@ -593,7 +593,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="feature-grid">
 <div class="feature-card"><h3>Import</h3><p>Raw exports go in as they come out of the customer's system. Tickets and work orders land on one list in one format, checked against the live list and the archive so nothing imports twice.</p></div>
 <div class="feature-card"><h3>Assign</h3><p>Jobs are assigned to crews in batches from the one list, not chased one by one. Assignment and notification dates stamp themselves.</p></div>
-<div class="feature-card"><h3>Close out in the field</h3><p>The crew sees its own list, marks the map on site, and submits quantities and photos against the job record. Subs pass work down to their own people the same way.</p></div>
+<div class="feature-card"><h3>Close out in the field</h3><p>The crew sees its own list, marks the map on site, and submits once. The tally comes from the marks. Subs pass work down to their own people the same way.</p></div>
 <div class="feature-card"><h3>Invoice</h3><p>Billing codes and quantities come off the field closeout, so invoicing starts from field data instead of a second round of data entry. Completed jobs move to the archive and the working list stays clean.</p></div>
 </div>
 <div class="callout">
@@ -626,7 +626,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="step"><h3>The duplicate check runs against the archive too</h3><p>A job that was completed last month and reappears in this week's export is caught before it is assigned again.</p></div>
 <div class="step"><h3>Assignment stamps itself</h3><p>The date a job was assigned and the date the crew was notified are written by the board, not typed by the office.</p></div>
 <div class="step"><h3>Crews work from their own list</h3><p>On a phone, where they mark the map and submit from the site. Not from a chat thread.</p></div>
-<div class="step"><h3>Status comes off the closeout</h3><p>A job is done when the crew submits quantities and photos against it. Nobody has to call to find out.</p></div>
+<div class="step"><h3>Status comes off the closeout</h3><p>A job is done when the crew marks the map and submits it. Nobody has to call to find out.</p></div>
 <div class="step"><h3>The working list stays short</h3><p>Completed jobs move to the archive. Past due is a count off the due date, visible without scrolling through everything.</p></div>
 </div>
 
@@ -647,7 +647,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="faq-item"><h3>What is a drop bury?</h3><p>The last piece of a fiber build: the buried drop from the pedestal or hand hole to the customer's home or business. One address, usually one day, and a high volume of them across a market. The work is small. The list is what gets out of hand.</p></div>
 <div class="faq-item"><h3>Where do the jobs come from?</h3><p>Usually a ticket or work order export from the customer's portal, plus jobs added to a shared calendar after the export ran. The mechanism imports the export as it is and reconciles the calendar additions onto the same list, so nobody scans the calendar by hand.</p></div>
 <div class="faq-item"><h3>Do subs use it?</h3><p>Yes. A sub sees the jobs assigned to them, marks and submits them the same way, and can pass work down to their own people. The closeout comes back on the job record, so you have visibility of every step without chasing anyone. If a sub lacks the back office to keep up, that shows on the board instead of in a missed job.</p></div>
-<div class="faq-item"><h3>What happens when a customer disputes an install later?</h3><p>The photos are on the job record, not in a folder on somebody's phone. The record shows who was assigned, when they were notified, when it closed, and what was placed. That is the answer to the dispute.</p></div>
+<div class="faq-item"><h3>What happens when a customer disputes an install later?</h3><p>The marked-up map the crew submitted is on the job record, not in a folder on somebody's phone. The record shows who was assigned, when they were notified, when it was submitted, and what was placed. That is the answer to the dispute.</p></div>
 </div>
 </section>
 <div class="author-bio" style="margin:2.5rem 0;padding:22px;border:1px solid rgba(42,142,255,0.25);border-radius:10px;background:rgba(42,142,255,0.05);">
