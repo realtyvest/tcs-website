@@ -12,8 +12,7 @@
     { href: '/billing-automation.html', label: 'Billing' },
     { href: '/job-costing.html', label: 'Job Costing' },
     { href: '/map-to-invoice.html', label: 'Map to Invoice' },
-    { href: '/drop-buries.html', label: 'Drop Buries' },
-    { href: '/dig-documentation.html', label: 'Dig Documentation' }
+    { href: '/drop-buries.html', label: 'Drop Buries' }
   ];
   var COMPANY = [
     { href: '/#how', label: 'How it works' },
