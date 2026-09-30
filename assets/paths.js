@@ -97,12 +97,12 @@
   var CONFIGS = {
     construction: {
       chromeId: "PROJECT-2207 · AERIAL + UNDERGROUND",
-      metas: ["SEG-07 · RT-A", "FIELD", "PROJECT ROLLUP", "PROGRESSIVE"],
+      metas: ["SEG-07 · RT-A", "FIELD", "TALLY", "INV-LINES"],
       steps: [
         { label: "Mark the map", helper: "Codes and quantities as the job progresses" },
         { label: "Submit", helper: "Each submittal from the field" },
-        { label: "Tally = marks", helper: "Production rolls up to the project" },
-        { label: "Invoice", helper: "Progressive billing from that tally" },
+        { label: "Tally = marks", helper: "The tally comes from what the crew marks on the map" },
+        { label: "Invoice", helper: "Invoice lines come from that tally" },
       ],
     },
     drops: {
