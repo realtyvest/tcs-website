@@ -354,6 +354,17 @@ nav a.tcs-chars, nav .nav-links a.tcs-chars {
   transition: transform var(--tcs-dur-long) var(--tcs-ease-inout);
 }
 
+/* DROPDOWN_LABEL_SINGLE: dropdown rows are full-height hit targets, so the
+   character effect's shadow copy is visible inside them. Keep those labels
+   static even if older cached JS has already split them into characters. */
+.nav-dropdown-menu .tcs-chars span,
+.nav-dropdown-menu a:hover .tcs-chars span,
+.nav-dropdown-menu a:focus-visible .tcs-chars span {
+  text-shadow: none;
+  transform: none;
+  transition: none;
+}
+
 a:hover .tcs-chars span,
 a:focus-visible .tcs-chars span,
 a.tcs-chars:hover span,

@@ -521,7 +521,10 @@
 
   function initChars() {
     // Desktop nav text links (not the CTA button) and mobile menu labels.
-    var sel = '.nav-links a:not(.nav-cta), .mobile-menu-link > span:last-child, .tcs-mobile-menu-link > span:last-child';
+    /* Only animate direct links in the top-level bar. Dropdown rows need their
+       full 44px hit area, which also exposes the effect's shadow copy and makes
+       each label appear twice. */
+    var sel = '.nav-links > li > a:not(.nav-cta), .mobile-menu-link > span:last-child, .tcs-mobile-menu-link > span:last-child';
     var nodes = document.querySelectorAll(sel);
     for (var i = 0; i < nodes.length; i++) {
       var n = nodes[i];
