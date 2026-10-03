@@ -242,7 +242,7 @@ nav.tcs-nav-root.is-scrolled {
   padding: 16px 22px !important;
   min-height: 48px;
   border-radius: 999px;
-  background: #2A8EFF !important;
+  background: #1F63D6 !important; /* MENU_PILL_FILL (Design, 2026-10-03): same primary fill as every Book a Fit Call button (HIG_AUDIT_V39: 5.51:1 with white); #2A8EFF stays accent only */
   color: #fff !important;
   font-family: 'Barlow', sans-serif;
   font-size: 1.0625rem;
