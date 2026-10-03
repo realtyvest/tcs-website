@@ -753,10 +753,31 @@ nav ul.nav-links li > a[href="/pricing.html"] {
   line-height: normal !important;
   text-shadow: none !important;
 }
-/* Mindy QA 10/02: an inline-block in the 29.7px line box sat 5.3px below Solutions and
-   the Fit Call button. As a block the li shrinks to the 19px link, and the ul's
-   align-items:center puts it on the same center line. Desktop bar only; the mobile
-   menu is its own list. The link stays 19px tall so the tcs-chars roll layer stays hidden. */
+/* PRICING_HIT_AREA (Diana r3 gate, Oct 2): the Pricing link uses the Solutions button's
+   box (.nav-dropdown-btn: inline-flex, align-items center, gap 6px, min-height 44px,
+   padding 0 4px, line-height normal), so it shares Solutions' center line and 44px hit
+   area. The character roll lives on the inner .nav-label (tcs-chars: overflow hidden,
+   19px tall), which stays the clip window, so the shadow copy never shows in the 44px
+   box. a:hover .tcs-chars span still rolls it from anywhere in the box. The orange rail
+   moves from the <a> to the label so it sits under the word as before. Desktop bar
+   only (821px and up); the mobile menu and post nav are separate lists and unchanged. */
 @media (min-width: 821px) {
-  nav ul.nav-links li > a[href="/pricing.html"] { display: block !important; vertical-align: middle !important; }
+  nav ul.nav-links li > a[href="/pricing.html"] {
+    display: inline-flex !important; align-items: center !important; gap: 6px;
+    min-height: 44px !important; padding: 0 4px !important; margin: 0 !important;
+    line-height: normal !important; vertical-align: baseline !important;
+  }
+  nav ul.nav-links li > a[href="/pricing.html"]::after { content: none !important; }
+  nav ul.nav-links li > a[href="/pricing.html"] > .nav-label { line-height: normal !important; }
+  nav ul.nav-links li > a[href="/pricing.html"] > .nav-label::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+    background: #F26419; transform: scaleX(0); transform-origin: left center;
+    transition: transform var(--tcs-dur-short, 0.25s) var(--tcs-ease-out); pointer-events: none;
+  }
+  nav ul.nav-links li > a[href="/pricing.html"]:hover > .nav-label::after,
+  nav ul.nav-links li > a[href="/pricing.html"]:focus-visible > .nav-label::after,
+  nav ul.nav-links li > a[href="/pricing.html"][aria-current="page"] > .nav-label::after { transform: scaleX(1); }
+  nav ul.nav-links li > a[href="/pricing.html"]:not(:hover):not(:focus-visible) > .nav-label::after {
+    transform-origin: right center; transition-duration: var(--tcs-dur-mid, 0.45s);
+  }
 }

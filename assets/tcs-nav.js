@@ -527,7 +527,7 @@
     /* Only animate direct links in the top-level bar. Dropdown rows need their
        full 44px hit area, which also exposes the effect's shadow copy and makes
        each label appear twice. */
-    var sel = '.nav-links > li > a:not(.nav-cta), .mobile-menu-link > span:last-child, .tcs-mobile-menu-link > span:last-child';
+    var sel = '.nav-links > li > a:not(.nav-cta), .nav-links > li > a:not(.nav-cta) > span.nav-label, .mobile-menu-link > span:last-child, .tcs-mobile-menu-link > span:last-child';
     var nodes = document.querySelectorAll(sel);
     for (var i = 0; i < nodes.length; i++) {
       var n = nodes[i];
@@ -651,7 +651,7 @@
     }
     html += '</ul></li>';
     /* PRICING_TEXT_LINK: plain text link after Solutions, before the Fit Call button. */
-    html += '<li><a href="/pricing.html">Pricing</a></li>';
+    html += '<li><a href="/pricing.html"><span class="nav-label">Pricing</span></a></li>';
     ul.innerHTML = html;
     if (!cta) {
       cta = document.createElement('a');
