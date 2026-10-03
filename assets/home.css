@@ -2022,21 +2022,6 @@
   background: linear-gradient(180deg, rgba(42, 142, 255, 0.14), rgba(21, 34, 54, 1));
   box-shadow: 0 0 0 1px rgba(42, 142, 255, 0.25), 0 18px 44px -18px rgba(42, 142, 255, 0.55);
 }
-.hub-grid .solution-card.is-hub::before {
-  content: "Hub";
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  font-family: var(--font-display, 'Barlow Condensed', sans-serif);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #F26419;
-  border: 1px solid rgba(242, 100, 25, 0.6);
-  border-radius: 999px;
-  padding: 3px 8px;
-}
 /* Story state: spokes wait dim until their wire reaches the hub. */
 .hub-grid.is-story .solution-card[data-spoke] { opacity: 0.45; }
 .hub-grid.is-story .solution-card[data-spoke].is-lit { opacity: 1; border-color: rgba(42, 142, 255, 0.55); box-shadow: 0 0 0 1px rgba(42, 142, 255, 0.2), 0 14px 34px -18px rgba(42, 142, 255, 0.5); }
