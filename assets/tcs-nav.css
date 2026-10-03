@@ -781,3 +781,15 @@ nav ul.nav-links li > a[href="/pricing.html"] {
     transform-origin: right center; transition-duration: var(--tcs-dur-mid, 0.45s);
   }
 }
+
+/* POST_HEADER_CTA_FILL (Diana, 2026-10-03): the post template's desktop header
+   Book a Fit Call (nav ul.links a.cta-button, inline .cta-button rule in every
+   post and in the publisher template) fills with #1F63D6 like every other Fit
+   Call button. Text goes white with it: #0B1829 on #1F63D6 measures 3.24:1,
+   white measures 5.51:1 (HIG_AUDIT_V39). Shape, size, padding, glow and the
+   hover (fill #F26419; text from the post's link hover) are unchanged.
+   #2A8EFF stays accent only. */
+nav ul.links a.cta-button:not(:hover) {
+  background-color: #1F63D6;
+  color: #FFFFFF;
+}
