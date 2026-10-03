@@ -2074,6 +2074,11 @@
   .hub-grid .solution-card[data-spoke="right"] { grid-column: 1; grid-row: 3; }
   .hub-grid .solution-card[data-spoke="bottom-left"] { grid-column: 1; grid-row: 4; }
   .hub-grid .solution-card[data-spoke="bottom-right"] { grid-column: 1; grid-row: 5; }
+  /* HUB_MOBILE_BOTTOM_SPOKE (Diana, 2026-10-03): a 3-spoke hub (the homepage)
+     names its third spoke "bottom", which kept the desktop grid-column: 2 and
+     opened a second implicit column, widening the page to 451px at 390. It
+     now stacks in column 1 at the next free row. */
+  .hub-grid .solution-card[data-spoke="bottom"] { grid-column: 1; grid-row: auto; }
 }
 @media (prefers-reduced-motion: reduce) {
   .hub-grid .solution-card.is-hub { animation: none !important; }
