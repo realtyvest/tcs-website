@@ -32,104 +32,206 @@ if(document.readyState==='complete')later();else window.addEventListener('load',
     <meta name="twitter:description" content="TCS pricing for telecom and fiber contractors: Drop Production $699/mo, Map-to-Cash $799/mo, Full Production Operations $2,500/mo, Construction Financial Control $5,000/mo. Prime is custom.">
     <meta name="twitter:image" content="https://telecomcontractorsolutions.com/assets/og-default.png">
 
-    <!-- WebPage + OfferCatalog Schema (prices must match the visible cards) -->
+    <!-- WebPage + Service + FAQPage schema (seo-briefs-1003 Brief B). Prices must match the visible cards; the FAQPage text must equal the visible PRICING_FAQ word for word. -->
     <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "TCS Pricing for Telecom and Fiber Contractors",
-  "url": "https://telecomcontractorsolutions.com/pricing.html",
-  "description": "TCS pricing for telecom and fiber contractors: Drop Production $699/mo, Map-to-Cash $799/mo, Full Production Operations $2,500/mo, Construction Financial Control $5,000/mo. Prime is custom.",
-  "publisher": {
-    "@type": "Organization",
-    "name": "Telecom Contractor Solutions",
-    "url": "https://telecomcontractorsolutions.com/"
-  },
-  "mainEntity": {
-    "@type": "OfferCatalog",
-    "name": "TCS packages",
-    "itemListElement": [
-      {
-        "@type": "Offer",
-        "name": "Drop Production",
-        "description": "For drop work you bill by the drop. 250 drops per month included. Month-to-month.",
-        "price": "699",
-        "priceCurrency": "USD",
-        "priceSpecification": {
-          "@type": "UnitPriceSpecification",
-          "price": "699",
-          "priceCurrency": "USD",
-          "unitText": "MONTH",
-          "billingDuration": "P1M"
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://telecomcontractorsolutions.com/pricing.html#webpage",
+          "name": "TCS Pricing for Telecom and Fiber Contractors",
+          "url": "https://telecomcontractorsolutions.com/pricing.html",
+          "description": "TCS pricing for telecom and fiber contractors: Drop Production $699/mo, Map-to-Cash $799/mo, Full Production Operations $2,500/mo, Construction Financial Control $5,000/mo. Prime is custom.",
+          "isPartOf": {
+            "@id": "https://telecomcontractorsolutions.com/#website"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "@id": "https://telecomcontractorsolutions.com/#organization",
+            "name": "Telecom Contractor Solutions",
+            "url": "https://telecomcontractorsolutions.com/"
+          },
+          "mainEntity": {
+            "@id": "https://telecomcontractorsolutions.com/pricing.html#service"
+          }
         },
-        "url": "https://telecomcontractorsolutions.com/pricing.html"
-      },
-      {
-        "@type": "Offer",
-        "name": "Map-to-Cash",
-        "description": "For construction work you bill by the project. 60 projects per month included. Month-to-month.",
-        "price": "799",
-        "priceCurrency": "USD",
-        "priceSpecification": {
-          "@type": "UnitPriceSpecification",
-          "price": "799",
-          "priceCurrency": "USD",
-          "unitText": "MONTH",
-          "billingDuration": "P1M"
+        {
+          "@type": "Service",
+          "@id": "https://telecomcontractorsolutions.com/pricing.html#service",
+          "name": "TCS",
+          "serviceType": "Operations systems for ISP and telecom contractors",
+          "description": "Pick the package that matches how your company bills its work: by the drop or by the project.",
+          "provider": {
+            "@type": "Organization",
+            "@id": "https://telecomcontractorsolutions.com/#organization",
+            "name": "Telecom Contractor Solutions",
+            "url": "https://telecomcontractorsolutions.com/"
+          },
+          "areaServed": {
+            "@type": "Country",
+            "name": "United States"
+          },
+          "audience": {
+            "@type": "BusinessAudience",
+            "name": "ISP and telecom contractors, aerial and underground, typically 10 to 100 field technicians"
+          },
+          "url": "https://telecomcontractorsolutions.com/pricing.html",
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "Drop Production",
+              "description": "For drop work you bill by the drop. 250 drops per month included. Month-to-month.",
+              "price": "699",
+              "priceCurrency": "USD",
+              "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "699",
+                "priceCurrency": "USD",
+                "unitText": "MONTH",
+                "billingDuration": "P1M"
+              },
+              "url": "https://telecomcontractorsolutions.com/pricing.html",
+              "seller": {
+                "@id": "https://telecomcontractorsolutions.com/#organization"
+              }
+            },
+            {
+              "@type": "Offer",
+              "name": "Map-to-Cash",
+              "description": "For construction work you bill by the project. 60 projects per month included. Month-to-month.",
+              "price": "799",
+              "priceCurrency": "USD",
+              "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "799",
+                "priceCurrency": "USD",
+                "unitText": "MONTH",
+                "billingDuration": "P1M"
+              },
+              "url": "https://telecomcontractorsolutions.com/pricing.html",
+              "seller": {
+                "@id": "https://telecomcontractorsolutions.com/#organization"
+              }
+            },
+            {
+              "@type": "Offer",
+              "name": "Full Production Operations",
+              "description": "For drop work at larger operations. 250 drops per month included. 12-month term.",
+              "price": "2500",
+              "priceCurrency": "USD",
+              "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "2500",
+                "priceCurrency": "USD",
+                "unitText": "MONTH",
+                "billingDuration": "P1M"
+              },
+              "url": "https://telecomcontractorsolutions.com/pricing.html",
+              "seller": {
+                "@id": "https://telecomcontractorsolutions.com/#organization"
+              }
+            },
+            {
+              "@type": "Offer",
+              "name": "Construction Financial Control",
+              "description": "For construction work at larger operations. 100 projects per month included. 12-month term.",
+              "price": "5000",
+              "priceCurrency": "USD",
+              "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "5000",
+                "priceCurrency": "USD",
+                "unitText": "MONTH",
+                "billingDuration": "P1M"
+              },
+              "url": "https://telecomcontractorsolutions.com/pricing.html",
+              "seller": {
+                "@id": "https://telecomcontractorsolutions.com/#organization"
+              }
+            },
+            {
+              "@type": "Offer",
+              "name": "Prime",
+              "description": "For primes working with many sub companies each month. Custom Pricing.",
+              "url": "https://telecomcontractorsolutions.com/pricing.html",
+              "seller": {
+                "@id": "https://telecomcontractorsolutions.com/#organization"
+              }
+            },
+            {
+              "@type": "Offer",
+              "name": "Implementation",
+              "description": "Implementation starting at $1,999.",
+              "priceCurrency": "USD",
+              "priceSpecification": {
+                "@type": "PriceSpecification",
+                "minPrice": "1999",
+                "priceCurrency": "USD"
+              },
+              "url": "https://telecomcontractorsolutions.com/pricing.html",
+              "seller": {
+                "@id": "https://telecomcontractorsolutions.com/#organization"
+              }
+            }
+          ]
         },
-        "url": "https://telecomcontractorsolutions.com/pricing.html"
-      },
-      {
-        "@type": "Offer",
-        "name": "Full Production Operations",
-        "description": "For drop work at larger operations. 250 drops per month included. 12-month term.",
-        "price": "2500",
-        "priceCurrency": "USD",
-        "priceSpecification": {
-          "@type": "UnitPriceSpecification",
-          "price": "2500",
-          "priceCurrency": "USD",
-          "unitText": "MONTH",
-          "billingDuration": "P1M"
-        },
-        "url": "https://telecomcontractorsolutions.com/pricing.html"
-      },
-      {
-        "@type": "Offer",
-        "name": "Construction Financial Control",
-        "description": "For construction work at larger operations. 100 projects per month included. 12-month term.",
-        "price": "5000",
-        "priceCurrency": "USD",
-        "priceSpecification": {
-          "@type": "UnitPriceSpecification",
-          "price": "5000",
-          "priceCurrency": "USD",
-          "unitText": "MONTH",
-          "billingDuration": "P1M"
-        },
-        "url": "https://telecomcontractorsolutions.com/pricing.html"
-      },
-      {
-        "@type": "Offer",
-        "name": "Prime",
-        "description": "For primes working with many sub companies each month. Custom Pricing.",
-        "url": "https://telecomcontractorsolutions.com/pricing.html"
-      },
-      {
-        "@type": "Offer",
-        "name": "Implementation",
-        "description": "Implementation starting at $1,999.",
-        "priceCurrency": "USD",
-        "priceSpecification": {
-          "@type": "PriceSpecification",
-          "minPrice": "1999",
-          "priceCurrency": "USD"
-        },
-        "url": "https://telecomcontractorsolutions.com/pricing.html"
-      }
-    ]
-  }
-}
+        {
+          "@type": "FAQPage",
+          "@id": "https://telecomcontractorsolutions.com/pricing.html#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How much does TCS software cost for a telecom contractor?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "TCS has four packages with monthly prices. Drop Production is $699/mo with 250 drops per month included. Map-to-Cash is $799/mo with 60 projects per month included. Full Production Operations is $2,500/mo with 250 drops per month included. Construction Financial Control is $5,000/mo with 100 projects per month included. Implementation starts at $1,999 and depends on the package. Prime, for primes working with many sub companies each month, is custom pricing."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is there a setup fee?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Implementation starts at $1,999 and depends on the package, and Map Annotator has a one-time setup fee. Implementation and setup fees are billed separately. Your full terms are in your Order Form."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I start month-to-month, or do I need a 12-month term?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Drop Production, Map-to-Cash and Map Annotator are month-to-month. Cancel with 30 days' written notice; you keep access through the paid period, and there are no prorated refunds. Full Production Operations, Construction Financial Control and Prime are 12-month terms that renew automatically for 12 months unless you give 60 days' notice before renewal. Autopay is required. Implementation and setup fees, and usage over included amounts, are billed separately. Your full terms are in your Order Form."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What if we use more than the drops or projects included?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The four monthly packages each include a set amount of work each month: 250 drops for Drop Production and for Full Production Operations, 60 projects for Map-to-Cash, and 100 projects for Construction Financial Control. Usage over included amounts is billed separately. Your full terms are in your Order Form."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What if we do both drop work and construction?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Drop Production and Full Production Operations are for drop work you bill by the drop. Map-to-Cash and Construction Financial Control are for construction work you bill by the project. If you need both, ask about mixed plans."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How is Prime priced?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Prime is custom pricing. It is for primes working with many sub companies each month, and it is a 12-month term that renews automatically for 12 months unless you give 60 days' notice before renewal. The right setup is different for a company with 10 field technicians and one with 100, so we scope it with you on a Free 30-minute Fit Call, and your Order Form sets your price. If you need both drops and construction, ask about mixed plans."
+              }
+            }
+          ]
+        }
+      ]
+    }
     </script>
 
     <style>
@@ -524,6 +626,14 @@ if(document.readyState==='complete')later();else window.addEventListener('load',
         .fitcall-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0.8rem 2rem; border-radius: 4px; background: #1F63D6; color: #FFFFFF; font-weight: 700; font-size: 1.05rem; text-decoration: none; }
         .fitcall-btn:hover { background: #1a6fd0; color: #FFFFFF; }
         .fitcall-btn:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 3px; }
+        /* PRICING_FAQ (seo-briefs-1003 Brief B): the site .faq-item pattern from map-to-invoice.html; same measure as the terms block, one --pp-gap above (PPL s4). */
+        .pricing-faq { max-width: 960px; margin: var(--pp-gap) auto 0; }
+        .pricing-faq h2 { text-align: center; margin-bottom: 1rem; }
+        .pricing-faq .faq-item { background-color: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.10); border-radius: 4px; padding: 1.5rem 1.75rem; }
+        .pricing-faq .faq-item + .faq-item { margin-top: 1rem; }
+        .pricing-faq .faq-item h3 { color: #FFFFFF; font-size: 1.35rem; margin: 0 0 0.5rem; }
+        .pricing-faq .faq-item p { margin: 0; }
+        @media (max-width: 820px) { .pricing-faq .faq-item { padding: 1.25rem 1.25rem; } .pricing-faq .faq-item h3 { font-size: 1.2rem; } }
         .pricing-section { padding-bottom: 0; }
         .pricing-close-wrap { padding-top: 0; padding-bottom: 0; }
         .pricing-close { text-align: center; margin: var(--pp-gap) 0 40px; padding: 4rem 2rem; }
@@ -641,6 +751,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <p class="tcs-pt-k">Terms</p>
   <p class="tcs-pt-body">Drop Production, Map-to-Cash and Map Annotator are month-to-month. Cancel with 30 days' written notice; you keep access through the paid period, and there are no prorated refunds. Full Production Operations, Construction Financial Control and Prime are 12-month terms that renew automatically for 12 months unless you give 60 days' notice before renewal. Autopay is required. Implementation and setup fees, and usage over included amounts, are billed separately. Your full terms are in your Order Form.</p>
 </aside>
+        <!-- 5b. PRICING_FAQ (seo-briefs-1003 Brief B): visible text must equal the FAQPage JSON-LD text word for word. No buttons, no links, no figures beyond the cards. -->
+<section class="pricing-faq" aria-label="Pricing questions">
+  <h2>Pricing Questions Contractors Ask</h2>
+  <div class="faq-item"><h3>How much does TCS software cost for a telecom contractor?</h3><p>TCS has four packages with monthly prices. Drop Production is $699/mo with 250 drops per month included. Map-to-Cash is $799/mo with 60 projects per month included. Full Production Operations is $2,500/mo with 250 drops per month included. Construction Financial Control is $5,000/mo with 100 projects per month included. Implementation starts at $1,999 and depends on the package. Prime, for primes working with many sub companies each month, is custom pricing.</p></div>
+  <div class="faq-item"><h3>Is there a setup fee?</h3><p>Implementation starts at $1,999 and depends on the package, and Map Annotator has a one-time setup fee. Implementation and setup fees are billed separately. Your full terms are in your Order Form.</p></div>
+  <div class="faq-item"><h3>Can I start month-to-month, or do I need a 12-month term?</h3><p>Drop Production, Map-to-Cash and Map Annotator are month-to-month. Cancel with 30 days' written notice; you keep access through the paid period, and there are no prorated refunds. Full Production Operations, Construction Financial Control and Prime are 12-month terms that renew automatically for 12 months unless you give 60 days' notice before renewal. Autopay is required. Implementation and setup fees, and usage over included amounts, are billed separately. Your full terms are in your Order Form.</p></div>
+  <div class="faq-item"><h3>What if we use more than the drops or projects included?</h3><p>The four monthly packages each include a set amount of work each month: 250 drops for Drop Production and for Full Production Operations, 60 projects for Map-to-Cash, and 100 projects for Construction Financial Control. Usage over included amounts is billed separately. Your full terms are in your Order Form.</p></div>
+  <div class="faq-item"><h3>What if we do both drop work and construction?</h3><p>Drop Production and Full Production Operations are for drop work you bill by the drop. Map-to-Cash and Construction Financial Control are for construction work you bill by the project. If you need both, ask about mixed plans.</p></div>
+  <div class="faq-item"><h3>How is Prime priced?</h3><p>Prime is custom pricing. It is for primes working with many sub companies each month, and it is a 12-month term that renews automatically for 12 months unless you give 60 days' notice before renewal. The right setup is different for a company with 10 field technicians and one with 100, so we scope it with you on a Free 30-minute Fit Call, and your Order Form sets your price. If you need both drops and construction, ask about mixed plans.</p></div>
+</section>
     </section>
 
     <div class="container pricing-close-wrap">
