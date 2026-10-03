@@ -74,7 +74,7 @@ img { max-width: 100%; }
   padding: 0 22px;
   border: 1px solid transparent;
   border-radius: 7px;
-  background: var(--ma-electric);
+  background: #1F63D6; /* CTA LOCK (Gil 10:34 PM CT): same primary fill as the nav and footer Book a Fit Call (HIG_AUDIT_V39: 5.51:1 with white); #2A8EFF stays accent only */
   color: var(--ma-white);
   font-weight: 700;
   transition: transform 150ms ease-out, background 150ms ease-out, border-color 150ms ease-out;
