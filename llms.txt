@@ -1,0 +1,51 @@
+# Telecom Contractor Solutions
+
+> Telecom Contractor Solutions (TCS) builds operations systems for ISP and telecom contractors, aerial and underground, running 10 to 100 field techs. The crew marks the map, the tally comes from the marks, and the invoice comes from the tally. Based in Houston, serving contractors nationwide.
+
+TCS is for contractors who install fiber, cable, or aerial infrastructure for ISPs and prime contractors. TCS Map Annotator can be a standalone starting point. To talk through a specific operation, book a Free 30-minute Fit Call: https://telecomcontractorsolutions.com/fit-call
+
+## Product
+
+- [TCS Map Annotator](https://telecomcontractorsolutions.com/map-annotator.html): Crews mark codes and quantities on the as-built map and submit once, and the marks become a billing-code tally for office review.
+- [Map to Invoice](https://telecomcontractorsolutions.com/map-to-invoice.html): How aerial and underground construction marks on the as-built become billable quantities.
+- [Drop Buries](https://telecomcontractorsolutions.com/drop-buries.html): How drop bury crews mark the map on site and submit, with footage and codes tallied from the marks.
+- [Telecom Contractor Billing](https://telecomcontractorsolutions.com/billing-automation.html): How the office invoices the ISP or prime by rate code from the tally the crew's marks produce.
+- [Field Approval](https://telecomcontractorsolutions.com/field-approval-hub.html): How the office reviews a crew's submitted map so the tally is ready to invoice without retyping.
+- [Sub Invoicing](https://telecomcontractorsolutions.com/sub-invoicing.html): How a sub's crew marks the map and submits, and the office invoices the prime from the tally.
+
+## Pricing
+
+- [Pricing](https://telecomcontractorsolutions.com/pricing.html): TCS packages, what each one includes, and plan terms.
+
+## Guides
+
+- [Fiber Closeout Package Checklist](https://telecomcontractorsolutions.com/fiber-closeout-package-checklist.html): What an ISP or prime expects in a fiber closeout package, with a printable checklist.
+- [How to Track Contractor Compliance](https://telecomcontractorsolutions.com/subcontractor-compliance-tracking.html): How to track crew and sub COIs, W9s, and certs before a job starts.
+- [Dig Documentation](https://telecomcontractorsolutions.com/dig-documentation.html): What a fiber crew should document before and after every dig.
+- [Pre-Bore Documentation](https://telecomcontractorsolutions.com/pre-bore-documentation.html): What directional boring crews should document before every bore starts.
+- [Tracking Telecom RFPs and Bids](https://telecomcontractorsolutions.com/rfp-tracker.html): Where telecom RFPs come from, what to log for each one, and how to check authorized quantities before you invoice.
+- [Why Telecom Contractors Bill Late](https://telecomcontractorsolutions.com/why-telecom-subs-bill-late.html): Why scattered closeout documents delay the invoice, and how to move billing to job close.
+- [Job Costing](https://telecomcontractorsolutions.com/job-costing.html): Why job costing for telecom crews starts with clean production data tallied by rate code.
+- [Job Costing for a 30-Tech Telecom Crew](https://telecomcontractorsolutions.com/job-costing-telecom-crews.html): A worked example of what job costing looks like for a telecom crew.
+- [Why Field Crews Resist New Systems](https://telecomcontractorsolutions.com/why-crews-resist-new-systems.html): Why crews push back on new field systems, and what helps adoption.
+- [Generic FSM vs Telecom-Specific Tools](https://telecomcontractorsolutions.com/custom-ops-vs-enterprise-fsm.html): How generic field service software compares with tools built around rate codes, marked maps, and quantities.
+- [ROI Calculator](https://telecomcontractorsolutions.com/roi-calculator.html): Run your own numbers on billing delays, unbilled work, and admin hours.
+- [Cash Flow and Factoring Calculator](https://telecomcontractorsolutions.com/cash-flow-calculator.html): How many days cash waits after the work is done, and what factoring to cover the gap costs.
+
+## BEAD
+
+- [BEAD by State](https://telecomcontractorsolutions.com/bead-by-state.html): The BEAD hub. Awards, freezes, pole and permit disputes, and ISP builds, state by state.
+- [BEAD Subcontractor Guide](https://telecomcontractorsolutions.com/bead-subcontractor-guide.html): How BEAD money reaches a subcontractor, what the rules require, and how to get on state and ISP lists.
+- [The Splice](https://telecomcontractorsolutions.com/bead-newsletter.html): Free BEAD funding newsletter for telecom contractors.
+- [Blog](https://telecomcontractorsolutions.com/blog.html): Telecom contractor news and field operations guidance.
+
+## Company
+
+- [About Gil Ramirez](https://telecomcontractorsolutions.com/about.html): Who founded TCS and why.
+- [FAQ](https://telecomcontractorsolutions.com/faq.html): What TCS builds, who it is for, how the Fit Call works, contracts, data, and support.
+
+## Optional
+
+- [Fiber Connect 2026](https://telecomcontractorsolutions.com/fiber-connect-2026-contractor-guide.html): What contractors should get out of Fiber Connect 2026.
+- [Terms](https://telecomcontractorsolutions.com/terms/): Terms of service.
+- [Privacy](https://telecomcontractorsolutions.com/privacy/): Privacy policy.
