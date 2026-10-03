@@ -53,53 +53,65 @@ if(document.readyState==='complete')later();else window.addEventListener('load',
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "@id": "https://telecomcontractorsolutions.com/#business",
-  "name": "Telecom Contractor Solutions",
-  "url": "https://telecomcontractorsolutions.com/",
-  "logo": "https://telecomcontractorsolutions.com/assets/logo.png",
-  "image": "https://telecomcontractorsolutions.com/assets/og-home.png",
-  "description": "From Field to Financials. Connected field capture through invoice-ready workflows for ISP and telecom contractors with 10 to 100 field technicians.",
-  "telephone": "+1-832-917-0091",
-  "founder": {
-    "@type": "Person",
-    "name": "Gil Ramirez",
-    "sameAs": "https://www.linkedin.com/in/gilbertoramirezjr/"
-  },
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Arena Tower, 7324 Southwest Freeway, Suite 264",
-    "addressLocality": "Houston",
-    "addressRegion": "TX",
-    "postalCode": "77074",
-    "addressCountry": "US"
-  },
-  "areaServed": {
-    "@type": "Country",
-    "name": "United States"
-  },
-  "knowsAbout": [
-    "Telecom contractor operations",
-    "Fiber construction closeouts",
-    "Field-to-invoice workflows",
-    "Telecom crew management",
-    "Telecom contractor job costing"
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://telecomcontractorsolutions.com/#organization",
+      "name": "Telecom Contractor Solutions",
+      "alternateName": "TCS",
+      "url": "https://telecomcontractorsolutions.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://telecomcontractorsolutions.com/#logo",
+        "url": "https://telecomcontractorsolutions.com/assets/logo.png",
+        "contentUrl": "https://telecomcontractorsolutions.com/assets/logo.png",
+        "width": 1200,
+        "height": 300,
+        "caption": "Telecom Contractor Solutions"
+      },
+      "image": "https://telecomcontractorsolutions.com/assets/og-home.png",
+      "description": "Operations systems for ISP and telecom contractors running 10 to 100 field techs. Based in Houston, serving contractors nationwide.",
+      "telephone": "+1-832-917-0091",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Arena Tower, 7324 Southwest Freeway, Suite 264",
+        "addressLocality": "Houston",
+        "addressRegion": "TX",
+        "postalCode": "77074",
+        "addressCountry": "US"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "United States"
+      },
+      "founder": {
+        "@type": "Person",
+        "@id": "https://telecomcontractorsolutions.com/about.html#gil-ramirez",
+        "name": "Gil Ramirez",
+        "url": "https://telecomcontractorsolutions.com/about.html"
+      },
+      "knowsAbout": [
+        "Telecom contractor operations",
+        "Fiber construction closeouts",
+        "Field-to-invoice workflows"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://telecomcontractorsolutions.com/#website",
+      "url": "https://telecomcontractorsolutions.com/",
+      "name": "Telecom Contractor Solutions",
+      "alternateName": "TCS",
+      "publisher": {
+        "@id": "https://telecomcontractorsolutions.com/#organization"
+      },
+      "inLanguage": "en-US"
+    }
   ]
 }
 </script>
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "@id": "https://telecomcontractorsolutions.com/#website",
-  "url": "https://telecomcontractorsolutions.com/",
-  "name": "Telecom Contractor Solutions",
-  "publisher": {"@id": "https://telecomcontractorsolutions.com/#business"},
-  "inLanguage": "en-US"
-}
-</script>
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"VideoObject","name":"Telecom Contractor Solutions explainer","description":"The old way: a Friday rebuild from phones and paper. The TCS way: the crew captures once in the field and one connected job record powers job tracking, billing, crew management, job costing, and the map annotator.","thumbnailUrl":"https://telecomcontractorsolutions.com/assets/video/tcs-explainer.jpg","contentUrl":"https://telecomcontractorsolutions.com/assets/video/tcs-explainer.mp4","uploadDate":"2026-09-08T00:00:00-05:00","duration":"PT1M20S","publisher":{"@type":"Organization","name":"Telecom Contractor Solutions","logo":{"@type":"ImageObject","url":"https://telecomcontractorsolutions.com/assets/logo.png"}}}
+{"@context":"https://schema.org","@type":"VideoObject","name":"Telecom Contractor Solutions explainer","description":"The old way: a Friday rebuild from phones and paper. The TCS way: the crew marks the map once in the field, the tally comes from the marks, and the invoice comes from the tally.","thumbnailUrl":"https://telecomcontractorsolutions.com/assets/video/tcs-explainer.jpg","contentUrl":"https://telecomcontractorsolutions.com/assets/video/tcs-explainer.mp4","uploadDate":"2026-09-08T00:00:00-05:00","duration":"PT1M20S","publisher":{"@type":"Organization","name":"Telecom Contractor Solutions","logo":{"@type":"ImageObject","url":"https://telecomcontractorsolutions.com/assets/logo.png"}}}
 </script>
   <!-- Section stylesheets are bundled into /assets/home.css (tools/build-home-css.sh) and linked at the top of head. -->
 <script type="application/ld+json">
@@ -431,7 +443,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="tcsf-inner">
     <div class="tcsf-brand">
       <strong>Telecom Contractor Solutions</strong>
-      <p>Operations systems for ISP and telecom contractors running 10 to 100 field techs. Built in Houston, used nationwide.</p>
+      <p>Operations systems for ISP and telecom contractors running 10 to 100 field techs. Based in Houston, serving contractors nationwide.</p>
       <p><a href="tel:+18329170091">(832) 917-0091</a><br>Arena Tower, 7324 Southwest Freeway, Suite 264<br>Houston, TX 77074</p>
       <a class="tcsf-cta" href="/fit-call">Book a Fit Call</a>
       <p class="tcsf-powered" style="margin-top:16px;">Powered by <a href="https://simplecontractorsystems.com/?utm_source=tcs&amp;utm_medium=site&amp;utm_campaign=cross-practice&amp;utm_content=footer">Simple Contractor Systems</a></p>
