@@ -739,3 +739,24 @@ nav ul.nav-links .nav-dropdown-menu a:hover, nav ul.nav-links .nav-dropdown-menu
   background: rgba(42, 142, 255, 0.12) !important; color: #FFFFFF !important;
 }
 @media (max-width: 820px) { .nav-dropdown { display: none; } }
+
+/* PRICING_TEXT_LINK (CTA_ORDER_LOCK s2; Diana r3 gate, Oct 2): the Pricing text link
+   uses the exact color, weight, size and line-height of the Solutions button beside
+   it on every page, homepage included (no brighter state, no rail text-shadow).
+   Hover still goes white, like Solutions. */
+nav ul.nav-links li > a[href="/pricing.html"] {
+  color: var(--muted, rgba(255, 255, 255, 0.86)) !important;
+  font-family: 'Barlow', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.3px !important;
+  line-height: normal !important;
+  text-shadow: none !important;
+}
+/* Mindy QA 10/02: an inline-block in the 29.7px line box sat 5.3px below Solutions and
+   the Fit Call button. As a block the li shrinks to the 19px link, and the ul's
+   align-items:center puts it on the same center line. Desktop bar only; the mobile
+   menu is its own list. The link stays 19px tall so the tcs-chars roll layer stays hidden. */
+@media (min-width: 821px) {
+  nav ul.nav-links li > a[href="/pricing.html"] { display: block !important; vertical-align: middle !important; }
+}

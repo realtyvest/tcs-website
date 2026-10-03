@@ -14,7 +14,10 @@
     { href: '/map-to-invoice.html', label: 'Map to Invoice' },
     { href: '/drop-buries.html', label: 'Drop Buries' }
   ];
+  /* PRICING_TEXT_LINK (Gil lock Oct 2 10:34 PM CT, CTA_ORDER_LOCK s2): Pricing is a
+     plain text link, first in the menu's Company list, never in the button slot. */
   var COMPANY = [
+    { href: '/pricing.html', label: 'Pricing' },
     { href: '/#how', label: 'How it works' },
     { href: '/#resources', label: 'Resources' },
     { href: '/about.html', label: 'About' },
@@ -647,6 +650,8 @@
       html += '<li><a href="' + MODULES[i].href + '">' + MODULES[i].label + '</a></li>';
     }
     html += '</ul></li>';
+    /* PRICING_TEXT_LINK: plain text link after Solutions, before the Fit Call button. */
+    html += '<li><a href="/pricing.html">Pricing</a></li>';
     ul.innerHTML = html;
     if (!cta) {
       cta = document.createElement('a');
