@@ -1,5 +1,5 @@
 /* EXPLAINER_CLIPS: play each clip only while it is on screen, muted and
-   looping; the feature cut gets a sound toggle. Reduced motion and Save-Data
+   looping. Reduced motion and Save-Data
    users see the poster only. */
 (function () {
   "use strict";
@@ -24,17 +24,5 @@
   }
   document.addEventListener("visibilitychange", function () {
     if (document.hidden) clips.forEach(function (v) { if (!v.paused) v.pause(); });
-  });
-  // Sound toggle on the feature cut only.
-  Array.prototype.forEach.call(document.querySelectorAll(".xc-feature"), function (fig) {
-    var v = fig.querySelector("video"); if (!v) return;
-    var b = document.createElement("button");
-    b.type = "button"; b.className = "xc-sound"; b.setAttribute("aria-pressed", "false"); b.textContent = "Sound on";
-    b.addEventListener("click", function () {
-      var on = v.muted;
-      v.muted = !on; b.setAttribute("aria-pressed", on ? "true" : "false"); b.textContent = on ? "Sound off" : "Sound on";
-      if (on) { v.currentTime = 0; tryPlay(v); }
-    });
-    (fig.querySelector(".xc-media") || fig).appendChild(b);
   });
 })();
