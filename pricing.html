@@ -111,6 +111,21 @@ if(document.readyState==='complete')later();else window.addEventListener('load',
       },
       {
         "@type": "Offer",
+        "name": "Map Annotator",
+        "description": "Just need maps marked and tallied? Map Annotator is $299/mo for 25 construction projects a month, plus a one-time setup fee.",
+        "price": "299",
+        "priceCurrency": "USD",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "299",
+          "priceCurrency": "USD",
+          "unitText": "MONTH",
+          "billingDuration": "P1M"
+        },
+        "url": "https://telecomcontractorsolutions.com/pricing.html"
+      },
+      {
+        "@type": "Offer",
         "name": "Prime",
         "description": "For primes working with many sub companies each month. Custom Pricing.",
         "url": "https://telecomcontractorsolutions.com/pricing.html"
@@ -516,6 +531,8 @@ if(document.readyState==='complete')later();else window.addEventListener('load',
         .pricing-section, .pricing-close-wrap { --pp-gap: 1.75rem; } /* r3: one gap: Prime card -> lines == terms block -> closing CTA (PPL s4, LOWER_BAND_SPACING_LOCK) */
         .pricing-lines { max-width: 960px; margin: var(--pp-gap) auto 0; text-align: center; }
         .pricing-lines p { font-size: 1.1rem; margin-bottom: 0.35rem; }
+        .pricing-lines .text-link { color: #2A8EFF; text-decoration: underline; text-underline-offset: 3px; display: inline-block; padding: 12px 0; margin: -12px 0; } /* L-17: text link, not a button; 44px+ tap box without moving the line */
+        .pricing-lines .text-link:hover { color: #FFFFFF; }
         .pricing-lines .impl-line { font-family: 'Barlow Condensed', sans-serif; font-size: 1.4rem; font-weight: 700; color: #FFFFFF; }
         /* Filled primary: same token as the nav and footer Fit Call buttons (#1F63D6, HIG_AUDIT_V39, 5.51:1 with white). */
         .fitcall-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0.8rem 2rem; border-radius: 4px; background: #1F63D6; color: #FFFFFF; font-weight: 700; font-size: 1.05rem; text-decoration: none; }
@@ -629,12 +646,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="pricing-lines">
             <p class="impl-line">Implementation starting at $1,999</p>
             <p>Need both drops and construction? Ask about mixed plans.</p>
+            <!-- L-17 (POST-FREEZE CHANGE to v1.0; Gil LOCK 10:58 PM CT, Larry's wording, Gil OK 11:00 PM CT): text line, no card, no button, no app link. The only figures shown are $299/mo and 25 projects. -->
+            <p class="ma-line">Just need maps marked and tallied? Map Annotator is $299/mo for 25 construction projects a month, plus a one-time setup fee. Ask about it on your <a class="text-link" href="/fit-call">Fit Call</a>.</p>
         </div>
 
-        <!-- 5. PRICING_TERMS_BLOCK (Legal Larry, rollout-v1-freeze-rulings-0930 section (b)): aside verbatim from /workspace/seo/qa/faq-legal-0930/pricing-terms-block.html (its style block is verbatim in <head>), under the cards, before any FAQ. -->
+        <!-- 5. PRICING_TERMS_BLOCK (Legal Larry): aside markup and style from /workspace/seo/qa/faq-legal-0930/pricing-terms-block.html; body text replaced word for word with Larry's L-17 version (Gil OK Oct 2 11:00 PM CT). Under the cards, before any FAQ. -->
 <aside class="tcs-pricing-terms" aria-label="Plan terms">
   <p class="tcs-pt-k">Terms</p>
-  <p class="tcs-pt-body">Drop Production and Map-to-Cash are month-to-month. Cancel with 30 days' written notice; you keep access through the paid period, and there are no prorated refunds. Full Production Operations, Construction Financial Control and Prime are 12-month terms that renew automatically for 12 months unless you give 60 days' notice before renewal. Autopay is required. Implementation is billed separately. Your full terms are in your Order Form.</p>
+  <p class="tcs-pt-body">Drop Production, Map-to-Cash and Map Annotator are month-to-month. Cancel with 30 days' written notice; you keep access through the paid period, and there are no prorated refunds. Full Production Operations, Construction Financial Control and Prime are 12-month terms that renew automatically for 12 months unless you give 60 days' notice before renewal. Autopay is required. Implementation and setup fees, and usage over included amounts, are billed separately. Your full terms are in your Order Form.</p>
 </aside>
     </section>
 
