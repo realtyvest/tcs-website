@@ -758,29 +758,51 @@ if(document.readyState==='complete')later();else window.addEventListener('load',
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Gil Ramirez",
-    "image": "https://telecomcontractorsolutions.com/assets/gil-headshot.jpg",
-    "jobTitle": "Founder",
-    "worksFor": {
-      "@type": "Organization",
-      "name": "Telecom Contractor Solutions",
-      "url": "https://telecomcontractorsolutions.com/"
-    },
-    "url": "https://telecomcontractorsolutions.com/about.html",
-    "knowsAbout": [
-      "telecom contractor operations",
-      "field operations",
-      "job costing",
-      "billing and collections",
-      "aerial and underground infrastructure"
-    ],
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Houston",
-      "addressRegion": "TX",
-      "addressCountry": "US"
-    }
+    "@graph": [
+      {
+        "@type": "ProfilePage",
+        "@id": "https://telecomcontractorsolutions.com/about.html#webpage",
+        "url": "https://telecomcontractorsolutions.com/about.html",
+        "name": "About Gil Ramirez | Telecom Contractor Solutions",
+        "isPartOf": {
+          "@id": "https://telecomcontractorsolutions.com/#website"
+        },
+        "mainEntity": {
+          "@id": "https://telecomcontractorsolutions.com/about.html#gil-ramirez"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://telecomcontractorsolutions.com/about.html#gil-ramirez",
+        "name": "Gil Ramirez",
+        "url": "https://telecomcontractorsolutions.com/about.html",
+        "image": "https://telecomcontractorsolutions.com/assets/gil-headshot.jpg",
+        "jobTitle": "Founder",
+        "description": "Gil Ramirez founded Telecom Contractor Solutions in Houston. He works inside the back office of fiber and low voltage contractors running 10 to 100 field techs, on the billing, the job costing, and the cash flow that follows both.",
+        "worksFor": {
+          "@type": "Organization",
+          "@id": "https://telecomcontractorsolutions.com/#organization",
+          "name": "Telecom Contractor Solutions",
+          "url": "https://telecomcontractorsolutions.com/"
+        },
+        "sameAs": [
+          "https://www.linkedin.com/in/gilbertoramirezjr/"
+        ],
+        "knowsAbout": [
+          "telecom contractor operations",
+          "field operations",
+          "job costing",
+          "billing and collections",
+          "aerial and underground infrastructure"
+        ],
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Houston",
+          "addressRegion": "TX",
+          "addressCountry": "US"
+        }
+      }
+    ]
   }
   </script>
 <link rel="stylesheet" href="/assets/tcs-nav.css?v=menu30">
