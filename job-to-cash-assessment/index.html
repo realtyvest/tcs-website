@@ -122,6 +122,7 @@ if(document.readyState==='complete')later();else window.addEventListener('load',
     font-family: var(--font-display); font-size: clamp(36px, 6vw, 48px);
     line-height: 1.05; font-weight: 800; margin: 0 0 16px;
   }
+  .page.ja-started h1 { margin-bottom: 24px; }
 
   .sub { color: var(--text-light); font-size: 18px; line-height: 1.55; max-width: 640px; margin-bottom: 14px; }
   .helper { color: var(--muted); font-size: 15px; line-height: 1.5; max-width: 640px; margin-bottom: 28px; }
@@ -478,7 +479,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
           </div>
           <!-- Data-use notice next to submit, exactly as Larry worded it (Oct 4, item b; replaces 21.3 line 9). -->
-          <p class="ja-notice" id="ja-notice">We use your answers and contact details to prepare for a Fit Call and to follow up with you about TCS. We don't sell your information. See our <a href="/privacy.html">Privacy Policy</a>.</p>
+          <p class="ja-notice" id="ja-notice">We use your answers and contact details to prepare for a Fit Call and to follow up with you about TCS. We don't sell your information. See our <a href="/privacy/">Privacy Policy</a>.</p>
           <p class="ja-error" role="alert" id="ja-submit-error"></p>
           <div class="ja-nav"><button type="button" class="ja-btn ja-btn-secondary" data-action="back">Back</button><button type="submit" class="ja-btn" id="ja-submit">See my results</button></div>
         </section>
@@ -956,7 +957,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     results = document.getElementById('ja-results');
     progress = document.getElementById('ja-progress');
     var introLines = [document.getElementById('ja-lede'), document.getElementById('ja-helper')];
-    function setIntroLines(on) { for (var i = 0; i < introLines.length; i++) introLines[i].hidden = !on; }
+    var pageEl = document.querySelector('main .page');
+    function setIntroLines(on) { for (var i = 0; i < introLines.length; i++) introLines[i].hidden = !on; pageEl.classList.toggle('ja-started', !on); }
     app.hidden = false;
 
     document.getElementById('ja-start').addEventListener('click', function () {
