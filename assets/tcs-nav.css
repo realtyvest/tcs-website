@@ -405,7 +405,9 @@ a.tcs-chars:focus-visible span,
   inset: 0;
   z-index: -1;
   border-radius: inherit;
-  background: var(--tcs-sweep, rgba(255, 255, 255, 0.16));
+  /* SWEEP_AA (Diana 10/04): 4% white is the ceiling that keeps the painted
+     hover on #1a6fd0 at or above 4.5:1 with white text (16% was 3.75:1). */
+  background: var(--tcs-sweep, rgba(255, 255, 255, 0.04));
   transform: translateX(-102%);
   opacity: 0; /* never visible at rest, even if a page's own rules defeat the clip */
   transition: transform var(--tcs-dur-mid) var(--tcs-ease-inout), opacity var(--tcs-dur-quick) ease;
