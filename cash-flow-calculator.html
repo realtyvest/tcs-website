@@ -48,7 +48,7 @@ if(document.readyState==='complete')later();else window.addEventListener('load',
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
   {"@type":"Question","name":"Does invoicing faster lower the factoring fee on an invoice?","acceptedAnswer":{"@type":"Answer","text":"No. The factor's fee runs per invoice, on its face, from the day it buys the invoice until the customer pays, and that clock is set by the customer's terms. Invoicing faster frees up the cash your office lag was tying up, and that cash replaces part of the invoice face you were running through the factor. The calculator prices the whole factored book and the part that stops."}},
-  {"@type":"Question","name":"Why is the office lag the number to focus on?","acceptedAnswer":{"@type":"Answer","text":"Payment terms belong to the ISP or prime and rarely move. The days between the crew finishing and the invoice going out belong to you. On net 45 terms, two weeks of office lag adds about a third to the wait, and it is the only part of the cycle you can shorten without a negotiation."}},
+  {"@type":"Question","name":"Why is the office lag the number to focus on?","acceptedAnswer":{"@type":"Answer","text":"Payment terms belong to the ISP or prime and often don't move. The days between the crew finishing and the invoice going out belong to you. On net 45 terms, two weeks of office lag adds about a third to the wait, and it is the part of the cycle you can shorten without a negotiation."}},
   {"@type":"Question","name":"Is the cash flow calculator financial advice or a factoring offer?","acceptedAnswer":{"@type":"Answer","text":"Neither. The calculator is arithmetic on the numbers you enter, under the assumptions it states. Factoring contracts vary in how fees accrue, in minimums, and in reserves. Your factor's agreement governs. Use the result to decide what to look at, not as a projection of savings."}}
 ]}
 </script>
@@ -423,6 +423,7 @@ if(document.readyState==='complete')later();else window.addEventListener('load',
     color: var(--muted);
   }
   .compare-head .is-target { color: var(--electric); }
+  .compare-head .head-note { display: block; margin-top: 3px; font-family: var(--font-body); font-size: 11.5px; font-weight: 500; letter-spacing: 0; text-transform: none; line-height: 1.3; color: var(--muted); }
   .compare-row {
     display: grid;
     grid-template-columns: 1.5fr 1fr 1fr;
@@ -620,7 +621,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="calc-hero">
   <p class="eyebrow">Cash flow calculator</p>
   <h1>How long does your cash wait, and what does bridging it cost?</h1>
-  <p>You are already waiting 30 to 60 days for the ISP to pay. This tool shows what the days before the invoice goes out add on top, and what it costs if you factor to cover them. Your numbers, stated assumptions, no advice.</p>
+  <p>If your ISP or prime pays on 30 to 60 day terms, you are already waiting that long. This tool shows what the days before the invoice goes out add on top, and what it costs if you factor to cover them. Your numbers, stated assumptions, no advice.</p>
 </section>
 
 <section class="calculator-section">
@@ -706,7 +707,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <input type="range" id="share" min="10" max="100" step="5" value="100" aria-describedby="share-help">
           <div class="input-value" id="share-value">100%</div>
         </div>
-        <p class="input-help" id="share-help">Many contractors who factor run every ISP invoice through the factor. Lower it if only some customers are factored.</p>
+        <p class="input-help" id="share-help">Set this to the share of your invoices you run through the factor. Lower it if only some customers are factored.</p>
       </div>
 
       <div class="input-group factor-group">
@@ -715,7 +716,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <input type="range" id="fee" min="0.5" max="8" step="0.25" value="5" aria-describedby="fee-help">
           <div class="input-value" id="fee-value">5%</div>
         </div>
-        <p class="input-help" id="fee-help">On the invoice face value. Check your agreement; many factors bill in 10 or 15 day steps.</p>
+        <p class="input-help" id="fee-help">On the invoice face value. Check your agreement; some factors bill in 10 or 15 day steps.</p>
       </div>
 
       <div class="input-group factor-group">
@@ -735,7 +736,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="compare-head">
           <span>Line</span>
           <span style="text-align:right;">Today</span>
-          <span class="is-target" style="text-align:right;">Invoice 1 day after work</span>
+          <span class="is-target" style="text-align:right;">Invoice 1 day after work<small class="head-note">A what-if on your own numbers, not a TCS result.</small></span>
         </div>
         <div class="compare-row">
           <div class="k">Days from work done to cash<small>office lag + terms + late days</small></div>
@@ -840,14 +841,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <li>Whether progressive billing on construction work is possible under your contracts and not being used.</li>
     <li>How much of your factoring volume exists to cover the office lag rather than the customer's terms.</li>
   </ol>
-  <p>None of that is a package. The <a href="/#how">Operations Audit</a> maps the lag on your real jobs and hands you the roadmap, and you keep it either way.</p>
+  <p>None of that is a package. The <a href="/#how">Operations Audit</a> is a paid engagement: it maps the lag on your real jobs and hands you the roadmap, and you keep the roadmap either way.</p>
 
   <h2>Questions contractors ask</h2>
   <dl class="faq">
     <dt>Does invoicing faster lower the factoring fee on an invoice?</dt>
     <dd>No. The factor's fee runs per invoice, on its face, from the day it buys the invoice until the customer pays, and that clock is set by the customer's terms. Invoicing faster frees up the cash your office lag was tying up, and that cash replaces part of the invoice face you were running through the factor. The calculator prices the whole factored book and the part that stops.</dd>
     <dt>Why is the office lag the number to focus on?</dt>
-    <dd>Payment terms belong to the ISP or prime and rarely move. The days between the crew finishing and the invoice going out belong to you. On net 45 terms, two weeks of office lag adds about a third to the wait, and it is the only part of the cycle you can shorten without a negotiation.</dd>
+    <dd>Payment terms belong to the ISP or prime and often don't move. The days between the crew finishing and the invoice going out belong to you. On net 45 terms, two weeks of office lag adds about a third to the wait, and it is the part of the cycle you can shorten without a negotiation.</dd>
     <dt>Is the cash flow calculator financial advice or a factoring offer?</dt>
     <dd>Neither. The calculator is arithmetic on the numbers you enter, under the assumptions it states. Factoring contracts vary in how fees accrue, in minimums, and in reserves. Your factor's agreement governs. Use the result to decide what to look at, not as a projection of savings.</dd>
   </dl>
