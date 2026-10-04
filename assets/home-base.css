@@ -167,6 +167,7 @@
     height: 2px;
     background: var(--white);
     border-radius: 2px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
   }
 
   /* Gil LOCK · full-viewport hamburger dashboard (OTP feel, TCS tokens) */
@@ -400,6 +401,15 @@
     overflow: hidden;
     touch-action: none;
   }
+
+  /* MENU_BAR_OVER_OVERLAY (sweep 2026-10-03): with the menu open, keep the bar
+     (logo + burger) above the overlay and draw the burger as an X, the same
+     as the inner-page bar. */
+  body.menu-open nav[aria-label="Main navigation"] { z-index: 1000; }
+  body.menu-open .nav-hamburger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  body.menu-open .nav-hamburger span:nth-child(2) { opacity: 0; }
+  body.menu-open .nav-hamburger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  body.menu-open .mobile-menu-nav { padding-top: 16px; }
 
   /* Sticky Book a Fit Call (OTP chrome pack §2) */
   .sticky-fit-call {

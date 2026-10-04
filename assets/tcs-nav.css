@@ -322,6 +322,17 @@ body.tcs-menu-open {
   .tcs-nav-root.tcs-nav-open .tcs-nav-toggle span:nth-child(3) {
     transform: translateY(-7px) rotate(-45deg);
   }
+
+  /* MENU_BAR_OVER_OVERLAY (sweep 2026-10-03): blog posts keep their own nav
+     (z-index 100), so the open overlay (z-index 200) hid the logo and the X.
+     Lift the open nav above it, as nav.tcs-bar already is on inner pages. */
+  nav.tcs-nav-root.tcs-nav-open {
+    z-index: 1000 !important;
+  }
+  /* The post nav is 83px tall (the bar is 64px): start the menu links below it. */
+  body:has(nav.tcs-nav-root.tcs-nav-open:not(.tcs-bar)) .tcs-mobile-menu-nav {
+    padding-top: 35px !important;
+  }
 }
 
 /* CHAR_SLIDE_LOCK: hover slides each character up; the text-shadow copy
