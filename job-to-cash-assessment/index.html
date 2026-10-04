@@ -282,7 +282,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <legend class="ja-q" id="q1-legend">Can you see every active job's stage, responsible person, and next action?</legend>
             <div class="ja-options">
               <label class="ja-option"><input type="radio" name="q1" value="Yes, easily"> <span>Yes, easily</span></label>
-              <label class="ja-option"><input type="radio" name="q1" value="Only with a spreadsheet rebuild"> <span>Only with a spreadsheet rebuild</span></label>
+              <label class="ja-option"><input type="radio" name="q1" value="Only with a spreadsheet"> <span>Only with a spreadsheet</span></label>
               <label class="ja-option"><input type="radio" name="q1" value="No"> <span>No</span></label>
             </div>
           </fieldset>
@@ -296,7 +296,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <legend class="ja-q" id="q2-legend">Can you compare labor hours and installed quantities with the budget by crew?</legend>
             <div class="ja-options">
               <label class="ja-option"><input type="radio" name="q2" value="Yes, easily"> <span>Yes, easily</span></label>
-              <label class="ja-option"><input type="radio" name="q2" value="Only with a spreadsheet rebuild"> <span>Only with a spreadsheet rebuild</span></label>
+              <label class="ja-option"><input type="radio" name="q2" value="Only with a spreadsheet"> <span>Only with a spreadsheet</span></label>
               <label class="ja-option"><input type="radio" name="q2" value="No"> <span>No</span></label>
             </div>
           </fieldset>
@@ -310,7 +310,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <legend class="ja-q" id="q3-legend">Can you identify every completed but unbilled job today?</legend>
             <div class="ja-options">
               <label class="ja-option"><input type="radio" name="q3" value="Yes, easily"> <span>Yes, easily</span></label>
-              <label class="ja-option"><input type="radio" name="q3" value="Only with a spreadsheet rebuild"> <span>Only with a spreadsheet rebuild</span></label>
+              <label class="ja-option"><input type="radio" name="q3" value="Only with a spreadsheet"> <span>Only with a spreadsheet</span></label>
               <label class="ja-option"><input type="radio" name="q3" value="No"> <span>No</span></label>
             </div>
           </fieldset>
@@ -507,7 +507,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   var FORM_TYPE = 'job_to_cash_assessment';
   var SCHEMA_VERSION = '2026-10-04';
 
-  var SCALE = { 'Yes, easily': 0, 'Only with a spreadsheet rebuild': 1, 'No': 2 };
+  /* Q1 to Q3 use the locked scoring-line wording (runbook l.598, Gary ruling 1);
+     Q4 keeps "spreadsheet rebuild"; Q6 routing keeps "spreadsheet or group text". */
+  var SCALE_Q13 = { 'Yes, easily': 0, 'Only with a spreadsheet': 1, 'No': 2 };
+  var SCALE_Q4 = { 'Yes, easily': 0, 'Only with a spreadsheet rebuild': 1, 'No': 2 };
   var ROUTING = { 'Yes, easily': 0, 'Only with a spreadsheet or group text': 1, 'No': 2 };
   var Q7 = {
     "No, we don't need that": { pts: 0, need: 'No' },
@@ -548,7 +551,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   /* Pure scoring and routing. a = answer object using payload keys. */
   function evaluate(a) {
-    var q1 = SCALE[a.q1], q2 = SCALE[a.q2], q3 = SCALE[a.q3], q4 = SCALE[a.q4];
+    var q1 = SCALE_Q13[a.q1], q2 = SCALE_Q13[a.q2], q3 = SCALE_Q13[a.q3], q4 = SCALE_Q4[a.q4];
     var r = ROUTING[a.q6_routing];
     var q7 = Q7[a.q7];
     var dti = DTI[a.q_dti];
@@ -588,9 +591,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       else n = 12;
     } else n = 12;
 
-    /* Internal CRM flags, in Gary's key order. Never shown on screen. */
+    /* Internal CRM flags: route flags first (Gary's list order, with
+       m2c_upgrade_path from build ruling 3), dti_unknown last. Never shown. */
     var flags = [];
     if (n === 5 && q4 >= 1) flags.push('map_annotator_attach');
+    if (n === 6) flags.push('m2c_upgrade_path');
     if ((n === 8 || n === 10) && r >= 1) flags.push('routing_addon');
     if (n === 4) flags.push('consulting_first');
     if (n === 12) flags.push('job_control_review');
@@ -606,7 +611,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   var STEPS = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q_dti', 'contact'];
   var PROGRESS_TEXT = ['Just started', 'Just started', 'Getting going', 'Getting going', 'Partway', 'Partway', 'Over halfway', 'Over halfway', 'Nearly done', 'Last step'];
 
-  var app, form, intro, results, progress, current = -1;
+  var app, form, intro, results, progress, current = -1, lastRoute = null;
+
+  /* GTM events (Gary build ruling 4). These five names are the only events this
+     page pushes. Params are limited to the ones listed: never the pain score,
+     answers, flags or contact fields. */
+  function track(name, params) {
+    window.dataLayer = window.dataLayer || [];
+    var entry = { event: name };
+    var allowed = { step_id: 1, route_number: 1, route_name: 1, http_status: 1 };
+    params = params || {};
+    for (var k in params) {
+      if (Object.prototype.hasOwnProperty.call(params, k) && allowed[k]) entry[k] = params[k];
+    }
+    window.dataLayer.push(entry);
+  }
 
   function stepEl(i) { return form.querySelector('.ja-step[data-step="' + STEPS[i] + '"]'); }
   function radioValue(name) {
@@ -623,6 +642,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     progress.firstElementChild.style.width = pct + '%';
     var el = stepEl(i);
     clearError(el);
+    track('assessment_step', { step_id: STEPS[i] });
     el.focus({ preventScroll: true });
     if (form.getBoundingClientRect().top < 80) form.scrollIntoView({ block: 'start' });
   }
@@ -736,13 +756,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     };
   }
 
-  /* Same attribution read as /fit-call: the shared TCSAttribution store first,
-     then the URL. */
+  /* Same attribution read as /fit-call (getLeadContext): the shared
+     TCSAttribution store first, then the URL; referrer from the store only. */
   function attribution() {
     var params = new URLSearchParams(window.location.search);
     var stored = window.TCSAttribution ? window.TCSAttribution.get() : {};
     function pick(k) { return stored[k] || params.get(k) || ''; }
-    return { utm_source: pick('utm_source'), utm_medium: pick('utm_medium'), utm_campaign: pick('utm_campaign'), utm_content: pick('utm_content') };
+    return {
+      utm_source: pick('utm_source'), utm_medium: pick('utm_medium'), utm_campaign: pick('utm_campaign'), utm_content: pick('utm_content'),
+      utm_term: pick('utm_term'), gclid: pick('gclid'),
+      referrer: stored.referrer || ''
+    };
   }
 
   function isRendered(el) {
@@ -777,7 +801,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       internal_flags: e.internal_flags,
       notice_shown: isRendered(document.getElementById('ja-notice')),
       page_url: window.location.href.split('#')[0],
-      utm_source: utm.utm_source, utm_medium: utm.utm_medium, utm_campaign: utm.utm_campaign, utm_content: utm.utm_content
+      utm_source: utm.utm_source, utm_medium: utm.utm_medium, utm_campaign: utm.utm_campaign, utm_content: utm.utm_content,
+      utm_term: utm.utm_term, gclid: utm.gclid, referrer: utm.referrer
     };
   }
 
@@ -798,10 +823,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       signal: ctrl ? ctrl.signal : undefined
     }).then(function (res) {
       if (timer) clearTimeout(timer);
-      if (!res.ok) throw new Error('Assessment webhook returned HTTP ' + res.status);
+      if (!res.ok) { var bad = new Error('Assessment webhook returned HTTP ' + res.status); bad.httpStatus = res.status; throw bad; }
       return { sent: true };
     }, function (err) {
       if (timer) clearTimeout(timer);
+      err.httpStatus = 0;
       throw err;
     });
   }
@@ -825,13 +851,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     var payload = buildPayload();
     btn.disabled = true;
     btn.textContent = 'Sending...';
-    send(payload).then(function () {
+    send(payload).then(function (outcome) {
       var n = payload.route_number;
+      lastRoute = { route_number: n, route_name: payload.route_name };
+      /* Only a real, accepted POST counts as a submit. With no webhook set,
+         nothing is sent, so nothing is reported. */
+      if (outcome.sent) track('assessment_submit', lastRoute);
       payload = null;
       form.reset();
       syncQ5();
       showResults(n);
-    }).catch(function () {
+    }).catch(function (err) {
+      track('assessment_submit_error', { http_status: (err && typeof err.httpStatus === 'number') ? err.httpStatus : 0 });
       btn.disabled = false;
       btn.textContent = 'See my results';
       var box = document.getElementById('ja-submit-error');
@@ -856,9 +887,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     app.hidden = false;
 
     document.getElementById('ja-start').addEventListener('click', function () {
+      track('assessment_start');
       intro.hidden = true;
       form.hidden = false;
       show(0);
+    });
+
+    document.getElementById('ja-result-cta').addEventListener('click', function () {
+      if (lastRoute) track('assessment_fit_call_click', lastRoute);
     });
 
     form.addEventListener('click', function (ev) {
