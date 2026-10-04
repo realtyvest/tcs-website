@@ -18,6 +18,8 @@ RewriteRule ^crew-management\.html$ /map-to-invoice.html [R=301,L]
 RewriteRule ^crew-management/?$ /map-to-invoice.html [R=301,L]
 RewriteRule ^slack-integration\.html$ /map-to-invoice.html [R=301,L]
 RewriteRule ^slack-integration/?$ /map-to-invoice.html [R=301,L]
+RewriteRule ^job-costing\.html$ /map-to-invoice.html [R=301,L]
+RewriteRule ^job-costing/?$ /map-to-invoice.html [R=301,L]
 
 ErrorDocument 404 /404.html
 

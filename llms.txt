@@ -25,7 +25,6 @@ TCS is for contractors who install fiber, cable, or aerial infrastructure for IS
 - [Pre-Bore Documentation](https://telecomcontractorsolutions.com/pre-bore-documentation.html): What directional boring crews should document before every bore starts.
 - [Tracking Telecom RFPs and Bids](https://telecomcontractorsolutions.com/rfp-tracker.html): Where telecom RFPs come from, what to log for each one, and how to check authorized quantities before you invoice.
 - [Why Telecom Contractors Bill Late](https://telecomcontractorsolutions.com/why-telecom-subs-bill-late.html): Why scattered closeout documents delay the invoice, and how to move billing to job close.
-- [Job Costing](https://telecomcontractorsolutions.com/job-costing.html): Why job costing for telecom crews starts with clean production data tallied by rate code.
 - [Job Costing for a 30-Tech Telecom Crew](https://telecomcontractorsolutions.com/job-costing-telecom-crews.html): A worked example of what job costing looks like for a telecom crew.
 - [Why Field Crews Resist New Systems](https://telecomcontractorsolutions.com/why-crews-resist-new-systems.html): Why crews push back on new field systems, and what helps adoption.
 - [Generic FSM vs Telecom-Specific Tools](https://telecomcontractorsolutions.com/custom-ops-vs-enterprise-fsm.html): How generic field service software compares with tools built around rate codes, marked maps, and quantities.
