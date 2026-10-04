@@ -47,7 +47,7 @@ if(document.readyState==='complete')later();else window.addEventListener('load',
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-  {"@type":"Question","name":"Does invoicing faster lower the factoring fee on an invoice?","acceptedAnswer":{"@type":"Answer","text":"No. The factor's fee runs per invoice, on its face, from the day it buys the invoice until the customer pays, and that clock is set by the customer's terms. Invoicing faster releases the cash your office lag was tying up, and that cash replaces part of the invoice face you were running through the factor. The calculator prices the whole factored book and the part that stops."}},
+  {"@type":"Question","name":"Does invoicing faster lower the factoring fee on an invoice?","acceptedAnswer":{"@type":"Answer","text":"No. The factor's fee runs per invoice, on its face, from the day it buys the invoice until the customer pays, and that clock is set by the customer's terms. Invoicing faster frees up the cash your office lag was tying up, and that cash replaces part of the invoice face you were running through the factor. The calculator prices the whole factored book and the part that stops."}},
   {"@type":"Question","name":"Why is the office lag the number to focus on?","acceptedAnswer":{"@type":"Answer","text":"Payment terms belong to the ISP or prime and rarely move. The days between the crew finishing and the invoice going out belong to you. On net 45 terms, two weeks of office lag adds about a third to the wait, and it is the only part of the cycle you can shorten without a negotiation."}},
   {"@type":"Question","name":"Is the cash flow calculator financial advice or a factoring offer?","acceptedAnswer":{"@type":"Answer","text":"Neither. The calculator is arithmetic on the numbers you enter, under the assumptions it states. Factoring contracts vary in how fees accrue, in minimums, and in reserves. Your factor's agreement governs. Use the result to decide what to look at, not as a projection of savings."}}
 ]}
@@ -626,7 +626,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="calculator-section">
   <div class="live-strip" id="live-strip" aria-live="polite">
     <div><span class="ls-k">Work to cash</span><span class="ls-v"><span id="ls-days-now">69</span> <span class="to">&rarr; <span id="ls-days-target">56</span></span> d</span></div>
-    <div><span class="ls-k">Cash released</span><span class="ls-v is-orange" id="ls-release">$173,333</span></div>
+    <div><span class="ls-k">Office-lag cash</span><span class="ls-v is-orange" id="ls-lagcash">$173,333</span></div>
     <div class="ls-fee"><span class="ls-k">Fee stopped / yr</span><span class="ls-v is-orange" id="ls-fee">$130,000</span></div>
   </div>
   <div class="calculator-container">
@@ -735,7 +735,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="compare-head">
           <span>Line</span>
           <span style="text-align:right;">Today</span>
-          <span class="is-target" style="text-align:right;">Invoice on day one</span>
+          <span class="is-target" style="text-align:right;">Invoice 1 day after work</span>
         </div>
         <div class="compare-row">
           <div class="k">Days from work done to cash<small>office lag + terms + late days</small></div>
@@ -780,13 +780,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <h3>From your balances today, <span id="chart-days">3</span> months out</h3>
           <ul class="cash-chart-legend" aria-hidden="true">
             <li><i class="sw sw-now"></i>Bank, today's lag</li>
-            <li><i class="sw sw-target"></i>Bank, invoice on day one</li>
+            <li><i class="sw sw-target"></i>Bank, invoice 1 day after work</li>
             <li><i class="sw sw-now sw-dash"></i>Receivable, today's lag</li>
-            <li><i class="sw sw-target sw-dash"></i>Receivable, day one</li>
+            <li><i class="sw sw-target sw-dash"></i>Receivable, invoice 1 day after work</li>
           </ul>
         </div>
-        <canvas id="cash-chart" width="600" height="220" role="img" aria-label="Bank balance and receivable over seven months from your balances today, with today's lag and with the invoice going out on day one"></canvas>
-        <p class="cash-chart-note" id="chart-caption">Starting from your balances, the two bank lines separate by the cash released. That gap is available for the bottom line.</p>
+        <canvas id="cash-chart" width="600" height="220" role="img" aria-label="Bank balance and receivable over seven months from your balances today, with today's lag and with the invoice going out one day after the work"></canvas>
+        <p class="cash-chart-note" id="chart-caption">Starting from your balances, the two bank lines separate by the office-lag cash. That gap is available for the bottom line.</p>
       </div>
       <div class="kpi-cards" id="cash-kpis">
       <div class="headline-card is-bottom-line" id="bottom-line-card">
@@ -795,9 +795,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p id="r-bottom-line-note">The gap between the two bank lines on the chart.</p>
         <div class="kpi-sub">
           <div>
-            <span class="k">Released from the wait, once</span>
-            <span class="v" id="r-release">$173,333</span>
-            <span class="s"><b id="r-release-days">13</b> days of billings out of the office</span>
+            <span class="k">Office-lag cash, once</span>
+            <span class="v" id="r-lagcash">$173,333</span>
+            <span class="s"><b id="r-lagcash-days">13</b> days of billings out of the office</span>
           </div>
           <div id="fee-card">
             <span class="k">Factoring fees not paid</span>
@@ -816,8 +816,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <ul>
           <li>Billings are spread evenly across the month, so cash waiting equals monthly billings times days waiting divided by 30.</li>
           <li>The factoring fee is charged per invoice, on its face value, for every 30 days the factor holds it, prorated. Real agreements use tiers, minimums, and 10 or 15 day steps, so treat the fee lines as an order of magnitude.</li>
-          <li>The "Invoice on day one" column changes one thing: the invoice goes out one day after the work is complete. Payment terms, late days, and the factor's rate are unchanged.</li>
-          <li>The factoring lines price your whole factored book: billings times the share you factor, outstanding for the customer's clock. Invoicing on day one releases the office-lag cash once, and that cash replaces factored face worth the release divided by the advance rate. The fee and reserve on that face stop. All factoring lines are zero if you do not factor.</li>
+          <li>The "Invoice 1 day after work" column changes one thing: the invoice goes out one day after the work is complete. Payment terms, late days, and the factor's rate are unchanged.</li>
+          <li>The factoring lines price your whole factored book: billings times the share you factor, outstanding for the customer's clock. Invoicing one day after the work frees up the office-lag cash once, and that cash replaces factored face worth that amount divided by the advance rate. The fee and reserve on that face stop. All factoring lines are zero if you do not factor.</li>
         </ul>
       </div>
   <p class="disclaimer">Not financial advice and not a factoring offer. This is arithmetic on the inputs above. Your factor's agreement and your customer's contract govern the real numbers.</p>
@@ -826,12 +826,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="prose-section">
   <h2>How to read this</h2>
   <p>Two clocks run on every job. The customer's clock starts when the invoice is accepted and runs for the payment terms plus however late they pay. Your clock runs before that, from the day the crew finishes to the day the invoice goes out. The customer's clock is in the contract. Yours is in the office.</p>
-  <p>The first row adds the two. The second turns that wait into money: if you bill a fixed amount every month and each dollar waits a given number of days, that much cash is always outstanding. The third row is the part of it that is waiting on you, not on the customer. The release figure is that slice, minus the one day the target column still allows.</p>
-  <p><strong>Factoring does not shorten either clock.</strong> It rents you the money while the clocks run, and the rent is charged per invoice, on its face, for every 30 days the factor holds it. That is why the yearly fee on a whole book is a large number even at a small rate. Invoicing faster does not make any one factored invoice cheaper. What it does is release the cash the office lag was tying up, and that cash replaces part of what you were renting. The calculator prices the whole book and the part that stops. If you do not factor, leave the box unchecked and the fee lines disappear.</p>
+  <p>The first row adds the two. The second turns that wait into money: if you bill a fixed amount every month and each dollar waits a given number of days, that much cash is always outstanding. The third row is the part of it that is waiting on you, not on the customer. The office-lag cash figure is that slice, minus the one day the target column still allows.</p>
+  <p><strong>Factoring does not shorten either clock.</strong> It rents you the money while the clocks run, and the rent is charged per invoice, on its face, for every 30 days the factor holds it. That is why the yearly fee on a whole book is a large number even at a small rate. Invoicing faster does not make any one factored invoice cheaper. What it does is free up the cash the office lag was tying up, and that cash replaces part of what you were renting. The calculator prices the whole book and the part that stops. If you do not factor, leave the box unchecked and the fee lines disappear.</p>
 
   <h2>The lever you control</h2>
   <p>Terms are the ISP's. Late payment is the ISP's. The office lag is the one number in the row that a contractor can move without a negotiation, and it is usually the one nobody has measured. Ask what date the crew finished the last five jobs, and what date each invoice went out.</p>
-  <p>The lag is rarely one delay. It is a closeout package being assembled from phones and text threads, a printed as-built being tallied by hand, quantities being re-keyed into the invoice, and a review that finds a mismatch and sends it back. The <a href="/fiber-closeout-package-checklist.html">closeout package checklist</a> covers the first, and <a href="/map-to-invoice.html">map to invoice</a> covers the rest: when the marks the crew made are the tally, the invoice is ready the day the marks are complete.</p>
+  <p>The lag is rarely one delay. It is a closeout package being assembled from phones and text threads, a printed as-built being tallied by hand, quantities being re-keyed into the invoice, and a review that finds a mismatch and sends it back. The <a href="/fiber-closeout-package-checklist.html">closeout package checklist</a> covers the first, and <a href="/map-to-invoice.html">map to invoice</a> covers the rest: when the marks the crew made are the tally, the office drafts the invoice from that tally instead of rebuilding the count by hand.</p>
 
   <h2>What we would look at on a Fit Call</h2>
   <ol>
@@ -845,7 +845,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <h2>Questions contractors ask</h2>
   <dl class="faq">
     <dt>Does invoicing faster lower the factoring fee on an invoice?</dt>
-    <dd>No. The factor's fee runs per invoice, on its face, from the day it buys the invoice until the customer pays, and that clock is set by the customer's terms. Invoicing faster releases the cash your office lag was tying up, and that cash replaces part of the invoice face you were running through the factor. The calculator prices the whole factored book and the part that stops.</dd>
+    <dd>No. The factor's fee runs per invoice, on its face, from the day it buys the invoice until the customer pays, and that clock is set by the customer's terms. Invoicing faster frees up the cash your office lag was tying up, and that cash replaces part of the invoice face you were running through the factor. The calculator prices the whole factored book and the part that stops.</dd>
     <dt>Why is the office lag the number to focus on?</dt>
     <dd>Payment terms belong to the ISP or prime and rarely move. The days between the crew finishing and the invoice going out belong to you. On net 45 terms, two weeks of office lag adds about a third to the wait, and it is the only part of the cycle you can shorten without a negotiation.</dd>
     <dt>Is the cash flow calculator financial advice or a factoring offer?</dt>
@@ -856,7 +856,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="cta-section">
   <div class="cta-inner">
     <h2>Where do the days go between the crew and the invoice?</h2>
-    <p>Would it be a bad idea to bring these numbers to a Free 30-minute Fit Call? We will tell you whether an Operations Audit is a fit, and you keep the roadmap either way.</p>
+    <p>Would it be a bad idea to walk through where your office days go on a Free 30-minute Fit Call? We will tell you whether an Operations Audit is a fit, and you keep the roadmap either way.</p>
     <a href="/fit-call" class="btn-primary">Book a Fit Call</a>
   </div>
 </section>
@@ -958,20 +958,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     var floatTarget = perDay * daysTarget;
     var officeNow = perDay * lag;
     var officeTarget = perDay * TARGET_LAG;
-    var releaseDays = Math.max(0, lag - TARGET_LAG);
-    var release = perDay * releaseDays;
+    var lagCashDays = Math.max(0, lag - TARGET_LAG);
+    var lagCash = perDay * lagCashDays;
 
     // CASH_FLOW_FEE_REALITY (Gil, 2026-09-08): factors charge per invoice on
     // its face for every 30 days they hold it, and a shop that factors runs
     // its whole book through the factor. So the fee is priced on the invoice
     // face outstanding at the factor at any time (billings x share x the
-    // customer's clock), not on the office-lag slice alone. Invoicing on day
-    // one releases the office-lag cash once; that cash replaces factored
-    // face worth release / advance rate, and the fee and reserve on that
+    // customer's clock), not on the office-lag slice alone. Invoicing one day
+    // after the work frees up the office-lag cash once; that cash replaces
+    // factored face worth that amount / advance rate, and the fee and reserve on that
     // face stop. The customer's clock itself does not change.
     var custDays = terms + late;
     var faceNow = factoring ? billings * share * custDays / 30 : 0;
-    var faceReplaced = factoring && advance > 0 ? Math.min(faceNow, release / advance) : 0;
+    var faceReplaced = factoring && advance > 0 ? Math.min(faceNow, lagCash / advance) : 0;
     var faceTarget = faceNow - faceReplaced;
     var feeNow = faceNow * fee * 12;
     var feeTarget = faceTarget * fee * 12;
@@ -995,14 +995,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     $("r-share-target").textContent = pct(shareTarget);
     $("r-reserve-now").textContent = money.format(reserveNow);
     $("r-reserve-target").textContent = money.format(reserveTarget);
-    $("r-release").textContent = money.format(release);
-    $("r-release-days").textContent = releaseDays;
+    $("r-lagcash").textContent = money.format(lagCash);
+    $("r-lagcash-days").textContent = lagCashDays;
     $("r-fee-saved").textContent = money.format(Math.max(0, feeNow - feeTarget));
     drawChart({ perDay: perDay, lag: lag, target: TARGET_LAG, cust: custDays, margin: margin, cost: 1 - margin, bank0: +inputs.bank.value, ar0: +inputs.ar.value, feeNowYear: feeNow, feeTargetYear: feeTarget, factoring: factoring });
 
     $("ls-days-now").textContent = daysNow;
     $("ls-days-target").textContent = daysTarget;
-    $("ls-release").textContent = money.format(release);
+    $("ls-lagcash").textContent = money.format(lagCash);
     $("ls-fee").textContent = money.format(Math.max(0, feeNow - feeTarget));
     $("live-strip").classList.toggle("no-factor", !factoring);
 
@@ -1020,19 +1020,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   });
   /* CASH_CHART: bank balance (cash collected minus cost of work done, from a
      standing start) and receivable (work done, not yet paid) over the first
-     months, for today's lag and for invoicing on day one. Same arithmetic as
+     months, for today's lag and for invoicing one day after the work. Same arithmetic as
      the table: a dollar of work is collected lag + customer clock days later. */
   var chartCanvas = $("cash-chart");
   /* CASH_SCENARIO_CHART (Gil, 2026-09-08): start from the bank balance and
      receivable the business actually has today and play the next seven months
-     two ways: with today's office lag, and with the invoice going out on day
-     one. Receivable comes down and cash goes up by the same amount; the gap
+     two ways: with today's office lag, and with the invoice going out one day
+     after the work. Receivable comes down and cash goes up by the same amount; the gap
      between the two bank lines is cash available for the bottom line.
      Arithmetic: work is spread evenly and its cost leaves the bank the day it
      is done. Today's receivable splits into the part already invoiced (paid
      evenly over the customer clock) and the part still in the office (today's
      lag: invoiced over the coming lag days, then paid on the customer clock;
-     day one: invoiced now, paid on the customer clock). New work is paid
+     one-day lag: invoiced now, paid on the customer clock). New work is paid
      lag + customer clock days after it is done. */
   /* TIMELINE_TO_WIDEST_GAP (Gil, 2026-09-08): the chart stops where the gap
      between the two scenarios is at its widest and the story is clearest,
@@ -1048,8 +1048,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     var days = MONTHS * 30, wait = lagUsed + m.cust;
     // FACTOR_IN_CHART (Gil, 2026-09-08): when the shop factors, the yearly
     // fee from the table leaves the bank day by day, at today's rate in the
-    // today's-lag line and at the day-one rate in the day-one line. The gap
-    // between the bank lines is then cash released plus fees not paid.
+    // today's-lag line and at the one-day-lag rate in the one-day-lag line.
+    // The gap between the bank lines is then office-lag cash plus fees not paid.
     var feeDay = (lagUsed === m.lag ? m.feeNowYear : m.feeTargetYear) / 365;
     var invoicedShare = m.cust / (m.lag + m.cust);
     var arInv = m.ar0 * invoicedShare, arUnb = m.ar0 - arInv;
@@ -1119,7 +1119,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     line(tgt.cash, ELECTRIC, [], 2.5);
     var gap = tgt.cash[days] - now.cash[days];
     var feePart = m.factoring ? (m.feeNowYear - m.feeTargetYear) * days / 365 : 0;
-    var releasePart = gap - feePart;
+    var lagCashPart = gap - feePart;
     // GAP_MEASURES (Gil, 2026-09-08): dimension lines that measure the gap
     // between the scenarios where it is widest: bank lines (cash for the
     // bottom line) and receivable lines (receivable brought down).
@@ -1158,8 +1158,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     $("r-fee-saved-7").textContent = money.format(feePart);
     $("r-bottom-line-note").textContent = "The gap between the two bank lines on the chart.";
     var gapText = money.format(gap) + " gap is cash for the bottom line";
-    if (m.factoring && feePart > 0) gapText += ": " + money.format(releasePart) + " released from the wait plus " + money.format(feePart) + " of factoring fees not paid over " + MONTHS + " months";
-    if (cap) cap.textContent = "From " + money.format(m.bank0) + " in the bank and " + money.format(m.ar0) + " receivable: by month " + MONTHS + ", today's lag leaves " + money.format(now.cash[days]) + " in the bank and " + money.format(now.ar[days]) + " receivable. Invoicing on day one brings receivable down to " + money.format(tgt.ar[days]) + " and the bank up to " + money.format(tgt.cash[days]) + ". The " + gapText + ".";
+    if (m.factoring && feePart > 0) gapText += ": " + money.format(lagCashPart) + " of office-lag cash plus " + money.format(feePart) + " of factoring fees not paid over " + MONTHS + " months";
+    if (cap) cap.textContent = "From " + money.format(m.bank0) + " in the bank and " + money.format(m.ar0) + " receivable: by month " + MONTHS + ", today's lag leaves " + money.format(now.cash[days]) + " in the bank and " + money.format(now.ar[days]) + " receivable. Invoicing one day after the work brings receivable down to " + money.format(tgt.ar[days]) + " and the bank up to " + money.format(tgt.cash[days]) + ". The " + gapText + ".";
     $("chart-days").textContent = MONTHS;
     var km = $("kpi-months"); if (km) km.textContent = MONTHS;
   }
