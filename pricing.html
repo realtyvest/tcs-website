@@ -617,7 +617,7 @@ if(document.readyState==='complete')later();else window.addEventListener('load',
         .prime-card p { margin: 0; }
         .pricing-section, .pricing-close-wrap { --pp-gap: 1.75rem; } /* r3: one gap: Prime card -> lines == terms block -> closing CTA (PPL s4, LOWER_BAND_SPACING_LOCK) */
         .pricing-lines { max-width: 960px; margin: var(--pp-gap) auto 0; text-align: center; }
-        .pricing-lines p { font-size: 1.1rem; margin-bottom: 0.35rem; padding: 0 calc(24px + 1px); } /* FITLINE r2 (Diana): every line shares the terms block text measure (max-width 960px, padding 24px + border 1px) */
+        .pricing-lines p { font-size: 1.1rem; margin-bottom: 0.35rem; padding: 0 calc(24px + 1px); text-wrap: balance; } /* FITLINE r2 (Diana): every line shares the terms block text measure (max-width 960px, padding 24px + border 1px) */
         .pricing-lines .text-link { color: #2A8EFF; text-decoration: underline; text-underline-offset: 3px; display: inline-block; padding: 12px 0; margin: -12px 0; } /* L-17: text link, not a button; 44px+ tap box without moving the line */
         .pricing-lines .text-link:hover { color: #FFFFFF; }
         .pricing-lines .ma-line { text-wrap: balance; } /* Diana r3: no stranded fragment; the terms-block measure now comes from .pricing-lines p */
