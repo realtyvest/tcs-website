@@ -63,7 +63,7 @@
       '<div class="pth-visual"><div class="pth-submit">' +
       '<div class="pth-submit-row"><span>CODES · 4</span><span class="pth-submit-status">IN PRICE BOOK</span></div>' +
       '<div class="pth-submit-row"><span>MARKS · CODED</span><span class="pth-submit-status">OK</span></div>' +
-      '<div class="pth-submit-row"><span>WHO + WHEN</span><span class="pth-submit-status">SAVED</span></div>' +
+      '<div class="pth-submit-row"><span>SUBMITTED</span><span class="pth-submit-status">SAVED</span></div>' +
       '<div class="pth-submit-cta">SUBMIT ONCE</div>' +
       "</div></div>"
     );
