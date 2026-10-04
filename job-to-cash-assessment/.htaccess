@@ -1,0 +1,5 @@
+# JOB_TO_CASH_ASSESSMENT (2026-10-04): serve the canonical no-slash URL
+# /job-to-cash-assessment with a 200 instead of the default 301 to the slash
+# form. The root .htaccess maps it to index.html. If the server ignores this
+# line, the page still loads at /job-to-cash-assessment/ like /fit-call/.
+DirectorySlash Off

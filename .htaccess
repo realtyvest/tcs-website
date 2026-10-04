@@ -8,6 +8,11 @@ RewriteRule ^ https://telecomcontractorsolutions.com%{REQUEST_URI} [R=301,L,NE]
 RewriteRule ^fit-call$ /fit-call/ [R=301,L]
 RewriteRule ^fit-call\.html$ /fit-call/ [R=301,L]
 RewriteRule ^book\.html$ /fit-call/ [R=301,L]
+# JOB_TO_CASH_ASSESSMENT (2026-10-04): the page lives at /job-to-cash-assessment/index.html.
+# The canonical URL has no trailing slash, so serve it there with an internal
+# rewrite (200, no redirect). The slash form also serves the page and carries
+# the same canonical tag. No slash redirect, so no redirect loop is possible.
+RewriteRule ^job-to-cash-assessment$ /job-to-cash-assessment/index.html [L]
 RewriteRule ^privacy\.html$ /privacy/ [R=301,L]
 RewriteRule ^terms\.html$ /terms/ [R=301,L]
 RewriteRule ^tos/?$ /terms/ [R=301,L]
@@ -40,4 +45,12 @@ AddType text/vtt .vtt
   <FilesMatch "\.(css|js|png|jpg|jpeg|webp|svg|ico|woff2|mp4|vtt|pdf)$">
     Header set Cache-Control "public, max-age=31536000, immutable"
   </FilesMatch>
+</IfModule>
+
+# JOB_TO_CASH_ASSESSMENT (2026-10-04): the Assessment webhook config must never
+# sit in a year-long browser cache, so this one file revalidates on every visit.
+<IfModule mod_headers.c>
+  <Files "assessment-config.js">
+    Header set Cache-Control "no-cache, must-revalidate, max-age=0"
+  </Files>
 </IfModule>
