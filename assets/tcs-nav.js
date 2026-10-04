@@ -8,9 +8,8 @@
   /* NAV_MODULES_LOCK (Gil, 2026-09-08): module pages in every nav. */
   var MODULES = [
     { href: '/map-annotator.html', label: 'Map Annotator' },
-    { href: '/job-tracking.html', label: 'Job Tracking' },
+    { href: '/job-tracking.html', label: 'One Record per Job' },
     { href: '/billing-automation.html', label: 'Billing' },
-    { href: '/job-costing.html', label: 'Job Costing' },
     { href: '/map-to-invoice.html', label: 'Map to Invoice' },
     { href: '/drop-buries.html', label: 'Drop Buries' }
   ];
