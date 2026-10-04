@@ -4,7 +4,7 @@
  *
  * Mapping (Current → Target):
  * - Intake + Copy to spreadsheet → Intake Jobs
- * - Distribute to field → Route Crews
+ * - Distribute to field → Mark the Map
  * - WhatsApp/paper + Admin sorting + Hand-drawn as-builts + Office re-entry
  *   → Annotated Map Creates As-Builts and Tallies Codes + Quantities
  * - Final approval + Invoice/closeout → Priced Tally Ready for the Invoice
@@ -12,7 +12,7 @@
  * Progress:
  * 0–15%   show all 9 current
  * 15–30%  Intake+spreadsheet converge; SPREADSHEET HANDOFF REMOVED
- * 30–45%  Distribute → Route Crews
+ * 30-45%  Distribute → Mark the Map
  * 45–70%  WhatsApp/admin/as-builts/re-entry → Annotated Map;
  *         DUPLICATE RE-ENTRY REMOVED then MANUAL TALLY REMOVED
  * 70–85%  Approval+invoice → final target
@@ -39,7 +39,7 @@ export const CURRENT_STEPS = [
 
 export const TARGET_STEPS = [
   "Intake Jobs",
-  "Route Crews",
+  "Mark the Map",
   "Annotated Map Creates As-Builts and Tallies Codes + Quantities",
   "Priced Tally Ready for the Invoice",
 ] as const;

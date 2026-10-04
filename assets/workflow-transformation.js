@@ -10,7 +10,7 @@
  *   0.0-1.4  tangle wires draw between the nine cards (the handoff mess)
  *   1.4-2.9  Intake + Copy to spreadsheet fly + shrink into Intake Jobs
  *            SPREADSHEET HANDOFF REMOVED
- *   2.9-4.0  Distribute to field -> Route Crews
+ *   2.9-4.0  Distribute to field -> Mark the Map
  *   4.0-6.6  WhatsApp/admin/as-builts/re-entry -> Annotated Map
  *            DUPLICATE RE-ENTRY REMOVED, then MANUAL TALLY REMOVED
  *   6.6-8.1  Final approval + Invoice -> Priced Tally Ready for the Invoice
@@ -51,7 +51,7 @@
 
   var TARGET = [
     "Intake Jobs",
-    "Route Crews",
+    "Mark the Map",
     "Annotated Map Creates As-Builts and Tallies Codes + Quantities",
     "Priced Tally Ready for the Invoice",
   ];
