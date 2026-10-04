@@ -730,8 +730,11 @@ if(document.readyState==='complete')later();else window.addEventListener('load',
 <link rel="stylesheet" href="/assets/tcs-nav.css?v=menu31">
   <link rel="stylesheet" href="/assets/tcs-type.css?v=type4">
   <link rel="stylesheet" href="/assets/tcs-footer.css?v=foot2t3">
-  <link rel="stylesheet" href="/assets/value-stack.css?v=vs1">
-  <script src="/assets/value-stack.js?v=vs1"></script>
+  <script>
+  /* VALUE_STACK_REMOVED (Legal, 2026-10-04): clear the old value stack
+     results this browser may still hold, so they do not reappear. */
+  try { localStorage.removeItem('tcs-value-stack'); } catch (e) {}
+  </script>
   <link rel="stylesheet" href="/assets/tcs-story.css?v=story3">
   <link rel="stylesheet" href="/assets/hub-links.css?v=hub5">
 </head>
@@ -886,8 +889,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
-<section class="value-stack" id="value-stack" aria-label="Your value stack"></section>
-
 <section class="solutions-section">
   <h2 class="solutions-title">How TCS Closes These Gaps</h2>
   <div class="solutions-grid">
@@ -1035,7 +1036,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     document.getElementById('result-admin').textContent = formatCurrency(adminCost);
     document.getElementById('result-total').textContent = formatCurrency(totalCost);
     document.getElementById('result-monthly').textContent = formatCurrency(monthlyCost);
-    if (window.tcsValueStack) tcsValueStack.set('roi', { unbilled: unbilledCost * 0.7, admin: adminCost * 0.7 });
     document.getElementById('ls-total').textContent = formatCurrency(totalCost);
     document.getElementById('ls-monthly').textContent = formatCurrency(monthlyCost);
 

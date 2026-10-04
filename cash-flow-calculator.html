@@ -592,8 +592,11 @@ if(document.readyState==='complete')later();else window.addEventListener('load',
 <link rel="stylesheet" href="/assets/tcs-nav.css?v=menu31">
   <link rel="stylesheet" href="/assets/tcs-type.css?v=type4">
   <link rel="stylesheet" href="/assets/tcs-footer.css?v=foot2t3">
-  <link rel="stylesheet" href="/assets/value-stack.css?v=vs1">
-  <script src="/assets/value-stack.js?v=vs1"></script>
+  <script>
+  /* VALUE_STACK_REMOVED (Legal, 2026-10-04): clear the old value stack
+     results this browser may still hold, so they do not reappear. */
+  try { localStorage.removeItem('tcs-value-stack'); } catch (e) {}
+  </script>
   <link rel="stylesheet" href="/assets/tcs-story.css?v=story3">
 </head>
 <body>
@@ -808,7 +811,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     </div>
   </div>
-  <section class="value-stack" id="value-stack" aria-label="Your value stack"></section>
   <div class="assumptions">
         <h3>Assumptions this arithmetic makes</h3>
         <ul>
@@ -996,7 +998,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     $("r-release").textContent = money.format(release);
     $("r-release-days").textContent = releaseDays;
     $("r-fee-saved").textContent = money.format(Math.max(0, feeNow - feeTarget));
-    if (window.tcsValueStack) tcsValueStack.set("cash", { release: release, feeYear: Math.max(0, feeNow - feeTarget), factoring: !!factoring });
     drawChart({ perDay: perDay, lag: lag, target: TARGET_LAG, cust: custDays, margin: margin, cost: 1 - margin, bank0: +inputs.bank.value, ar0: +inputs.ar.value, feeNowYear: feeNow, feeTargetYear: feeTarget, factoring: factoring });
 
     $("ls-days-now").textContent = daysNow;
