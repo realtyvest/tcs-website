@@ -12,7 +12,7 @@ Single entry point for design work on this repo. It does not replace the install
 - Global tokens live in `index.html` under `:root` (navy `#0B1829`, navy-mid, navy-light, electric `#2A8EFF`, orange `#F26419` is a marker color only, muted `#8CA3BE`, text-light `#C3D2E4`, border rgba white 0.08).
 - Fonts: Barlow Condensed (display) and Barlow (body) via Google Fonts.
 - Every section owns a pair in `assets/`: `<section>.css` and `<section>.js`. Section CSS declares prefixed vars that fall back to globals (`--pth-navy: var(--navy, #0B1829)`). Follow that pattern for new sections.
-- Existing motion modules to study before adding more: `assets/paths.js` (Pattern A: progress bar + one timeline + short pin), `assets/map-to-invoice.js`, `assets/workflow-transformation.js`, `assets/phase2-motion.js` (once-enter rises), `assets/homepage-spine.js` (IntersectionObserver only).
+- Existing motion modules to study before adding more: `assets/paths.js` (Pattern A: progress bar + one timeline + short pin), `assets/calc-pin.js` (sticky pin, scroll drives the draw, no dependencies), `assets/workflow-transformation.js`, `assets/phase2-motion.js` (once-enter rises), `assets/homepage-spine.js` (IntersectionObserver only).
 - `components/WorkflowTransformation.tsx` is a React reference only. The live site is vanilla HTML, CSS, and IIFE JS. Do not introduce a build step.
 
 ## 2. Route to the right skills
