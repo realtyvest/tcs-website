@@ -834,15 +834,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
 
+      <div class="input-group">
+        <label for="money-rate">Your Cost of Money While an Invoice Waits</label>
+        <div class="input-wrapper">
+          <input type="range" id="money-rate" min="0" max="30" step="0.5" value="0" aria-label="Your cost of money while an invoice waits, percent per year" aria-describedby="money-rate-help">
+          <div class="input-value"><span id="money-rate-value">0</span>%/yr</div>
+        </div>
+        <p id="money-rate-help" style="font-size:12.5px;color:var(--muted);line-height:1.35;">Your own rate, such as your credit line. Used only for the billing delay line.</p>
+      </div>
     </div>
 
     <div class="calculator-results">
       <h2 style="font-family: var(--font-display); font-size: 20px; font-weight: 800; margin-bottom: 8px;">Your Cost of Ops Gaps</h2>
 
       <div class="result-card">
-        <h3>Annual Revenue at Risk (Billing Delays)</h3>
-        <div class="result-value">$<span id="result-billing">0</span></div>
-        <div class="result-period">per year</div>
+        <h3>Annual Cost of Billing Delays</h3>
+        <div class="result-value" id="billing-value-wrap" hidden>$<span id="result-billing">0</span></div>
+        <div class="result-period" id="billing-period" hidden>per year</div>
+        <p class="result-period" id="billing-pending" aria-live="polite">Enter your rate to include this line</p>
       </div>
 
       <div class="result-card">
@@ -975,12 +984,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   const unbilledPct = document.getElementById('unbilled-pct');
   const adminHours = document.getElementById('admin-hours');
   const adminHourly = document.getElementById('admin-hourly');
+  const moneyRate = document.getElementById('money-rate');
   const whatIf = document.getElementById('whatif-pct');
 
-  const allInputs = [crews, jobsPerWeek, revenuePerJob, billingLatePct, billingDelayDays, unbilledPct, adminHours, adminHourly, whatIf];
+  const allInputs = [crews, jobsPerWeek, revenuePerJob, billingLatePct, billingDelayDays, unbilledPct, adminHours, adminHourly, moneyRate, whatIf];
 
-  // GAP_COST_ONLY (Legal, 2026-10-04): results show only the gap cost.
-  // No closure percentages.
+  // GAP_COST_ONLY (Legal, 2026-10-04): every number below comes from the
+  // user's own inputs. No built-in rates or closure percentages.
   function updateDisplay() {
     document.getElementById('crews-value').textContent = crews.value;
     document.getElementById('jobs-per-week-value').textContent = jobsPerWeek.value;
@@ -990,6 +1000,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     document.getElementById('unbilled-pct-value').textContent = unbilledPct.value;
     document.getElementById('admin-hours-value').textContent = adminHours.value;
     document.getElementById('admin-hourly-value').textContent = adminHourly.value;
+    document.getElementById('money-rate-value').textContent = moneyRate.value;
 
     const crewsNum = parseFloat(crews.value) || 0;
     const jobsPerWeekNum = parseFloat(jobsPerWeek.value) || 0;
@@ -999,12 +1010,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     const unbilledShare = (parseFloat(unbilledPct.value) || 0) / 100;
     const adminHoursNum = parseFloat(adminHours.value) || 0;
     const adminHourlyNum = parseFloat(adminHourly.value) || 0;
+    const moneyRateYear = (parseFloat(moneyRate.value) || 0) / 100;
 
     const weeklyRevenue = crewsNum * jobsPerWeekNum * revenuePerJobNum;
     const annualRevenue = weeklyRevenue * 52;
 
-    const costOfDelayFactor = (billingDelayDaysNum / 7) * 0.03;
-    const billingDelayCost = billingLateShare * annualRevenue * costOfDelayFactor;
+    // Billing delay: the late-billed revenue waits the delay you entered,
+    // priced at the cost of money you entered.
+    // The rate starts blank (0). Until the user sets a rate, this line is
+    // left out of the total and the card asks for the rate.
+    const moneyRateSet = moneyRateYear > 0;
+    const billingDelayCost = moneyRateSet ? annualRevenue * billingLateShare * (billingDelayDaysNum / 365) * moneyRateYear : 0;
+    document.getElementById('billing-value-wrap').hidden = !moneyRateSet;
+    document.getElementById('billing-period').hidden = !moneyRateSet;
+    document.getElementById('billing-pending').hidden = moneyRateSet;
     const unbilledCost = annualRevenue * unbilledShare;
     const adminCost = adminHoursNum * adminHourlyNum * 52;
 
