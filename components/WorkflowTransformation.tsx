@@ -7,7 +7,7 @@
  * - Distribute to field → Route Crews
  * - WhatsApp/paper + Admin sorting + Hand-drawn as-builts + Office re-entry
  *   → Annotated Map Creates As-Builts and Tallies Codes + Quantities
- * - Final approval + Invoice/closeout → Invoice + Closeout Docs Sent
+ * - Final approval + Invoice/closeout → Priced Tally Ready for the Invoice
  *
  * Progress:
  * 0–15%   show all 9 current
@@ -41,7 +41,7 @@ export const TARGET_STEPS = [
   "Intake Jobs",
   "Route Crews",
   "Annotated Map Creates As-Builts and Tallies Codes + Quantities",
-  "Invoice + Closeout Docs Sent",
+  "Priced Tally Ready for the Invoice",
 ] as const;
 
 /** Groups of current indices that fold into each target index */

@@ -83,10 +83,10 @@
   function visualInvoice() {
     return (
       '<div class="pth-visual"><ul class="pth-invoice">' +
-      '<li><span class="pth-invoice-code">2210 FO-12</span><span class="pth-invoice-qty">840 LF</span><span class="pth-invoice-flag">LINE</span></li>' +
-      '<li><span class="pth-invoice-code">2214 DROP</span><span class="pth-invoice-qty">14 EA</span><span class="pth-invoice-flag">LINE</span></li>' +
-      '<li><span class="pth-invoice-code">2301 SPLICE</span><span class="pth-invoice-qty">6 EA</span><span class="pth-invoice-flag">LINE</span></li>' +
-      '<li><span class="pth-invoice-code">2105 LOCATE</span><span class="pth-invoice-qty">2 EA</span><span class="pth-invoice-flag">LINE</span></li>' +
+      '<li><span class="pth-invoice-code">2210 FO-12</span><span class="pth-invoice-qty">840 LF</span><span class="pth-invoice-flag">PRICED</span></li>' +
+      '<li><span class="pth-invoice-code">2214 DROP</span><span class="pth-invoice-qty">14 EA</span><span class="pth-invoice-flag">PRICED</span></li>' +
+      '<li><span class="pth-invoice-code">2301 SPLICE</span><span class="pth-invoice-qty">6 EA</span><span class="pth-invoice-flag">PRICED</span></li>' +
+      '<li><span class="pth-invoice-code">2105 LOCATE</span><span class="pth-invoice-qty">2 EA</span><span class="pth-invoice-flag">PRICED</span></li>' +
       "</ul></div>"
     );
   }
@@ -97,24 +97,24 @@
   var CONFIGS = {
     construction: {
       chromeId: "PROJECT-2207 · AERIAL + UNDERGROUND",
-      metas: ["SEG-07 · RT-A", "FIELD", "TALLY", "INV-LINES"],
+      metas: ["SEG-07 · RT-A", "FIELD", "TALLY", "PRICED"],
       steps: [
         { label: "Mark the map", helper: "Codes and quantities as the job progresses" },
         { label: "Submit", helper: "Each submittal from the field" },
         { label: "Tally = marks", helper: "The tally comes from what the crew marks on the map" },
-        { label: "Invoice", helper: "Invoice lines come from that tally" },
+        { label: "Ready for the invoice", helper: "The tally, priced from your price book" },
       ],
     },
     drops: {
       chromeId: "JOB-4821 · DROP BURY",
-      metas: ["SEG-07 · RT-A", "FIELD", "TALLY · LOCKED", "INV-LINES"],
+      metas: ["SEG-07 · RT-A", "FIELD", "TALLY · LOCKED", "PRICED"],
       steps: [
         { label: "Mark the map", helper: "Codes and quantities on the address" },
         { label: "Submit", helper: "Once, from the field" },
         { label: "Tally = marks", helper: "What left the drop is what gets tallied" },
-        // Step 4 title shows the helper "Ready to bill. Invoice the same day."
-        // — helper only, NOT a 5th bar step.
-        { label: "Invoice same day", helper: "Ready to bill. Invoice the same day." },
+        // Step 4 title shows the helper "Priced from your price book"
+        // (helper only, NOT a 5th bar step).
+        { label: "Ready for the invoice", helper: "Priced from your price book" },
       ],
     },
   };

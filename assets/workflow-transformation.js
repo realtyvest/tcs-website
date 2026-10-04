@@ -13,7 +13,7 @@
  *   2.9-4.0  Distribute to field -> Route Crews
  *   4.0-6.6  WhatsApp/admin/as-builts/re-entry -> Annotated Map
  *            DUPLICATE RE-ENTRY REMOVED, then MANUAL TALLY REMOVED
- *   6.6-8.1  Final approval + Invoice -> Invoice + Closeout Docs Sent
+ *   6.6-8.1  Final approval + Invoice -> Priced Tally Ready for the Invoice
  *   8.0-8.9  Target column glides to centre; STEPS counter reads 4
  *   8.7-9.2  "9 handoffs -> 4 connected steps" settles; hold to 10
  *
@@ -53,7 +53,7 @@
     "Intake Jobs",
     "Route Crews",
     "Annotated Map Creates As-Builts and Tallies Codes + Quantities",
-    "Invoice + Closeout Docs Sent",
+    "Priced Tally Ready for the Invoice",
   ];
 
   // Story beats on a 10-unit timeline. callouts: [calloutIndex, atFractionOfBeat]
