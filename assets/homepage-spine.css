@@ -89,6 +89,7 @@
   color: var(--text-light);
   font-size: 0.9375rem;
   margin-top: 2px;
+  text-wrap: pretty; /* Diana 2026-10-04: no one-word last line */
 }
 
 /* SPINE_MARKER_LOCK (Gil, 2026-09-08): the orange node starts on step 1 and

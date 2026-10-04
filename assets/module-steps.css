@@ -110,6 +110,11 @@ html:not(.module-steps-armed) .how-it-works .step::before {
   border-color: rgba(42, 142, 255, 0.28);
 }
 
+/* STEPS_FOUR_ACROSS (Diana, 2026-10-04): a grid can ask for one row with
+   data-ms-cols="4" (drop-buries "Four Steps, One List"). The breakpoints below
+   still take it to 2 and then 1 column. */
+.how-it-works .steps[data-ms-cols="4"] { --ms-cols: 4; }
+
 /* The script sets --ms-cols inline for 4-step grids (2+2); on narrow screens
    the stylesheet must win, hence !important (STEPS_MOBILE_ONE_COL). */
 @media (max-width: 900px) {

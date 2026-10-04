@@ -14,7 +14,9 @@
   grids.forEach(function (grid) {
     var steps = grid.querySelectorAll(".step");
     var n = steps.length;
-    if (n === 4) grid.style.setProperty("--ms-cols", "2");
+    var want = parseInt(grid.getAttribute("data-ms-cols"), 10);
+    if (want > 0) grid.style.setProperty("--ms-cols", String(want)); // STEPS_FOUR_ACROSS: the page asked for this many
+    else if (n === 4) grid.style.setProperty("--ms-cols", "2");
     else if (n < 3) grid.style.setProperty("--ms-cols", String(n));
     var c = cols(grid);
     steps.forEach(function (s, i) { s.style.setProperty("--ms-col", String(i % c)); });
