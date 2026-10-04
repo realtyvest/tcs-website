@@ -1,6 +1,6 @@
 # Telecom Contractor Solutions
 
-> Telecom Contractor Solutions (TCS) builds operations systems for ISP and telecom contractors, aerial and underground, running 10 to 100 field techs. The crew marks the map, the tally comes from the marks, and the invoice comes from the tally. Based in Houston, serving contractors nationwide.
+> Telecom Contractor Solutions (TCS) builds operations systems for ISP and telecom contractors, aerial and underground, running 10 to 100 field techs. The crew marks the map, and the tally is counted from the crew's marks and priced from your price book, ready for the invoice. Based in Houston, serving contractors nationwide.
 
 TCS is for contractors who install fiber, cable, or aerial infrastructure for ISPs and prime contractors. TCS Map Annotator can be a standalone starting point. To talk through a specific operation, book a Free 30-minute Fit Call: https://telecomcontractorsolutions.com/fit-call
 
@@ -9,9 +9,9 @@ TCS is for contractors who install fiber, cable, or aerial infrastructure for IS
 - [TCS Map Annotator](https://telecomcontractorsolutions.com/map-annotator.html): Crews mark codes and quantities on the as-built map and submit once, and the marks become a billing-code tally for office review.
 - [Map to Invoice](https://telecomcontractorsolutions.com/map-to-invoice.html): How aerial and underground construction marks on the as-built become billable quantities.
 - [Drop Buries](https://telecomcontractorsolutions.com/drop-buries.html): How drop bury crews mark the map on site and submit, with footage and codes tallied from the marks.
-- [Telecom Contractor Billing](https://telecomcontractorsolutions.com/billing-automation.html): How the office invoices the ISP or prime by rate code from the tally the crew's marks produce.
+- [Telecom Contractor Billing](https://telecomcontractorsolutions.com/billing-automation.html): How the crew's marks become a tally priced by rate code from your price book, ready for the invoice to the ISP or prime.
 - [Field Approval](https://telecomcontractorsolutions.com/field-approval-hub.html): How the office reviews a crew's submitted map so the tally is ready to invoice without retyping.
-- [Sub Invoicing](https://telecomcontractorsolutions.com/sub-invoicing.html): How a sub's crew marks the map and submits, and the office invoices the prime from the tally.
+- [Sub Invoicing](https://telecomcontractorsolutions.com/sub-invoicing.html): How a sub's crew marks the map and submits, and the tally is priced from your price book, ready for the invoice to the prime.
 
 ## Pricing
 
