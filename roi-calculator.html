@@ -15,8 +15,8 @@ if(document.readyState==='complete')later();else window.addEventListener('load',
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Telecom Contractor ROI Calculator | Cost of Ops Gaps</title>
-<meta name="description" content="Calculate how much revenue your telecom contracting business loses to billing delays, unbilled work, and crew downtime. Free interactive ROI tool.">
+<title>Telecom Contractor Ops Gap Cost Calculator | TCS</title>
+<meta name="description" content="Estimate what billing delays, unbilled work, and manual admin time cost your telecom contracting business each year, using your own numbers.">
 <link rel="canonical" href="https://telecomcontractorsolutions.com/roi-calculator.html">
 
 <meta property="og:type" content="website">
@@ -26,16 +26,18 @@ if(document.readyState==='complete')later();else window.addEventListener('load',
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://telecomcontractorsolutions.com/assets/og-default.png">
 <meta property="og:url" content="https://telecomcontractorsolutions.com/roi-calculator.html">
-<meta property="og:title" content="Telecom Contractor ROI Calculator | Cost of Ops Gaps">
-<meta property="og:description" content="Calculate how much revenue your telecom contracting business loses to billing delays, unbilled work, and crew downtime. Free interactive ROI tool.">
+<meta property="og:title" content="Telecom Contractor Ops Gap Cost Calculator | TCS">
+<meta name="twitter:title" content="Telecom Contractor Ops Gap Cost Calculator | TCS">
+<meta name="twitter:description" content="Estimate what billing delays, unbilled work, and manual admin time cost your telecom contracting business each year, using your own numbers.">
+<meta property="og:description" content="Estimate what billing delays, unbilled work, and manual admin time cost your telecom contracting business each year, using your own numbers.">
 <meta property="og:site_name" content="Telecom Contractor Solutions">
 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "ROI Calculator",
-  "description": "Calculate how much revenue your telecom contracting business loses to ops gaps like billing delays, unbilled work, and crew downtime.",
+  "name": "Ops Gap Cost Calculator",
+  "description": "Estimate what ops gaps like billing delays, unbilled work, and manual admin time cost a telecom contracting business, using your own numbers.",
   "url": "https://telecomcontractorsolutions.com/roi-calculator.html",
   "applicationCategory": "BusinessApplication",
   "offers": {
@@ -183,7 +185,7 @@ if(document.readyState==='complete')later();else window.addEventListener('load',
   }
 
   /* INPUTS */
-  /* ROI_ONE_SCREEN (Gil, 2026-09-08): sliders and results fit one desktop
+  /* CALC_ONE_SCREEN (Gil, 2026-09-08): sliders and results fit one desktop
      screen without scrolling. Tight rows, small value chips, compact cards. */
   .calculator-inputs {
     display: flex;
@@ -280,7 +282,7 @@ if(document.readyState==='complete')later();else window.addEventListener('load',
     gap: 10px;
   }
   @media (min-width: 1025px) {
-    /* ROI_DASHBOARD (Gil, 2026-09-08): same treatment as the cash flow
+    /* CALC_DASHBOARD (Gil, 2026-09-08): same treatment as the cash flow
        calculator. The results stay fixed on the right as a KPI panel that
        fits the viewport and uses the full screen width; only the sliders
        scroll. */
@@ -299,39 +301,29 @@ if(document.readyState==='complete')later();else window.addEventListener('load',
     }
     .calculator-results > h2 { grid-column: 1 / -1; margin-bottom: 0 !important; }
     .calculator-results .result-card { grid-column: span 2; padding: 16px 20px; }
-    .calculator-results .result-card.roi-highlight,
-    .calculator-results .result-card:last-child { grid-column: span 3; padding: 22px 24px; }
+    .calculator-results .result-card.roi-highlight { grid-column: span 3; padding: 22px 24px; }
+    .calculator-results .result-card.whatif-card { grid-column: span 3; padding: 18px 22px; }
+    .calculator-results .calc-disclaimer { grid-column: 1 / -1; }
     .calculator-results .result-card h3 { font-size: 12px; margin-bottom: 8px; }
     .calculator-results .result-value { font-size: clamp(26px, 2.2vw, 36px); }
-    .calculator-results .roi-highlight .result-value,
-    .calculator-results .result-card:last-child .result-value { font-size: clamp(34px, 3vw, 48px) !important; }
+    .calculator-results .roi-highlight .result-value { font-size: clamp(34px, 3vw, 48px) !important; }
     .calculator-results .result-period { font-size: 13px; }
   }
-  /* ROI_STORY_CHART (2026-09-08): the same before-and-after story the cash
-     flow page tells: bank balance over twelve months, as-is versus with
-     seventy percent of the gaps closed. The gap is the potential ROI. */
-  .roi-chart-card { display: flex; flex-direction: column; min-width: 0; }
-  .roi-chart-card:hover { transform: none; }
-  .roi-legend { list-style: none; margin: 0 0 6px; padding: 0; display: flex; gap: 14px; flex-wrap: wrap; }
-  #roi-chart-card .roi-legend li { display: inline-flex; align-items: center; gap: 6px; font-size: 11px !important; color: var(--muted); }
-  .roi-legend .sw { display: inline-block; width: 16px; border-top: 2px solid var(--orange); }
-  .roi-legend .sw-target { border-top-color: var(--electric); }
-  #roi-chart { display: block; width: 100%; max-width: 100%; height: 150px; }
-  #roi-chart-card .roi-chart-note { margin: 6px 0 0; font-size: 11.5px !important; line-height: 1.35 !important; color: var(--text-light); }
-  @media (min-width: 1025px) {
-    .calculator-results .roi-chart-card { grid-column: span 3; grid-row: span 2; }
-  }
-  @media (min-width: 1025px) and (max-height: 780px) {
-    #roi-chart { height: 116px; }
-    .calculator-results .roi-chart-card { padding: 12px 16px; }
-    .calculator-results { gap: 10px; }
-  }
+  /* GAP_WHATIF (Legal, 2026-10-04): optional what-if field. Starts blank;
+     the output shows only after the user enters their own percentage. */
+  .whatif-card label { display: block; font-family: var(--font-display); font-size: 13px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--white); margin-bottom: 2px; }
+  .whatif-card .whatif-note { display: block; font-size: 12.5px; color: var(--muted); margin-bottom: 8px; }
+  .whatif-card .whatif-row { display: flex; align-items: center; gap: 8px; }
+  .whatif-card input { width: 96px; background: var(--navy-light); border: 1px solid var(--border-light); border-radius: 6px; color: var(--white); font: 700 15px var(--font-body); padding: 6px 10px; }
+  .whatif-card input:focus { outline: 2px solid var(--electric); outline-offset: 1px; }
+  .whatif-card .whatif-out { margin-top: 10px; font-size: 14px; color: var(--text-light); }
+  .whatif-card .whatif-out strong { color: var(--orange); font-family: var(--font-display); font-size: 22px; }
+  .calc-disclaimer { font-size: 13px; color: var(--muted); line-height: 1.45; margin-top: 4px; }
   @media (min-width: 1600px) {
     .calculator-results .result-card { padding: 20px 24px; }
     .calculator-results .result-card h3 { font-size: 13px; }
     .calculator-results .result-value { font-size: 40px; }
-    .calculator-results .roi-highlight .result-value,
-    .calculator-results .result-card:last-child .result-value { font-size: 56px !important; }
+    .calculator-results .roi-highlight .result-value { font-size: 56px !important; }
     .calculator-results .result-period { font-size: 14px; }
   }
 
@@ -349,7 +341,7 @@ if(document.readyState==='complete')later();else window.addEventListener('load',
     backdrop-filter: blur(8px);
     border: 1px solid rgba(42,142,255,0.35);
     box-shadow: 0 12px 28px rgba(0,0,0,0.4);
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 8px;
   }
   .live-strip div { min-width: 0; }
@@ -766,14 +758,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <main id="main-content">
 <section class="roi-hero">
   <h1>What Are Ops Gaps Costing You?</h1>
-  <p>Billing delays, unbilled work, and crew downtime add up fast. Use this interactive calculator to see the real dollar impact on your telecom business. For the cash side, the <a href="/cash-flow-calculator.html" style="color:var(--electric);">cash flow and factoring calculator</a> shows how long your money waits and what bridging it costs.</p>
+  <p>Billing delays, unbilled work, and manual admin time add up. Use this calculator to estimate what they cost your telecom business, based on the numbers you enter. For the cash side, the <a href="/cash-flow-calculator.html" style="color:var(--electric);">cash flow and factoring calculator</a> shows how long your money waits and what bridging it costs.</p>
 </section>
 
 <section class="calculator-section">
   <div class="live-strip" aria-live="polite">
-    <div><span class="ls-k">Cost per year</span><span class="ls-v">$<span id="ls-total">51,348</span></span></div>
-    <div><span class="ls-k">Per month</span><span class="ls-v">$<span id="ls-monthly">4,279</span></span></div>
-    <div><span class="ls-k">Recovery / yr</span><span class="ls-v">$<span id="ls-roi">35,944</span></span></div>
+    <div><span class="ls-k">Cost per year</span><span class="ls-v">$<span id="ls-total">0</span></span></div>
+    <div><span class="ls-k">Per month</span><span class="ls-v">$<span id="ls-monthly">0</span></span></div>
   </div>
   <div class="calculator-container">
     <div class="calculator-inputs">
@@ -843,21 +834,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
 
-      <div class="input-group">
-        <label for="margin">Net Margin on Jobs</label>
-        <div class="input-wrapper">
-          <input type="range" id="margin" min="5" max="40" step="1" value="20" aria-label="Net margin on jobs">
-          <div class="input-value"><span id="margin-value">20</span>%</div>
-        </div>
-      </div>
-
-      <div class="input-group">
-        <label for="bank">Bank Balance Today</label>
-        <div class="input-wrapper">
-          <input type="range" id="bank" min="0" max="2000000" step="10000" value="250000" aria-label="Bank balance today">
-          <div class="input-value">$<span id="bank-value">250,000</span></div>
-        </div>
-      </div>
     </div>
 
     <div class="calculator-results">
@@ -865,42 +841,38 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <div class="result-card">
         <h3>Annual Revenue at Risk (Billing Delays)</h3>
-        <div class="result-value">$<span id="result-billing">12,348</span></div>
+        <div class="result-value">$<span id="result-billing">0</span></div>
         <div class="result-period">per year</div>
       </div>
 
       <div class="result-card">
         <h3>Annual Revenue Lost (Unbilled Work)</h3>
-        <div class="result-value">$<span id="result-unbilled">19,500</span></div>
+        <div class="result-value">$<span id="result-unbilled">0</span></div>
         <div class="result-period">per year</div>
       </div>
 
       <div class="result-card">
         <h3>Annual Admin Labor Waste</h3>
-        <div class="result-value">$<span id="result-admin">19,500</span></div>
+        <div class="result-value">$<span id="result-admin">0</span></div>
         <div class="result-period">per year</div>
       </div>
 
-      <div class="result-card roi-chart-card" id="roi-chart-card">
-        <h3>Bank balance, 12 months: as-is vs gaps closed</h3>
-        <ul class="roi-legend" aria-hidden="true">
-          <li><i class="sw sw-now"></i>As-is</li>
-          <li><i class="sw sw-target"></i>70% of gaps closed</li>
-        </ul>
-        <canvas id="roi-chart" width="600" height="180" role="img" aria-label="Bank balance over twelve months, as-is versus with seventy percent of the ops gaps closed"></canvas>
-        <p class="roi-chart-note" id="roi-chart-caption">The gap between the lines is the potential ROI.</p>
-      </div>
       <div class="result-card roi-highlight">
         <h3>TOTAL Annual Cost of Ops Gaps</h3>
-        <div class="result-value">$<span id="result-total">51,348</span></div>
-        <div class="result-period" style="color: var(--orange); font-weight: 600;">That's $<span id="result-monthly">4,279</span>/month</div>
+        <div class="result-value">$<span id="result-total">0</span></div>
+        <div class="result-period" style="color: var(--orange); font-weight: 600;">That's $<span id="result-monthly">0</span>/month</div>
       </div>
 
-      <div class="result-card" style="background: linear-gradient(135deg, rgba(242, 100, 25, 0.1), rgba(242, 100, 25, 0.05)); border-color: var(--orange);">
-        <h3 style="color: var(--orange);">Potential ROI (70% Ops Closure)</h3>
-        <div class="result-value" style="color: var(--orange);">$<span id="result-roi">35,944</span></div>
-        <div class="result-period">annual recovery</div>
+      <div class="result-card whatif-card">
+        <label for="whatif-pct">What if part of these gaps closed? % (your estimate, not a TCS result)</label>
+        <span class="whatif-note" id="whatif-note">Optional. Leave blank to skip.</span>
+        <div class="whatif-row">
+          <input type="number" id="whatif-pct" min="0" max="100" step="1" inputmode="decimal" value="" aria-describedby="whatif-note"><span class="input-suffix">%</span>
+        </div>
+        <p class="whatif-out" id="whatif-out" hidden aria-live="polite">Your estimate: <span id="whatif-pct-echo"></span>% of your yearly gap cost is <strong>$<span id="whatif-value"></span></strong> a year.</p>
       </div>
+
+      <p class="calc-disclaimer">Estimates only, based on the numbers you enter. Not a quote or a promise of results.</p>
     </div>
   </div>
 </section>
@@ -910,7 +882,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="solutions-section">
   <h2 class="solutions-title">How TCS Closes These Gaps</h2>
   <div class="solutions-grid">
-    <a href="/job-tracking.html" class="solution-card">
+    <a href="/map-to-invoice.html" class="solution-card">
       <h3>One Record per Job</h3>
       <p>One record per job. The office job list shows how many submitted maps each job has and when the last one came in.</p>
       <span class="solution-link">Learn more +</span>
@@ -919,12 +891,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a href="/billing-automation.html" class="solution-card">
       <h3>Billing Automation</h3>
       <p>The tally is counted from the crew's marks and priced from your price book, ready for the invoice.</p>
-      <span class="solution-link">Learn more +</span>
-    </a>
-
-    <a href="/job-costing.html" class="solution-card">
-      <h3>Job Costing</h3>
-      <p>Job costing starts with clean production data: footage and units tallied by rate code from the crew's marks.</p>
       <span class="solution-link">Learn more +</span>
     </a>
 
@@ -938,7 +904,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <section class="cta-section">
   <div class="cta-inner">
-    <h2>Ready to Stop Losing Money?</h2>
+    <h2>Want to see where the gaps are?</h2>
     <p>Get a personalized breakdown of where your biggest opportunities are. Free 30-minute Fit Call.</p>
     <a href="/fit-call" class="btn-primary">Book a Fit Call</a>
   </div>
@@ -971,7 +937,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <ul>
         <li><a href="/roi-calculator.html" aria-current="page">ROI Calculator</a></li>
         <li><a href="/cash-flow-calculator.html">Cash Flow Calculator</a></li>
-        <li><a href="/fiber-closeout-package-checklist.html">Closeout Package Checklist</a></li>
+        <li><a href="/fiber-closeout-package-checklist.html">Closeout Package Checklist (free PDF download)</a></li>
         <li><a href="/dig-documentation.html">Dig Documentation</a></li>
         <li><a href="/rfp-tracker.html">Tracking RFPs and Bids</a></li>
         <li><a href="/bead-subcontractor-guide.html">BEAD Subcontractor Guide</a></li>
@@ -1009,9 +975,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   const unbilledPct = document.getElementById('unbilled-pct');
   const adminHours = document.getElementById('admin-hours');
   const adminHourly = document.getElementById('admin-hourly');
+  const whatIf = document.getElementById('whatif-pct');
 
-  const allInputs = [crews, jobsPerWeek, revenuePerJob, billingLatePct, billingDelayDays, unbilledPct, adminHours, adminHourly, document.getElementById('bank'), document.getElementById('margin')];
+  const allInputs = [crews, jobsPerWeek, revenuePerJob, billingLatePct, billingDelayDays, unbilledPct, adminHours, adminHourly, whatIf];
 
+  // GAP_COST_ONLY (Legal, 2026-10-04): results show only the gap cost.
+  // No closure percentages.
   function updateDisplay() {
     document.getElementById('crews-value').textContent = crews.value;
     document.getElementById('jobs-per-week-value').textContent = jobsPerWeek.value;
@@ -1022,104 +991,54 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     document.getElementById('admin-hours-value').textContent = adminHours.value;
     document.getElementById('admin-hourly-value').textContent = adminHourly.value;
 
-    const crewsNum = parseInt(crews.value);
-    const jobsPerWeekNum = parseInt(jobsPerWeek.value);
-    const revenuePerJobNum = parseInt(revenuePerJob.value);
-    const billingLatePctNum = parseInt(billingLatePct.value) / 100;
-    const billingDelayDaysNum = parseInt(billingDelayDays.value);
-    const unbilledPctNum = parseInt(unbilledPct.value) / 100;
-    const adminHoursNum = parseInt(adminHours.value);
-    const adminHourlyNum = parseInt(adminHourly.value);
+    const crewsNum = parseFloat(crews.value) || 0;
+    const jobsPerWeekNum = parseFloat(jobsPerWeek.value) || 0;
+    const revenuePerJobNum = parseFloat(revenuePerJob.value) || 0;
+    const billingLateShare = (parseFloat(billingLatePct.value) || 0) / 100;
+    const billingDelayDaysNum = parseFloat(billingDelayDays.value) || 0;
+    const unbilledShare = (parseFloat(unbilledPct.value) || 0) / 100;
+    const adminHoursNum = parseFloat(adminHours.value) || 0;
+    const adminHourlyNum = parseFloat(adminHourly.value) || 0;
 
     const weeklyRevenue = crewsNum * jobsPerWeekNum * revenuePerJobNum;
     const annualRevenue = weeklyRevenue * 52;
 
     const costOfDelayFactor = (billingDelayDaysNum / 7) * 0.03;
-    const revenueLossToBillingDelay = billingLatePctNum * weeklyRevenue * 52 * costOfDelayFactor;
+    const billingDelayCost = billingLateShare * annualRevenue * costOfDelayFactor;
+    const unbilledCost = annualRevenue * unbilledShare;
+    const adminCost = adminHoursNum * adminHourlyNum * 52;
 
-    const revenueLostToUnbilled = unbilledPctNum * annualRevenue;
-
-    const adminLaborWaste = adminHoursNum * adminHourlyNum * 52;
-
-    const totalCost = revenueLossToBillingDelay + revenueLostToUnbilled + adminLaborWaste;
-
+    const totalCost = billingDelayCost + unbilledCost + adminCost;
     const monthlyCost = totalCost / 12;
 
-    const potentialROI = totalCost * 0.7;
-
-    document.getElementById('result-billing').textContent = formatCurrency(revenueLossToBillingDelay);
-    document.getElementById('result-unbilled').textContent = formatCurrency(revenueLostToUnbilled);
-    document.getElementById('result-admin').textContent = formatCurrency(adminLaborWaste);
+    document.getElementById('result-billing').textContent = formatCurrency(billingDelayCost);
+    document.getElementById('result-unbilled').textContent = formatCurrency(unbilledCost);
+    document.getElementById('result-admin').textContent = formatCurrency(adminCost);
     document.getElementById('result-total').textContent = formatCurrency(totalCost);
     document.getElementById('result-monthly').textContent = formatCurrency(monthlyCost);
-    document.getElementById('result-roi').textContent = formatCurrency(potentialROI);
-    if (window.tcsValueStack) tcsValueStack.set('roi', { unbilled: revenueLostToUnbilled * 0.7, admin: adminLaborWaste * 0.7 });
+    if (window.tcsValueStack) tcsValueStack.set('roi', { unbilled: unbilledCost * 0.7, admin: adminCost * 0.7 });
     document.getElementById('ls-total').textContent = formatCurrency(totalCost);
     document.getElementById('ls-monthly').textContent = formatCurrency(monthlyCost);
-    document.getElementById('ls-roi').textContent = formatCurrency(potentialROI);
-    document.getElementById('bank-value').textContent = formatNumber(document.getElementById('bank').value);
-    document.getElementById('margin-value').textContent = document.getElementById('margin').value;
-    var monthlyRevenue = weeklyRevenue * 52 / 12;
-    var monthlyProfit = monthlyRevenue * (parseInt(document.getElementById('margin').value) / 100);
-    drawRoiChart({ bank0: parseInt(document.getElementById('bank').value), monthly: monthlyCost, roi: potentialROI, total: totalCost, profit: monthlyProfit, revenue: monthlyRevenue, marginPct: parseInt(document.getElementById('margin').value) });
-  }
 
-  // ROI_STORY_CHART
-  var roiCanvas = document.getElementById('roi-chart');
-  var roiModel = null, roiRaf = null;
-  var roiReduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function roiProgress() {
-    if (roiReduce || !roiCanvas) return 1;
-    var vh = window.innerHeight || 800;
-    var pinned = window.tcsCalcPinProgress ? window.tcsCalcPinProgress() : null;
-    if (pinned !== null) return pinned; // desktop: the section holds still while the scroll draws the chart
-    var r = roiCanvas.getBoundingClientRect(); var p = (vh * 0.9 - r.top) / (vh * 0.5);
-    return Math.max(0, Math.min(1, p));
-  }
-  function drawRoiChart(m) {
-    roiModel = m;
-    if (!roiCanvas || !roiCanvas.getContext) return;
-    var months = 12, cssW = roiCanvas.clientWidth || 600, cssH = roiCanvas.clientHeight || 150, dpr = window.devicePixelRatio || 1;
-    if (roiCanvas.width !== Math.round(cssW * dpr) || roiCanvas.height !== Math.round(cssH * dpr)) { roiCanvas.width = Math.round(cssW * dpr); roiCanvas.height = Math.round(cssH * dpr); }
-    var ctx = roiCanvas.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, cssW, cssH);
-    var asIs = [], closed = [];
-    // ROI_BANK_GROWS (Gil, 2026-09-08): the business earns its margin every
-    // month; the ops gaps leak from that. Both lines rise, one faster.
-    for (var t = 0; t <= months; t++) { asIs.push(m.bank0 + (m.profit - m.monthly) * t); closed.push(m.bank0 + (m.profit - m.monthly * 0.3) * t); }
-    var lo = Math.min(0, Math.min.apply(null, asIs.concat(closed))), hi = Math.max.apply(null, asIs.concat(closed)); if (hi === lo) hi = lo + 1;
-    var padL = 54, padR = 10, padT = 8, padB = 22, w = cssW - padL - padR, h = cssH - padT - padB;
-    var x = function (t2) { return padL + (t2 / months) * w; }, y = function (v) { return padT + (1 - (v - lo) / (hi - lo)) * h; };
-    var fmtK = function (v) { var a = Math.abs(v); var s3 = a >= 1e6 ? (a / 1e6).toFixed(1) + 'M' : a >= 1e3 ? Math.round(a / 1e3) + 'k' : Math.round(a); return (v < 0 ? '-$' : '$') + s3; };
-    ctx.font = '10px Barlow, sans-serif'; ctx.fillStyle = 'rgba(140,163,190,0.9)'; ctx.strokeStyle = 'rgba(255,255,255,0.08)'; ctx.lineWidth = 1;
-    for (var i = 0; i <= 4; i++) { var v = lo + (hi - lo) * i / 4, yy = y(v); ctx.beginPath(); ctx.moveTo(padL, yy); ctx.lineTo(cssW - padR, yy); ctx.stroke(); ctx.textAlign = 'right'; ctx.textBaseline = 'middle'; ctx.fillText(fmtK(v), padL - 6, yy); }
-    if (lo < 0) { ctx.strokeStyle = 'rgba(255,255,255,0.28)'; ctx.beginPath(); ctx.moveTo(padL, y(0)); ctx.lineTo(cssW - padR, y(0)); ctx.stroke(); }
-    ctx.textBaseline = 'top';
-    for (var mo = 0; mo <= months; mo += 3) { ctx.textAlign = mo === 0 ? 'left' : mo === months ? 'right' : 'center'; ctx.fillText(mo === 0 ? 'today' : 'mo ' + mo, x(mo), cssH - padB + 6); }
-    var upTo = Math.max(0.5, Math.round(roiProgress() * months * 2) / 2);
-    var ORANGE = '#F26419', ELECTRIC = '#2A8EFF';
-    var at = function (arr, t2) { var a = Math.floor(t2), b = Math.min(months, a + 1), f = t2 - a; return arr[a] + (arr[b] - arr[a]) * f; };
-    ctx.beginPath(); ctx.moveTo(x(0), y(closed[0])); for (var q = 0.5; q <= upTo; q += 0.5) ctx.lineTo(x(q), y(at(closed, q))); for (var q2 = upTo; q2 >= 0; q2 -= 0.5) ctx.lineTo(x(q2), y(at(asIs, q2))); ctx.closePath(); ctx.fillStyle = 'rgba(42,142,255,0.14)'; ctx.fill();
-    function line(arr, color) { ctx.beginPath(); ctx.strokeStyle = color; ctx.lineWidth = 2.5; ctx.setLineDash([]); ctx.moveTo(x(0), y(arr[0])); for (var q3 = 0.5; q3 <= upTo; q3 += 0.5) ctx.lineTo(x(q3), y(at(arr, q3))); ctx.stroke(); ctx.fillStyle = color; for (var mm = 3; mm <= months; mm += 3) { if (mm <= upTo) { ctx.beginPath(); ctx.arc(x(mm), y(arr[mm]), 2.5, 0, Math.PI * 2); ctx.fill(); } } }
-    line(asIs, ORANGE); line(closed, ELECTRIC);
-    if (upTo >= months) {
-      var xx = Math.min(x(months), cssW - padR - 4), y1 = y(closed[months]), y2 = y(asIs[months]);
-      ctx.save(); ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 1.25; ctx.beginPath(); ctx.moveTo(xx, y1); ctx.lineTo(xx, y2); ctx.moveTo(xx - 5, y1); ctx.lineTo(xx + 5, y1); ctx.moveTo(xx - 5, y2); ctx.lineTo(xx + 5, y2); ctx.stroke();
-      var label = '+' + fmtK(m.roi) + ' potential ROI'; ctx.font = '700 11px Barlow, sans-serif'; var tw = ctx.measureText(label).width, pw = tw + 12, ph = 18; var lx = Math.max(padL, xx - 10 - pw), ly = Math.max(padT + ph / 2, Math.min(cssH - padB - ph / 2, (y1 + y2) / 2));
-      ctx.fillStyle = 'rgba(11,24,41,0.92)'; ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(lx, ly - ph / 2, pw, ph, 4); else ctx.rect(lx, ly - ph / 2, pw, ph); ctx.fill(); ctx.strokeStyle = ELECTRIC; ctx.lineWidth = 1; ctx.stroke(); ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.fillText(label, lx + 6, ly); ctx.restore();
+    // Optional what-if: shown only once the user types their own percentage.
+    const out = document.getElementById('whatif-out');
+    const raw = whatIf.value.trim();
+    const whatIfPct = raw === '' ? NaN : parseFloat(raw);
+    if (isNaN(whatIfPct) || whatIfPct < 0 || whatIfPct > 100) {
+      out.hidden = true;
+    } else {
+      document.getElementById('whatif-pct-echo').textContent = formatNumber(whatIfPct);
+      document.getElementById('whatif-value').textContent = formatCurrency(totalCost * whatIfPct / 100);
+      out.hidden = false;
     }
-    var money2 = function (v) { return (v < 0 ? '-$' : '$') + formatCurrency(Math.abs(v)); };
-    var cap = document.getElementById('roi-chart-caption');
-    if (cap) cap.textContent = 'From ' + money2(m.bank0) + ' in the bank, earning ' + m.marginPct + '% on ' + money2(m.revenue) + ' a month: as-is, the ops gaps leak ' + money2(m.total) + ' over twelve months and the bank reaches ' + money2(asIs[months]) + '. With 70% of the gaps closed it reaches ' + money2(closed[months]) + '. The ' + money2(m.roi) + ' difference is the potential ROI.';
   }
-  window.addEventListener('scroll', function () { if (!roiModel || roiRaf) return; roiRaf = requestAnimationFrame(function () { roiRaf = null; drawRoiChart(roiModel); }); }, { passive: true });
-  window.addEventListener('resize', function () { if (roiModel) drawRoiChart(roiModel); });
 
   function formatCurrency(value) {
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(value).replace('$', '');
   }
 
   function formatNumber(value) {
-    return new Intl.NumberFormat('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(value);
+    return new Intl.NumberFormat('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 1 }).format(value);
   }
 
   allInputs.forEach(input => {
@@ -1132,7 +1051,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <script src="/assets/tcs-nav.js?v=menu23" defer></script>
 <script src="/assets/tcs-story.js?v=story3" defer></script>
-<script src="/assets/calc-pin.js?v=pin1" defer></script>
 <script src="/assets/hub-links.js?v=hub4" defer></script>
 </body>
 </html>
