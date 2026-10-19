@@ -591,6 +591,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   function fitLine(name) {
     return 'Based on your answers, ' + name + " looks like the closest fit. On your Fit Call we'll show you what's live today and what's still coming.";
   }
+  /* Route 3 (low pain, Gary Oct 19): own line; route 1 (work Neither) keeps NO_FIT. */
+  var LOW_PAIN = { title: 'Your billing is in good shape.', body: 'TCS can help you keep it that way as you add crews. Book a Fit Call to see it on your own jobs.' };
   var NO_FIT = { title: 'TCS is built for telecom contractors.', body: 'Here are some resources that may still help.', resources: true };
   /* Larry (Oct 4, item a): mixed-plan grammar. Locked line 2's second sentence stays. */
   var MIXED_FIT_LINE = "Based on your answers, a mixed plan looks like the closest fit. On your Fit Call we'll show you what's live today and what's still coming.";
@@ -598,7 +600,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   var RESULTS = {
     1: NO_FIT,
     2: { title: 'Custom Pricing', body: fitLine('Prime') },
-    3: NO_FIT,
+    3: LOW_PAIN,
     4: GENERIC,
     5: { title: 'Construction Financial Control', body: fitLine('Construction Financial Control') },
     6: { title: 'Start with the map', body: fitLine('Map Annotator') },
