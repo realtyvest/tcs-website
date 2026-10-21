@@ -5,6 +5,12 @@ RewriteCond %{HTTPS} off
 RewriteRule ^crew-management(\.html|/)?$ https://telecomcontractorsolutions.com/subcontractor-compliance-tracking.html [R=301,L]
 RewriteCond %{HTTP_HOST} ^www\.telecomcontractorsolutions\.com$ [NC]
 RewriteRule ^ https://telecomcontractorsolutions.com%{REQUEST_URI} [R=301,L,NE]
+# URL_CLEANUP (2026-10-21): plain http goes to https on the main address in one hop.
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://telecomcontractorsolutions.com%{REQUEST_URI} [R=301,L,NE]
+# /index.html goes to / (matches the browser request only, so the DirectoryIndex lookup cannot loop).
+RewriteCond %{THE_REQUEST} \s/index\.html[?\s] [NC]
+RewriteRule ^index\.html$ https://telecomcontractorsolutions.com/ [R=301,L]
 RewriteRule ^fit-call$ /fit-call/ [R=301,L]
 RewriteRule ^fit-call\.html$ /fit-call/ [R=301,L]
 RewriteRule ^book\.html$ /fit-call/ [R=301,L]
