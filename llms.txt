@@ -30,6 +30,7 @@ TCS is for contractors who install fiber, cable, or aerial infrastructure for IS
 - [Generic FSM vs Telecom-Specific Tools](https://telecomcontractorsolutions.com/custom-ops-vs-enterprise-fsm.html): How generic field service software compares with tools built around rate codes, marked maps, and quantities.
 - [ROI Calculator](https://telecomcontractorsolutions.com/roi-calculator.html): Run your own numbers on billing delays, unbilled work, and admin hours.
 - [Cash Flow and Factoring Calculator](https://telecomcontractorsolutions.com/cash-flow-calculator.html): How many days cash waits after the work is done, and what factoring to cover the gap costs.
+- [When a Grant-Funded ISP Files Bankruptcy and Owes Your Crew](https://telecomcontractorsolutions.com/isp-bankruptcy-fiber-subcontractors.html): RiverStreet filed Chapter 11 on Oct 21, 2026. What a fiber sub can ask about when an ISP that owes it files, and warning signs to check before you mobilize.
 
 ## BEAD
 
