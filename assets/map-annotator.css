@@ -196,6 +196,41 @@ body.ma-final-state .ma-submit { background: var(--ma-success); border-color: va
 body.ma-final-state .ma-submit-label { opacity: 0; }
 body.ma-final-state .ma-submitted-label { opacity: 1; }
 
+
+.ma-define { padding: 72px 0 80px; border-block: 1px solid var(--ma-border); }
+.ma-define p { margin: 0 0 16px; max-width: 740px; color: #B8C9DB; font-size: 18px; }
+.ma-define .ma-section-lead { margin-top: 22px; margin-bottom: 12px; font-size: 19px; }
+.ma-define h3 {
+  margin: 28px 0 10px;
+  color: var(--ma-white);
+  font: 700 28px/1.15 'Barlow Condensed', sans-serif;
+}
+.ma-define ol {
+  margin: 0 0 16px;
+  padding: 0;
+  max-width: 740px;
+  list-style: none;
+  counter-reset: ma-step;
+}
+.ma-define li {
+  position: relative;
+  padding: 10px 0 10px 42px;
+  border-top: 1px solid var(--ma-border);
+  color: #B8C9DB;
+  font-size: 18px;
+  counter-increment: ma-step;
+}
+.ma-define li::before {
+  content: counter(ma-step, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 12px;
+  color: var(--ma-electric);
+  font: 800 13px/1 'Barlow Condensed', sans-serif;
+  letter-spacing: 0.08em;
+}
+.ma-define li:last-child { border-bottom: 1px solid var(--ma-border); }
+
 @media (max-width: 980px) {
   .ma-hero-grid, .ma-demo-head { grid-template-columns: 1fr; }
   .ma-hero-aside { max-width: 680px; }
