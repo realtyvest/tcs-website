@@ -46,7 +46,7 @@ if(document.readyState==='complete')later();else window.addEventListener('load',
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/fonts/BarlowCondensed-700.woff2?v=f1">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/fonts/Barlow-400.woff2?v=f1">
 <link rel="stylesheet" href="/assets/tcs-nav.css?v=menu34">
-<link rel="stylesheet" href="/assets/home.css?v=home12">
+<link rel="stylesheet" href="/assets/home.css?v=home13">
 
 <!-- Base styles live in assets/home-base.css and ship inside /assets/home.css (tools/build-home-css.sh). -->
 
@@ -178,7 +178,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <main id="main-content">
 
-<!-- 1 · HERO (Option B math-led fold) -->
+<!-- 1 · HERO (HERO_FOLD_A_LOCK, 2026-11-16: bolder fold, copy lower left, see assets/hero-fold.css) -->
 <!-- 1 · OPENING (OTP structure): fold panel + statement panel over one fixed b-roll layer -->
 <div class="opening" data-opening>
   <div class="hero-media" data-hero-media aria-hidden="true"></div>
@@ -188,11 +188,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="hero-inner">
       <p class="eyebrow hero-enter">Telecom Contractor Solutions · Houston · ISP contractors nationwide</p>
       <div class="hero-rule hero-enter" aria-hidden="true"></div>
-      <h1 class="hero-enter" data-rv="load">From Field to Financials</h1>
+      <h1 class="hero-enter" data-rv="load">From Field to <br>Financials</h1>
       <p class="punch hero-enter">Stop rebuilding Tuesday’s job on Friday.</p>
       <div class="hero-actions hero-enter">
-        <a class="btn" href="/fit-call">Book a Fit Call</a>
-        <p class="hero-pricing-link" style="flex-basis:100%;margin:12px 0 0;"><a class="text-link" href="/pricing">See pricing</a></p>
+        <a class="btn btn-fit" href="/fit-call">Book a Fit Call</a>
+        <a class="btn btn-ghost hero-pricing-link" href="/pricing">See pricing</a>
       </div>
       <!-- HIG_AUDIT_V39: statement and problem paragraph moved to #philosophy so the button sits above the fold on phones. #problem stays here for the rail spy. -->
       <div class="hero-problem hero-enter" id="problem">
@@ -481,8 +481,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script src="/assets/outcomes-stack.js?v=stack2" defer></script>
 <script src="/assets/how-steps.js?v=how5" defer></script>
 <script src="/assets/reveal.js?v=rv8t1" defer></script>
-<script src="/assets/rail.js?v=rail9" defer></script>
-<script src="/assets/hero-video.js?v=broll5" defer></script>
+<script src="/assets/rail.js?v=rail10" defer></script>
+<script src="/assets/hero-video.js?v=broll6" defer></script>
 
 
 <script>

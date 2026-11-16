@@ -1,0 +1,218 @@
+/*
+ * HERO_FOLD_A_LOCK (Design LOCK, Gil picked Option A "Bolder", 2026-11-16).
+ * Spec: marketing/design-direction/hero-1116/SPEC-optionA.md.
+ * Benchmark: one accent (BENCHMARK_GETCLUE §5).
+ *
+ * The headline is big and anchored lower left. The b-roll plays at full
+ * strength and only darkens where the words are (top scrim for the nav, a
+ * bottom-left pool and a left wash behind the copy, one light even tint).
+ * The poster is a storefront-free frame (rods close-up), used for first
+ * paint, no-JS and reduced motion. The 01 to 06 rail index hides while the
+ * hero is on screen (rail.js adds .rail--fold).
+ * Loaded last in /assets/home.css so it overrides home-base.css and rail.css.
+ */
+
+/* Media layer: poster first paint, video at full strength, no filter. */
+.opening > .hero-media {
+  background: var(--navy) url("/assets/video/hero-poster-d.jpg?v=fold1") 62% 40% / cover no-repeat;
+}
+.opening > .hero-media video {
+  object-position: 62% 40%;
+  filter: none;
+}
+.opening.is-playing > .hero-media video {
+  opacity: 1;
+}
+/* Replaces the flat navy .60 to .66 tint over the whole frame. */
+.opening > .hero-media::after {
+  background:
+    linear-gradient(180deg, rgba(11, 24, 41, 0.85) 0, rgba(11, 24, 41, 0.55) 64px, rgba(11, 24, 41, 0) 180px),
+    radial-gradient(115% 120% at 0% 100%, rgba(11, 24, 41, 0.94) 0%, rgba(11, 24, 41, 0.84) 36%, rgba(11, 24, 41, 0.40) 60%, rgba(11, 24, 41, 0) 78%),
+    linear-gradient(90deg, rgba(11, 24, 41, 0.62) 0%, rgba(11, 24, 41, 0.38) 36%, rgba(11, 24, 41, 0) 58%),
+    linear-gradient(0deg, rgba(11, 24, 41, 0.18), rgba(11, 24, 41, 0.18));
+}
+/* Reduced motion: no video (hero-video.js skips it), the still poster stays. */
+@media (prefers-reduced-motion: reduce) {
+  .opening > .hero-media { display: block; }
+}
+
+/* Statement panel (#philosophy) shares the media layer. With the full frame
+   tint gone it carries its own navy wash, so it reads as it did before. */
+.opening-panel#philosophy {
+  background: linear-gradient(180deg, rgba(11, 24, 41, 0) 0%, rgba(11, 24, 41, 0.82) 28%, rgba(11, 24, 41, 0.86) 100%);
+}
+
+/* Hero box: full first screen, copy anchored bottom left. */
+.opening .hero,
+html.has-rail .opening .hero {
+  height: 100vh;
+  height: 100dvh;
+  min-height: 640px;
+  align-items: flex-end;
+  padding: 0 64px 72px;
+}
+.opening .hero .hero-inner {
+  max-width: 760px;
+  margin: 0;
+}
+.opening .hero .eyebrow {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 14px !important; /* TYPE_FLOOR_LOCK floors (tcs-type.css) are !important; #home outranks them where needed */
+  line-height: 22px;
+  letter-spacing: 0.14em;
+  color: var(--text-light, #C3D2E4);
+  max-width: 440px;
+  margin: 0 0 14px;
+}
+.opening .hero .hero-rule {
+  margin: 0 0 22px;
+}
+.opening .hero h1 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 120px;
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+  color: #FFFFFF;
+  max-width: none;
+  margin: 0 0 22px;
+}
+.opening #home .punch {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 32px !important;
+  line-height: 1.2;
+  color: #FFFFFF;
+  max-width: none;
+  margin: 0 0 36px;
+}
+.opening .hero .hero-actions {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  gap: 16px;
+  margin: 0 0 28px;
+}
+.opening .hero .hero-actions .btn {
+  min-height: 56px;
+  height: 56px;
+  padding: 0 28px;
+  font-size: 18px !important;
+  font-weight: 600;
+  border-radius: 8px;
+  white-space: nowrap;
+  width: auto;
+}
+.opening .hero .hero-actions .btn-fit {
+  background: #1F63D6;
+  border: 1.5px solid #1F63D6;
+  color: #FFFFFF;
+}
+.opening .hero .hero-actions .btn-fit:hover {
+  background: var(--electric-dim, #1a6fd0);
+  border-color: var(--electric-dim, #1a6fd0);
+}
+.opening .hero .hero-actions .btn-ghost {
+  background: rgba(11, 24, 41, 0.25);
+  border: 1.5px solid rgba(255, 255, 255, 0.72);
+  color: #FFFFFF;
+}
+.opening .hero .hero-actions .btn-ghost:hover {
+  background: rgba(11, 24, 41, 0.45);
+  border-color: #FFFFFF;
+}
+.opening .hero .hero-problem {
+  margin: 0;
+}
+.opening #home .hero-fit-strip {
+  margin: 0;
+  font-size: 18px !important;
+  line-height: 1.4;
+  color: #DCE5F0;
+}
+.opening .hero .hero-fit-strip strong {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 24px;
+  letter-spacing: 0.01em;
+  color: #FFFFFF;
+  margin-right: 6px;
+}
+
+/* Top strip links are pure white while they sit over the video. */
+@media (min-width: 1025px) {
+  html.has-rail nav:not(.is-scrolled) ul.nav-links > li > a[href]:not(.nav-cta),
+  html.has-rail nav:not(.is-scrolled) ul.nav-links .nav-dropdown-btn {
+    color: #FFFFFF !important; /* tcs-nav.css pins the Pricing link with !important */
+  }
+}
+
+@media (min-width: 1440px) {
+  .opening .hero h1 { font-size: 136px; }
+  .opening #home .punch { font-size: 36px !important; }
+}
+@media (min-width: 821px) and (max-width: 1100px) {
+  .opening .hero,
+  html.has-rail .opening .hero { padding: 0 48px 56px; }
+  .opening .hero h1 { font-size: 96px; }
+  .opening #home .punch { font-size: 28px !important; }
+}
+@media (min-width: 821px) and (max-width: 1024px) {
+  /* No rail here: the sticky top bar sits above the opening. */
+  .opening .hero,
+  html.has-rail .opening .hero { height: calc(100vh - var(--nav-h)); height: calc(100dvh - var(--nav-h)); min-height: 576px; }
+}
+
+/* iPhone and narrow screens. The sticky top bar (64px, solid) sits above. */
+@media (max-width: 820px) {
+  .opening > .hero-media {
+    background-image: url("/assets/video/hero-poster-m.jpg?v=fold1");
+    background-position: 50% 20%;
+  }
+  .opening > .hero-media video {
+    object-position: 50% 20%;
+  }
+  .opening > .hero-media::after {
+    background:
+      linear-gradient(180deg, rgba(11, 24, 41, 0) 0%, rgba(11, 24, 41, 0) 22%, rgba(11, 24, 41, 0.55) 40%, rgba(11, 24, 41, 0.88) 55%, rgba(11, 24, 41, 0.95) 100%),
+      linear-gradient(0deg, rgba(11, 24, 41, 0.12), rgba(11, 24, 41, 0.12));
+  }
+  .opening .hero,
+  html.has-rail .opening .hero {
+    height: calc(100vh - var(--nav-h));
+    height: calc(100svh - var(--nav-h));
+    min-height: 616px;
+    padding: 0 20px max(28px, env(safe-area-inset-bottom));
+  }
+  .opening .hero .hero-inner { max-width: none; width: 100%; }
+  .opening .hero .eyebrow { font-size: 12px !important; line-height: 18px; letter-spacing: 0.12em; margin: 0 0 12px; }
+  .opening .hero .hero-rule { margin: 0 0 16px; }
+  .opening .hero h1 { font-size: 60px; line-height: 0.94; margin: 0 0 16px; }
+  .opening #home .punch { font-size: 21px !important; line-height: 1.25; margin: 0 0 24px; text-wrap: balance; }
+  .opening .hero .hero-actions { flex-direction: column; align-items: stretch; gap: 12px; margin: 0 0 20px; }
+  .opening .hero .hero-actions .btn { width: 100%; min-height: 52px; height: 52px; font-size: 17px !important; }
+  .opening #home .hero-fit-strip { font-size: 16px !important; }
+  .opening .hero .hero-fit-strip strong { font-size: 21px; }
+}
+
+/* Rail: logo stays, the 01 to 06 index waits until the hero has scrolled by. */
+.rail .rail-nav {
+  transition: opacity var(--tcs-dur-long, 0.6s) ease, visibility 0s linear 0s;
+}
+.rail.rail--fold .rail-nav {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity var(--tcs-dur-long, 0.6s) ease, visibility 0s linear var(--tcs-dur-long, 0.6s);
+}
+@media (prefers-reduced-motion: reduce) {
+  .rail .rail-nav,
+  .rail.rail--fold .rail-nav { transition: none; }
+}
+
+/* No JS: the rise-in never runs, so the copy shows at once (it was hidden). */
+html:not(.rv-js) .hero .hero-enter {
+  opacity: 1;
+  transform: none;
+}

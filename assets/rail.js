@@ -116,6 +116,23 @@
       var el = document.getElementById(id);
       if (el) sections.push(el);
     });
+    // HERO_FOLD_A_LOCK (2026-11-16): the 01 to 06 index stays hidden while
+    // the hero is on screen; the rail logo stays. visibility:hidden keeps the
+    // links out of the tab order meanwhile (skip link and top nav still reach
+    // every section).
+    var heroEl = document.querySelector("[data-hero]");
+    if (heroEl && typeof IntersectionObserver !== "undefined") {
+      rail.classList.add("rail--fold");
+      new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (e) {
+            rail.classList.toggle("rail--fold", e.isIntersecting);
+          });
+        },
+        { rootMargin: "-64px 0px 0px 0px", threshold: 0 }
+      ).observe(heroEl);
+    }
+
     if (!sections.length || typeof IntersectionObserver === "undefined") {
       rail.classList.add("is-ready");
       return;

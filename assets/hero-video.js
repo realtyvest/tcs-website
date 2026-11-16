@@ -2,7 +2,8 @@
  * Hero b-roll (Hostinger static, homepage)
  *
  * HERO_BROLL_LOCK. Own the Patch runs slow trade footage under its hero; TCS
- * does the same with a navy tint. The video is optional: this script HEAD-
+ * does the same; the scrim sits only behind the copy (hero-fold.css).
+ * The video is optional: this script HEAD-
  * checks /assets/video/hero.mp4 (or hero-mobile.mp4 on narrow screens) and
  * only builds the <video> when the file exists. Muted, inline, looping.
  * Skipped for prefers-reduced-motion and Save-Data. Paused while the hero is
@@ -13,7 +14,10 @@
 
   var DESKTOP = "/assets/video/hero.mp4?v=loop8"; // versioned: the CDN caches assets for a year
   var MOBILE = "/assets/video/hero-mobile.mp4?v=loop8";
-  var POSTER = "/assets/video/hero-poster.jpg?v=loop8";
+  // HERO_FOLD_A_LOCK (2026-11-16): storefront-free stills (rods close-up,
+  // 6.5 s of each clip). The same files paint first from CSS (hero-fold.css).
+  var POSTER_D = "/assets/video/hero-poster-d.jpg?v=fold1";
+  var POSTER_M = "/assets/video/hero-poster-m.jpg?v=fold1";
 
   function ready(fn) {
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);
@@ -44,6 +48,7 @@
 
     var narrow = mq && mq("(max-width: 820px)").matches;
     var order = narrow ? [MOBILE, DESKTOP] : [DESKTOP];
+    var POSTER = narrow ? POSTER_M : POSTER_D;
 
     (function pick(i) {
       if (i >= order.length) return;
