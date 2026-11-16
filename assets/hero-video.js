@@ -12,12 +12,14 @@
 (function () {
   "use strict";
 
-  var DESKTOP = "/assets/video/hero.mp4?v=loop8"; // versioned: the CDN caches assets for a year
-  var MOBILE = "/assets/video/hero-mobile.mp4?v=loop8";
-  // HERO_FOLD_A_LOCK (2026-11-16): storefront-free stills (rods close-up,
-  // 6.5 s of each clip). The same files paint first from CSS (hero-fold.css).
-  var POSTER_D = "/assets/video/hero-poster-d.jpg?v=fold1";
-  var POSTER_M = "/assets/video/hero-poster-m.jpg?v=fold1";
+  var DESKTOP = "/assets/video/hero.mp4?v=clean9"; // versioned: the CDN caches assets for a year
+  var MOBILE = "/assets/video/hero-mobile.mp4?v=clean9";
+  // HERO_FOLD_A_LOCK (2026-11-16, clean9): the loop is cut from the older
+  // 30 s hero (d7d907b, 7 to 23 s window), no storefront or third-party mark.
+  // Posters are the rods close-up at 0.75 s of the loop (not mid-crossfade).
+  // The same files paint first from CSS (hero-fold.css).
+  var POSTER_D = "/assets/video/hero-poster-d.jpg?v=fold2";
+  var POSTER_M = "/assets/video/hero-poster-m.jpg?v=fold2";
 
   function ready(fn) {
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);
