@@ -3036,11 +3036,11 @@ html.has-rail .opening .hero {
 .opening .hero .eyebrow {
   font-family: var(--font-body);
   font-weight: 500;
-  font-size: 14px !important; /* TYPE_FLOOR_LOCK floors (tcs-type.css) are !important; #home outranks them where needed */
-  line-height: 22px;
-  letter-spacing: 0.14em;
+  font-size: 17px !important; /* Gil 2026-11-16 12:06 CT: 17px, on the TYPE_FLOOR_LOCK floor (no exception) */
+  line-height: 24px;
+  letter-spacing: 0.12em;
   color: var(--text-light, #C3D2E4);
-  max-width: 440px;
+  max-width: 560px;
   margin: 0 0 14px;
 }
 .opening .hero .hero-rule {
@@ -3166,7 +3166,7 @@ html.has-rail .opening .hero {
     padding: 0 20px max(28px, env(safe-area-inset-bottom));
   }
   .opening .hero .hero-inner { max-width: none; width: 100%; }
-  .opening .hero .eyebrow { font-size: 14px !important; line-height: 20px; letter-spacing: 0.12em; margin: 0 0 12px; } /* 14px both sizes (Diana REVISE 11-16); the one exception under the 17px floor, pending Gil */
+  .opening .hero .eyebrow { font-size: 17px !important; line-height: 23px; letter-spacing: 0.12em; margin: 0 0 12px; max-width: none; } /* 17px both sizes (Gil 11-16 12:06 CT), letterspacing .12em max */
   .opening .hero .hero-rule { margin: 0 0 16px; }
   .opening .hero h1 { font-size: 60px; line-height: 0.94; margin: 0 0 16px; }
   .opening #home .punch { font-size: 21px !important; line-height: 1.25; margin: 0 0 24px; text-wrap: balance; }
